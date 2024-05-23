@@ -11,6 +11,7 @@ import com.project.skypass.presentation.main.MainActivity
 import com.project.skypass.presentation.onboarding.OnboardingActivity
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 @SuppressLint("CustomSplashScreen")
 class SplashActivity : AppCompatActivity() {
@@ -18,6 +19,8 @@ class SplashActivity : AppCompatActivity() {
     private val binding: ActivitySplashBinding by lazy {
         ActivitySplashBinding.inflate(layoutInflater)
     }
+
+    private val viewModel: SplashViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,7 +34,16 @@ class SplashActivity : AppCompatActivity() {
         lifecycleScope.launch {
             delay(2000)
             //navigateToMain()
+            //navigateToOnboarding()
+            checkOnBoarding()
+        }
+    }
+
+    private fun checkOnBoarding() {
+        if (!viewModel.isFirstRun()){
             navigateToOnboarding()
+        } else {
+            navigateToMain()
         }
     }
 
