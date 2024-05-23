@@ -8,9 +8,9 @@
     tools:context=".presentation.onboarding.OnboardingActivity">
 
     <androidx.viewpager2.widget.ViewPager2
-        id="@+id/onboarding_view_pager"
+        android:id="@+id/vp_onboarding"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,16 +20,26 @@
         android:id="@+id/onboarding_indicator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:dotsColor="?attr/colorSecondaryContainer"
         app:dotsCornerRadius="8dp"
-        app:dotsSize="16dp"
+        app:dotsSize="14dp"
         app:dotsSpacing="4dp"
         app:dotsWidthFactor="2.5"
+        android:layout_marginStart="32dp"
         android:layout_marginBottom="32dp"
-        app:selectedDotColor="?attr/colorPrimary"
-        app:dotsColor="?attr/colorOutline"
-        app:progressMode="true"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:selectedDotColor="?attr/colorPrimary" />
+
+    <TextView
+        android:id="@+id/tv_button_onboarding"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:layout_marginEnd="32dp"
+        android:text="Next"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

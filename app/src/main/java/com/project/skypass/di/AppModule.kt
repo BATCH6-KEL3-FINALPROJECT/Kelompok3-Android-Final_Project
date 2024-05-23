@@ -12,6 +12,7 @@ import com.project.skypass.data.repository.pref.PrefRepositoryImpl
 import com.project.skypass.data.source.local.pref.UserPreference
 import com.project.skypass.data.source.local.pref.UserPreferenceImpl
 import com.project.skypass.data.source.network.service.ApiService
+import com.project.skypass.presentation.onboarding.OnboardingViewModel
 import com.project.skypass.presentation.splashscreen.SplashViewModel
 import com.project.skypass.utils.SharedPreferenceUtils
 import org.koin.android.ext.koin.androidContext
@@ -60,6 +61,7 @@ object AppModule {
 
     private val viewModelModule = module {
         viewModelOf(::SplashViewModel)
+        viewModelOf(::OnboardingViewModel)
     }
 
     val module = listOf<Module>(
