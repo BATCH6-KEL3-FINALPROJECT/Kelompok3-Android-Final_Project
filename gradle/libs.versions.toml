@@ -52,6 +52,12 @@ core-testing = "2.2.0"
 #plugins
 ksp = "1.9.10-1.0.13"
 
+#appintro
+appIntro = "6.3.1"
+
+#dots indicator
+dotsIndicator = "4.3"
+
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -99,6 +105,12 @@ shimmer =  { group = "com.facebook.shimmer", name = "shimmer", version.ref = "sh
 
 #koin
 koin-android = { group = "io.insert-koin", name = "koin-android", version.ref = "koin" }
+
+#AppIntro
+app-intro = {group = "com.github.AppIntro", name = "AppIntro", version.ref = "appIntro"}
+
+#dots indicator
+dots-indicator = {group = "com.tbuonomo", name = "dotsindicator", version.ref = "dotsIndicator"}
 
 # Unit Testing
 mockk-android = { group = "io.mockk", name = "mockk-android", version.ref = "mockk" }

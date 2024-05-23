@@ -128,4 +128,10 @@ dependencies {
     testImplementation(libs.coroutine.test)
     testImplementation(libs.turbine)
     testImplementation(libs.core.testing)
+
+    //appintro
+    implementation(libs.app.intro)
+
+    //dotsIndicator
+    implementation(libs.dots.indicator)
 }
