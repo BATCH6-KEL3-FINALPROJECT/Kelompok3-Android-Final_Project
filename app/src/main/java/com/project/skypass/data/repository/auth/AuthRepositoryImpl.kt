@@ -23,18 +23,16 @@ class AuthRepositoryImpl(private val dataStore: AuthDataStore): AuthRepository {
     override fun doRegister(
         name: String,
         email: String,
-        password: String,
         phoneNumber: String,
-        role: String,
+        password: String
     ): Flow<ResultWrapper<String>> {
         return proceedFlow {
             dataStore.doRegister(
                 RegisterRequestResponse(
                     name = name,
                     email = email,
-                    password = password,
                     phoneNumber = phoneNumber,
-                    roles = role
+                    password = password
                 )
             ).status ?: "failed"
         }

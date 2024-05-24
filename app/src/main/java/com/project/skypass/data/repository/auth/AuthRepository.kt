@@ -13,9 +13,8 @@ interface AuthRepository {
     fun doRegister(
         name: String,
         email: String,
-        password: String,
         phoneNumber: String,
-        role: String
+        password: String
     ): Flow<ResultWrapper<String>>
 
     fun doVerify(
