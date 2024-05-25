@@ -2,6 +2,7 @@ package com.project.skypass.data.repository.auth
 
 import com.project.skypass.data.datasource.auth.AuthDataStore
 import com.project.skypass.data.source.network.model.login.LoginRequestResponse
+import com.project.skypass.data.source.network.model.login.LoginResponse
 import com.project.skypass.data.source.network.model.otp.VerifyRequestResponse
 import com.project.skypass.data.source.network.model.register.RegisterRequestResponse
 import com.project.skypass.utils.ResultWrapper
@@ -9,14 +10,14 @@ import com.project.skypass.utils.proceedFlow
 import kotlinx.coroutines.flow.Flow
 
 class AuthRepositoryImpl(private val dataStore: AuthDataStore): AuthRepository {
-    override fun doLogin(email: String, password: String): Flow<ResultWrapper<String>> {
+    override fun doLogin(email: String, password: String): Flow<ResultWrapper<LoginResponse>> {
         return proceedFlow {
             dataStore.doLogin(
                 LoginRequestResponse(
                     email = email,
                     password = password
                 )
-            ).status ?: "failed"
+            )//.status ?: "Failed"
         }
     }
 
@@ -36,7 +37,7 @@ class AuthRepositoryImpl(private val dataStore: AuthDataStore): AuthRepository {
                     phoneNumber = phoneNumber,
                     roles = role
                 )
-            ).status ?: "failed"
+            ).status ?: "Failed"
         }
     }
 
@@ -47,7 +48,8 @@ class AuthRepositoryImpl(private val dataStore: AuthDataStore): AuthRepository {
                     email = email,
                     otp = otp
                 )
-            ).status ?: "failed"
+            ).status ?: "Failed"
         }
     }
+
 }

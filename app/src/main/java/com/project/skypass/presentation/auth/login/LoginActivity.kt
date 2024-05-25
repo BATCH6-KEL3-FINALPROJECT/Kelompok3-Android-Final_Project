@@ -3,6 +3,7 @@ package com.project.skypass.presentation.auth.login
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import com.project.skypass.databinding.ActivityLoginBinding
 import com.project.skypass.utils.proceedWhen
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -41,16 +42,30 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun doLogin(email: String, password: String) {
-        viewModel.doLogin(email, password).observe(this){
-            it.proceedWhen(
+        viewModel.doLogin(email, password).observe(this){result ->
+            result.proceedWhen(
                 doOnSuccess = {
-                    Toast.makeText(this, "Login Success", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Login Success :  ${it.payload?.message}", Toast.LENGTH_SHORT).show()
+                    viewModel.setToken(it.payload?.token.toString())
+                    viewModel.setLogin(true)
+                    binding.tvResultLoginSuccess.isVisible = true
+                    binding.tvResultLoginWrongEmail.isVisible = false
+                    binding.tvResultLoginWrongPassword.isVisible = false
                 },
                 doOnLoading = {
                     Toast.makeText(this, "Loading", Toast.LENGTH_SHORT).show()
+                    binding.tvResultLoginSuccess.isVisible = false
+                    binding.tvResultLoginWrongEmail.isVisible = false
+                    binding.tvResultLoginWrongPassword.isVisible = false
                 },
                 doOnError = {error ->
-                    Toast.makeText(this, "Gatau ini cara dapetin response apinya gimana, besok ku coba WKWKWK", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Error : ${error.payload?.message}", Toast.LENGTH_SHORT).show()
+                    binding.tvResultLoginSuccess.isVisible = false
+                    binding.tvResultLoginWrongEmail.isVisible = false
+                    binding.tvResultLoginWrongPassword.isVisible = false
+                },
+                doOnEmpty = {
+                    Toast.makeText(this, "Empty : ${it.payload?.message}", Toast.LENGTH_SHORT).show()
                 }
             )
         }
