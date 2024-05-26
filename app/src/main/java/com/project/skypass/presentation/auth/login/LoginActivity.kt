@@ -52,17 +52,15 @@ class LoginActivity : AppCompatActivity() {
         viewModel.doLogin(email, password).observe(this){result ->
             result.proceedWhen(
                 doOnSuccess = {
-                    //Toast.makeText(this, "Login Success :  ${it.payload?.message}", Toast.LENGTH_SHORT).show()
-                    StyleableToast.makeText(this, "Login sukses!", R.style.ToastSuccess).show()
-                    viewModel.setToken(it.payload?.token.toString())
-                    viewModel.setLogin(true)
                     binding.pbLogin.isVisible = false
                     binding.btnLogin.isEnabled = true
+                    StyleableToast.makeText(this,
+                        getString(R.string.login_success), R.style.ToastSuccess).show()
+                    setLoginPref(it.payload?.token.toString())
                     lifecycleScope.launch {
                         delay(2000)
                         navigateToMain()
                     }
-
                 },
                 doOnLoading = {
                     binding.pbLogin.isVisible = true
@@ -71,10 +69,20 @@ class LoginActivity : AppCompatActivity() {
                 doOnError = {error ->
                     when (error.exception?.message) {
                         getString(R.string.email_not_found_exception) -> {
-                            StyleableToast.makeText(this, "Alamat email tidak ditemukan!", R.style.ToastError).show()
+                            StyleableToast.makeText(this,
+                                getString(R.string.email_not_found), R.style.ToastError).show()
+                            binding.etEmail.setBackgroundResource(R.drawable.bg_input_error)
+                            binding.etPassword.setBackgroundResource(R.drawable.bg_selector_input)
                         }
                         getString(R.string.password_is_wrong_exception) -> {
-                            StyleableToast.makeText(this, "Password yang dimasukkan salah!", R.style.ToastError).show()
+                            StyleableToast.makeText(this,
+                                getString(R.string.password_not_found), R.style.ToastError).show()
+                            binding.etEmail.setBackgroundResource(R.drawable.bg_selector_input)
+                            binding.etPassword.setBackgroundResource(R.drawable.bg_input_error)
+                        }
+                        else -> {
+                            binding.etEmail.setBackgroundResource(R.drawable.bg_selector_input)
+                            binding.etPassword.setBackgroundResource(R.drawable.bg_selector_input)
                         }
                     }
                     binding.pbLogin.isVisible = false
@@ -85,6 +93,11 @@ class LoginActivity : AppCompatActivity() {
                 }
             )
         }
+    }
+
+    private fun setLoginPref(token: String) {
+        viewModel.setToken(token)
+        viewModel.setLogin(true)
     }
 
     private fun navigateToMain() {

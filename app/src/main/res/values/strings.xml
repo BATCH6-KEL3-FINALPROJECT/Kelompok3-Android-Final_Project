@@ -10,4 +10,7 @@
     <string name="next">Next</string>
     <string name="email_not_found_exception">java.lang.Exception: Alamat Email tidak ditemukan</string>
     <string name="password_is_wrong_exception">java.lang.Exception: Password yang dimasukkan salah</string>
+    <string name="email_not_found">Alamat email tidak ditemukan!</string>
+    <string name="password_not_found">Password yang dimasukkan salah!</string>
+    <string name="login_success">Login sukses!</string>
 </resources>
