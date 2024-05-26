@@ -58,6 +58,12 @@ appIntro = "6.3.1"
 #dots indicator
 dotsIndicator = "4.3"
 
+#toast styleable
+styleableToast = "2.4.0"
+
+#lottie
+lottie = "6.0.0"
+
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -111,6 +117,12 @@ app-intro = {group = "com.github.AppIntro", name = "AppIntro", version.ref = "ap
 
 #dots indicator
 dots-indicator = {group = "com.tbuonomo", name = "dotsindicator", version.ref = "dotsIndicator"}
+
+#toast styleable
+styleable-toast = {group = "io.github.muddz", name = "styleabletoast", version.ref = "styleableToast"}
+
+#lottie
+lottie = {group = "com.airbnb.android", name = "lottie", version.ref = "lottie"}
 
 # Unit Testing
 mockk-android = { group = "io.mockk", name = "mockk-android", version.ref = "mockk" }

@@ -54,6 +54,7 @@
         <item name="colorOnWarning">@color/colorOnWarning</item>
         <item name="colorWarningContainer">@color/colorWarningContainer</item>
         <item name="colorOnWarningContainer">@color/colorOnWarningContainer</item>
+        <item name="colorFailed">@color/colorFailed</item>
         <item name="android:statusBarColor">@color/md_theme_background</item>
     </style>
     <style name="BottomNavigation.ActiveItemTextAppearance" parent="TextAppearance.AppCompat">

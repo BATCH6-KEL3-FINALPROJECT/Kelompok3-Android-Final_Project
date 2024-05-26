@@ -164,4 +164,5 @@
     <color name="colorOnWarning_highContrast">#FFFFFF</color>
     <color name="colorWarningContainer_highContrast">#514100</color>
     <color name="colorOnWarningContainer_highContrast">#FFFFFF</color>
+    <color name="colorFailed">#FF0000</color>
 </resources>

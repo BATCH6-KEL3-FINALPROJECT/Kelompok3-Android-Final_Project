@@ -134,4 +134,10 @@ dependencies {
 
     //dotsIndicator
     implementation(libs.dots.indicator)
+
+    //toast styleable
+    implementation(libs.styleable.toast)
+
+    //lottie
+    implementation(libs.lottie)
 }

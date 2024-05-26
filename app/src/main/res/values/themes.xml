@@ -55,6 +55,7 @@
         <item name="colorWarningContainer">@color/colorWarningContainer</item>
         <item name="colorOnWarningContainer">@color/colorOnWarningContainer</item>
         <item name="android:statusBarColor">@color/md_theme_background</item>
+        <item name="colorFailed">@color/colorFailed</item>
         <item name="android:windowLightStatusBar">true</item>
     </style>
     <style name="BottomNavigation.ActiveItemTextAppearance" parent="TextAppearance.AppCompat">
@@ -63,5 +64,21 @@
     </style>
     <style name="App.Custom.Indicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
         <item name="android:color">#00000000</item>
+    </style>
+    <style name="ToastError">
+        <item name="stTextSize">14sp</item>
+        <item name="stTextColor">#ffffff</item>
+        <item name="stColorBackground">@color/colorFailed</item>
+        <item name="stLength">LONG</item>
+        <item name="stRadius">5dp</item>
+        <item name="stSolidBackground">true</item>
+    </style>
+    <style name="ToastSuccess">
+        <item name="stTextSize">14sp</item>
+        <item name="stTextColor">#ffffff</item>
+        <item name="stColorBackground">@color/colorSuccess</item>
+        <item name="stLength">LONG</item>
+        <item name="stRadius">5dp</item>
+        <item name="stSolidBackground">true</item>
     </style>
 </resources>

@@ -127,6 +127,18 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/ed_password" />
 
+            <com.google.android.material.progressindicator.CircularProgressIndicator
+                android:id="@+id/pb_login"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:visibility="gone"
+                android:indeterminate="true"
+                tools:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="@+id/btn_login"
+                app:layout_constraintEnd_toEndOf="@+id/btn_login"
+                app:layout_constraintStart_toStartOf="@+id/btn_login"
+                app:layout_constraintTop_toTopOf="@+id/btn_login" />
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -155,53 +167,5 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.core.widget.NestedScrollView>
-
-    <TextView
-        android:id="@+id/tv_result_login_success"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="64dp"
-        android:background="@drawable/bg_success"
-        android:padding="12dp"
-        android:layout_marginBottom="64dp"
-        android:text="Login sukses"
-        android:textAlignment="center"
-        android:textColor="#FFFFFF"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/tv_result_login_wrong_password"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="32dp"
-        android:background="@drawable/bg_failed"
-        android:padding="12dp"
-        android:layout_marginBottom="64dp"
-        android:text="Maaf, password salah"
-        android:textAlignment="center"
-        android:textColor="#FFFFFF"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/tv_result_login_wrong_email"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="32dp"
-        android:background="@drawable/bg_failed"
-        android:padding="12dp"
-        android:layout_marginBottom="64dp"
-        android:text="Alamat email tidak terdaftar"
-        android:textAlignment="center"
-        android:textColor="#FFFFFF"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
