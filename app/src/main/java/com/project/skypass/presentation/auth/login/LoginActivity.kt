@@ -45,7 +45,7 @@ class LoginActivity : AppCompatActivity() {
         viewModel.doLogin(email, password).observe(this){result ->
             result.proceedWhen(
                 doOnSuccess = {
-                    Toast.makeText(this, "Login Success :  ${it.payload?.message}", Toast.LENGTH_SHORT).show()
+                    //Toast.makeText(this, "Login Success :  ${it.payload?.message}", Toast.LENGTH_SHORT).show()
                     viewModel.setToken(it.payload?.token.toString())
                     viewModel.setLogin(true)
                     binding.tvResultLoginSuccess.isVisible = true
@@ -59,10 +59,21 @@ class LoginActivity : AppCompatActivity() {
                     binding.tvResultLoginWrongPassword.isVisible = false
                 },
                 doOnError = {error ->
-                    Toast.makeText(this, "Error : ${error.payload?.message}", Toast.LENGTH_SHORT).show()
-                    binding.tvResultLoginSuccess.isVisible = false
-                    binding.tvResultLoginWrongEmail.isVisible = false
-                    binding.tvResultLoginWrongPassword.isVisible = false
+                    when (error.exception?.message) {
+                        "java.lang.Exception: Alamat Email tidak ditemukan" -> {
+                            Toast.makeText(this, "Alamat email tidak ditemukan!", Toast.LENGTH_SHORT).show()
+                            binding.tvResultLoginSuccess.isVisible = false
+                            binding.tvResultLoginWrongEmail.isVisible = true
+                            binding.tvResultLoginWrongPassword.isVisible = false
+                        }
+                        "java.lang.Exception: Password yang dimasukkan salah" -> {
+                            Toast.makeText(this, "Password yang dimasukkan salah!", Toast.LENGTH_SHORT).show()
+                            binding.tvResultLoginSuccess.isVisible = false
+                            binding.tvResultLoginWrongEmail.isVisible = false
+                            binding.tvResultLoginWrongPassword.isVisible = true
+                        }
+                    }
+                    //Toast.makeText(this, "Error : ${error.payload?.message}", Toast.LENGTH_SHORT).show()
                 },
                 doOnEmpty = {
                     Toast.makeText(this, "Empty : ${it.payload?.message}", Toast.LENGTH_SHORT).show()
