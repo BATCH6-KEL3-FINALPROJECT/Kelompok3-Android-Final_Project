@@ -26,8 +26,10 @@
     <string name="text_otp_send_success">Kode OTP telah dikirim !</string>
     <string name="text_otp_send_failed">Kode OTP gagal dikirim !</string>
     <string name="text_input_otp">Masukkan OTP</string>
-    <string name="text_input_6_code_otp">"Ketik 6 digit kode yang akan dikirimkan\nke "</string>
+    <string name="text_input_6_code_otp">"Ketik 6 digit kode yang akan dikirimkan\nke %1$s"</string>
     <string name="text_resend_otp">Kirim Ulang</string>
-    <string name="text_resend_otp_in_60_seconds">Kirim Ulang OTP dalam 60 detik</string>
+    <string name="text_resend_otp_in_60_seconds">Kirim Ulang OTP dalam %1$ detik</string>
     <string name="tv_verify">Verifikasi</string>
+    <string name="text_register_success">Registrasi berhasil, silahkan login</string>
+    <string name="text_otp_wrong">Maaf, Kode OTP Salah!</string>
 </resources>
