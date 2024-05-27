@@ -20,6 +20,7 @@
         app:navGraph="@navigation/main_navigation" />
 
     <View
+        android:id="@+id/nav_bottom_shadow"
         android:layout_width="match_parent"
         android:layout_height="4dp"
         android:layout_above="@+id/nav_bottom_view"

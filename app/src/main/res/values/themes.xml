@@ -56,6 +56,7 @@
         <item name="colorOnWarningContainer">@color/colorOnWarningContainer</item>
         <item name="android:statusBarColor">@color/md_theme_background</item>
         <item name="colorFailed">@color/colorFailed</item>
+        <item name="colorBackgroundNavigation">@color/md_theme_background</item>
         <item name="android:windowLightStatusBar">true</item>
     </style>
     <style name="BottomNavigation.ActiveItemTextAppearance" parent="TextAppearance.AppCompat">

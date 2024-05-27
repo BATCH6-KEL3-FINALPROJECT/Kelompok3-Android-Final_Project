@@ -8,4 +8,5 @@
     <attr name="colorWarningContainer" format="color" />
     <attr name="colorOnWarningContainer" format="color" />
     <attr name="colorFailed" format="color" />
+    <attr name="colorBackgroundNavigation" format="color"/>
 </resources>
