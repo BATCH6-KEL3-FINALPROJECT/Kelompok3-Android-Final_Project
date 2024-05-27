@@ -1,5 +1,6 @@
 package com.project.skypass.presentation.auth.verification
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.widget.Toast
@@ -7,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import com.project.skypass.R
 import com.project.skypass.databinding.ActivityVerificationBinding
+import com.project.skypass.presentation.auth.login.LoginActivity
 import com.project.skypass.utils.proceedWhen
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -29,7 +31,7 @@ class VerificationActivity : AppCompatActivity() {
             onBackPressed()
         }
         binding.tvResendOtp.setOnClickListener {
-            resetCountdown()
+            doResendOtp()
         }
         binding.btnVerify.setOnClickListener {
             doVerify()
@@ -37,14 +39,24 @@ class VerificationActivity : AppCompatActivity() {
     }
 
     private fun showEmail() {
-        val email = "user@example.com"
+        val email = intent.getStringExtra("email")
         binding.tvInputOtp.text = getString(R.string.text_input_6_code_otp, email)
     }
 
+    private fun navigateToLogin() {
+        startActivity(
+            Intent(this, LoginActivity::class.java).apply {
+                flags = Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP
+            },
+        )
+    }
+
     private fun doVerify() {
-        val email = "user@example.com"
+        val email = intent.getStringExtra("email")
         val otp = binding.pvInputOtp.text.toString().trim()
-        proceedVerify(email, otp)
+        if (email != null) {
+            proceedVerify(email, otp)
+        }
     }
 
     private fun proceedVerify(
@@ -54,6 +66,8 @@ class VerificationActivity : AppCompatActivity() {
         verifyViewModel.doVerify(email, otp).observe(this) {
             it.proceedWhen(
                 doOnSuccess = {
+                    binding.pbLoading.isVisible = false
+                    navigateToLogin()
                     Toast.makeText(
                         this,
                         getString(R.string.text_register_success),
@@ -61,6 +75,7 @@ class VerificationActivity : AppCompatActivity() {
                     ).show()
                 },
                 doOnError = {
+                    binding.pbLoading.isVisible = false
                     Toast.makeText(
                         this,
                         getString(R.string.text_otp_wrong),
@@ -68,7 +83,37 @@ class VerificationActivity : AppCompatActivity() {
                     ).show()
                 },
                 doOnLoading = {
+                    binding.pbLoading.isVisible = true
                 },
+            )
+        }
+    }
+
+    private fun doResendOtp() {
+        val email = intent.getStringExtra("email")
+        if (email != null) {
+            proceedResendOtp(email)
+        }
+    }
+
+    private fun proceedResendOtp(email: String) {
+        verifyViewModel.doResendCode(email).observe(this) {
+            it.proceedWhen(
+                doOnSuccess = {
+                    resetCountdown()
+                    Toast.makeText(
+                        this,
+                        getString(R.string.text_resend_otp_success),
+                        Toast.LENGTH_SHORT,
+                    ).show()
+                },
+                doOnError = {
+                    Toast.makeText(
+                        this,
+                        getString(R.string.text_email_not_found),
+                        Toast.LENGTH_SHORT,
+                    ).show()
+                }
             )
         }
     }

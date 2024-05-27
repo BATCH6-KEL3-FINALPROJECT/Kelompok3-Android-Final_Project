@@ -107,7 +107,7 @@ paging = { group = "androidx.paging", name = "paging-runtime-ktx", version.ref =
 shimmer =  { group = "com.facebook.shimmer", name = "shimmer", version.ref = "shimmer" }
 
 #otp view
-pinview = { group = "io.github.chaosleung", name = "pinview", version.ref = "pinview"}
+pinview = { group = "io.github.chaosleung", name = "pinview", version.ref = "pinview" }
 
 #koin
 koin-android = { group = "io.insert-koin", name = "koin-android", version.ref = "koin" }

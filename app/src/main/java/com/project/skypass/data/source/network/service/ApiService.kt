@@ -3,6 +3,8 @@ package com.project.skypass.data.source.network.service
 import com.project.skypass.BuildConfig
 import com.project.skypass.data.source.network.model.login.LoginRequestResponse
 import com.project.skypass.data.source.network.model.login.LoginResponse
+import com.project.skypass.data.source.network.model.otp.ResendOtpRequestResponse
+import com.project.skypass.data.source.network.model.otp.ResendOtpResponse
 import com.project.skypass.data.source.network.model.otp.VerifyRequestResponse
 import com.project.skypass.data.source.network.model.otp.VerifyResponse
 import com.project.skypass.data.source.network.model.register.RegisterRequestResponse
@@ -31,6 +33,11 @@ interface ApiService {
     suspend fun doLogin(
         @Body loginRequest: LoginRequestResponse
     ):LoginResponse
+
+    @POST("auth/resend-otp")
+    suspend fun doResendOtp(
+        @Body resendCodeRequest: ResendOtpRequestResponse
+    ):ResendOtpResponse
 
     companion object {
         @JvmStatic

@@ -47,9 +47,10 @@ class RegisterActivity : AppCompatActivity() {
         )
     }
 
-    private fun navigateToVerification() {
+    private fun navigateToVerification(email: String) {
         startActivity(
             Intent(this, VerificationActivity::class.java).apply {
+                putExtra("email", email)
                 flags = Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP
             },
         )
@@ -75,7 +76,7 @@ class RegisterActivity : AppCompatActivity() {
             it.proceedWhen(
                 doOnSuccess = {
                     binding.pbLoading.isVisible = false
-                    navigateToVerification()
+                    navigateToVerification(email)
                     Toast.makeText(
                         this,
                         getString(R.string.text_otp_send_success),

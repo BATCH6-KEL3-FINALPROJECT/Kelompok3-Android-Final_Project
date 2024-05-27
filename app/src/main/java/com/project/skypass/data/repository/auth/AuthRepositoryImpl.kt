@@ -2,6 +2,7 @@ package com.project.skypass.data.repository.auth
 
 import com.project.skypass.data.datasource.auth.AuthDataStore
 import com.project.skypass.data.source.network.model.login.LoginRequestResponse
+import com.project.skypass.data.source.network.model.otp.ResendOtpRequestResponse
 import com.project.skypass.data.source.network.model.otp.VerifyRequestResponse
 import com.project.skypass.data.source.network.model.register.RegisterRequestResponse
 import com.project.skypass.utils.ResultWrapper
@@ -44,6 +45,16 @@ class AuthRepositoryImpl(private val dataStore: AuthDataStore): AuthRepository {
                 VerifyRequestResponse(
                     email = email,
                     otp = otp
+                )
+            ).status ?: "failed"
+        }
+    }
+
+    override fun doResendOtp(email: String): Flow<ResultWrapper<String>> {
+        return proceedFlow {
+            dataStore.doResendOtp(
+                ResendOtpRequestResponse(
+                    email = email
                 )
             ).status ?: "failed"
         }
