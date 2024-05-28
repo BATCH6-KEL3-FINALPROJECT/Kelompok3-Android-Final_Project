@@ -119,6 +119,9 @@ dependencies {
     //shimmer
     implementation(libs.shimmer)
 
+    //otp view
+    implementation(libs.pinview)
+
     //koin
     implementation(libs.koin.android)
 

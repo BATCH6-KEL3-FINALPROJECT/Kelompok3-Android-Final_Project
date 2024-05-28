@@ -26,6 +26,9 @@
             android:name=".presentation.auth.forgetpassword.ForgetPasswordActivity"
             android:exported="false" />
         <activity
+            android:name=".presentation.auth.verification.VerificationActivity"
+            android:exported="false" />
+        <activity
             android:name=".presentation.onboarding.OnboardingActivity"
             android:exported="false" />
         <activity

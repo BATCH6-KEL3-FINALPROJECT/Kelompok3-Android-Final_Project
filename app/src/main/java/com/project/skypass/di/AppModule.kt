@@ -15,6 +15,8 @@ import com.project.skypass.data.source.network.service.ApiService
 import com.project.skypass.presentation.auth.login.LoginViewModel
 import com.project.skypass.presentation.onboarding.OnboardingViewModel
 import com.project.skypass.presentation.splashscreen.SplashViewModel
+import com.project.skypass.presentation.auth.register.RegisterViewModel
+import com.project.skypass.presentation.auth.verification.VerificationViewModel
 import com.project.skypass.utils.SharedPreferenceUtils
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModelOf
@@ -64,6 +66,8 @@ object AppModule {
         viewModelOf(::SplashViewModel)
         viewModelOf(::OnboardingViewModel)
         viewModelOf(::LoginViewModel)
+        viewModelOf(::RegisterViewModel)
+        viewModelOf(::VerificationViewModel)
     }
 
     val module = listOf<Module>(
