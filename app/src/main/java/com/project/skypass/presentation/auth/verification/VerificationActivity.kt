@@ -10,6 +10,7 @@ import com.project.skypass.R
 import com.project.skypass.databinding.ActivityVerificationBinding
 import com.project.skypass.presentation.auth.login.LoginActivity
 import com.project.skypass.utils.proceedWhen
+import io.github.muddz.styleabletoast.StyleableToast
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class VerificationActivity : AppCompatActivity() {
@@ -68,18 +69,18 @@ class VerificationActivity : AppCompatActivity() {
                 doOnSuccess = {
                     binding.pbLoading.isVisible = false
                     navigateToLogin()
-                    Toast.makeText(
+                    StyleableToast.makeText(
                         this,
                         getString(R.string.text_register_success),
-                        Toast.LENGTH_SHORT,
+                        R.style.ToastSuccess
                     ).show()
                 },
                 doOnError = {
                     binding.pbLoading.isVisible = false
-                    Toast.makeText(
+                    StyleableToast.makeText(
                         this,
                         getString(R.string.text_otp_wrong),
-                        Toast.LENGTH_SHORT,
+                        R.style.ToastError
                     ).show()
                 },
                 doOnLoading = {
@@ -101,17 +102,17 @@ class VerificationActivity : AppCompatActivity() {
             it.proceedWhen(
                 doOnSuccess = {
                     resetCountdown()
-                    Toast.makeText(
+                    StyleableToast.makeText(
                         this,
                         getString(R.string.text_resend_otp_success),
-                        Toast.LENGTH_SHORT,
+                        R.style.ToastSuccess
                     ).show()
                 },
                 doOnError = {
-                    Toast.makeText(
+                    StyleableToast.makeText(
                         this,
                         getString(R.string.text_email_not_found),
-                        Toast.LENGTH_SHORT,
+                        R.style.ToastError
                     ).show()
                 }
             )

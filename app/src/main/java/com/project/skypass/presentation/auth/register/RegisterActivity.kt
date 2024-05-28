@@ -13,6 +13,7 @@ import com.project.skypass.presentation.auth.login.LoginActivity
 import com.project.skypass.presentation.auth.verification.VerificationActivity
 import com.project.skypass.utils.highLightWord
 import com.project.skypass.utils.proceedWhen
+import io.github.muddz.styleabletoast.StyleableToast
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class RegisterActivity : AppCompatActivity() {
@@ -77,18 +78,18 @@ class RegisterActivity : AppCompatActivity() {
                 doOnSuccess = {
                     binding.pbLoading.isVisible = false
                     navigateToVerification(email)
-                    Toast.makeText(
+                    StyleableToast.makeText(
                         this,
                         getString(R.string.text_otp_send_success),
-                        Toast.LENGTH_SHORT,
+                        R.style.ToastSuccess
                     ).show()
                 },
                 doOnError = {
                     binding.pbLoading.isVisible = false
-                    Toast.makeText(
+                    StyleableToast.makeText(
                         this,
                         getString(R.string.text_otp_send_failed),
-                        Toast.LENGTH_SHORT,
+                        R.style.ToastError,
                     ).show()
                 },
                 doOnLoading = {
