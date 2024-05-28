@@ -10,6 +10,7 @@ import android.view.WindowInsetsController
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
+import com.project.skypass.R
 import com.project.skypass.databinding.ActivityOnboardingBinding
 import com.project.skypass.presentation.main.MainActivity
 import com.project.skypass.presentation.onboarding.adapter.ViewPagerAdapter
@@ -47,13 +48,17 @@ class OnboardingActivity : AppCompatActivity() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
                 if (position == fragmentList.size - 1) {
-                    binding.tvButtonOnboarding.text = "Get Started"
+                    binding.tvButtonOnboarding.text = getString(R.string.get_started)
                 } else {
-                    binding.tvButtonOnboarding.text = "Next"
+                    binding.tvButtonOnboarding.text = getString(R.string.next)
                 }
             }
         })
-        binding.tvButtonOnboarding.text = if (binding.vpOnboarding.currentItem == fragmentList.size - 1) "Get Started" else "Next"
+        binding.tvButtonOnboarding.text = if (binding.vpOnboarding.currentItem == fragmentList.size - 1){
+            getString(R.string.get_started)
+        } else {
+            getString(R.string.next)
+        }
     }
 
     private fun onboarding() {
