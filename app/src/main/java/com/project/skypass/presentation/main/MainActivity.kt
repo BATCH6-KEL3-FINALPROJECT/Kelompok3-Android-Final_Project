@@ -1,5 +1,6 @@
 package com.project.skypass.presentation.main
 
+import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
@@ -30,10 +31,20 @@ class MainActivity : AppCompatActivity() {
                     window.statusBarColor = getColor(R.color.colorNavbar)
                 }
                 else -> {
-                    window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                    //window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+                    window.decorView.systemUiVisibility = if (isNightMode()) {
+                        View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                    } else {
+                        View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+                    }
                     window.statusBarColor = Color.TRANSPARENT
                 }
             }
         }
+    }
+
+    private fun isNightMode(): Boolean {
+        val currentNightMode = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
+        return currentNightMode == Configuration.UI_MODE_NIGHT_YES
     }
 }
