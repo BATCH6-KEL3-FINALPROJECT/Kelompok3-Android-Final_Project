@@ -23,6 +23,13 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".presentation.profile.SettingsAccountActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.profile.ChangeProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.auth.forgetpassword.ForgetPasswordActivity"
             android:name=".presentation.flight.result.FlightResultActivity"
             android:exported="false" />
         <activity
