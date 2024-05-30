@@ -4,7 +4,6 @@
     <string name="history">Riwayat</string>
     <string name="notification">Notifikasi</string>
     <string name="account">Akun</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="get_started">Get Started</string>
     <string name="next">Next</string>
@@ -34,20 +33,6 @@
     <string name="label_switch_data_passenger_checkout">Punya Nama Keluarga</string>
     <string name="hint_full_name">Nama Lengkap</string>
     <string name="title_form_data_passenger">Data Diri Pemesanan</string>
-    <string name="text_category_seat_A">A</string>
-    <string name="text_category_seat_b">B</string>
-    <string name="text_category_seat_c">C</string>
-    <string name="text_category_seat_d">D</string>
-    <string name="text_category_seat_e">E</string>
-    <string name="text_category_seat_f">F</string>
-    <string name="text_seat_no1">1</string>
-    <string name="text_seat_no2">2</string>
-    <string name="text_seat_no3">3</string>
-    <string name="text_seat_no4">4</string>
-    <string name="text_seat_no5">5</string>
-    <string name="text_seat_no6">6</string>
-    <string name="text_seat_no7">7</string>
-    <string name="text_seat_no8">8</string>
     <string name="text_toolbar_detail_checkout">Rincian Penerbangan</string>
     <string name="text_detail_checkout_price_title">Rincian Harga</string>
     <string name="text_button_detail_checkout">Lanjut Pembayaran</string>
