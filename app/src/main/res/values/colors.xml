@@ -165,4 +165,11 @@
     <color name="colorWarningContainer_highContrast">#514100</color>
     <color name="colorOnWarningContainer_highContrast">#FFFFFF</color>
     <color name="colorFailed">#FF0000</color>
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="abu">#807F7E</color>
+    <color name="grey">#EDEDED</color>
+    <color name="purple">#7126B5</color>
+    <color name="darkpurple">#4B1979</color>
+    <color name="lightpurple">#D0B7E6</color>
 </resources>

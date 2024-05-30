@@ -143,4 +143,8 @@ dependencies {
 
     //lottie
     implementation(libs.lottie)
+
+    //SeatBookView
+    implementation ("com.github.JahidHasanCO:SeatBookView:1.0.4")
+
 }
