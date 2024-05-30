@@ -116,4 +116,10 @@
         <item name="strokeWidth">2dp</item>
         <item name="strokeColor">@color/purple</item>
     </style>
+    <style name="buttonTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="theme">@style/buttonTheme</item>
+        <item name="cornerRadius">8dp</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:backgroundTint">@color/md_theme_primary</item>
+    </style>
 </resources>
