@@ -23,22 +23,10 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".presentation.checkout.checkoutSeat.CheckoutSeatActivity"
-            android:exported="false" />
-        <activity
-            android:name=".presentation.checkout.checkoutDataOrder.CheckoutDataOrdersActivity"
-            android:exported="false" />
-        <activity
-            android:name=".presentation.checkout.checkoutDataPassenger.CheckoutDataPassengerActivity"
-            android:exported="false" />
-        <activity
             android:name=".presentation.checkout.ActivityCheckoutDataOrders"
             android:exported="false" />
         <activity
             android:name=".presentation.auth.forgetpassword.ForgetPasswordActivity"
-            android:exported="false" />
-        <activity
-            android:name=".presentation.auth.verification.VerificationActivity"
             android:exported="false" />
         <activity
             android:name=".presentation.onboarding.OnboardingActivity"

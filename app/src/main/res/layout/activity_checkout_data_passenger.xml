@@ -391,7 +391,7 @@
         android:padding="14dp"
         android:layout_margin="20dp"
         android:textAllCaps="false"
-        android:text="@string/text_button_chose_seat"
+        android:text="@string/button_checkout_passenger"
         android:background="@drawable/bg_button"
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
