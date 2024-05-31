@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginHorizontal="16dp"
+    android:layout_marginVertical="6dp"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="12dp"
+    android:backgroundTint="?attr/colorOnPrimary"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:id="@+id/card_item_notification"
+        android:padding="12dp"
+        android:layout_height="wrap_content" >
+
+        <ImageView
+            android:id="@+id/iv_icon_notification"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:padding="3dp"
+            android:src="@drawable/ic_notification"
+            android:background="@drawable/bg_purple_round"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/title_item_notification"
+            app:layout_constraintStart_toEndOf="@+id/iv_icon_notification"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginStart="20dp"
+            android:textSize="12sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_item_notification"
+            android:textStyle="bold"
+             />
+        <TextView
+            android:id="@+id/date_item_notification"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textSize="11sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_detail_date" />
+        <TextView
+            android:id="@+id/detail_item_notification"
+            app:layout_constraintTop_toBottomOf="@+id/title_item_notification"
+            app:layout_constraintStart_toEndOf="@+id/iv_icon_notification"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="45dp"
+            android:layout_marginTop="8dp"
+            android:textSize="11sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="@string/text_lorem_ipsum" />
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+</androidx.cardview.widget.CardView>

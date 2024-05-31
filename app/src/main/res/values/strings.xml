@@ -138,5 +138,9 @@
     <string name="text_family_name">Nama Keluarga</string>
     <string name="button_checkout_passenger">Lanjut Pilih Kursi</string>
     <string name="text_toolbar_checkout_seat">Pilih Kursi</string>
+    <string name="title_item_notification">Ini judul Promosi</string>
+    <string name="text_lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</string>
+    <string name="text_title_fragment_notification">Notifikasi</string>
+    <string name="text_empty_messege_state">Data Masih Kosong</string>
 
 </resources>
