@@ -86,6 +86,9 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
+    //custom ticket view
+    implementation("com.vipulasri:ticketview:1.1.2")
+
     //coil image loader
     implementation(libs.coil)
 
@@ -146,6 +149,10 @@ dependencies {
 
     //lottie
     implementation(libs.lottie)
+
+    //groupie
+    implementation (libs.groupie)
+    implementation ("com.github.lisawray.groupie:groupie-viewbinding:2.10.1")
 
     //SeatBookView
     implementation ("com.github.JahidHasanCO:SeatBookView:1.0.4")
