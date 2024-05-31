@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardBackgroundColor="?attr/colorPrimaryDark">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp">
+
+        <ImageView
+            android:id="@+id/iv_back_flight"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/bg_icon_round"
+            android:padding="8dp"
+            android:src="@drawable/ic_back_2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/md_theme_onPrimary" />
+
+        <TextView
+            android:id="@+id/tv_destination"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="JKT > MLB"
+            android:textColor="?attr/colorSurface"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/iv_back_flight"
+            app:layout_constraintStart_toEndOf="@id/iv_back_flight"
+            app:layout_constraintTop_toTopOf="@id/iv_back_flight" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:text="-"
+            android:textColor="?attr/colorSurface"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@id/iv_back_flight"
+            app:layout_constraintStart_toEndOf="@id/tv_destination"
+            app:layout_constraintTop_toTopOf="@id/iv_back_flight" />
+
+        <TextView
+            android:id="@+id/tv_passenger"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="2 Penumpang"
+            android:textColor="?attr/colorSurface"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@id/iv_back_flight"
+            app:layout_constraintStart_toEndOf="@id/tv_destination"
+            app:layout_constraintTop_toTopOf="@id/iv_back_flight" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:text="-"
+            android:textColor="?attr/colorSurface"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@id/iv_back_flight"
+            app:layout_constraintStart_toEndOf="@id/tv_passenger"
+            app:layout_constraintTop_toTopOf="@id/iv_back_flight" />
+
+        <TextView
+            android:id="@+id/tv_type_flight"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="Economy"
+            android:textColor="?attr/colorSurface"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@id/iv_back_flight"
+            app:layout_constraintStart_toEndOf="@id/tv_passenger"
+            app:layout_constraintTop_toTopOf="@id/iv_back_flight" />
+
+        <ImageView
+            android:id="@+id/iv_more_flight"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/bg_icon_round"
+            android:padding="4dp"
+            android:src="@drawable/ic_more_horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/md_theme_onPrimary" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

@@ -165,4 +165,5 @@
     <color name="colorWarningContainer_highContrast">#E4C971</color>
     <color name="colorOnWarningContainer_highContrast">#000000</color>
     <color name="colorFailed">#FF0000</color>
+    <color name="colorTicketBackground">#333333</color>
 </resources>

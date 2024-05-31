@@ -122,6 +122,9 @@ dependencies {
     //otp view
     implementation(libs.pinview)
 
+    //ticket view
+    implementation(libs.ticket.view)
+
     //koin
     implementation(libs.koin.android)
 
