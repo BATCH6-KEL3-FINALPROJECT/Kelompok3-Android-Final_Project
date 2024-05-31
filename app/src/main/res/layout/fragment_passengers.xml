@@ -84,13 +84,13 @@
         app:layout_constraintTop_toBottomOf="@+id/bottom_shadow"
         tools:ignore="TouchTargetSizeCheck,DuplicateClickableBoundsCheck" />
 
-    <TextView
-        android:id="@+id/tv_total_adult"
+    <EditText
+        android:id="@+id/et_total_adult"
         android:layout_width="60dp"
         android:layout_height="40dp"
         android:layout_marginEnd="4dp"
         android:background="@drawable/bg_qyt_counter"
-        android:clickable="true"
+        android:inputType="number"
         android:gravity="center"
         android:text="0"
         android:textSize="18sp"
@@ -110,9 +110,9 @@
         android:text="-"
         android:textColor="?attr/colorOutline"
         android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_total_adult"
-        app:layout_constraintEnd_toStartOf="@+id/tv_total_adult"
-        app:layout_constraintTop_toTopOf="@+id/tv_total_adult"
+        app:layout_constraintBottom_toBottomOf="@+id/et_total_adult"
+        app:layout_constraintEnd_toStartOf="@+id/et_total_adult"
+        app:layout_constraintTop_toTopOf="@+id/et_total_adult"
         tools:ignore="TouchTargetSizeCheck,DuplicateClickableBoundsCheck" />
 
     <ImageView
@@ -161,13 +161,13 @@
         app:layout_constraintTop_toBottomOf="@+id/line_adult"
         tools:ignore="TouchTargetSizeCheck" />
 
-    <TextView
-        android:id="@+id/tv_total_children"
+    <EditText
+        android:id="@+id/et_total_children"
         android:layout_width="60dp"
         android:layout_height="40dp"
         android:layout_marginEnd="4dp"
         android:background="@drawable/bg_qyt_counter"
-        android:clickable="true"
+        android:inputType="number"
         android:gravity="center"
         android:text="0"
         android:textSize="18sp"
@@ -187,9 +187,9 @@
         android:text="-"
         android:textColor="?attr/colorOutline"
         android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_total_children"
-        app:layout_constraintEnd_toStartOf="@+id/tv_total_children"
-        app:layout_constraintTop_toTopOf="@+id/tv_total_children"
+        app:layout_constraintBottom_toBottomOf="@+id/et_total_children"
+        app:layout_constraintEnd_toStartOf="@+id/et_total_children"
+        app:layout_constraintTop_toTopOf="@+id/et_total_children"
         tools:ignore="TouchTargetSizeCheck" />
 
     <View
@@ -249,13 +249,13 @@
         app:layout_constraintTop_toBottomOf="@+id/line_children"
         tools:ignore="TouchTargetSizeCheck" />
 
-    <TextView
-        android:id="@+id/tv_total_baby"
+    <EditText
+        android:id="@+id/et_total_baby"
         android:layout_width="60dp"
         android:layout_height="40dp"
         android:layout_marginEnd="4dp"
         android:background="@drawable/bg_qyt_counter"
-        android:clickable="true"
+        android:inputType="number"
         android:gravity="center"
         android:text="0"
         android:textSize="18sp"
@@ -275,9 +275,9 @@
         android:text="-"
         android:textColor="?attr/colorOutline"
         android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_total_baby"
-        app:layout_constraintEnd_toStartOf="@+id/tv_total_baby"
-        app:layout_constraintTop_toTopOf="@+id/tv_total_baby"
+        app:layout_constraintBottom_toBottomOf="@+id/et_total_baby"
+        app:layout_constraintEnd_toStartOf="@+id/et_total_baby"
+        app:layout_constraintTop_toTopOf="@+id/et_total_baby"
         tools:ignore="TouchTargetSizeCheck" />
 
     <View
