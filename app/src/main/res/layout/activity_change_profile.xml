@@ -133,7 +133,7 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginEnd="16dp"
-                android:src="@drawable/ic_calendar"
+                android:src="@drawable/ic_calendar_purple"
                 app:layout_constraintEnd_toEndOf="@id/et_born_date"
                 app:layout_constraintTop_toTopOf="@id/et_born_date"
                 app:layout_constraintBottom_toBottomOf="@id/et_born_date"/>

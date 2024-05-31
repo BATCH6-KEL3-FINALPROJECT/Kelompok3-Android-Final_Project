@@ -96,7 +96,7 @@
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="32dp"
             android:drawablePadding="8dp"
-            android:src="@drawable/ic_flight"
+            android:src="@drawable/ic_flight_history"
             android:textAlignment="center"
             app:layout_constraintEnd_toStartOf="@+id/tv_city_name_destination_alias"
             app:layout_constraintStart_toEndOf="@id/tv_city_name_alias"

@@ -30,8 +30,11 @@
             android:exported="false" />
         <activity
             android:name=".presentation.auth.forgetpassword.ForgetPasswordActivity"
-            android:name=".presentation.flight.result.FlightResultActivity"
+
             android:exported="false" />
+        <activity android:name=".presentation.flight.result.FlightResultActivity"
+            android:exported="false" />
+
         <activity
             android:name=".presentation.flight.detail.FlightDetailActivity"
             android:exported="false" />
@@ -46,9 +49,6 @@
             android:exported="false" />
         <activity
             android:name=".presentation.checkout.checkoutSeat.CheckoutSeatActivity"
-            android:exported="false" />
-        <activity
-            android:name=".presentation.auth.forgetpassword.ForgetPasswordActivity"
             android:exported="false" />
         <activity
             android:name=".presentation.onboarding.OnboardingActivity"

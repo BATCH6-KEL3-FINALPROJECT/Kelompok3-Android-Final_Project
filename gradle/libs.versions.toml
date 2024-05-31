@@ -43,9 +43,6 @@ shimmer = "0.5.0"
 #otp view
 pinview = "1.4.4"
 
-#ticket view
-ticketview = "1.1.2"
-
 #koin
 koin = "3.5.6"
 

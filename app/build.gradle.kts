@@ -86,9 +86,6 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
-    //custom ticket view
-    implementation("com.vipulasri:ticketview:1.1.2")
-
     //coil image loader
     implementation(libs.coil)
 
@@ -126,7 +123,7 @@ dependencies {
     implementation(libs.pinview)
 
     //ticket view
-    implementation(libs.ticket.view)
+    implementation(libs.ticketview)
 
     //koin
     implementation(libs.koin.android)
