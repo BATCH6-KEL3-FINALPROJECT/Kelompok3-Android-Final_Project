@@ -9,4 +9,7 @@ interface UserPreference {
 
     fun getToken(): String
     fun setToken(token: String)
+
+    fun isUsingDarkMode() : Boolean
+    fun setUsingDarkMode(isUsingDarkMode : Boolean)
 }

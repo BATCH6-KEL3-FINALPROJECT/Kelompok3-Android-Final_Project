@@ -43,9 +43,6 @@ shimmer = "0.5.0"
 #otp view
 pinview = "1.4.4"
 
-#ticket view
-ticketview = "1.1.2"
-
 #koin
 koin = "3.5.6"
 
@@ -70,6 +67,13 @@ styleableToast = "2.4.0"
 #lottie
 lottie = "6.0.0"
 
+#groupie
+groupie = "2.10.1"
+groupie-viewbinding = "2.10.1"
+
+#ticketview
+ticketview = "1.1.2"
+
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -79,6 +83,7 @@ androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+
 
 # coil image loader
 coil = { group = "io.coil-kt", name = "coil", version.ref = "coil" }
@@ -142,6 +147,14 @@ mockk-agent = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
 coroutine-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "coroutine-test" }
 turbine = { group = "app.cash.turbine", name = "turbine", version.ref = "turbine" }
 core-testing = { group = "androidx.arch.core", name = "core-testing", version.ref = "core-testing" }
+
+#groupie
+groupie = { group = "com.github.lisawray.groupie", name = "groupie", version.ref = "groupie"}
+groupie-viewbinding = { group = "com.github.lisawray.groupie", name = "groupie-viewbinding", version.ref = "groupie-viewbinding" }
+
+#custom ticket view
+ticketview = { group = "com.vipulasri", name = "ticketview", version.ref = "ticketview"}
+
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

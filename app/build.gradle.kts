@@ -123,7 +123,7 @@ dependencies {
     implementation(libs.pinview)
 
     //ticket view
-    implementation(libs.ticket.view)
+    implementation(libs.ticketview)
 
     //koin
     implementation(libs.koin.android)
@@ -146,6 +146,10 @@ dependencies {
 
     //lottie
     implementation(libs.lottie)
+
+    //groupie
+    implementation (libs.groupie)
+    implementation ("com.github.lisawray.groupie:groupie-viewbinding:2.10.1")
 
     //SeatBookView
     implementation ("com.github.JahidHasanCO:SeatBookView:1.0.4")

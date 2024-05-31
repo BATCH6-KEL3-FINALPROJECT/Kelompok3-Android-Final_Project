@@ -58,6 +58,7 @@
         <item name="colorFailed">@color/colorFailed</item>
         <item name="colorBackgroundNavigation">@color/md_theme_background</item>
         <item name="android:windowLightStatusBar">true</item>
+        <item name="android:fontFamily">@font/poppins_font</item>
     </style>
     <style name="BottomNavigation.ActiveItemTextAppearance" parent="TextAppearance.AppCompat">
         <item name="android:textStyle">bold</item>
