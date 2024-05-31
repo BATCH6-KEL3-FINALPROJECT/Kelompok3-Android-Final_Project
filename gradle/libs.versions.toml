@@ -43,6 +43,9 @@ shimmer = "0.5.0"
 #otp view
 pinview = "1.4.4"
 
+#ticket view
+ticketview = "1.1.2"
+
 #koin
 koin = "3.5.6"
 
@@ -114,6 +117,9 @@ shimmer =  { group = "com.facebook.shimmer", name = "shimmer", version.ref = "sh
 
 #otp view
 pinview = { group = "io.github.chaosleung", name = "pinview", version.ref = "pinview" }
+
+#otp view
+ticket-view = { group = "com.vipulasri", name = "ticketview", version.ref = "ticketview" }
 
 #koin
 koin-android = { group = "io.insert-koin", name = "koin-android", version.ref = "koin" }
