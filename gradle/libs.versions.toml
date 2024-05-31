@@ -74,6 +74,15 @@ groupie-viewbinding = "2.10.1"
 #ticketview
 ticketview = "1.1.2"
 
+#calendar
+viewCalendar = "2.5.1"
+
+#seatbookview
+seatBook = "1.0.4"
+firebaseCrashlytics = "19.0.1"
+googleGmsGoogleServices = "4.4.2"
+googleFirebaseCrashlytics = "3.0.1"
+
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -141,6 +150,12 @@ styleable-toast = {group = "io.github.muddz", name = "styleabletoast", version.r
 #lottie
 lottie = {group = "com.airbnb.android", name = "lottie", version.ref = "lottie"}
 
+#calendar
+view-calendar = { group = "com.kizitonwose.calendar", name = "view", version.ref = "viewCalendar" }
+
+#seatbookview
+seat-book = { group = "com.github.JahidHasanCO", name = "SeatBookView", version.ref = "seatBook" }
+
 # Unit Testing
 mockk-android = { group = "io.mockk", name = "mockk-android", version.ref = "mockk" }
 mockk-agent = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
@@ -154,6 +169,7 @@ groupie-viewbinding = { group = "com.github.lisawray.groupie", name = "groupie-v
 
 #custom ticket view
 ticketview = { group = "com.vipulasri", name = "ticketview", version.ref = "ticketview"}
+firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics", version.ref = "firebaseCrashlytics" }
 
 
 [plugins]
@@ -161,3 +177,5 @@ android-application = { id = "com.android.application", version.ref = "agp" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint" }
+google-gms-google-services = { id = "com.google.gms.google-services", version.ref = "googleGmsGoogleServices" }
+google-firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "googleFirebaseCrashlytics" }

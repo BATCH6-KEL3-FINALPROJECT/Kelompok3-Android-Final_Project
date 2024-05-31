@@ -23,6 +23,12 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".presentation.auth.inputemail.InputEmailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.auth.resetpassword.ResetPasswordActivity"
+            android:exported="false" />
+        <activity
             android:name=".presentation.profile.SettingsAccountActivity"
             android:exported="false" />
         <activity
@@ -30,11 +36,10 @@
             android:exported="false" />
         <activity
             android:name=".presentation.auth.forgetpassword.ForgetPasswordActivity"
-
             android:exported="false" />
-        <activity android:name=".presentation.flight.result.FlightResultActivity"
+        <activity
+            android:name=".presentation.flight.result.FlightResultActivity"
             android:exported="false" />
-
         <activity
             android:name=".presentation.flight.detail.FlightDetailActivity"
             android:exported="false" />
