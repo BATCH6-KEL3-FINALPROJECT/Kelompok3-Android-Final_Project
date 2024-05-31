@@ -5,7 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.project.skypass.R
 import com.project.skypass.databinding.FragmentHomeBinding
+import com.project.skypass.presentation.calendar.CalendarFragment
 import com.project.skypass.presentation.home.flightclass.FlightClassFragment
 import com.project.skypass.presentation.home.passengers.PassengersFragment
 import com.project.skypass.presentation.home.search.SearchFragment
@@ -44,6 +46,30 @@ class HomeFragment : Fragment() {
         binding.etSeatClass.setOnClickListener {
             val seatClassFragment = FlightClassFragment()
             seatClassFragment.show(childFragmentManager, seatClassFragment.tag)
+        }
+        binding.etDeparture.setOnClickListener {
+            val calendarFragment = CalendarFragment()
+            calendarFragment.show(childFragmentManager, calendarFragment.tag)
+        }
+        binding.etReturn.setOnClickListener {
+            val calendarFragment = CalendarFragment()
+            calendarFragment.show(childFragmentManager, calendarFragment.tag)
+        }
+        tripChecked()
+    }
+
+    private fun tripChecked() {
+        binding.layoutReturn.visibility = View.GONE
+
+        binding.rgTrip.setOnCheckedChangeListener { _, checkedId ->
+            when (checkedId) {
+                R.id.rb_one_way -> {
+                    binding.layoutReturn.visibility = View.GONE
+                }
+                R.id.rb_round_trip -> {
+                    binding.layoutReturn.visibility = View.VISIBLE
+                }
+            }
         }
     }
 
