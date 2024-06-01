@@ -45,6 +45,7 @@ object AppModule {
         }
     }
 
+    //test
     private val firebaseModule = module {
 
     }
