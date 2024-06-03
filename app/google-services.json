@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "385815317467",
+    "project_id": "finalproject-skypass",
+    "storage_bucket": "finalproject-skypass.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:385815317467:android:8cc4231847c45e87f7f5fe",
+        "android_client_info": {
+          "package_name": "com.project.skypass"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBWfW7luuwKlqZNRYiXmvXCOKgcLZ5lSPE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

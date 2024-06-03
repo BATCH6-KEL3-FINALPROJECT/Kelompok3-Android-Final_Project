@@ -56,6 +56,11 @@ android {
                 name = "KEY",
                 value = "\"..\"",
             )
+            buildConfigField(
+                type = "String",
+                name = "CLIENT_ID_OAUTH2",
+                value = "\"597747131491-lgld5ii4fd97g7in8ek462ei74f9iven.apps.googleusercontent.com\""
+            )
         }
         create("integration") {
             buildConfigField(
@@ -67,6 +72,11 @@ android {
                 type = "String",
                 name = "KEY",
                 value = "\"..\"",
+            )
+            buildConfigField(
+                type = "String",
+                name = "CLIENT_ID_OAUTH2",
+                value = "\"597747131491-lgld5ii4fd97g7in8ek462ei74f9iven.apps.googleusercontent.com\""
             )
         }
     }
@@ -157,6 +167,9 @@ dependencies {
 
     //SeatBookView
     implementation (libs.seat.book)
+
+    //oauth
+    implementation(libs.google.oauth)
 
     //calendar
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.4")
