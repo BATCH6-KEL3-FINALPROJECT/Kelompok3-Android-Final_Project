@@ -8,6 +8,7 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import com.project.skypass.R
 import com.project.skypass.databinding.ActivityLoginBinding
+import com.project.skypass.presentation.auth.login.LoginViewModel.Companion.RC_SIGN_IN
 import com.project.skypass.presentation.auth.register.RegisterActivity
 import com.project.skypass.presentation.main.MainActivity
 import com.project.skypass.utils.proceedWhen
@@ -47,7 +48,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun loginWithGoogle() {
-        viewModel.doLoginOAuth().observe(this) {result ->
+        /*viewModel.doLoginOAuth().observe(this) {result ->
             result.proceedWhen(
                 doOnSuccess = {
                     StyleableToast.makeText(
@@ -67,6 +68,18 @@ class LoginActivity : AppCompatActivity() {
                     ).show()
                 }
             )
+        }*/
+
+        val signInIntent = viewModel.getSignInIntent()
+        startActivityForResult(signInIntent, RC_SIGN_IN)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == RC_SIGN_IN) {
+            viewModel.handleSignInResult(data).observe(this) { result ->
+
+            }
         }
     }
 

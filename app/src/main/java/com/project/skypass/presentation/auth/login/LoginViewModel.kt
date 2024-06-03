@@ -1,5 +1,6 @@
 package com.project.skypass.presentation.auth.login
 
+import android.content.Intent
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
@@ -30,8 +31,16 @@ class LoginViewModel(
         return prefRepository.setLogin(isLogin)
     }
 
-    fun doLoginOAuth(): LiveData<ResultWrapper<Boolean>> {
+    /*fun doLoginOAuth(): LiveData<ResultWrapper<Boolean>> {
         return oAuthRepository.signIn().asLiveData(Dispatchers.IO)
+    }*/
+
+    fun getSignInIntent(): Intent {
+        return oAuthRepository.initiateSignIn()
+    }
+
+    fun handleSignInResult(data: Intent?): LiveData<ResultWrapper<Boolean>> {
+        return oAuthRepository.handleSignInResult(data).asLiveData(Dispatchers.IO)
     }
 
     companion object {
