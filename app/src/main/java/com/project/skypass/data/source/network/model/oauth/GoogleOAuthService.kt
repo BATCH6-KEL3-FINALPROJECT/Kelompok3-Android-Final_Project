@@ -1,4 +1,4 @@
-package com.project.skypass.data.source.network.oauth
+package com.project.skypass.data.source.network.model.oauth
 
 import android.content.Intent
 

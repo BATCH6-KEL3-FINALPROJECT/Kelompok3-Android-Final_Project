@@ -22,8 +22,8 @@ import com.project.skypass.data.repository.user.UserRepository
 import com.project.skypass.data.repository.user.UserRepositoryImpl
 import com.project.skypass.data.source.local.pref.UserPreference
 import com.project.skypass.data.source.local.pref.UserPreferenceImpl
-import com.project.skypass.data.source.network.oauth.GoogleOAuthService
-import com.project.skypass.data.source.network.oauth.GoogleOAuthServiceImpl
+import com.project.skypass.data.source.network.model.oauth.GoogleOAuthService
+import com.project.skypass.data.source.network.model.oauth.GoogleOAuthServiceImpl
 import com.project.skypass.data.source.network.service.ApiService
 import com.project.skypass.presentation.auth.forgetpassword.ForgotPasswordViewModel
 import com.project.skypass.presentation.auth.login.LoginViewModel
