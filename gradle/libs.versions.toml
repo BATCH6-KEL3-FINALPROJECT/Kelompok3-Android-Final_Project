@@ -83,6 +83,9 @@ firebaseCrashlytics = "19.0.1"
 googleGmsGoogleServices = "4.4.2"
 googleFirebaseCrashlytics = "3.0.1"
 
+#oauth
+googleOAuth = "20.0.0"
+
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -171,6 +174,8 @@ groupie-viewbinding = { group = "com.github.lisawray.groupie", name = "groupie-v
 ticketview = { group = "com.vipulasri", name = "ticketview", version.ref = "ticketview"}
 firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics", version.ref = "firebaseCrashlytics" }
 
+#oauth
+google-oauth = { group = "com.google.android.gms", name = "play-services-auth", version.ref = "googleOAuth" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

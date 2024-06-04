@@ -23,9 +23,6 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".presentation.auth.inputemail.InputEmailActivity"
-            android:exported="false" />
-        <activity
             android:name=".presentation.auth.resetpassword.ResetPasswordActivity"
             android:exported="false" />
         <activity
@@ -63,6 +60,15 @@
             android:exported="false" />
         <activity
             android:name=".presentation.splashscreen.SplashActivity"
+            android:exported="false">
+            <!--<intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>-->
+        </activity>
+        <activity
+            android:name=".presentation.auth.login.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -70,9 +76,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".presentation.auth.login.LoginActivity"
-            android:exported="false" />
         <activity
             android:name=".presentation.main.MainActivity"
             android:exported="false" />

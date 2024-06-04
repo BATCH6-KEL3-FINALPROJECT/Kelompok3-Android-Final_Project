@@ -6,5 +6,6 @@ data class User(
     val email: String?,
     val phoneNumber: String?,
     val roles: String?,
-    val token: String?
+    val token: String?,
+    val photoUrl: String?
 )
