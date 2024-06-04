@@ -6,6 +6,7 @@ import com.project.skypass.data.source.network.model.login.LoginResponse
 import com.project.skypass.data.source.network.model.otp.ResendOtpRequestResponse
 import com.project.skypass.data.source.network.model.otp.VerifyRequestResponse
 import com.project.skypass.data.source.network.model.register.RegisterRequestResponse
+import com.project.skypass.data.source.network.model.resetpassword.ResetPasswordRequestResponse
 import com.project.skypass.utils.ErrorInterceptor
 import com.project.skypass.utils.ResultWrapper
 import com.project.skypass.utils.proceedFlow
@@ -63,6 +64,16 @@ class AuthRepositoryImpl(private val dataStore: AuthDataStore): AuthRepository {
                     email = email
                 )
             ).status ?: "failed"
+        }
+    }
+
+    override fun doResetPassword(email: String): Flow<ResultWrapper<Boolean>> {
+        return proceedFlow {
+            dataStore.doResetPassword(
+                ResetPasswordRequestResponse(
+                    email = email
+                )
+            ).is_success ?: false
         }
     }
 }

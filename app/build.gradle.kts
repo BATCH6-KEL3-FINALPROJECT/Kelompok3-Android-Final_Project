@@ -49,7 +49,7 @@ android {
             buildConfigField(
                 type = "String",
                 name = "BASE_URL",
-                value = "\"http://airline.azkazk11.my.id/api/v1/\"",
+                value = "\"https://airline.azkazk11.my.id/api/v1/\"",
             )
             buildConfigField(
                 type = "String",
@@ -66,7 +66,7 @@ android {
             buildConfigField(
                 type = "String",
                 name = "BASE_URL",
-                value = "\"http://airline.azkazk11.my.id/api/v1/\"",
+                value = "\"https://airline.azkazk11.my.id/api/v1/\"",
             )
             buildConfigField(
                 type = "String",

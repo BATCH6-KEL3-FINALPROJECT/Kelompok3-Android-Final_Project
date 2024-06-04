@@ -9,6 +9,8 @@ import com.project.skypass.data.source.network.model.otp.VerifyRequestResponse
 import com.project.skypass.data.source.network.model.otp.VerifyResponse
 import com.project.skypass.data.source.network.model.register.RegisterRequestResponse
 import com.project.skypass.data.source.network.model.register.RegisterResponse
+import com.project.skypass.data.source.network.model.resetpassword.ResetPasswordRequestResponse
+import com.project.skypass.data.source.network.model.resetpassword.ResetPasswordResponse
 import com.project.skypass.utils.ErrorInterceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -39,6 +41,11 @@ interface ApiService {
     suspend fun doResendOtp(
         @Body resendCodeRequest: ResendOtpRequestResponse
     ):ResendOtpResponse
+
+    @POST("auth/reset-password")
+    suspend fun doResetPassword(
+        @Body resetPasswordRequest: ResetPasswordRequestResponse
+    ): ResetPasswordResponse
 
     companion object {
         @JvmStatic

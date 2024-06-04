@@ -25,10 +25,12 @@ import com.project.skypass.data.source.local.pref.UserPreferenceImpl
 import com.project.skypass.data.source.network.oauth.GoogleOAuthService
 import com.project.skypass.data.source.network.oauth.GoogleOAuthServiceImpl
 import com.project.skypass.data.source.network.service.ApiService
+import com.project.skypass.presentation.auth.forgetpassword.ForgotPasswordViewModel
 import com.project.skypass.presentation.auth.login.LoginViewModel
 import com.project.skypass.presentation.onboarding.OnboardingViewModel
 import com.project.skypass.presentation.splashscreen.SplashViewModel
 import com.project.skypass.presentation.auth.register.RegisterViewModel
+import com.project.skypass.presentation.auth.resetpassword.ResetPasswordViewModel
 import com.project.skypass.presentation.auth.verification.VerificationViewModel
 import com.project.skypass.presentation.profile.SettingsAccountViewModel
 import com.project.skypass.utils.SharedPreferenceUtils
@@ -104,6 +106,8 @@ object AppModule {
         viewModelOf(::RegisterViewModel)
         viewModelOf(::VerificationViewModel)
         viewModelOf(::SettingsAccountViewModel)
+        viewModelOf(::ResetPasswordViewModel)
+        viewModelOf(::ForgotPasswordViewModel)
     }
 
     val module = listOf<Module>(

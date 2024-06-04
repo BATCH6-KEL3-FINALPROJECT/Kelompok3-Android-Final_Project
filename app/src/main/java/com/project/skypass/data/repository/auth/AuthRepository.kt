@@ -26,4 +26,8 @@ interface AuthRepository {
     fun doResendOtp(
         email: String
     ): Flow<ResultWrapper<String>>
+
+    fun doResetPassword(
+        email: String
+    ): Flow<ResultWrapper<Boolean>>
 }
