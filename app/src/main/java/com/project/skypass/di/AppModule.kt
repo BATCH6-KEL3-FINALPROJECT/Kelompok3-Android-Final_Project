@@ -32,6 +32,7 @@ import com.project.skypass.presentation.splashscreen.SplashViewModel
 import com.project.skypass.presentation.auth.register.RegisterViewModel
 import com.project.skypass.presentation.auth.resetpassword.ResetPasswordViewModel
 import com.project.skypass.presentation.auth.verification.VerificationViewModel
+import com.project.skypass.presentation.home.passengers.PassengersViewModel
 import com.project.skypass.presentation.profile.SettingsAccountViewModel
 import com.project.skypass.utils.SharedPreferenceUtils
 import org.koin.android.ext.koin.androidContext
@@ -108,6 +109,7 @@ object AppModule {
         viewModelOf(::SettingsAccountViewModel)
         viewModelOf(::ResetPasswordViewModel)
         viewModelOf(::ForgotPasswordViewModel)
+        viewModelOf(::PassengersViewModel)
     }
 
     val module = listOf<Module>(
