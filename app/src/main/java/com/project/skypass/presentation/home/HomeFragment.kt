@@ -55,7 +55,19 @@ class HomeFragment : Fragment() {
             val calendarFragment = CalendarFragment()
             calendarFragment.show(childFragmentManager, calendarFragment.tag)
         }
+        binding.ivSwitchTrip.setOnClickListener{
+            switchFromTo()
+        }
+
         tripChecked()
+    }
+
+    private fun switchFromTo() {
+        val fromTrip = binding.etFromTrip.text.toString()
+        val toTrip = binding.etToTrip.text.toString()
+
+        binding.etFromTrip.setText(toTrip)
+        binding.etToTrip.setText(fromTrip)
     }
 
     private fun tripChecked() {
