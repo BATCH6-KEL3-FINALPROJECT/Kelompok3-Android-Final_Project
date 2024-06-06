@@ -33,27 +33,27 @@ class AuthRepositoryImpl(private val dataStore: AuthDataStore): AuthRepository {
         email: String,
         phoneNumber: String,
         password: String
-    ): Flow<ResultWrapper<String>> {
+    ): Flow<ResultWrapper<Boolean>> {
         return proceedFlow {
             dataStore.doRegister(
                 RegisterRequestResponse(
-                    name = name,
                     email = email,
-                    phoneNumber = phoneNumber,
-                    password = password
+                    password = password,
+                    name = name,
+                    phone_number = phoneNumber
                 )
-            ).status ?: "Failed"
+            ).isSuccess ?: false
         }
     }
 
-    override fun doVerify(email: String, otp: String): Flow<ResultWrapper<String>> {
+    override fun doVerify(email: String, otp: String): Flow<ResultWrapper<Boolean>> {
         return proceedFlow {
             dataStore.doVerify(
                 VerifyRequestResponse(
                     email = email,
                     otp = otp
                 )
-            ).status ?: "Failed"
+            ).isSuccess ?: false
         }
     }
 

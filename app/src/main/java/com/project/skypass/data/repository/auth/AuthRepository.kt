@@ -16,12 +16,12 @@ interface AuthRepository {
         email: String,
         phoneNumber: String,
         password: String
-    ): Flow<ResultWrapper<String>>
+    ): Flow<ResultWrapper<Boolean>>
 
     fun doVerify(
         email: String,
         otp: String
-    ): Flow<ResultWrapper<String>>
+    ): Flow<ResultWrapper<Boolean>>
 
     fun doResendOtp(
         email: String

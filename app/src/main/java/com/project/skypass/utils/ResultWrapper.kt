@@ -1,10 +1,18 @@
 package com.project.skypass.utils
 
+import com.google.gson.Gson
+import com.project.skypass.data.model.Response
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.onStart
+import retrofit2.HttpException
+import java.io.IOException
 
+/**
+Written with love by Muhammad Hermas Yuda Pamungkas
+Github : https://github.com/hermasyp
+ **/
 sealed class ResultWrapper<T>(
     val payload: T? = null,
     val message: String? = null,
@@ -12,7 +20,8 @@ sealed class ResultWrapper<T>(
 ) {
     class Success<T>(data: T) : ResultWrapper<T>(data)
 
-    class Error<T>(exception: Exception?, data: T? = null) : ResultWrapper<T>(data, exception = exception)
+    class Error<T>(exception: Exception?, data: T? = null) :
+        ResultWrapper<T>(data, exception = exception)
 
     class Empty<T>(data: T? = null) : ResultWrapper<T>(data)
 
@@ -90,8 +99,31 @@ fun <T> proceedFlow(block: suspend () -> T): Flow<ResultWrapper<T>> {
             },
         )
     }.catch { e ->
-        emit(ResultWrapper.Error(exception = Exception(e)))
+        emit(ResultWrapper.Error(exception = e.parseException()))
     }.onStart {
         emit(ResultWrapper.Loading())
     }
+
 }
+
+fun Throwable?.parseException(): Exception {
+    when (this) {
+        is IOException -> {
+            return NoInternetException()
+        }
+        is HttpException -> {
+            try {
+                val gson = Gson()
+                val errorResponseBody = this.response()?.errorBody()?.string()
+                val errorBody = gson.fromJson(errorResponseBody, Response::class.java)
+                return ApiErrorException(errorBody)
+            } catch (e: Exception) {
+                return Exception(e)
+            }
+        }
+        else -> return Exception(this)
+    }
+}
+
+class ApiErrorException(val errorResponse: Response<*>) : Exception()
+class NoInternetException() : Exception()
