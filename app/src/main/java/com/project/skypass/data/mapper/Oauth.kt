@@ -12,6 +12,7 @@ fun GoogleSignInAccount?.toUserOAuth() =
             photoUrl = this.photoUrl.toString(),
             token = this.idToken,
             phoneNumber = null,
-            roles = null
+            role = null,
+            password = null
         )
     }
