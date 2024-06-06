@@ -37,36 +37,36 @@ class PassengersFragment : BottomSheetDialogFragment() {
 
     private fun totalInfants() {
         binding.tvIncreasePassengersBaby.setOnClickListener {
-            viewModel.addPassenger()
+            viewModel.addInfantPassenger()
         }
         binding.tvDecreasePassengersBaby.setOnClickListener {
-            viewModel.minusPassenger()
+            viewModel.minusInfantPassenger()
         }
-        viewModel.passengersCountLiveData.observe(viewLifecycleOwner){
+        viewModel.passengersInfantCountLiveData.observe(viewLifecycleOwner){
             binding.etTotalBaby.setText(it.toString())
         }
     }
 
     private fun totalChildren() {
         binding.tvIncreasePassengersChildren.setOnClickListener {
-            viewModel.addPassenger()
+            viewModel.addChildrenPassenger()
         }
         binding.tvDecreasePassengersChildren.setOnClickListener {
-            viewModel.minusPassenger()
+            viewModel.minusChildrenPassenger()
         }
-        viewModel.passengersCountLiveData.observe(viewLifecycleOwner){
+        viewModel.passengersChildrenCountLiveData.observe(viewLifecycleOwner){
             binding.etTotalChildren.setText(it.toString())
         }
     }
 
     private fun totalAdult() {
         binding.tvIncreasePassengersAdult.setOnClickListener {
-            viewModel.addPassenger()
+            viewModel.addAdultPassenger()
         }
         binding.tvDecreasePassengersAdult.setOnClickListener {
-            viewModel.minusPassenger()
+            viewModel.minusAdultPassenger()
         }
-        viewModel.passengersCountLiveData.observe(viewLifecycleOwner){
+        viewModel.passengersAdultCountLiveData.observe(viewLifecycleOwner){
             binding.etTotalAdult.setText(it.toString())
         }
     }
