@@ -6,11 +6,14 @@ import android.util.Patterns
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import com.google.android.gms.common.api.ApiException
 import com.google.android.material.textfield.TextInputLayout
 import com.project.skypass.R
 import com.project.skypass.databinding.ActivityRegisterBinding
 import com.project.skypass.presentation.auth.login.LoginActivity
 import com.project.skypass.presentation.auth.verification.VerificationActivity
+import com.project.skypass.utils.ApiErrorException
+import com.project.skypass.utils.NoInternetException
 import com.project.skypass.utils.highLightWord
 import com.project.skypass.utils.proceedWhen
 import io.github.muddz.styleabletoast.StyleableToast
@@ -86,11 +89,17 @@ class RegisterActivity : AppCompatActivity() {
                 },
                 doOnError = {
                     binding.pbLoading.isVisible = false
-                    StyleableToast.makeText(
+                    /*StyleableToast.makeText(
                         this,
                         getString(R.string.text_otp_send_failed),
                         R.style.ToastError,
-                    ).show()
+                    ).show()*/
+                    if (it.exception is ApiErrorException){
+                        val errorBody = it.exception.errorResponse
+                        StyleableToast.makeText(this, errorBody.message, R.style.ToastError).show()
+                    } else if (it.exception is NoInternetException){
+                        StyleableToast.makeText(this, "No internet connection", R.style.ToastError).show()
+                    }
                 },
                 doOnLoading = {
                     binding.pbLoading.isVisible = true
