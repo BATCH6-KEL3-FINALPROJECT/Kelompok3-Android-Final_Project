@@ -1,7 +1,7 @@
 package com.project.skypass.data.mapper
 
 import com.project.skypass.data.model.Flight
-import com.project.skypass.data.source.network.model.flight.FlightItemResponse
+import com.project.skypass.data.source.network.model.flight.flightdata.FlightItemResponse
 
 fun FlightItemResponse?.toFlight() =
     Flight(
