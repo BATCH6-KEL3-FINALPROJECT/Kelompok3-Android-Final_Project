@@ -9,4 +9,5 @@
     <attr name="colorOnWarningContainer" format="color" />
     <attr name="colorFailed" format="color" />
     <attr name="colorBackgroundNavigation" format="color"/>
+    <attr name="colorTextCalendar" format="color"/>
 </resources>

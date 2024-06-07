@@ -182,8 +182,10 @@
     <string name="date_departure_title">Tanggal keberangkatan</string>
     <string name="date_return_title">Tanggal Kepulangan</string>
     <string name="result_date_departure">Belum dipilih</string>
-    <string name="month">Maret</string>
+    <string name="month">Desember, 2023</string>
     <string name="year">2023</string>
     <string name="save_calendar">Simpan</string>
+    <string name="format_date">dd MMMM, yyyy</string>
+    <string name="format_month_year">MMMM, yyyy</string>
 
 </resources>

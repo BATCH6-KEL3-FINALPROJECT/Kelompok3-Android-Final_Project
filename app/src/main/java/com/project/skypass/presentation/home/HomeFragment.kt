@@ -28,6 +28,14 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         clickListener()
+        setValue()
+    }
+
+    private fun setValue() {
+        childFragmentManager.setFragmentResultListener("requestDateDeparture", this) { _, bundle ->
+            val result = bundle.getString("selectedDateDeparture")
+            binding.etDeparture.setText(result)
+        }
     }
 
     private fun clickListener() {

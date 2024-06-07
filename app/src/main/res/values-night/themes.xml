@@ -57,6 +57,7 @@
         <item name="colorFailed">@color/colorFailed</item>
         <item name="android:statusBarColor">@color/md_theme_background</item>
         <item name="colorBackgroundNavigation">@color/md_theme_background</item>
+        <item name="colorTextCalendar">@color/colorTextCalendar</item>
     </style>
     <style name="BottomNavigation.ActiveItemTextAppearance" parent="TextAppearance.AppCompat">
         <item name="android:textStyle">bold</item>

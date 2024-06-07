@@ -1,13 +1,18 @@
 package com.project.skypass.presentation.calendar
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
 import androidx.core.view.children
+import androidx.fragment.app.setFragmentResult
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.kizitonwose.calendar.core.CalendarDay
+import com.kizitonwose.calendar.core.DayPosition
 import com.kizitonwose.calendar.core.daysOfWeek
 import com.kizitonwose.calendar.core.firstDayOfWeekFromLocale
 import com.kizitonwose.calendar.view.MonthDayBinder
@@ -16,6 +21,7 @@ import com.project.skypass.R
 import com.project.skypass.databinding.FragmentCalendarBinding
 import com.project.skypass.utils.displayText
 import java.time.YearMonth
+import java.time.format.DateTimeFormatter
 
 class CalendarFragment : BottomSheetDialogFragment() {
 
@@ -41,9 +47,19 @@ class CalendarFragment : BottomSheetDialogFragment() {
             override fun bind(container: DayViewContainer, data: CalendarDay) {
                 // Set the calendar day for this container.
                 container.day = data
+                //binding.tvMonthCalendar.text = data.date.month.toString()
                 // Set the date text
                 container.textView.text = data.date.dayOfMonth.toString()
                 // Any other binding logic
+                if (data.position == DayPosition.MonthDate) {
+                    container.textView.setTextColor(ContextCompat.getColor(requireActivity(), R.color.colorTextCalendar))
+                } else {
+                    container.textView.setTextColor(Color.GRAY)
+                }
+                container.textView.setOnClickListener {
+                    setFragmentResult("requestDateDeparture", bundleOf("selectedDateDeparture" to data.date.toString()))
+                    binding.tvDateDeparture.text = data.date.format(DateTimeFormatter.ofPattern(getString(R.string.format_date)))
+                }
             }
         }
         val daysOfWeek = daysOfWeek()
@@ -58,6 +74,11 @@ class CalendarFragment : BottomSheetDialogFragment() {
         val firstDayOfWeek = firstDayOfWeekFromLocale() // Available from the library
         binding.rvDate.setup(startMonth, endMonth, firstDayOfWeek)
         binding.rvDate.scrollToMonth(currentMonth)
+        binding.rvDate.monthScrollListener = { month ->
+            //binding.tvMonthCalendar.text = month.yearMonth.month.toString()
+            val formatter = DateTimeFormatter.ofPattern(getString(R.string.format_month_year))
+            binding.tvMonthCalendar.text = month.yearMonth.format(formatter)
+        }
     }
 
     class DayViewContainer(view: View) : ViewContainer(view) {

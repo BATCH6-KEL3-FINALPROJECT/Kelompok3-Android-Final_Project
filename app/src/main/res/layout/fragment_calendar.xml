@@ -108,27 +108,8 @@
             android:layout_height="wrap_content"
             android:text="@string/month"
             android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@+id/tv_koma_calendar"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/tv_koma_calendar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=","
-            android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/iv_forward_date"
             app:layout_constraintStart_toEndOf="@+id/iv_backward_date"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/tv_year_calendar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/year"
-            android:textStyle="bold"
-            android:layout_marginStart="2dp"
-            app:layout_constraintStart_toEndOf="@+id/tv_koma_calendar"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView

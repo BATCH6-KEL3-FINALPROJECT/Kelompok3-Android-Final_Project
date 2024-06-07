@@ -175,4 +175,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="underline">#D8D6D6</color>
     <color name="grey">#8A8A8A</color>
+    <color name="colorTextCalendar">#000000</color>
 </resources>
