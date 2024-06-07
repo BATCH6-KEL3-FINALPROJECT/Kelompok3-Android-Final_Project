@@ -71,6 +71,7 @@
         app:layout_constraintTop_toTopOf="@+id/line_trip" />
 
     <TextView
+        android:id="@+id/tv_date_return"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/result_date_departure"

@@ -29,14 +29,6 @@ class HomeFragment : Fragment(), DateSelection {
         super.onViewCreated(view, savedInstanceState)
 
         clickListener()
-        //setValue()
-    }
-
-    private fun setValue() {
-        childFragmentManager.setFragmentResultListener("requestDateDeparture", this) { _, bundle ->
-            val result = bundle.getString("selectedDateDeparture")
-            binding.etDeparture.setText(result)
-        }
     }
 
     private fun clickListener() {
@@ -58,11 +50,19 @@ class HomeFragment : Fragment(), DateSelection {
         }
         binding.etDeparture.setOnClickListener {
             val calendarFragment = CalendarFragment()
+            val bundle = Bundle()
+            bundle.putString("currentDateDeparture", binding.etDeparture.text.toString().ifEmpty { "Belum dipilih" })
+            bundle.putString("currentDateReturn", binding.etReturn.text.toString().ifEmpty { "Belum dipilih"})
+            calendarFragment.arguments = bundle
             calendarFragment.dateSelection = this@HomeFragment
             calendarFragment.show(parentFragmentManager, "departure")
         }
         binding.etReturn.setOnClickListener {
             val calendarFragment = CalendarFragment()
+            val bundle = Bundle()
+            bundle.putString("currentDateDeparture", binding.etDeparture.text.toString().ifEmpty { "Belum dipilih" })
+            bundle.putString("currentDateReturn", binding.etReturn.text.toString().ifEmpty { "Belum dipilih"})
+            calendarFragment.arguments = bundle
             calendarFragment.dateSelection = this@HomeFragment
             calendarFragment.show(parentFragmentManager, "return")
         }
@@ -98,8 +98,12 @@ class HomeFragment : Fragment(), DateSelection {
 
     override fun onDateSelected(tag: String, date: String) {
         when (tag) {
-            "departure" -> binding.etDeparture.setText(date)
-            "return" -> binding.etReturn.setText(date)
+            "departure" -> {
+                binding.etDeparture.setText(date)
+            }
+            "return" -> {
+                binding.etReturn.setText(date)
+            }
         }
     }
 
