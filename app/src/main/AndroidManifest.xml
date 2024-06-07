@@ -26,6 +26,9 @@
             android:name=".presentation.auth.verification.VerificationActivity"
             android:exported="false" />
         <activity
+            android:name=".presentation.notification.detailNotification.DetailNotificationActivity"
+            android:exported="false" />
+        <activity
             android:name=".presentation.auth.resetpassword.ResetPasswordActivity"
             android:exported="false" />
         <activity
@@ -54,13 +57,7 @@
             android:exported="false" />
         <activity
             android:name=".presentation.checkout.checkoutSeat.CheckoutSeatActivity"
-            android:exported="false">
-            <!--<intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
-        </activity>
+            android:exported="false" />
         <activity
             android:name=".presentation.onboarding.OnboardingActivity"
             android:exported="false" />
@@ -78,13 +75,7 @@
         </activity>
         <activity
             android:name=".presentation.auth.login.LoginActivity"
-            android:exported="false" >
-            <!--<intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
-        </activity>
+            android:exported="false"/>
         <activity
             android:name=".presentation.main.MainActivity"
             android:exported="false" />
