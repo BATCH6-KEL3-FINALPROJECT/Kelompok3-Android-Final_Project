@@ -19,6 +19,7 @@ import com.kizitonwose.calendar.view.MonthDayBinder
 import com.kizitonwose.calendar.view.ViewContainer
 import com.project.skypass.R
 import com.project.skypass.databinding.FragmentCalendarBinding
+import com.project.skypass.presentation.customview.DateSelection
 import com.project.skypass.utils.displayText
 import java.time.YearMonth
 import java.time.format.DateTimeFormatter
@@ -26,6 +27,7 @@ import java.time.format.DateTimeFormatter
 class CalendarFragment : BottomSheetDialogFragment() {
 
     private lateinit var binding: FragmentCalendarBinding
+    var dateSelection: DateSelection? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -57,8 +59,9 @@ class CalendarFragment : BottomSheetDialogFragment() {
                     container.textView.setTextColor(Color.GRAY)
                 }
                 container.textView.setOnClickListener {
-                    setFragmentResult("requestDateDeparture", bundleOf("selectedDateDeparture" to data.date.toString()))
-                    binding.tvDateDeparture.text = data.date.format(DateTimeFormatter.ofPattern(getString(R.string.format_date)))
+                    val selectedDate = data.date.toString()
+                    dateSelection?.onDateSelected(tag ?: "", selectedDate)
+                    dismiss()
                 }
             }
         }
@@ -81,7 +84,7 @@ class CalendarFragment : BottomSheetDialogFragment() {
         }
     }
 
-    class DayViewContainer(view: View) : ViewContainer(view) {
+    inner class DayViewContainer(view: View) : ViewContainer(view) {
         val textView = view.findViewById<TextView>(R.id.tv_date)
         // Will be set when this container is bound
         lateinit var day: CalendarDay

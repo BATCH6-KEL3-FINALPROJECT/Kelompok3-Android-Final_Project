@@ -8,11 +8,12 @@ import androidx.fragment.app.Fragment
 import com.project.skypass.R
 import com.project.skypass.databinding.FragmentHomeBinding
 import com.project.skypass.presentation.calendar.CalendarFragment
+import com.project.skypass.presentation.customview.DateSelection
 import com.project.skypass.presentation.home.flightclass.FlightClassFragment
 import com.project.skypass.presentation.home.passengers.PassengersFragment
 import com.project.skypass.presentation.home.search.SearchFragment
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(), DateSelection {
 
     private lateinit var binding: FragmentHomeBinding
 
@@ -28,7 +29,7 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         clickListener()
-        setValue()
+        //setValue()
     }
 
     private fun setValue() {
@@ -57,11 +58,13 @@ class HomeFragment : Fragment() {
         }
         binding.etDeparture.setOnClickListener {
             val calendarFragment = CalendarFragment()
-            calendarFragment.show(childFragmentManager, calendarFragment.tag)
+            calendarFragment.dateSelection = this@HomeFragment
+            calendarFragment.show(parentFragmentManager, "departure")
         }
         binding.etReturn.setOnClickListener {
             val calendarFragment = CalendarFragment()
-            calendarFragment.show(childFragmentManager, calendarFragment.tag)
+            calendarFragment.dateSelection = this@HomeFragment
+            calendarFragment.show(parentFragmentManager, "return")
         }
         binding.ivSwitchTrip.setOnClickListener{
             switchFromTo()
@@ -90,6 +93,13 @@ class HomeFragment : Fragment() {
                     binding.layoutReturn.visibility = View.VISIBLE
                 }
             }
+        }
+    }
+
+    override fun onDateSelected(tag: String, date: String) {
+        when (tag) {
+            "departure" -> binding.etDeparture.setText(date)
+            "return" -> binding.etReturn.setText(date)
         }
     }
 
