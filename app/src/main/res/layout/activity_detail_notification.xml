@@ -22,7 +22,7 @@
 
 
         <ImageView
-            android:id="@+id/btnBack"
+            android:id="@+id/iv_btn_back"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:padding="4dp"
@@ -68,7 +68,7 @@
             android:id="@+id/tv_date_notification"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/hint_dd_mm_yyyy"
+            tools:text="@string/hint_dd_mm_yyyy"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
           />
@@ -85,7 +85,7 @@
             android:layout_width="match_parent"
             android:layout_marginTop="6dp"
             android:layout_height="wrap_content"
-            android:text="@string/title_item_notification"
+            tools:text="@string/title_item_notification"
             app:layout_constraintTop_toBottomOf="@+id/tv_date_notification"
             app:layout_constraintStart_toStartOf="parent"
             android:textStyle="bold"

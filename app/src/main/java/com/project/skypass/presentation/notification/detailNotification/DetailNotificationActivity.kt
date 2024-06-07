@@ -28,6 +28,7 @@ class DetailNotificationActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+        getArgumentData()
         setClickListeners()
     }
 
@@ -45,7 +46,9 @@ class DetailNotificationActivity : AppCompatActivity() {
 
     }
     private fun setClickListeners() {
-//        onclick binding
+        binding.ivBtnBack.setOnClickListener {
+            finish()
+        }
     }
     private fun observeResult(){
 //        observe view model

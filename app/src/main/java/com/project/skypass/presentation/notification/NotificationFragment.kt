@@ -13,13 +13,14 @@ import com.project.skypass.data.model.Notification
 import com.project.skypass.databinding.FragmentHomeBinding
 import com.project.skypass.databinding.FragmentNotificationBinding
 import com.project.skypass.presentation.notification.adapter.NotificationAdapter
+import com.project.skypass.presentation.notification.adapter.OnItemCLickedListener
 import com.project.skypass.presentation.notification.detailNotification.DetailNotificationActivity
 
 class NotificationFragment : Fragment() {
     private lateinit var binding: FragmentNotificationBinding
     private val dataSourceNotification: DataSourceNotification by lazy { DataSourceNotificationImpl() }
 
-    private var notificationAdapter = NotificationAdapter()
+    private var notificationAdapter: NotificationAdapter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,7 +32,8 @@ class NotificationFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        bindItemNotification()
+        // bindItemNotification()
+        bindNotificationList()
         clickListener()
     }
 
@@ -43,31 +45,35 @@ class NotificationFragment : Fragment() {
         binding.rvNotification.apply {
             adapter = this@NotificationFragment.notificationAdapter
         }
-        notificationAdapter.submitData(dataSourceNotification.getNotificationItem())
+        notificationAdapter?.submitData(dataSourceNotification.getNotificationItem())
     }
 
-    private fun bindNotificationList(data: List<Notification>) {
-//        notificationAdapter =
-//            NotificationAdapter(
-//                listener =
-//                object : OnItemCLickedListener<Notification> {
-//                    override fun onItemClicked(item: Notification) {
-//                        navigateToDetail(item)
-//                    }
-//                },
-//            )
-//        binding.rvNotification.adapter = this@NotificationFragment.notificationAdapter
-//        notificationAdapter?.submitData(data)
+    private fun bindNotificationList() {
+        notificationAdapter =
+            NotificationAdapter(
+                listener =
+                object : OnItemCLickedListener<Notification> {
+                    override fun onItemClicked(item: Notification) {
+                        navigateToDetail(item)
+                    }
+                },
+            )
+        binding.rvNotification.adapter = this@NotificationFragment.notificationAdapter
+        notificationAdapter?.submitData(dataSourceNotification.getNotificationItem())
     }
+
 
     private fun navigateToDetail(item: Notification) {
         DetailNotificationActivity.startActivity(
             requireContext(), Notification(
-                item.category,
+                item.id,
                 item.title,
-                item.date,
                 item.body,
-                item.status
+                item.category,
+                item.date,
+                item.status,
+
+
             )
         )
     }
