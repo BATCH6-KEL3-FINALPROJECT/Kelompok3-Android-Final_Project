@@ -20,46 +20,47 @@
         android:padding="16dp"
         android:layout_marginTop="12dp"/>
 
-<!--    -->
-<!--    <androidx.recyclerview.widget.RecyclerView-->
-<!--        android:id="@+id/rv_notification"-->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_notification"
+        android:layout_width="match_parent"
+        android:visibility="visible"
+        android:layout_height="wrap_content"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        android:clickable="true"
+        android:focusable="true"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title_notification"
+        tools:listitem="@layout/item_notification"
+>
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+
+<!--&lt;!&ndash;    sample display&ndash;&gt;-->
+<!--    <include-->
+<!--        android:id="@+id/layout_notif1"-->
+<!--        layout="@layout/item_notification"-->
 <!--        android:layout_width="match_parent"-->
+<!--        android:layout_marginHorizontal="16dp"-->
+<!--        android:layout_marginVertical="6dp"-->
 <!--        android:layout_height="wrap_content"-->
-<!--        android:clickable="true"-->
-<!--        android:focusable="true"-->
-<!--        android:orientation="vertical"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/tv_title_notification"-->
-<!--        tools:listitem="@layout/item_notification"-->
-<!--&gt;-->
-
-<!--    </androidx.recyclerview.widget.RecyclerView>-->
-
-
-<!--    sample display-->
-    <include
-        android:id="@+id/layout_notif1"
-        layout="@layout/item_notification"
-        android:layout_width="match_parent"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginVertical="6dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/tv_title_notification"/>
-    <include
-        android:id="@+id/layout_notif2"
-        layout="@layout/item_notification"
-        android:layout_width="match_parent"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginVertical="6dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/layout_notif1"/>
-    <include
-        android:id="@+id/layout_notif3"
-        layout="@layout/item_notification"
-        android:layout_width="match_parent"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginVertical="6dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/layout_notif2"/>
+<!--        app:layout_constraintTop_toBottomOf="@+id/tv_title_notification"/>-->
+<!--    <include-->
+<!--        android:id="@+id/layout_notif2"-->
+<!--        layout="@layout/item_notification"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_marginHorizontal="16dp"-->
+<!--        android:layout_marginVertical="6dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/layout_notif1"/>-->
+<!--    <include-->
+<!--        android:id="@+id/layout_notif3"-->
+<!--        layout="@layout/item_notification"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_marginHorizontal="16dp"-->
+<!--        android:layout_marginVertical="6dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/layout_notif2"/>-->
 
 <!--content state-->
     <include

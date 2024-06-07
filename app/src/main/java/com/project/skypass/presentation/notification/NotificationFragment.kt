@@ -7,11 +7,19 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.project.skypass.R
+import com.project.skypass.data.datasource.notification.DataSourceNotification
+import com.project.skypass.data.datasource.notification.DataSourceNotificationImpl
+import com.project.skypass.data.model.Notification
 import com.project.skypass.databinding.FragmentHomeBinding
 import com.project.skypass.databinding.FragmentNotificationBinding
+import com.project.skypass.presentation.notification.adapter.NotificationAdapter
+import com.project.skypass.presentation.notification.detailNotification.DetailNotificationActivity
 
 class NotificationFragment : Fragment() {
     private lateinit var binding: FragmentNotificationBinding
+    private val dataSourceNotification: DataSourceNotification by lazy { DataSourceNotificationImpl() }
+
+    private var notificationAdapter = NotificationAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -23,20 +31,45 @@ class NotificationFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        bindItemNotification()
         clickListener()
     }
 
     private fun clickListener() {
-//        delete after sprint 1
-        binding.layoutNotif1.cardItemNotification.setOnClickListener {
-            binding.layoutNotif1.cardItemNotification.setBackgroundResource(R.color.abu)
+
+    }
+
+    private fun bindItemNotification(){
+        binding.rvNotification.apply {
+            adapter = this@NotificationFragment.notificationAdapter
         }
-        binding.layoutNotif2.cardItemNotification.setOnClickListener {
-            binding.layoutNotif2.cardItemNotification.setBackgroundResource(R.color.abu)
-        }
-        binding.layoutNotif3.cardItemNotification.setOnClickListener {
-            binding.layoutNotif3.cardItemNotification.setBackgroundResource(R.color.abu)
-        }
+        notificationAdapter.submitData(dataSourceNotification.getNotificationItem())
+    }
+
+    private fun bindNotificationList(data: List<Notification>) {
+//        notificationAdapter =
+//            NotificationAdapter(
+//                listener =
+//                object : OnItemCLickedListener<Notification> {
+//                    override fun onItemClicked(item: Notification) {
+//                        navigateToDetail(item)
+//                    }
+//                },
+//            )
+//        binding.rvNotification.adapter = this@NotificationFragment.notificationAdapter
+//        notificationAdapter?.submitData(data)
+    }
+
+    private fun navigateToDetail(item: Notification) {
+        DetailNotificationActivity.startActivity(
+            requireContext(), Notification(
+                item.category,
+                item.title,
+                item.date,
+                item.body,
+                item.status
+            )
+        )
     }
 }
+
