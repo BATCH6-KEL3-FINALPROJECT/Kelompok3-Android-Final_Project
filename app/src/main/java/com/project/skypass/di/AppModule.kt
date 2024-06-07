@@ -6,6 +6,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.project.skypass.BuildConfig
 import com.project.skypass.data.datasource.auth.AuthDataStore
 import com.project.skypass.data.datasource.auth.AuthDataStoreImpl
+import com.project.skypass.data.datasource.home.PriceClassDataSource
+import com.project.skypass.data.datasource.home.PriceClassDataSourceImpl
 import com.project.skypass.data.datasource.oauth.OAuthDataSource
 import com.project.skypass.data.datasource.oauth.OAuthDataSourceImpl
 import com.project.skypass.data.datasource.preference.PrefDataSource
@@ -18,6 +20,8 @@ import com.project.skypass.data.repository.oauth.OAuthRepository
 import com.project.skypass.data.repository.oauth.OAuthRepositoryImpl
 import com.project.skypass.data.repository.pref.PrefRepository
 import com.project.skypass.data.repository.pref.PrefRepositoryImpl
+import com.project.skypass.data.repository.seatclass.SeatClassRepository
+import com.project.skypass.data.repository.seatclass.SeatClassRepositoryImpl
 import com.project.skypass.data.repository.user.UserRepository
 import com.project.skypass.data.repository.user.UserRepositoryImpl
 import com.project.skypass.data.source.local.pref.UserPreference
@@ -32,6 +36,7 @@ import com.project.skypass.presentation.splashscreen.SplashViewModel
 import com.project.skypass.presentation.auth.register.RegisterViewModel
 import com.project.skypass.presentation.auth.resetpassword.ResetPasswordViewModel
 import com.project.skypass.presentation.auth.verification.VerificationViewModel
+import com.project.skypass.presentation.home.flightclass.FlightClassViewModel
 import com.project.skypass.presentation.home.passengers.PassengersViewModel
 import com.project.skypass.presentation.profile.SettingsAccountViewModel
 import com.project.skypass.utils.SharedPreferenceUtils
@@ -86,6 +91,9 @@ object AppModule {
         single<UserDataSource> {
             UserDataSourceImpl(get())
         }
+        single<PriceClassDataSource> {
+            PriceClassDataSourceImpl()
+        }
     }
 
     private val repositoryModule = module {
@@ -97,6 +105,9 @@ object AppModule {
         }
         single<UserRepository> {
             UserRepositoryImpl(get())
+        }
+        single<SeatClassRepository> {
+            SeatClassRepositoryImpl(get())
         }
     }
 
@@ -110,6 +121,7 @@ object AppModule {
         viewModelOf(::ResetPasswordViewModel)
         viewModelOf(::ForgotPasswordViewModel)
         viewModelOf(::PassengersViewModel)
+        viewModelOf(::FlightClassViewModel)
     }
 
     val module = listOf<Module>(

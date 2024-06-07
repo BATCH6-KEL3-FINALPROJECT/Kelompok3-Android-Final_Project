@@ -187,5 +187,6 @@
     <string name="save_calendar">Simpan</string>
     <string name="format_date">dd MMMM yyyy</string>
     <string name="format_month_year">MMMM, yyyy</string>
+    <string name="price_class">Rp. %1$s</string>
 
 </resources>
