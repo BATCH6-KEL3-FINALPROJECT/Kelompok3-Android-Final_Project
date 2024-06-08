@@ -22,10 +22,13 @@
 
         <ImageView
             android:id="@+id/btnBack"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:padding="4dp"
             android:layout_marginStart="6dp"
-            android:src="@drawable/ic_back_white"
+            android:src="@drawable/ic_back_2"
+            app:tint="@color/md_theme_onPrimary"
+            android:background="@drawable/bg_icon_round"
             tools:ignore="ContentDescription" />
 
 

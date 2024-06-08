@@ -57,6 +57,7 @@
         <item name="android:statusBarColor">@color/md_theme_background</item>
         <item name="colorFailed">@color/colorFailed</item>
         <item name="colorBackgroundNavigation">@color/md_theme_background</item>
+        <item name="colorTextCalendar">@color/colorTextCalendar</item>
         <item name="android:windowLightStatusBar">true</item>
         <item name="android:fontFamily">@font/poppins_font</item>
     </style>
@@ -123,4 +124,10 @@
         <item name="android:textColor">#ffffff</item>
         <item name="android:backgroundTint">@color/md_theme_primary</item>
     </style>
+    <!--<style name="buttonLoginOauth" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        &lt;!&ndash;<item name="theme">@style/buttonLoginOauth</item>&ndash;&gt;
+        <item name="cornerRadius">16dp</item>
+        &lt;!&ndash;<item name="android:textColor">@color/md_theme_surface</item>
+        <item name="android:backgroundTint">@color/md_theme_onBackground</item>&ndash;&gt;
+    </style>-->
 </resources>

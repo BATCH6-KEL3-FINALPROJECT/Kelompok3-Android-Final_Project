@@ -8,6 +8,10 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import com.project.skypass.R
 import com.project.skypass.databinding.ActivityLoginBinding
+import com.project.skypass.presentation.auth.forgetpassword.ForgetPasswordActivity
+import com.project.skypass.presentation.auth.login.LoginViewModel.Companion.RC_SIGN_IN
+import com.project.skypass.presentation.auth.register.RegisterActivity
+import com.project.skypass.presentation.auth.resetpassword.ResetPasswordActivity
 import com.project.skypass.presentation.main.MainActivity
 import com.project.skypass.utils.proceedWhen
 import io.github.muddz.styleabletoast.StyleableToast
@@ -35,10 +39,49 @@ class LoginActivity : AppCompatActivity() {
             inputLogin()
         }
         binding.tvForgotPassword.setOnClickListener{
-
+            navigateToResetPassword()
         }
         binding.tvNotHaveAccountRegister.setOnClickListener{
-            //not have account
+            navigateToRegister()
+        }
+        binding.btnLoginGoogle.setOnClickListener{
+            loginWithGoogle()
+        }
+    }
+
+    private fun loginWithGoogle() {
+        /*viewModel.doLoginOAuth().observe(this) {result ->
+            result.proceedWhen(
+                doOnSuccess = {
+                    StyleableToast.makeText(
+                        this,
+                        getString(R.string.login_success), R.style.ToastSuccess
+                    ).show()
+                },
+                doOnLoading = {
+                    binding.pbLogin.isVisible = true
+                    binding.btnLogin.isEnabled = false
+                },
+                doOnError = {
+                    StyleableToast.makeText(
+                        this,
+                        "Error : ${it.exception?.message}",
+                        R.style.ToastError
+                    ).show()
+                }
+            )
+        }*/
+
+        val signInIntent = viewModel.getSignInIntent()
+        startActivityForResult(signInIntent, RC_SIGN_IN)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == RC_SIGN_IN) {
+            viewModel.handleSignInResult(data).observe(this) { result ->
+
+            }
         }
     }
 
@@ -105,6 +148,22 @@ class LoginActivity : AppCompatActivity() {
             Intent(this, MainActivity::class.java).apply {
                 flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
             },
+        )
+    }
+
+    private fun navigateToRegister() {
+        startActivity(
+            Intent(this, RegisterActivity::class.java).apply {
+                flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+            },
+        )
+    }
+
+    private fun navigateToResetPassword() {
+        startActivity(
+            Intent(this, ForgetPasswordActivity::class.java).apply {
+                flags = Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP
+            }
         )
     }
 

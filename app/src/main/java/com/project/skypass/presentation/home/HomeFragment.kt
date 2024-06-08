@@ -8,11 +8,12 @@ import androidx.fragment.app.Fragment
 import com.project.skypass.R
 import com.project.skypass.databinding.FragmentHomeBinding
 import com.project.skypass.presentation.calendar.CalendarFragment
+import com.project.skypass.presentation.customview.DateSelection
 import com.project.skypass.presentation.home.flightclass.FlightClassFragment
 import com.project.skypass.presentation.home.passengers.PassengersFragment
 import com.project.skypass.presentation.home.search.SearchFragment
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(), DateSelection {
 
     private lateinit var binding: FragmentHomeBinding
 
@@ -49,13 +50,35 @@ class HomeFragment : Fragment() {
         }
         binding.etDeparture.setOnClickListener {
             val calendarFragment = CalendarFragment()
-            calendarFragment.show(childFragmentManager, calendarFragment.tag)
+            val bundle = Bundle()
+            bundle.putString("currentDateDeparture", binding.etDeparture.text.toString().ifEmpty { "Belum dipilih" })
+            bundle.putString("currentDateReturn", binding.etReturn.text.toString().ifEmpty { "Belum dipilih"})
+            calendarFragment.arguments = bundle
+            calendarFragment.dateSelection = this@HomeFragment
+            calendarFragment.show(parentFragmentManager, "departure")
         }
         binding.etReturn.setOnClickListener {
             val calendarFragment = CalendarFragment()
-            calendarFragment.show(childFragmentManager, calendarFragment.tag)
+            val bundle = Bundle()
+            bundle.putString("currentDateDeparture", binding.etDeparture.text.toString().ifEmpty { "Belum dipilih" })
+            bundle.putString("currentDateReturn", binding.etReturn.text.toString().ifEmpty { "Belum dipilih"})
+            calendarFragment.arguments = bundle
+            calendarFragment.dateSelection = this@HomeFragment
+            calendarFragment.show(parentFragmentManager, "return")
         }
+        binding.ivSwitchTrip.setOnClickListener{
+            switchFromTo()
+        }
+
         tripChecked()
+    }
+
+    private fun switchFromTo() {
+        val fromTrip = binding.etFromTrip.text.toString()
+        val toTrip = binding.etToTrip.text.toString()
+
+        binding.etFromTrip.setText(toTrip)
+        binding.etToTrip.setText(fromTrip)
     }
 
     private fun tripChecked() {
@@ -69,6 +92,17 @@ class HomeFragment : Fragment() {
                 R.id.rb_round_trip -> {
                     binding.layoutReturn.visibility = View.VISIBLE
                 }
+            }
+        }
+    }
+
+    override fun onDateSelected(tag: String, date: String) {
+        when (tag) {
+            "departure" -> {
+                binding.etDeparture.setText(date)
+            }
+            "return" -> {
+                binding.etReturn.setText(date)
             }
         }
     }

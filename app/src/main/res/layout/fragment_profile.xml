@@ -30,7 +30,7 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_margin="16dp"
-        tools:src="@drawable/iv_profile"
+        android:src="@drawable/iv_profile"
         app:layout_constraintTop_toBottomOf="@+id/tv_account"
         app:layout_constraintStart_toStartOf="parent"
         app:shapeAppearanceOverlay="@style/Circular"/>
@@ -47,7 +47,7 @@
         app:layout_constraintStart_toEndOf="@id/iv_profile"
         app:layout_constraintTop_toBottomOf="@id/iv_bg_banner_profile"
         app:layout_constraintTop_toTopOf="@id/iv_bg_banner_profile"
-        tools:text="Jos Creative" />
+        android:text="Jos Creative" />
 
     <TextView
         android:id="@+id/tv_email_profile"
@@ -60,7 +60,7 @@
         android:textStyle="normal"
         app:layout_constraintStart_toEndOf="@id/iv_profile"
         app:layout_constraintTop_toBottomOf="@id/tv_name_profile"
-        tools:text="phosphates@gmail.com" />
+        android:text="phosphates@gmail.com" />
 
     <TextView
         android:id="@+id/tv_number_phone_profile"
@@ -73,7 +73,7 @@
         android:textStyle="normal"
         app:layout_constraintStart_toEndOf="@id/iv_profile"
         app:layout_constraintTop_toBottomOf="@id/tv_email_profile"
-        tools:text="+1 654 785 4462" />
+        android:text="082156784329" />
 
     <LinearLayout
         android:id="@+id/ll_edit_profile"

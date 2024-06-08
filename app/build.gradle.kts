@@ -4,6 +4,8 @@ plugins {
     id("kotlin-parcelize")
     alias(libs.plugins.ksp)
     alias(libs.plugins.ktlint)
+    alias(libs.plugins.google.gms.google.services)
+    alias(libs.plugins.google.firebase.crashlytics)
 }
 
 android {
@@ -30,6 +32,7 @@ android {
         }
     }
     compileOptions {
+        isCoreLibraryDesugaringEnabled = true
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
@@ -46,24 +49,34 @@ android {
             buildConfigField(
                 type = "String",
                 name = "BASE_URL",
-                value = "\"http://airline.azkazk11.my.id/api/v1/\"",
+                value = "\"https://airline.azkazk11.my.id/api/v1/\"",
             )
             buildConfigField(
                 type = "String",
                 name = "KEY",
                 value = "\"..\"",
+            )
+            buildConfigField(
+                type = "String",
+                name = "CLIENT_ID_OAUTH2",
+                value = "\"597747131491-lgld5ii4fd97g7in8ek462ei74f9iven.apps.googleusercontent.com\""
             )
         }
         create("integration") {
             buildConfigField(
                 type = "String",
                 name = "BASE_URL",
-                value = "\"http://airline.azkazk11.my.id/api/v1/\"",
+                value = "\"https://airline.azkazk11.my.id/api/v1/\"",
             )
             buildConfigField(
                 type = "String",
                 name = "KEY",
                 value = "\"..\"",
+            )
+            buildConfigField(
+                type = "String",
+                name = "CLIENT_ID_OAUTH2",
+                value = "\"597747131491-lgld5ii4fd97g7in8ek462ei74f9iven.apps.googleusercontent.com\""
             )
         }
     }
@@ -82,6 +95,7 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+    implementation(libs.firebase.crashlytics)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -152,6 +166,13 @@ dependencies {
     implementation ("com.github.lisawray.groupie:groupie-viewbinding:2.10.1")
 
     //SeatBookView
-    implementation ("com.github.JahidHasanCO:SeatBookView:1.0.4")
+    implementation (libs.seat.book)
+
+    //oauth
+    implementation(libs.google.oauth)
+
+    //calendar
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.4")
+    implementation (libs.view.calendar)
 
 }
