@@ -11,6 +11,7 @@ import com.project.skypass.data.source.network.model.otp.VerifyRequestResponse
 import com.project.skypass.data.source.network.model.register.RegisterRequestResponse
 import com.project.skypass.data.source.network.model.resetpassword.ResetPasswordRequestResponse
 import com.project.skypass.data.source.network.model.resetpassword.ResetPasswordResponse
+import com.project.skypass.utils.ErrorInterceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -36,7 +37,7 @@ interface ApiService {
     @POST("auth/login")
     suspend fun doLogin(
         @Body loginRequest: LoginRequestResponse
-    ):LoginResponse
+    ): LoginResponse
 
     @POST("auth/resend-otp")
     suspend fun doResendOtp(
@@ -75,7 +76,7 @@ interface ApiService {
                     .connectTimeout(100, TimeUnit.SECONDS)
                     .readTimeout(100, TimeUnit.SECONDS)
                     .addInterceptor(loggingInterceptor)
-                    //.addInterceptor(ErrorInterceptor())
+                    .addInterceptor(ErrorInterceptor())
                     .build()
             val retrofit =
                 Retrofit.Builder()
