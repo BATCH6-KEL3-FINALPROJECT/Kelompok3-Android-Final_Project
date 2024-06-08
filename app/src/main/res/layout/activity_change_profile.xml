@@ -85,7 +85,7 @@
                 android:id="@+id/tv_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="24dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:text="@string/text_nama"
@@ -107,79 +107,16 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_name"/>
 
             <TextView
-                android:id="@+id/tv_born_date"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:text="@string/text_tanggal_lahir"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                app:layout_constraintTop_toBottomOf="@id/et_name"/>
-
-            <EditText
-                android:id="@+id/et_born_date"
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginTop="8dp"
-                android:padding="8dp"
-                android:paddingEnd="48dp"
-                android:enabled="false"
-                android:hint="@string/hint_tanggal_lahir_anda"
-                android:background="@drawable/bg_edit_text"
-                app:layout_constraintTop_toBottomOf="@id/tv_born_date"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
-
-            <ImageView
-                android:id="@+id/iv_calendar"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginEnd="16dp"
-                android:src="@drawable/ic_calendar_purple"
-                app:layout_constraintEnd_toEndOf="@id/et_born_date"
-                app:layout_constraintTop_toTopOf="@id/et_born_date"
-                app:layout_constraintBottom_toBottomOf="@id/et_born_date"/>
-
-            <TextView
-                android:id="@+id/tv_NIK"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:text="@string/text_nomor_induk_kependudukan"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                app:layout_constraintTop_toBottomOf="@id/et_born_date"/>
-
-            <EditText
-                android:id="@+id/et_NIK"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginTop="8dp"
-                android:padding="8dp"
-                android:enabled="true"
-                android:hint="@string/hint_nomor_induk_kependudukan"
-                android:background="@drawable/bg_edit_text"
-                app:layout_constraintTop_toBottomOf="@id/tv_NIK"/>
-
-            <TextView
                 android:id="@+id/tv_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:text="@string/text_email"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                app:layout_constraintTop_toBottomOf="@id/et_NIK"/>
+                app:layout_constraintTop_toBottomOf="@id/et_name"/>
 
             <EditText
                 android:id="@+id/et_email"
@@ -198,7 +135,7 @@
                 android:id="@+id/tv_number_phone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:text="@string/text_nomor_telepon"
@@ -226,7 +163,7 @@
                 android:text="@string/btn_simpan"
                 android:textStyle="bold"
                 android:textSize="18sp"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="100dp"
                 android:layout_marginHorizontal="16dp"
                 android:textColor="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"

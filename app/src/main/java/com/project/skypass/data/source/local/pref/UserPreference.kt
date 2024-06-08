@@ -15,4 +15,6 @@ interface UserPreference {
 
     fun isUsingDarkMode() : Boolean
     fun setUsingDarkMode(isUsingDarkMode : Boolean)
+
+    fun clearAll()
 }

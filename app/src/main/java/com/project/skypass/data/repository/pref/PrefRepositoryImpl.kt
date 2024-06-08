@@ -27,6 +27,9 @@ class PrefRepositoryImpl(private val dataSource: PrefDataSource): PrefRepository
     override fun setToken(token: String) {
         return dataSource.setToken(token)
     }
+    override fun clearAll(){
+        dataSource.clearAll()
+    }
 
     override fun getUserID(): String {
         return dataSource.getUserID()

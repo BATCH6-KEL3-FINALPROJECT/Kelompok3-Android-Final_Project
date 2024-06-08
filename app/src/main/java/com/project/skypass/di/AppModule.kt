@@ -4,6 +4,7 @@ import android.content.SharedPreferences
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.project.skypass.BuildConfig
+import com.project.skypass.core.BaseViewModel
 import com.project.skypass.data.datasource.auth.AuthDataStore
 import com.project.skypass.data.datasource.auth.AuthDataStoreImpl
 import com.project.skypass.data.datasource.flight.FlightDataSource
@@ -16,6 +17,8 @@ import com.project.skypass.data.datasource.oauth.OAuthDataSource
 import com.project.skypass.data.datasource.oauth.OAuthDataSourceImpl
 import com.project.skypass.data.datasource.preference.PrefDataSource
 import com.project.skypass.data.datasource.preference.PrefDataSourceImpl
+import com.project.skypass.data.datasource.profile.ProfileDataSource
+import com.project.skypass.data.datasource.profile.ProfileDummyDataSource
 import com.project.skypass.data.datasource.search.SearchDataSource
 import com.project.skypass.data.datasource.search.SearchDataSourceImpl
 import com.project.skypass.data.datasource.user.UserDataSource
@@ -34,6 +37,8 @@ import com.project.skypass.data.repository.search.SearchRepository
 import com.project.skypass.data.repository.search.SearchRepositoryImpl
 import com.project.skypass.data.repository.seatclass.SeatClassRepository
 import com.project.skypass.data.repository.seatclass.SeatClassRepositoryImpl
+import com.project.skypass.data.repository.profile.ProfileRepository
+import com.project.skypass.data.repository.profile.ProfileRepositoryImpl
 import com.project.skypass.data.repository.user.UserRepository
 import com.project.skypass.data.repository.user.UserRepositoryImpl
 import com.project.skypass.data.source.local.pref.UserPreference
@@ -49,6 +54,8 @@ import com.project.skypass.presentation.auth.register.RegisterViewModel
 import com.project.skypass.presentation.auth.resetpassword.ResetPasswordViewModel
 import com.project.skypass.presentation.auth.verification.VerificationViewModel
 import com.project.skypass.presentation.home.HomeViewModel
+import com.project.skypass.presentation.profile.ChangeProfileViewModel
+import com.project.skypass.presentation.profile.ProfileViewModel
 import com.project.skypass.presentation.home.flightclass.FlightClassViewModel
 import com.project.skypass.presentation.home.passengers.PassengersViewModel
 import com.project.skypass.presentation.home.search.SearchViewModel
@@ -110,6 +117,7 @@ object AppModule {
         single<UserDataSource> {
             UserDataSourceImpl(get(),get())
         }
+        single<ProfileDataSource> { ProfileDummyDataSource() }
         single<PriceClassDataSource> {
             PriceClassDataSourceImpl()
         }
@@ -125,7 +133,7 @@ object AppModule {
     }
 
     private val repositoryModule = module {
-        single<PrefRepository>{
+        single<PrefRepository> {
             PrefRepositoryImpl(get())
         }
         single<AuthRepository> {
@@ -146,6 +154,7 @@ object AppModule {
         single<FavoriteDestinationRepository> {
             FavoriteDestinationRepositoryImpl(get())
         }
+        single<ProfileRepository> { ProfileRepositoryImpl(get()) }
     }
 
     private val viewModelModule = module {
@@ -165,6 +174,9 @@ object AppModule {
         }
         viewModelOf(::PassengersViewModel)
         viewModelOf(::FlightClassViewModel)
+        viewModelOf(::ProfileViewModel)
+        viewModelOf(::ChangeProfileViewModel)
+        viewModel {BaseViewModel(get())}
         viewModelOf(::HomeViewModel)
         viewModelOf(::SearchViewModel)
         viewModelOf(::ChangeProfileViewModelExample)
@@ -177,6 +189,6 @@ object AppModule {
         googleOAuthModule,
         dataSourceModule,
         viewModelModule,
-        repositoryModule
+        repositoryModule,
     )
 }
