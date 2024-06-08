@@ -1,6 +1,9 @@
 package com.project.skypass.data.model
 
+import java.util.UUID
+
 data class Flight(
+    var id: String = UUID.randomUUID().toString(),
     val airlineCode: String?,
     val airlineName: String?,
     val arrivalAirportName: String?,

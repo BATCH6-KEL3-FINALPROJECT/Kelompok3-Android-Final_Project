@@ -99,7 +99,7 @@ class LoginActivity : AppCompatActivity() {
                     binding.btnLogin.isEnabled = true
                     StyleableToast.makeText(this,
                         getString(R.string.login_success), R.style.ToastSuccess).show()
-                    setLoginPref(it.payload?.token.toString())
+                    setLoginPref(it.payload?.data?.token.toString())
                     lifecycleScope.launch {
                         delay(2000)
                         navigateToMain()
