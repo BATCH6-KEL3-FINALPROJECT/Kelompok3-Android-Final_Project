@@ -21,7 +21,7 @@ class ErrorInterceptor : Interceptor {
     private fun parseErrorMessage(errorBody: String?): String {
         return try {
             val jsonObject = JSONObject(errorBody ?: "")
-            if (jsonObject.getString("status") == "Failed") {
+            if (jsonObject.getString("is_success") == "false") {
                 jsonObject.getString("message")
             } else {
                 "Unknown error"
