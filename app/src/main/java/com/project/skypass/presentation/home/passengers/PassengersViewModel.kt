@@ -56,4 +56,11 @@ class PassengersViewModel: ViewModel() {
             passengersAdultCountLiveData.postValue(currentPassengers - 1)
         }
     }
+
+    fun totalPassengersCount(): Int{
+        val infantCount = passengersInfantCountLiveData.value ?: 0
+        val childrenCount = passengersChildrenCountLiveData.value ?: 0
+        val adultCount = passengersAdultCountLiveData.value ?: 0
+        return infantCount + childrenCount + adultCount
+    }
 }

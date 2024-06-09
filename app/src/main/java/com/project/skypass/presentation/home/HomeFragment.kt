@@ -8,12 +8,12 @@ import androidx.fragment.app.Fragment
 import com.project.skypass.R
 import com.project.skypass.databinding.FragmentHomeBinding
 import com.project.skypass.presentation.calendar.CalendarFragment
-import com.project.skypass.presentation.customview.DateSelection
+import com.project.skypass.presentation.customview.DataSelection
 import com.project.skypass.presentation.home.flightclass.FlightClassFragment
 import com.project.skypass.presentation.home.passengers.PassengersFragment
 import com.project.skypass.presentation.home.search.SearchFragment
 
-class HomeFragment : Fragment(), DateSelection {
+class HomeFragment : Fragment(), DataSelection {
 
     private lateinit var binding: FragmentHomeBinding
 
@@ -34,7 +34,8 @@ class HomeFragment : Fragment(), DateSelection {
     private fun clickListener() {
         binding.etPassengers.setOnClickListener {
             val passengerFragment = PassengersFragment()
-            passengerFragment.show(childFragmentManager, passengerFragment.tag)
+            passengerFragment.passengersSelection = this@HomeFragment
+            passengerFragment.show(childFragmentManager, "passengers")
         }
         binding.etFromTrip.setOnClickListener {
             val fromTripFragment = SearchFragment()
@@ -103,6 +104,14 @@ class HomeFragment : Fragment(), DateSelection {
             }
             "return" -> {
                 binding.etReturn.setText(date)
+            }
+        }
+    }
+
+    override fun onPassengerSelected(tag: String, passenger: String) {
+        when (tag) {
+            "passengers" -> {
+                binding.etPassengers.setText(getString(R.string.passengers_qyt_value, passenger))
             }
         }
     }

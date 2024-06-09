@@ -17,7 +17,7 @@ import com.kizitonwose.calendar.view.MonthDayBinder
 import com.kizitonwose.calendar.view.ViewContainer
 import com.project.skypass.R
 import com.project.skypass.databinding.FragmentCalendarBinding
-import com.project.skypass.presentation.customview.DateSelection
+import com.project.skypass.presentation.customview.DataSelection
 import com.project.skypass.utils.displayText
 import java.time.YearMonth
 import java.time.format.DateTimeFormatter
@@ -25,7 +25,7 @@ import java.time.format.DateTimeFormatter
 class CalendarFragment : BottomSheetDialogFragment() {
 
     private lateinit var binding: FragmentCalendarBinding
-    var dateSelection: DateSelection? = null
+    var dateSelection: DataSelection? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

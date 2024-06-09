@@ -188,5 +188,6 @@
     <string name="format_date">dd MMMM yyyy</string>
     <string name="format_month_year">MMMM, yyyy</string>
     <string name="price_class">Rp. %1$s</string>
+    <string name="passengers_qyt_value">%1$s penumpang</string>
 
 </resources>
