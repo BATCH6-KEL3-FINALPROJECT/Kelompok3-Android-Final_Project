@@ -59,7 +59,7 @@
         <item name="colorBackgroundNavigation">@color/md_theme_background</item>
         <item name="colorTextCalendar">@color/colorTextCalendar</item>
         <item name="android:windowLightStatusBar">true</item>
-        <item name="android:fontFamily">@font/poppins_font</item>
+        <item name="android:fontFamily">@font/rethinksans_font</item>
     </style>
     <style name="BottomNavigation.ActiveItemTextAppearance" parent="TextAppearance.AppCompat">
         <item name="android:textStyle">bold</item>
