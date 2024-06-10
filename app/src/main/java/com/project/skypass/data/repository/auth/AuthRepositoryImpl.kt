@@ -22,7 +22,11 @@ class AuthRepositoryImpl(private val dataStore: AuthDataStore): AuthRepository {
                         password = password
                     )
                 )
-            } catch (e: ErrorInterceptor.HttpException) {
+            }
+            catch (e: ErrorInterceptor.NoInternetException) {
+                throw Exception("No internet connection")
+            }
+            catch (e: ErrorInterceptor.HttpException) {
                 throw Exception(e.message)
             }
         }

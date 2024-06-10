@@ -189,5 +189,8 @@
     <string name="format_month_year">MMMM, yyyy</string>
     <string name="price_class">Rp. %1$s</string>
     <string name="passengers_qyt_value">%1$s penumpang</string>
+    <string name="no_internet_connection_exception">java.lang.Exception: No internet connection</string>
+    <string name="no_internet_connection">Tidak ada koneksi internet, silahkan coba lagi</string>
+    <string name="unknown_error">Error, silahkan coba lagi</string>
 
 </resources>
