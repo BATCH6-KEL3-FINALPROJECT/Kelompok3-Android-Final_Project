@@ -4,14 +4,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.project.skypass.databinding.FragmentPassengersBinding
+import com.project.skypass.presentation.customview.DataSelection
+import com.project.skypass.presentation.home.HomeFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class PassengersFragment : BottomSheetDialogFragment() {
 
     private lateinit var binding: FragmentPassengersBinding
     private val viewModel: PassengersViewModel by viewModel()
+    var passengersSelection: DataSelection? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,12 +29,24 @@ class PassengersFragment : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setOnClickListener()
+        sendData()
     }
 
     private fun setOnClickListener() {
         totalAdult()
         totalChildren()
         totalInfants()
+    }
+
+    private fun sendData() {
+        binding.btnSavePassengers.setOnClickListener {
+            val totalPassengers = viewModel.totalPassengersCount()
+            Toast.makeText(requireContext(), totalPassengers.toString(), Toast.LENGTH_SHORT).show()
+            if (tag == "passengers"){
+                passengersSelection?.onPassengerSelected(tag ?: "", totalPassengers.toString())
+            }
+            dismiss()
+        }
     }
 
     private fun totalInfants() {
