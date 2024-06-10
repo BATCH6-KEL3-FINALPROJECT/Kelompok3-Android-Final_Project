@@ -58,5 +58,19 @@
         android:paddingBottom="20dp"
         tools:listitem="@layout/item_flight_class" />
 
+    <Button
+        android:id="@+id/btn_flight_class"
+        style="@style/buttonTheme"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:padding="12dp"
+        android:text="@string/save_calendar"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginBottom="32dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rv_flight_class" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

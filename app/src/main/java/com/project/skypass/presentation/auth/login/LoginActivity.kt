@@ -2,6 +2,7 @@ package com.project.skypass.presentation.auth.login
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
@@ -123,7 +124,13 @@ class LoginActivity : AppCompatActivity() {
                             binding.etEmail.setBackgroundResource(R.drawable.bg_selector_input)
                             binding.etPassword.setBackgroundResource(R.drawable.bg_input_error)
                         }
+                        getString(R.string.no_internet_connection_exception) -> {
+                            StyleableToast.makeText(this,
+                                getString(R.string.no_internet_connection), R.style.ToastError).show()
+                        }
                         else -> {
+                            StyleableToast.makeText(this,
+                                getString(R.string.unknown_error), R.style.ToastError).show()
                             binding.etEmail.setBackgroundResource(R.drawable.bg_selector_input)
                             binding.etPassword.setBackgroundResource(R.drawable.bg_selector_input)
                         }

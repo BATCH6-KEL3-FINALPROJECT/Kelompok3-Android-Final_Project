@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.project.skypass.data.model.SeatClass
 import com.project.skypass.databinding.FragmentFlightClassBinding
+import com.project.skypass.presentation.customview.DataSelection
 import com.project.skypass.presentation.home.flightclass.adapter.FlightClassAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -14,10 +15,13 @@ class FlightClassFragment : BottomSheetDialogFragment() {
 
     private lateinit var  binding: FragmentFlightClassBinding
     private val viewModel: FlightClassViewModel by viewModel()
+    var seatClassSelection: DataSelection? = null
+
+    private var selectedSeatClass: SeatClass? = null
 
     private val flightClassAdapter: FlightClassAdapter by lazy {
-        FlightClassAdapter{
-
+        FlightClassAdapter{ seatClass ->
+            selectedSeatClass = seatClass
         }
     }
 
@@ -33,6 +37,18 @@ class FlightClassFragment : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         bindSeatClass(viewModel.getFlightClass())
+        onClickData()
+    }
+
+    private fun onClickData() {
+        binding.btnFlightClass.setOnClickListener {
+            if (tag == "flightClass") {
+                selectedSeatClass?.let {
+                    seatClassSelection?.onSeatClassSelected(tag?:"", it)
+                }
+            }
+            dismiss()
+        }
     }
 
     private fun bindSeatClass(flightClass: List<SeatClass>) {
