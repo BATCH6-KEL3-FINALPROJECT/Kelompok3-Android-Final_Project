@@ -147,21 +147,21 @@
     <string name="round_trip">Round trip</string>
     <string name="from">From</string>
     <string name="to">To</string>
-    <string name="input_departure">Masukkan awal keberangkatan</string>
-    <string name="input_destination">Masukkan tujuan keberangkatan</string>
+    <string name="input_departure">Awal keberangkatan</string>
+    <string name="input_destination">Tujuan keberangkatan</string>
     <string name="departure">Departure</string>
-    <string name="input_date_departure">Masukkan tanggal keberangkatan</string>
+    <string name="input_date_departure">Atur Tanggal</string>
     <string name="return_title">Return</string>
     <string name="passengers">Passengers</string>
-    <string name="input_qyt_passengers">Masukkan jumlah penumpang</string>
+    <string name="input_qyt_passengers">Pilih Penumpang</string>
     <string name="seat_class">Seat Class</string>
-    <string name="input_flight_class">Masukkan kelas penerbangan</string>
+    <string name="input_flight_class">Pilih Kelas</string>
     <string name="search_flight">Cari Penerbangan</string>
     <string name="last_search_title">Pencarian terakhir</string>
     <string name="history_search_empty">Tidak ada riwayat pencarian</string>
     <string name="favorite_destination">Destinasi Favorit</string>
     <string name="no_favorite_destination">Tidak ada saran destinasi favorit</string>
-    <string name="input_return">Masukkan tanggal kembali</string>
+    <string name="input_return">Atur Tanggal</string>
     <string name="save_passengers">Simpan</string>
     <string name="decrease">-</string>
     <string name="empty">0</string>
@@ -188,5 +188,9 @@
     <string name="format_date">dd MMMM yyyy</string>
     <string name="format_month_year">MMMM, yyyy</string>
     <string name="price_class">Rp. %1$s</string>
+    <string name="text_title_dialog_class_flight">Kelas Penerbangan</string>
+    <string name="text_title_doalog_passegers_home">Jumlah Penumpang</string>
+    <string name="text_title_doalog_calender">Atur Tanggal</string>
+    <string name="text_button_spalshscreen">Next</string>
 
 </resources>

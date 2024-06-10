@@ -14,6 +14,13 @@
         android:src="@drawable/ic_close"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+    <View
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="50dp"
+        android:layout_height="8dp"
+        android:background="@drawable/bg_dialog_down"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_filter"

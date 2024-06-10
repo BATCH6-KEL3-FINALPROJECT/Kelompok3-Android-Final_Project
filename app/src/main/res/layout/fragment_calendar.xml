@@ -7,6 +7,24 @@
     android:background="@drawable/bg_bottomsheet_dialog"
     tools:context=".presentation.calendar.CalendarFragment">
 
+    <View
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="50dp"
+        android:layout_height="8dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/bg_dialog_down"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/text_title_doalog_calender"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="24dp"
+        android:textStyle="bold"
+        android:textSize="16sp" />
     <ImageView
         android:id="@+id/iv_close_calendar"
         android:layout_width="wrap_content"
