@@ -2,7 +2,8 @@ package com.project.skypass.data.source.network.service
 
 import com.project.skypass.BuildConfig
 import com.project.skypass.data.model.Response
-import com.project.skypass.data.source.network.model.flight.flightdata.FlightResponse
+import com.project.skypass.data.source.network.model.flight.detailflight.DetailFlightResponse
+import com.project.skypass.data.source.network.model.flight.flightdata.GetAllFlightResponse
 import com.project.skypass.data.source.network.model.login.LoginRequestResponse
 import com.project.skypass.data.source.network.model.login.LoginResponse
 import com.project.skypass.data.source.network.model.otp.ResendOtpRequestResponse
@@ -11,14 +12,23 @@ import com.project.skypass.data.source.network.model.otp.VerifyRequestResponse
 import com.project.skypass.data.source.network.model.register.RegisterRequestResponse
 import com.project.skypass.data.source.network.model.resetpassword.ResetPasswordRequestResponse
 import com.project.skypass.data.source.network.model.resetpassword.ResetPasswordResponse
+import com.project.skypass.data.source.network.model.user.detailuser.UserResponse
+import com.project.skypass.data.source.network.model.user.edituser.EditUserResponse
 import com.project.skypass.utils.ErrorInterceptor
+import okhttp3.MultipartBody
 import okhttp3.OkHttpClient
+import okhttp3.RequestBody
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.Header
+import retrofit2.http.Multipart
 import retrofit2.http.POST
+import retrofit2.http.PUT
+import retrofit2.http.Part
+import retrofit2.http.Path
 import retrofit2.http.Query
 import java.util.concurrent.TimeUnit
 
@@ -64,7 +74,30 @@ interface ApiService {
         @Query("page") page: Int? = null,
         @Query("limit") limit: Int? = null,
         @Query("departure_date") departureDate: String? = null,
-    ): FlightResponse
+    ): GetAllFlightResponse
+
+    @GET("flight/{id}")
+    suspend fun getDetailFlightData(
+        @Path("id") id: String
+    ): DetailFlightResponse
+
+    @GET("user/{id}")
+    suspend fun getUserData(
+        @Path("id") id: String
+    ): UserResponse
+
+    @Multipart
+    @PUT("user/{id}")
+    suspend fun updateUserData(
+        @Header("Authorization") token: String,
+        @Path("userId") userId: String,
+        @Part("name") name: RequestBody,
+        @Part("email") email: RequestBody,
+        @Part("phone_number") phoneNumber: RequestBody,
+        @Part("password") password: RequestBody,
+        @Part image: MultipartBody.Part? = null
+    ): EditUserResponse
+
 
     companion object {
         @JvmStatic

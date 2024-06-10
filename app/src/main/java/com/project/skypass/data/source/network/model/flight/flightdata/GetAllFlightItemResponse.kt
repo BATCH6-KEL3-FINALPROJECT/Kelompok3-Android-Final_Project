@@ -1,6 +1,6 @@
 package com.project.skypass.data.source.network.model.flight.flightdata
 
-data class FlightItemResponse(
+data class GetAllFlightItemResponse(
     val airline_code: String?,
     val airline_name: String?,
     val arrival_airport_name: String?,
@@ -24,5 +24,5 @@ data class FlightItemResponse(
     val price_for_infant: Int?,
     val seat_class: String?,
     val seats_available: Int?,
-    val terminal: String?
+    val terminal: Boolean?
 )
