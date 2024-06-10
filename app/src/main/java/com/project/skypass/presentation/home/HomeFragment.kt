@@ -30,6 +30,13 @@ class HomeFragment : Fragment(), DataSelection {
         super.onViewCreated(view, savedInstanceState)
 
         clickListener()
+        sendData()
+    }
+
+    private fun sendData() {
+        binding.btnSearchFlight.setOnClickListener {
+
+        }
     }
 
     private fun clickListener() {
