@@ -6,13 +6,17 @@ import com.project.skypass.data.model.User
 fun GoogleSignInAccount?.toUserOAuth() =
     this?.let {
         User(
-            id = this.id,
+            userId = this.id,
             name = this.displayName,
             email = this.email,
             photoUrl = this.photoUrl.toString(),
             token = this.idToken,
             phoneNumber = null,
             role = null,
-            password = null
+            password = null,
+            createdAt = null,
+            updatedAt = null,
+            imageId = null,
+            isVerified = false
         )
     }
