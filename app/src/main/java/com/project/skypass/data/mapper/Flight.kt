@@ -1,6 +1,7 @@
 package com.project.skypass.data.mapper
 
 import com.project.skypass.data.model.Flight
+import com.project.skypass.data.source.network.model.flight.detailflight.DetailFlightItemResponse
 import com.project.skypass.data.source.network.model.flight.flightdata.FlightItemResponse
 
 fun FlightItemResponse?.toFlight() =
@@ -29,6 +30,31 @@ fun FlightItemResponse?.toFlight() =
         priceForChild = this?.price_for_child,
         seatClass = this?.seat_class,
         seatsAvailable = this?.seats_available,
+    )
+
+fun DetailFlightItemResponse?.toDetailFlight() =
+    DetailFlight(
+        flightId = this?.flight_id,
+        airlineId = this?.airline_id,
+        airlineCode = this?.Airline?.airline_code,
+        airlineName = this?.Airline?.airline_name,
+        arrivalTime = this?.arrival_time,
+        arrivalDate = this?.arrival_date,
+        departureTime = this?.departure_time,
+        departureDate = this?.departure_date,
+        terminal = this?.terminal,
+        flightCode = this?.flight_code,
+        flightStatus = this?.flight_status,
+        flightDuration = this?.flight_duration,
+        flightDescription = this?.flight_description,
+        planeType = this?.plane_type,
+        arrivalAirportName = this?.arrival_airport,
+        departureAirportName = this?.departure_airport,
+        departureCity = this?.departingAirport?.city,
+        arrivalCity = this?.arrivingAirport?.city,
+        departureContinent = this?.departingAirport?.continent,
+        arrivalContinent = this?.arrivingAirport?.continent,
+        createdAt = this?.createdAt
     )
 
 fun Collection<FlightItemResponse>?.toFlightData() = this?.map { it.toFlight() } ?: listOf()
