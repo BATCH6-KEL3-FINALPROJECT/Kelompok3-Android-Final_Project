@@ -1,5 +1,6 @@
 package com.project.skypass.presentation.profile
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -44,7 +45,7 @@ class ProfileFragment : Fragment() {
             startActivity(intent)
         }
         binding.llLogout.setOnClickListener {
-            logout()
+            showLogoutDialog()
         }
     }
 
@@ -58,7 +59,22 @@ class ProfileFragment : Fragment() {
         }
     }
 
+    private fun showLogoutDialog() {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setTitle("Logout")
+        builder.setMessage("Apakah kamu yakin ingin keluar?")
+        builder.setPositiveButton("Yes") { dialog, _ ->
+            logout()
+            dialog.dismiss()
+        }
+        builder.setNegativeButton("Cancel") { dialog, _ ->
+            dialog.dismiss()
+        }
+        builder.create().show()
+    }
+
     private fun logout() {
         (activity as BaseActivity).handleUnAuthorize()
     }
 }
+

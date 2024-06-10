@@ -4,7 +4,6 @@ import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
@@ -12,9 +11,12 @@ import com.project.skypass.R
 import com.project.skypass.core.BaseActivity
 import com.project.skypass.databinding.ActivityMainBinding
 import com.project.skypass.presentation.LoginBottomSheetFragment
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 @Suppress("DEPRECATION")
 class MainActivity : BaseActivity() {
+
+    private val viewModel: MainViewModel by viewModel()
 
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
 
@@ -29,8 +31,11 @@ class MainActivity : BaseActivity() {
         binding.navBottomView.setupWithNavController(navController)
         binding.navBottomView.setOnItemSelectedListener { item ->
             when (item.itemId) {
-                R.id.menu_tab_profile -> {
-                    if (!isUserLoggedIn()) {
+                R.id.menu_tab_profile,
+                R.id.menu_tab_home,
+                R.id.menu_tab_history,
+                R.id.menu_tab_notification -> {
+                    if (!viewModel.isUserLoggedIn()) {
                         showLoginBottomSheet()
                         false
                     } else {
@@ -65,13 +70,8 @@ class MainActivity : BaseActivity() {
         return currentNightMode == Configuration.UI_MODE_NIGHT_YES
     }
 
-    private fun isUserLoggedIn(): Boolean {
-        return false
-    }
-
     private fun showLoginBottomSheet() {
         val loginBottomSheet = LoginBottomSheetFragment()
         loginBottomSheet.show(supportFragmentManager, loginBottomSheet.tag)
     }
 }
-

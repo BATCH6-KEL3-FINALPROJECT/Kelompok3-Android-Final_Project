@@ -58,6 +58,7 @@ import com.project.skypass.presentation.profile.ChangeProfileViewModel
 import com.project.skypass.presentation.profile.ProfileViewModel
 import com.project.skypass.presentation.home.flightclass.FlightClassViewModel
 import com.project.skypass.presentation.home.passengers.PassengersViewModel
+import com.project.skypass.presentation.main.MainViewModel
 import com.project.skypass.presentation.home.search.SearchViewModel
 import com.project.skypass.presentation.profile.ChangeProfileViewModelExample
 import com.project.skypass.presentation.profile.ProfileViewModelExample
@@ -177,6 +178,7 @@ object AppModule {
         viewModelOf(::ProfileViewModel)
         viewModelOf(::ChangeProfileViewModel)
         viewModel {BaseViewModel(get())}
+        viewModelOf(:: MainViewModel)
         viewModelOf(::HomeViewModel)
         viewModelOf(::SearchViewModel)
         viewModelOf(::ChangeProfileViewModelExample)
