@@ -6,8 +6,11 @@
     <string name="account">Akun</string>
     <string name="get_started">Get Started</string>
     <string name="next">Next</string>
+    <string name="email_registered_exception">java.lang.Exception: Email sudah terdaftar</string>
+    <string name="password_less_than_8_char_exception">java.lang.Exception: Password minimal 8 karakter</string>
     <string name="email_not_found_exception">java.lang.Exception: Alamat Email tidak ditemukan</string>
     <string name="password_is_wrong_exception">java.lang.Exception: Password yang dimasukkan salah</string>
+    <string name="email_registered">Alamat email sudah terdaftar!</string>
     <string name="email_not_found">Alamat email tidak ditemukan!</string>
     <string name="password_not_found">Password yang dimasukkan salah!</string>
     <string name="login_success">Login sukses!</string>
