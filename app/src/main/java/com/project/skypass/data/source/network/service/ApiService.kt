@@ -104,7 +104,8 @@ interface ApiService {
     @GET("airport/")
     suspend fun searchDestination(
         @Query("search") search: String? = null,
-    ): Response<List<SearchItemResponse>?>
+    //): Response<List<SearchItemResponse>?>
+    ): SearchResponse
 
     @GET("seat/")
     suspend fun getSeatData(

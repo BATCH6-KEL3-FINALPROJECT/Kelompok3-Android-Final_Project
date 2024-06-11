@@ -1,5 +1,8 @@
 package com.project.skypass.data.source.network.model.search
 
+import androidx.annotation.Keep
+
+@Keep
 data class SearchItemResponse(
     val airport_id: String?,
     val airport_name: String?,

@@ -19,8 +19,8 @@ class SearchFragment : BottomSheetDialogFragment() {
 
     private lateinit var binding: FragmentSearchBinding
     private val searchAdapter by lazy {
-        SearchAdapter{
-
+        SearchAdapter {
+            // Handle item click
         }
     }
     private val viewModel: SearchViewModel by viewModel()
@@ -35,42 +35,45 @@ class SearchFragment : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupRecyclerView()
         searchDestination()
-        getAllData()
     }
 
-    private fun getAllData() {
-        viewModel.search().observe(viewLifecycleOwner){
-            it.proceedWhen(
-                doOnSuccess = {
-                    binding.rvSearchResult.visibility = View.VISIBLE
-                    binding.tvEmptySearchResult.isVisible = false
-                    it.payload?.let { data -> bindSeatClass(data) }
-                },
-                doOnLoading = {
-
-                },
-                doOnError = {
-
-                }
-            )
-        }
-    }
-
-    private fun bindSeatClass(flightClass: List<Search>) {
+    private fun setupRecyclerView() {
         binding.rvSearchResult.apply {
             adapter = this@SearchFragment.searchAdapter
             layoutManager = LinearLayoutManager(requireContext())
         }
-        searchAdapter.submitData(flightClass)
-
+        /*binding.rvSearchNow.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = searchAdapter
+        }*/
     }
 
     private fun searchDestination() {
         binding.svCity.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
                 Toast.makeText(requireContext(), query, Toast.LENGTH_SHORT).show()
-                viewModel.search(query)
+                viewModel.search(query).observe(viewLifecycleOwner) { results ->
+                    results.proceedWhen(
+                        doOnSuccess = {
+                            binding.rvSearchResult.isVisible = true
+                            binding.tvEmptySearchResult.isVisible = false
+                            it.payload?.let {
+                                bindDataToAdapter(it)
+                            }
+                        },
+                        doOnLoading = {
+                            binding.rvSearchResult.isVisible = false
+                            binding.tvEmptySearchResult.isVisible = false
+                        },
+                        doOnError = {
+                            binding.rvSearchResult.isVisible = false
+                            binding.tvEmptySearchResult.isVisible = true
+                            //Toast.makeText(requireContext(), it.exception.toString(), Toast.LENGTH_SHORT).show()
+                        }
+                    )
+                }
                 return true
             }
 
@@ -79,6 +82,10 @@ class SearchFragment : BottomSheetDialogFragment() {
             }
 
         })
+    }
+
+    private fun bindDataToAdapter(data: List<Search>) {
+        searchAdapter.submitData(data)
     }
 
 }

@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.project.skypass.data.model.Search
-import com.project.skypass.data.model.SeatClass
 import com.project.skypass.databinding.ItemSearchResultBinding
 
 class SearchAdapter(private val itemClick: (Search) -> Unit): RecyclerView.Adapter<SearchAdapter.SearchViewHolder>() {
@@ -53,8 +52,10 @@ class SearchAdapter(private val itemClick: (Search) -> Unit): RecyclerView.Adapt
         val itemClick: (Search) -> Unit
     ): RecyclerView.ViewHolder(binding.root){
         fun bind(item: Search){
-            binding.tvSearchResult.text = item.city
-            itemView.setOnClickListener { itemClick(item) }
+            with(item){
+                binding.tvSearchResult.text = item.city
+                itemView.setOnClickListener { itemClick(this) }
+            }
         }
     }
 
