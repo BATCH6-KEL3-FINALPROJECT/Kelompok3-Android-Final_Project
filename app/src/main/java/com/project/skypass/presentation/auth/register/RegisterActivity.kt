@@ -126,6 +126,7 @@ class RegisterActivity : AppCompatActivity() {
             false
         } else {
             binding.tilPhoneNumber.isErrorEnabled = false
+            binding.tilPhoneNumber.isEndIconCheckable = true
             true
         }
     }
@@ -137,6 +138,7 @@ class RegisterActivity : AppCompatActivity() {
             false
         } else {
             binding.tilName.isErrorEnabled = false
+            binding.tilName.isEndIconCheckable = true
             true
         }
     }
@@ -152,6 +154,7 @@ class RegisterActivity : AppCompatActivity() {
             false
         } else {
             binding.tilEmail.isErrorEnabled = false
+            binding.tilEmail.isEndIconCheckable = true
             true
         }
     }
@@ -172,6 +175,7 @@ class RegisterActivity : AppCompatActivity() {
             false
         } else {
             textInputLayout.isErrorEnabled = false
+            textInputLayout.isEndIconCheckable = true
             true
         }
     }
