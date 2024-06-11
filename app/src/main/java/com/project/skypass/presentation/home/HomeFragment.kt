@@ -1,19 +1,29 @@
 package com.project.skypass.presentation.home
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.project.skypass.R
+import com.project.skypass.data.model.DateCalendar
+import com.project.skypass.data.model.FormHome
 import com.project.skypass.data.model.Search
 import com.project.skypass.data.model.SeatClass
 import com.project.skypass.databinding.FragmentHomeBinding
 import com.project.skypass.presentation.calendar.CalendarFragment
 import com.project.skypass.presentation.customview.DataSelection
+import com.project.skypass.presentation.flight.detail.FlightDetailActivity
+import com.project.skypass.presentation.flight.result.FlightResultActivity
 import com.project.skypass.presentation.home.flightclass.FlightClassFragment
 import com.project.skypass.presentation.home.passengers.PassengersFragment
 import com.project.skypass.presentation.home.search.SearchFragment
+import com.project.skypass.utils.convertDateFormat
 
 class HomeFragment : Fragment(), DataSelection {
 
@@ -36,8 +46,34 @@ class HomeFragment : Fragment(), DataSelection {
 
     private fun sendData() {
         binding.btnSearchFlight.setOnClickListener {
-
+            moveToFlight()
         }
+    }
+
+    private fun moveToFlight() {
+        val fromTrip = binding.etFromTrip.text.toString()
+        val toTrip = binding.etToTrip.text.toString()
+        val departureDate = binding.etDeparture.text.toString()
+        val changeFormatDeparture = convertDateFormat(departureDate)
+        val returnDate = binding.etReturn.text.toString()
+        val changeFormatReturn = convertDateFormat(returnDate)
+        val passengers = binding.etPassengers.text.toString().toIntOrNull() ?: 0
+        val seatClass = binding.etSeatClass.text.toString()
+
+        val formHome = FormHome(
+            isRoundTrip = binding.rbRoundTrip.isChecked,
+            from = fromTrip,
+            to = toTrip,
+            departureDate = changeFormatDeparture,
+            returnDate = changeFormatReturn,
+            passengers = passengers,
+            seatClass = seatClass
+        )
+        Log.d("formHome", formHome.toString())
+
+        val navController = findNavController()
+        val bundleActivityDetailFlight = bundleOf(Pair(FlightDetailActivity.EXTRA_FLIGHT, formHome))
+        navController.navigate(R.id.action_menu_tab_home_to_flightDetailActivity, bundleActivityDetailFlight)
     }
 
     private fun clickListener() {
@@ -109,13 +145,15 @@ class HomeFragment : Fragment(), DataSelection {
         }
     }
 
-    override fun onDateSelected(tag: String, date: String) {
+    override fun onDateSelected(tag: String, date: DateCalendar) {
         when (tag) {
             "departure" -> {
-                binding.etDeparture.setText(date)
+                binding.etDeparture.setText(date.ddMMMyyyy)
+                //val changeFormatDeparture = convertDateFormat(date)
             }
             "return" -> {
-                binding.etReturn.setText(date)
+                binding.etReturn.setText(date.ddMMMyyyy)
+                //val changeFormatReturn = convertDateFormat(date)
             }
         }
     }

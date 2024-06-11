@@ -18,4 +18,8 @@ class FlightDetailActivity : AppCompatActivity() {
             insets
         }
     }
+
+    companion object {
+        const val EXTRA_FLIGHT = "extra_flight"
+    }
 }
