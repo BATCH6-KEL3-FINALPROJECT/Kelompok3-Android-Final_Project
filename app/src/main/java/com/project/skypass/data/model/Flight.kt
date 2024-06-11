@@ -1,5 +1,9 @@
 package com.project.skypass.data.model
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 import java.util.UUID
 
 data class Flight(
@@ -28,4 +32,4 @@ data class Flight(
     val seatClass: String?,
     val seatsAvailable: Int?,
     val terminal: String?
-)
+) : Parcelable

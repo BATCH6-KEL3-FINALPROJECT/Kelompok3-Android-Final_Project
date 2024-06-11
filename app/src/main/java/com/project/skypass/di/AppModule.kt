@@ -6,6 +6,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.project.skypass.BuildConfig
 import com.project.skypass.data.datasource.auth.AuthDataStore
 import com.project.skypass.data.datasource.auth.AuthDataStoreImpl
+import com.project.skypass.data.datasource.flight.FlightDataSource
+import com.project.skypass.data.datasource.flight.FlightDataSourceImpl
 import com.project.skypass.data.datasource.home.favdestination.FavoriteDestinationDataSource
 import com.project.skypass.data.datasource.home.favdestination.FavoriteDestinationDataSourceImpl
 import com.project.skypass.data.datasource.home.seatclass.PriceClassDataSource
@@ -20,6 +22,8 @@ import com.project.skypass.data.datasource.user.UserDataSource
 import com.project.skypass.data.datasource.user.UserDataSourceImpl
 import com.project.skypass.data.repository.auth.AuthRepository
 import com.project.skypass.data.repository.auth.AuthRepositoryImpl
+import com.project.skypass.data.repository.flight.FlightRepository
+import com.project.skypass.data.repository.flight.FlightRepositoryImpl
 import com.project.skypass.data.repository.favoritedestination.FavoriteDestinationRepository
 import com.project.skypass.data.repository.favoritedestination.FavoriteDestinationRepositoryImpl
 import com.project.skypass.data.repository.oauth.OAuthRepository
@@ -51,8 +55,11 @@ import com.project.skypass.presentation.home.search.SearchViewModel
 import com.project.skypass.presentation.profile.ChangeProfileViewModelExample
 import com.project.skypass.presentation.profile.ProfileViewModelExample
 import com.project.skypass.presentation.profile.SettingsAccountViewModel
+import com.project.skypass.presentation.flight.detail.FlightDetailViewModel
+import com.project.skypass.presentation.flight.result.FlightResultViewModel
 import com.project.skypass.utils.SharedPreferenceUtils
 import org.koin.android.ext.koin.androidContext
+import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.core.module.Module
 import org.koin.dsl.module
@@ -112,6 +119,9 @@ object AppModule {
         single<FavoriteDestinationDataSource> {
             FavoriteDestinationDataSourceImpl()
         }
+        single<FlightDataSource> {
+            FlightDataSourceImpl(get())
+        }
     }
 
     private val repositoryModule = module {
@@ -123,6 +133,9 @@ object AppModule {
         }
         single<UserRepository> {
             UserRepositoryImpl(get())
+        }
+        single<FlightRepository> {
+            FlightRepositoryImpl(get())
         }
         single<SeatClassRepository> {
             SeatClassRepositoryImpl(get())
@@ -144,6 +157,12 @@ object AppModule {
         viewModelOf(::SettingsAccountViewModel)
         viewModelOf(::ResetPasswordViewModel)
         viewModelOf(::ForgotPasswordViewModel)
+        viewModelOf(::FlightDetailViewModel)
+        viewModel { params ->
+            FlightResultViewModel(
+                extras = params.get()
+            )
+        }
         viewModelOf(::PassengersViewModel)
         viewModelOf(::FlightClassViewModel)
         viewModelOf(::HomeViewModel)
