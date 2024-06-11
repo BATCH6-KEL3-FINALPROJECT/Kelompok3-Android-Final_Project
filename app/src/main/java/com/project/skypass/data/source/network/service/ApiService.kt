@@ -12,6 +12,7 @@ import com.project.skypass.data.source.network.model.otp.VerifyRequestResponse
 import com.project.skypass.data.source.network.model.register.RegisterRequestResponse
 import com.project.skypass.data.source.network.model.resetpassword.ResetPasswordRequestResponse
 import com.project.skypass.data.source.network.model.resetpassword.ResetPasswordResponse
+import com.project.skypass.data.source.network.model.seat.SeatResponse
 import com.project.skypass.data.source.network.model.user.detailuser.UserResponse
 import com.project.skypass.data.source.network.model.user.edituser.EditUserResponse
 import com.project.skypass.utils.ErrorInterceptor
@@ -98,6 +99,12 @@ interface ApiService {
         @Part image: MultipartBody.Part? = null
     ): EditUserResponse
 
+    @GET("seat/")
+    suspend fun getSeatData(
+        @Query("seat_class") seatClass: String? = null,
+        @Query("flight_id") flightId: String? = null,
+        @Query("page") page: Int? = null
+    ): SeatResponse
 
     companion object {
         @JvmStatic
