@@ -12,6 +12,8 @@ import com.project.skypass.data.source.network.model.otp.VerifyRequestResponse
 import com.project.skypass.data.source.network.model.register.RegisterRequestResponse
 import com.project.skypass.data.source.network.model.resetpassword.ResetPasswordRequestResponse
 import com.project.skypass.data.source.network.model.resetpassword.ResetPasswordResponse
+import com.project.skypass.data.source.network.model.search.SearchItemResponse
+import com.project.skypass.data.source.network.model.search.SearchResponse
 import com.project.skypass.data.source.network.model.seat.SeatResponse
 import com.project.skypass.data.source.network.model.user.detailuser.UserResponse
 import com.project.skypass.data.source.network.model.user.edituser.EditUserResponse
@@ -98,6 +100,12 @@ interface ApiService {
         @Part("password") password: RequestBody,
         @Part image: MultipartBody.Part? = null
     ): EditUserResponse
+
+    @GET("airport/")
+    suspend fun searchDestination(
+        @Query("search") search: String? = null,
+    //): Response<List<SearchItemResponse>?>
+    ): SearchResponse
 
     @GET("seat/")
     suspend fun getSeatData(

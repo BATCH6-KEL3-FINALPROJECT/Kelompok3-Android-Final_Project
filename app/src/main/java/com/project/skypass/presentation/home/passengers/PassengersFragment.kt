@@ -8,7 +8,6 @@ import android.widget.Toast
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.project.skypass.databinding.FragmentPassengersBinding
 import com.project.skypass.presentation.customview.DataSelection
-import com.project.skypass.presentation.home.HomeFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class PassengersFragment : BottomSheetDialogFragment() {

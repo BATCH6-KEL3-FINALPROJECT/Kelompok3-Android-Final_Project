@@ -12,6 +12,8 @@ import com.project.skypass.data.datasource.oauth.OAuthDataSource
 import com.project.skypass.data.datasource.oauth.OAuthDataSourceImpl
 import com.project.skypass.data.datasource.preference.PrefDataSource
 import com.project.skypass.data.datasource.preference.PrefDataSourceImpl
+import com.project.skypass.data.datasource.search.SearchDataSource
+import com.project.skypass.data.datasource.search.SearchDataSourceImpl
 import com.project.skypass.data.datasource.user.UserDataSource
 import com.project.skypass.data.datasource.user.UserDataSourceImpl
 import com.project.skypass.data.repository.auth.AuthRepository
@@ -20,6 +22,8 @@ import com.project.skypass.data.repository.oauth.OAuthRepository
 import com.project.skypass.data.repository.oauth.OAuthRepositoryImpl
 import com.project.skypass.data.repository.pref.PrefRepository
 import com.project.skypass.data.repository.pref.PrefRepositoryImpl
+import com.project.skypass.data.repository.search.SearchRepository
+import com.project.skypass.data.repository.search.SearchRepositoryImpl
 import com.project.skypass.data.repository.seatclass.SeatClassRepository
 import com.project.skypass.data.repository.seatclass.SeatClassRepositoryImpl
 import com.project.skypass.data.repository.user.UserRepository
@@ -96,6 +100,9 @@ object AppModule {
         single<PriceClassDataSource> {
             PriceClassDataSourceImpl()
         }
+        single<SearchDataSource> {
+            SearchDataSourceImpl(get())
+        }
     }
 
     private val repositoryModule = module {
@@ -110,6 +117,9 @@ object AppModule {
         }
         single<SeatClassRepository> {
             SeatClassRepositoryImpl(get())
+        }
+        single<SearchRepository> {
+            SearchRepositoryImpl(get())
         }
     }
 

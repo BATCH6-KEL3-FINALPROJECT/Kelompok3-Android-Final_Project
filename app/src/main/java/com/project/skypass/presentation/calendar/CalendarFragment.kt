@@ -16,6 +16,7 @@ import com.kizitonwose.calendar.core.firstDayOfWeekFromLocale
 import com.kizitonwose.calendar.view.MonthDayBinder
 import com.kizitonwose.calendar.view.ViewContainer
 import com.project.skypass.R
+import com.project.skypass.data.model.DateCalendar
 import com.project.skypass.databinding.FragmentCalendarBinding
 import com.project.skypass.presentation.customview.DataSelection
 import com.project.skypass.utils.displayText
@@ -39,7 +40,7 @@ class CalendarFragment : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
         setValue()
         calendarView()
-        sendData()
+        //sendData()
     }
 
     private fun setValue() {
@@ -49,14 +50,20 @@ class CalendarFragment : BottomSheetDialogFragment() {
         binding.tvDateReturn.text = currentDateReturn
     }
 
-    private fun sendData() {
+    private fun sendData(date: String) {
         binding.btnCalendar.setOnClickListener {
             val selectedDateDeparture = binding.tvDateDeparture.text.toString()
             val selectedDateReturn = binding.tvDateReturn.text.toString()
+
+            val selectedDateDepartureAll = DateCalendar(selectedDateDeparture, date)
+            val selectedDateReturnAll = DateCalendar(selectedDateReturn, date)
+
+            //val tag = arguments?.getString("tag")
+
             if (tag == "departure") {
-                dateSelection?.onDateSelected(tag ?: "", selectedDateDeparture)
+                dateSelection?.onDateSelected(tag ?: "", selectedDateDepartureAll)
             } else if (tag == "return") {
-                dateSelection?.onDateSelected(tag ?: "", selectedDateReturn)
+                dateSelection?.onDateSelected(tag ?: "", selectedDateReturnAll)
             }
             //dateSelection?.onDateSelected(tag ?: "", selectedDate)
             dismiss()
@@ -76,8 +83,10 @@ class CalendarFragment : BottomSheetDialogFragment() {
                 }
                 container.textView.setOnClickListener {
                     if (tag == "departure") {
+                        sendData(data.date.toString())
                         binding.tvDateDeparture.text = data.date.format(DateTimeFormatter.ofPattern(getString(R.string.format_date)))
                     } else if (tag == "return") {
+                        sendData(data.date.toString())
                         binding.tvDateReturn.text = data.date.format(DateTimeFormatter.ofPattern(getString(R.string.format_date)))
                     }
                 }
