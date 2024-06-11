@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.project.skypass.R
+import com.project.skypass.data.model.Search
 import com.project.skypass.data.model.SeatClass
 import com.project.skypass.databinding.FragmentHomeBinding
 import com.project.skypass.presentation.calendar.CalendarFragment
@@ -47,11 +48,13 @@ class HomeFragment : Fragment(), DataSelection {
         }
         binding.etFromTrip.setOnClickListener {
             val fromTripFragment = SearchFragment()
-            fromTripFragment.show(childFragmentManager, fromTripFragment.tag)
+            fromTripFragment.tripSelection = this@HomeFragment
+            fromTripFragment.show(childFragmentManager, "fromTrip")
         }
         binding.etToTrip.setOnClickListener {
             val toTripFragment = SearchFragment()
-            toTripFragment.show(childFragmentManager, toTripFragment.tag)
+            toTripFragment.tripSelection = this@HomeFragment
+            toTripFragment.show(childFragmentManager, "toTrip")
         }
         binding.etSeatClass.setOnClickListener {
             val seatClassFragment = FlightClassFragment()
@@ -129,6 +132,17 @@ class HomeFragment : Fragment(), DataSelection {
         when (tag) {
             "flightClass" -> {
                 binding.etSeatClass.setText(seatClass.classType)
+            }
+        }
+    }
+
+    override fun onTripSelected(tag: String, trip: Search) {
+        when (tag) {
+            "fromTrip" -> {
+                binding.etFromTrip.setText(trip.city)
+            }
+            "toTrip" -> {
+                binding.etToTrip.setText(trip.city)
             }
         }
     }

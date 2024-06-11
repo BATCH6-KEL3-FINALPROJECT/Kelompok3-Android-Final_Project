@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.project.skypass.data.model.Search
 import com.project.skypass.databinding.FragmentSearchBinding
+import com.project.skypass.presentation.customview.DataSelection
 import com.project.skypass.presentation.home.search.adapter.SearchAdapter
 import com.project.skypass.utils.proceedWhen
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -19,11 +20,18 @@ class SearchFragment : BottomSheetDialogFragment() {
 
     private lateinit var binding: FragmentSearchBinding
     private val searchAdapter by lazy {
-        SearchAdapter {
+        SearchAdapter {selectedTrip ->
             // Handle item click
+            if (tag == "fromTrip") {
+                tripSelection?.onTripSelected(tag ?: "", selectedTrip)
+            } else if (tag == "toTrip") {
+                tripSelection?.onTripSelected(tag ?: "", selectedTrip)
+            }
+            dismiss()
         }
     }
     private val viewModel: SearchViewModel by viewModel()
+    var tripSelection: DataSelection? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,10 +52,6 @@ class SearchFragment : BottomSheetDialogFragment() {
             adapter = this@SearchFragment.searchAdapter
             layoutManager = LinearLayoutManager(requireContext())
         }
-        /*binding.rvSearchNow.apply {
-            layoutManager = LinearLayoutManager(requireContext())
-            adapter = searchAdapter
-        }*/
     }
 
     private fun searchDestination() {
@@ -70,7 +74,6 @@ class SearchFragment : BottomSheetDialogFragment() {
                         doOnError = {
                             binding.rvSearchResult.isVisible = false
                             binding.tvEmptySearchResult.isVisible = true
-                            //Toast.makeText(requireContext(), it.exception.toString(), Toast.LENGTH_SHORT).show()
                         }
                     )
                 }
