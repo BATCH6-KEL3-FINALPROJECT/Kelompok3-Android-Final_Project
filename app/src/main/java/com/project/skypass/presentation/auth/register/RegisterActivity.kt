@@ -78,9 +78,11 @@ class RegisterActivity : AppCompatActivity() {
                 doOnSuccess = {
                     binding.pbLoading.isVisible = false
                     navigateToVerification(email)
-                    val toast = Toast.makeText(this, getString(R.string.text_otp_send_success), Toast.LENGTH_SHORT)
-                    toast.view?.setBackgroundColor(resources.getColor(R.color.colorSuccess))
-                    toast.show()
+                    StyleableToast.makeText(
+                        this,
+                        getString(R.string.text_otp_send_success),
+                        R.style.ToastSuccess
+                    ).show()
                 },
                 doOnError = { error ->
                     when (error.exception?.message) {
