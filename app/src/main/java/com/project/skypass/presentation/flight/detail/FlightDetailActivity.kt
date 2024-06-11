@@ -16,14 +16,11 @@ import com.project.skypass.presentation.flight.detail.adapter.FlightDetailAdapte
 import com.project.skypass.presentation.flight.detail.adapter.OnItemClickedListener
 import com.project.skypass.presentation.flight.filter.FilterFragment
 import com.project.skypass.presentation.flight.result.FlightResultActivity
-import com.project.skypass.presentation.home.flightclass.FlightClassFragment
-import com.project.skypass.utils.displayText
 import com.project.skypass.utils.proceedWhen
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.YearMonth
-import java.time.format.DateTimeFormatter
 
 class FlightDetailActivity : AppCompatActivity() {
     private val binding: ActivityFlightDetailBinding by lazy {
@@ -74,13 +71,12 @@ class FlightDetailActivity : AppCompatActivity() {
     private fun setupCalendarView() {
         val today = LocalDate.now()
         val endOfWeek = today.plusDays(6)
-        val currentMonth = YearMonth.now()
 //        val dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
 
         binding.cvCalender.setup(
-            currentMonth,
-            currentMonth.plusMonths(0),
-            DayOfWeek.entries.first()
+            YearMonth.from(today),
+            YearMonth.from(today),
+            DayOfWeek.from(today)
         )
         binding.cvCalender.scrollToDate(today)
 
@@ -96,8 +92,12 @@ class FlightDetailActivity : AppCompatActivity() {
 
             override fun bind(container: DayViewContainer, day: CalendarDay) {
                 if (day.date in today..endOfWeek) {
-                    container.textView.text = day.date.dayOfMonth.toString() // format(dateFormatter)
-                    container.weekTextView.text = day.date.dayOfWeek.getDisplayName(java.time.format.TextStyle.SHORT, java.util.Locale.getDefault())
+                    container.textView.text =
+                        day.date.dayOfMonth.toString() // format(dateFormatter)
+                    container.weekTextView.text = day.date.dayOfWeek.getDisplayName(
+                        java.time.format.TextStyle.SHORT,
+                        java.util.Locale.getDefault()
+                    )
 
                     container.textView.visibility = View.VISIBLE
                     container.weekTextView.visibility = View.VISIBLE
@@ -115,6 +115,10 @@ class FlightDetailActivity : AppCompatActivity() {
                 doOnSuccess = {
                     binding.rvTicket.isVisible = true
                     binding.pbLoading.isVisible = false
+                    binding.ivEmptyTicket.isVisible = false
+                    binding.tvEmptyTicket.isVisible = false
+                    binding.tvEmptyTicketSub.isVisible = false
+                    binding.btnEditSearch.isVisible = false
                     it.payload?.let { data ->
                         flightDetailAdapter.submitData(data)
                     }
@@ -122,9 +126,17 @@ class FlightDetailActivity : AppCompatActivity() {
                 doOnLoading = {
                     binding.rvTicket.isVisible = false
                     binding.pbLoading.isVisible = true
+                    binding.ivEmptyTicket.isVisible = false
+                    binding.tvEmptyTicket.isVisible = false
+                    binding.tvEmptyTicketSub.isVisible = false
+                    binding.btnEditSearch.isVisible = false
                 },
                 doOnError = {
                     binding.pbLoading.isVisible = false
+                    binding.ivEmptyTicket.isVisible = true
+                    binding.tvEmptyTicket.isVisible = true
+                    binding.tvEmptyTicketSub.isVisible = true
+                    binding.btnEditSearch.isVisible = true
                 },
             )
         }
