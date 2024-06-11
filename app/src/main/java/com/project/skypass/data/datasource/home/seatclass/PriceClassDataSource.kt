@@ -1,4 +1,4 @@
-package com.project.skypass.data.datasource.home
+package com.project.skypass.data.datasource.home.seatclass
 
 import com.project.skypass.data.model.SeatClass
 

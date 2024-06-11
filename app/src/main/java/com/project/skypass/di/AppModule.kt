@@ -6,8 +6,10 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.project.skypass.BuildConfig
 import com.project.skypass.data.datasource.auth.AuthDataStore
 import com.project.skypass.data.datasource.auth.AuthDataStoreImpl
-import com.project.skypass.data.datasource.home.PriceClassDataSource
-import com.project.skypass.data.datasource.home.PriceClassDataSourceImpl
+import com.project.skypass.data.datasource.home.favdestination.FavoriteDestinationDataSource
+import com.project.skypass.data.datasource.home.favdestination.FavoriteDestinationDataSourceImpl
+import com.project.skypass.data.datasource.home.seatclass.PriceClassDataSource
+import com.project.skypass.data.datasource.home.seatclass.PriceClassDataSourceImpl
 import com.project.skypass.data.datasource.oauth.OAuthDataSource
 import com.project.skypass.data.datasource.oauth.OAuthDataSourceImpl
 import com.project.skypass.data.datasource.preference.PrefDataSource
@@ -18,6 +20,8 @@ import com.project.skypass.data.datasource.user.UserDataSource
 import com.project.skypass.data.datasource.user.UserDataSourceImpl
 import com.project.skypass.data.repository.auth.AuthRepository
 import com.project.skypass.data.repository.auth.AuthRepositoryImpl
+import com.project.skypass.data.repository.favoritedestination.FavoriteDestinationRepository
+import com.project.skypass.data.repository.favoritedestination.FavoriteDestinationRepositoryImpl
 import com.project.skypass.data.repository.oauth.OAuthRepository
 import com.project.skypass.data.repository.oauth.OAuthRepositoryImpl
 import com.project.skypass.data.repository.pref.PrefRepository
@@ -103,6 +107,9 @@ object AppModule {
         single<SearchDataSource> {
             SearchDataSourceImpl(get())
         }
+        single<FavoriteDestinationDataSource> {
+            FavoriteDestinationDataSourceImpl()
+        }
     }
 
     private val repositoryModule = module {
@@ -120,6 +127,9 @@ object AppModule {
         }
         single<SearchRepository> {
             SearchRepositoryImpl(get())
+        }
+        single<FavoriteDestinationRepository> {
+            FavoriteDestinationRepositoryImpl(get())
         }
     }
 

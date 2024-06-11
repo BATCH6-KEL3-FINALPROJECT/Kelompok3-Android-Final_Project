@@ -1,6 +1,5 @@
 package com.project.skypass.presentation.home
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,22 +7,19 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.navigation.Navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.project.skypass.R
 import com.project.skypass.data.model.DateCalendar
-import com.project.skypass.data.model.FormHome
+import com.project.skypass.data.model.Destination
 import com.project.skypass.data.model.Search
 import com.project.skypass.data.model.SeatClass
 import com.project.skypass.databinding.FragmentHomeBinding
 import com.project.skypass.presentation.calendar.CalendarFragment
 import com.project.skypass.presentation.customview.DataSelection
 import com.project.skypass.presentation.flight.detail.FlightDetailActivity
-import com.project.skypass.presentation.flight.result.FlightResultActivity
 import com.project.skypass.presentation.home.flightclass.FlightClassFragment
 import com.project.skypass.presentation.home.passengers.PassengersFragment
 import com.project.skypass.presentation.home.search.SearchFragment
-import com.project.skypass.utils.convertDateFormat
 
 class HomeFragment : Fragment(), DataSelection {
 
@@ -59,14 +55,16 @@ class HomeFragment : Fragment(), DataSelection {
         val toTrip = binding.etToTrip.text.toString()
         val seatClass = binding.etSeatClass.text.toString()
 
-        val formHome = FormHome(
+        val formHome = Destination(
             isRoundTrip = binding.rbRoundTrip.isChecked,
             from = fromTrip,
             to = toTrip,
             departureDate = formatDateDepartureIntent ?: "",
             returnDate = formatDateReturnIntent ?: "",
             passengers = passengers ?: "",
-            seatClass = seatClass
+            seatClass = seatClass,
+            discount = 0,
+            price = 0.0
         )
         Log.d("formHome", formHome.toString())
 
