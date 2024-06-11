@@ -29,6 +29,10 @@ class HomeFragment : Fragment(), DataSelection {
 
     private lateinit var binding: FragmentHomeBinding
 
+    private var formatDateDepartureIntent: String? = null
+    private var formatDateReturnIntent: String? = null
+    private var passengers: String? = null
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
@@ -53,20 +57,15 @@ class HomeFragment : Fragment(), DataSelection {
     private fun moveToFlight() {
         val fromTrip = binding.etFromTrip.text.toString()
         val toTrip = binding.etToTrip.text.toString()
-        val departureDate = binding.etDeparture.text.toString()
-        val changeFormatDeparture = convertDateFormat(departureDate)
-        val returnDate = binding.etReturn.text.toString()
-        val changeFormatReturn = convertDateFormat(returnDate)
-        val passengers = binding.etPassengers.text.toString().toIntOrNull() ?: 0
         val seatClass = binding.etSeatClass.text.toString()
 
         val formHome = FormHome(
             isRoundTrip = binding.rbRoundTrip.isChecked,
             from = fromTrip,
             to = toTrip,
-            departureDate = changeFormatDeparture,
-            returnDate = changeFormatReturn,
-            passengers = passengers,
+            departureDate = formatDateDepartureIntent ?: "",
+            returnDate = formatDateReturnIntent ?: "",
+            passengers = passengers ?: "",
             seatClass = seatClass
         )
         Log.d("formHome", formHome.toString())
@@ -149,11 +148,11 @@ class HomeFragment : Fragment(), DataSelection {
         when (tag) {
             "departure" -> {
                 binding.etDeparture.setText(date.ddMMMyyyy)
-                //val changeFormatDeparture = convertDateFormat(date)
+                formatDateDepartureIntent = date.ddMMyyyy
             }
             "return" -> {
                 binding.etReturn.setText(date.ddMMMyyyy)
-                //val changeFormatReturn = convertDateFormat(date)
+                formatDateReturnIntent = date.ddMMyyyy
             }
         }
     }
@@ -162,6 +161,7 @@ class HomeFragment : Fragment(), DataSelection {
         when (tag) {
             "passengers" -> {
                 binding.etPassengers.setText(getString(R.string.passengers_qyt_value, passenger))
+                passengers = passenger
             }
         }
     }

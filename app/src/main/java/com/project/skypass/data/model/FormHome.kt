@@ -10,6 +10,6 @@ data class FormHome(
     val to: String,
     val departureDate: String,
     val returnDate: String,
-    val passengers: Int,
+    val passengers: String,
     val seatClass: String
 ): Parcelable
