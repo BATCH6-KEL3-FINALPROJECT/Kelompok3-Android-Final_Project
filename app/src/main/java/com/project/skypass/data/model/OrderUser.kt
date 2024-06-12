@@ -1,0 +1,38 @@
+package com.project.skypass.data.model
+
+import java.util.UUID
+
+data class OrderUser (
+    var id: Int? = null,
+    val airlineCode: String?,
+    val airlineName: String?,
+    val arrivalAirportName: String?,
+    val arrivalCity: String?,
+    val arrivalDate: String?,
+    val arrivalIATACode: String?,
+    val arrivalTime: String?,
+    val departureAirportName: String?,
+    val departureCity: String?,
+    val departureDate: String?,
+    val departureIATACode: String?,
+    val departureTime: String?,
+    val flightCode: String?,
+    val flightDescription: String?,
+    val flightDuration: Int?,
+    val flightId: String?,
+    val flightStatus: String?,
+    val planeType: String?,
+    val priceAdult: Int?,
+    val priceBaby: Int?,
+    val priceChild: Int?,
+    val priceTotal: Int?,
+    val seatClass: String?,
+    val seatsAvailable: Int?,
+    val terminal: String?,
+    val orderDate: String?,
+    val passengersTotal: Int?,
+    val passengersAdult: Int?,
+    val passengersChild: Int?,
+    val passengersBaby: Int?,
+    val flightSeat: String?,
+)

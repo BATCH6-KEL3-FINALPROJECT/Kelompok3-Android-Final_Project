@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.project.skypass.R
 import com.project.skypass.data.model.DateCalendar
 import com.project.skypass.data.model.Destination
+import com.project.skypass.data.model.OrderUser
 import com.project.skypass.data.model.Search
 import com.project.skypass.data.model.SeatClass
 import com.project.skypass.databinding.FragmentHomeBinding
@@ -67,29 +68,57 @@ class HomeFragment : Fragment(), DataSelection {
     }
 
     private fun moveToFlight() {
-        val fromTrip = binding.etFromTrip.text.toString()
-        val toTrip = binding.etToTrip.text.toString()
-        val seatClass = binding.etSeatClass.text.toString()
+            FlightDetailActivity.startActivity(
+                requireContext(),
+                OrderUser(
+                    id = null,
+                    airlineCode = "",
+                    airlineName = "",
+                    arrivalAirportName = "",
 
-        val formHome = Destination(
-            isRoundTrip = binding.rbRoundTrip.isChecked,
-            from = fromTrip,
-            to = toTrip,
-            departureDate = formatDateDepartureIntent ?: "",
-            returnDate = formatDateReturnIntent ?: "",
-            passengers = passengers ?: "",
-            seatClass = seatClass,
-            discount = "",
-            price = 0.0,
-            airline = "",
-            imageUrl = ""
-        )
-        Log.d("formHome", formHome.toString())
+
+
+
+                ),
+            )
 
         val navController = findNavController()
         val bundleActivityDetailFlight = bundleOf(Pair(FlightDetailActivity.EXTRA_FLIGHT, formHome))
         navController.navigate(R.id.action_menu_tab_home_to_flightDetailActivity, bundleActivityDetailFlight)
     }
+
+    id: Int? = null,
+    val airlineCode: String?,
+    val airlineName: String?,
+    val arrivalAirportName: String?,
+    val arrivalCity: String?,
+    val arrivalDate: String?,
+    val arrivalIATACode: String?,
+    val arrivalTime: String?,
+    val departureAirportName: String?,
+    val departureCity: String?,
+    val departureDate: String?,
+    val departureIATACode: String?,
+    val departureTime: String?,
+    val flightCode: String?,
+    val flightDescription: String?,
+    val flightDuration: Int?,
+    val flightId: String?,
+    val flightStatus: String?,
+    val planeType: String?,
+    val priceAdult: Int?,
+    val priceBaby: Int?,
+    val priceChild: Int?,
+    val priceTotal: Int?,
+    val seatClass: String?,
+    val seatsAvailable: Int?,
+    val terminal: String?,
+    val orderDate: String?,
+    val passengersTotal: Int?,
+    val passengersAdult: Int?,
+    val passengersChild: Int?,
+    val passengersBaby: Int?,
+    val flightSeat: String?,
 
     private fun clickListener() {
         binding.etPassengers.setOnClickListener {
@@ -200,5 +229,7 @@ class HomeFragment : Fragment(), DataSelection {
             }
         }
     }
+
+
 
 }
