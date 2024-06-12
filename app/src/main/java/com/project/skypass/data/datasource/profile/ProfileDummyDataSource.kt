@@ -13,7 +13,12 @@ class ProfileDummyDataSource : ProfileDataSource {
                 role = "User",
                 token = "dummyToken12345",
                 photoUrl = "https://sites.uci.edu/sbass/files/2022/05/AF7A55DF-ABEE-4850-B93D-846C75426F32-400x400.png",
-                password = null
+                password = null,
+                userId = null,
+                imageId = null,
+                createdAt = null,
+                updatedAt = null,
+                isVerified = true
             )
         )
     }
