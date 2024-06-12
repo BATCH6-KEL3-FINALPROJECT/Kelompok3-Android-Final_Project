@@ -196,5 +196,7 @@
     <string name="text_title_doalog_passegers_home">Jumlah Penumpang</string>
     <string name="text_title_doalog_calender">Atur Tanggal</string>
     <string name="text_button_spalshscreen">Next</string>
+    <string name="from_to">%1$s - %2$s</string>
+    <string name="idr_rp_fav_des">IDR Rp.%1$s</string>
 
 </resources>

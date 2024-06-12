@@ -17,13 +17,21 @@ import com.project.skypass.databinding.FragmentHomeBinding
 import com.project.skypass.presentation.calendar.CalendarFragment
 import com.project.skypass.presentation.customview.DataSelection
 import com.project.skypass.presentation.flight.detail.FlightDetailActivity
+import com.project.skypass.presentation.home.adapter.FavoriteDestinationAdapter
 import com.project.skypass.presentation.home.flightclass.FlightClassFragment
 import com.project.skypass.presentation.home.passengers.PassengersFragment
 import com.project.skypass.presentation.home.search.SearchFragment
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeFragment : Fragment(), DataSelection {
 
     private lateinit var binding: FragmentHomeBinding
+    private val viewModel: HomeViewModel by viewModel()
+    private val favoriteDestinationAdapter: FavoriteDestinationAdapter by lazy {
+        FavoriteDestinationAdapter{
+
+        }
+    }
 
     private var formatDateDepartureIntent: String? = null
     private var formatDateReturnIntent: String? = null
@@ -42,6 +50,14 @@ class HomeFragment : Fragment(), DataSelection {
 
         clickListener()
         sendData()
+        bindSeatClass(viewModel.getFavoriteDestination())
+    }
+
+    private fun bindSeatClass(favDestination: List<Destination>) {
+        binding.rvFavoriteDestination.apply {
+            adapter = favoriteDestinationAdapter
+        }
+        favoriteDestinationAdapter.submitData(favDestination)
     }
 
     private fun sendData() {
@@ -63,8 +79,10 @@ class HomeFragment : Fragment(), DataSelection {
             returnDate = formatDateReturnIntent ?: "",
             passengers = passengers ?: "",
             seatClass = seatClass,
-            discount = 0,
-            price = 0.0
+            discount = "",
+            price = 0.0,
+            airline = "",
+            imageUrl = ""
         )
         Log.d("formHome", formHome.toString())
 

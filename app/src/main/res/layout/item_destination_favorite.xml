@@ -32,7 +32,7 @@
             android:background="@drawable/bg_label_discount"
             android:paddingHorizontal="8dp"
             android:paddingVertical="4dp"
-            android:text="Limited"
+            tools:text="Limited"
             android:textColor="#FFFFFF"
             android:textSize="10sp"
             app:layout_constraintEnd_toEndOf="@+id/iv_destination_favorite"
