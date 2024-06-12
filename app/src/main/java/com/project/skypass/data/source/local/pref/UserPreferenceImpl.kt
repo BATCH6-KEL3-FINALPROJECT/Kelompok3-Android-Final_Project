@@ -46,6 +46,10 @@ class UserPreferenceImpl(private val pref: SharedPreferences): UserPreference {
         pref[KEY_IS_USING_DARK_MODE] = isUsingDarkMode
     }
 
+    override fun clearAll(){
+        pref.edit().clear().apply()
+    }
+
     companion object {
         const val TAG = "User Preferences"
         const val PREF_NANE = "flightapp-pref"

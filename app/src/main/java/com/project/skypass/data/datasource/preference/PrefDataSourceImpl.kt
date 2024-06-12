@@ -34,4 +34,7 @@ class PrefDataSourceImpl(private val userPreference: UserPreference): PrefDataSo
     override fun setToken(token: String) {
         return userPreference.setToken(token)
     }
+    override fun clearAll() {
+        userPreference.clearAll()
+    }
 }

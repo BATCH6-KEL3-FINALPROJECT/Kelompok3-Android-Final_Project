@@ -4,14 +4,19 @@ import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
+import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import com.project.skypass.R
+import com.project.skypass.core.BaseActivity
 import com.project.skypass.databinding.ActivityMainBinding
+import com.project.skypass.presentation.LoginBottomSheetFragment
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 @Suppress("DEPRECATION")
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
+
+    private val viewModel: MainViewModel by viewModel()
 
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
 
@@ -24,6 +29,24 @@ class MainActivity : AppCompatActivity() {
     private fun setBottomNav() {
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
         binding.navBottomView.setupWithNavController(navController)
+        binding.navBottomView.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.menu_tab_profile,
+                R.id.menu_tab_home,
+                R.id.menu_tab_history,
+                R.id.menu_tab_notification -> {
+                    if (!viewModel.isUserLoggedIn()) {
+                        showLoginBottomSheet()
+                        false
+                    } else {
+                        NavigationUI.onNavDestinationSelected(item, navController)
+                    }
+                }
+                else -> {
+                    NavigationUI.onNavDestinationSelected(item, navController)
+                }
+            }
+        }
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.menu_tab_home -> {
@@ -31,7 +54,6 @@ class MainActivity : AppCompatActivity() {
                     window.statusBarColor = getColor(R.color.colorNavbar)
                 }
                 else -> {
-                    //window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
                     window.decorView.systemUiVisibility = if (isNightMode()) {
                         View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                     } else {
@@ -46,5 +68,10 @@ class MainActivity : AppCompatActivity() {
     private fun isNightMode(): Boolean {
         val currentNightMode = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
         return currentNightMode == Configuration.UI_MODE_NIGHT_YES
+    }
+
+    private fun showLoginBottomSheet() {
+        val loginBottomSheet = LoginBottomSheetFragment()
+        loginBottomSheet.show(supportFragmentManager, loginBottomSheet.tag)
     }
 }
