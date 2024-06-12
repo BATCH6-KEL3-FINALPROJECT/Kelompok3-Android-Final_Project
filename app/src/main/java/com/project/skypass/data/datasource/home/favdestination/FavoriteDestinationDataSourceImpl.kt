@@ -13,8 +13,10 @@ class FavoriteDestinationDataSourceImpl: FavoriteDestinationDataSource {
                 returnDate = "2024-08-10",
                 passengers = "1",
                 seatClass = "Economy",
-                discount = 50,
+                discount = "50%",
                 price = 1000000.0,
+                imageUrl = "https://assets.promediateknologi.id/crop/0x0:0x0/750x500/webp/photo/2023/05/07/WhatsApp-Image-2023-05-07-at-012334-1601479826.jpeg",
+                airline = "AirAsia"
             ),
             Destination(
                 isRoundTrip = true,
@@ -24,8 +26,10 @@ class FavoriteDestinationDataSourceImpl: FavoriteDestinationDataSource {
                 returnDate = "2024-08-11",
                 passengers = "1",
                 seatClass = "Economy",
-                discount = 0,
+                discount = "50%",
                 price = 2000000.0,
+                imageUrl = "https://assets.promediateknologi.id/crop/0x0:0x0/750x500/webp/photo/2023/05/07/WhatsApp-Image-2023-05-07-at-012334-1601479826.jpeg",
+                airline = "AirAsia"
             ),
             Destination(
                 isRoundTrip = true,
@@ -35,8 +39,10 @@ class FavoriteDestinationDataSourceImpl: FavoriteDestinationDataSource {
                 returnDate = "2024-08-12",
                 passengers = "1",
                 seatClass = "Economy",
-                discount = 0,
+                discount = "Limited",
                 price = 3000000.0,
+                imageUrl = "https://assets.promediateknologi.id/crop/0x0:0x0/750x500/webp/photo/2023/05/07/WhatsApp-Image-2023-05-07-at-012334-1601479826.jpeg",
+                airline = "AirAsia"
             )
         )
     }
