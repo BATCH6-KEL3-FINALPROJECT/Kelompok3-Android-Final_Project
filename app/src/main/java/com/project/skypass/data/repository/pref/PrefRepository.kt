@@ -9,4 +9,7 @@ interface PrefRepository {
 
     fun getToken(): String
     fun setToken(token: String)
+
+    fun getUserID(): String
+    fun setUserID(userID: String)
 }

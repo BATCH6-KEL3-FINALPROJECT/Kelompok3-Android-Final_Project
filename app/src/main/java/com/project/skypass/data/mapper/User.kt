@@ -19,3 +19,4 @@ fun UserItemResponse?.toUser() =
         isVerified = this?.is_verified
     )
 
+fun Collection<UserItemResponse>?.toUserData() = this?.map { it.toUser() } ?: listOf()

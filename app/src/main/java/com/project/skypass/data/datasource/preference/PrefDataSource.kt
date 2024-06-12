@@ -7,6 +7,9 @@ interface PrefDataSource {
     fun isLogin(): Boolean
     fun setLogin(isLogin: Boolean)
 
+    fun getUserID(): String
+    fun setUserID(userID: String)
+
     fun getToken(): String
     fun setToken(token: String)
 

@@ -14,6 +14,7 @@ import com.project.skypass.presentation.auth.login.LoginViewModel.Companion.RC_S
 import com.project.skypass.presentation.auth.register.RegisterActivity
 import com.project.skypass.presentation.auth.resetpassword.ResetPasswordActivity
 import com.project.skypass.presentation.main.MainActivity
+import com.project.skypass.utils.decodeJWT
 import com.project.skypass.utils.proceedWhen
 import io.github.muddz.styleabletoast.StyleableToast
 import kotlinx.coroutines.delay
@@ -148,6 +149,8 @@ class LoginActivity : AppCompatActivity() {
     private fun setLoginPref(token: String) {
         viewModel.setToken(token)
         viewModel.setLogin(true)
+        //val userId = decodeJWT(token)
+        viewModel.setUserID(token)
     }
 
     private fun navigateToMain() {

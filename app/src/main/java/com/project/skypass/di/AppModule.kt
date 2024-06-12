@@ -6,8 +6,10 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.project.skypass.BuildConfig
 import com.project.skypass.data.datasource.auth.AuthDataStore
 import com.project.skypass.data.datasource.auth.AuthDataStoreImpl
-import com.project.skypass.data.datasource.home.PriceClassDataSource
-import com.project.skypass.data.datasource.home.PriceClassDataSourceImpl
+import com.project.skypass.data.datasource.home.favdestination.FavoriteDestinationDataSource
+import com.project.skypass.data.datasource.home.favdestination.FavoriteDestinationDataSourceImpl
+import com.project.skypass.data.datasource.home.seatclass.PriceClassDataSource
+import com.project.skypass.data.datasource.home.seatclass.PriceClassDataSourceImpl
 import com.project.skypass.data.datasource.oauth.OAuthDataSource
 import com.project.skypass.data.datasource.oauth.OAuthDataSourceImpl
 import com.project.skypass.data.datasource.preference.PrefDataSource
@@ -18,6 +20,8 @@ import com.project.skypass.data.datasource.user.UserDataSource
 import com.project.skypass.data.datasource.user.UserDataSourceImpl
 import com.project.skypass.data.repository.auth.AuthRepository
 import com.project.skypass.data.repository.auth.AuthRepositoryImpl
+import com.project.skypass.data.repository.favoritedestination.FavoriteDestinationRepository
+import com.project.skypass.data.repository.favoritedestination.FavoriteDestinationRepositoryImpl
 import com.project.skypass.data.repository.oauth.OAuthRepository
 import com.project.skypass.data.repository.oauth.OAuthRepositoryImpl
 import com.project.skypass.data.repository.pref.PrefRepository
@@ -44,6 +48,8 @@ import com.project.skypass.presentation.home.HomeViewModel
 import com.project.skypass.presentation.home.flightclass.FlightClassViewModel
 import com.project.skypass.presentation.home.passengers.PassengersViewModel
 import com.project.skypass.presentation.home.search.SearchViewModel
+import com.project.skypass.presentation.profile.ChangeProfileViewModelExample
+import com.project.skypass.presentation.profile.ProfileViewModelExample
 import com.project.skypass.presentation.profile.SettingsAccountViewModel
 import com.project.skypass.utils.SharedPreferenceUtils
 import org.koin.android.ext.koin.androidContext
@@ -95,13 +101,16 @@ object AppModule {
             AuthDataStoreImpl(get())
         }
         single<UserDataSource> {
-            UserDataSourceImpl(get())
+            UserDataSourceImpl(get(),get())
         }
         single<PriceClassDataSource> {
             PriceClassDataSourceImpl()
         }
         single<SearchDataSource> {
             SearchDataSourceImpl(get())
+        }
+        single<FavoriteDestinationDataSource> {
+            FavoriteDestinationDataSourceImpl()
         }
     }
 
@@ -121,6 +130,9 @@ object AppModule {
         single<SearchRepository> {
             SearchRepositoryImpl(get())
         }
+        single<FavoriteDestinationRepository> {
+            FavoriteDestinationRepositoryImpl(get())
+        }
     }
 
     private val viewModelModule = module {
@@ -136,6 +148,8 @@ object AppModule {
         viewModelOf(::FlightClassViewModel)
         viewModelOf(::HomeViewModel)
         viewModelOf(::SearchViewModel)
+        viewModelOf(::ChangeProfileViewModelExample)
+        viewModelOf(::ProfileViewModelExample)
     }
 
     val module = listOf<Module>(

@@ -19,6 +19,14 @@ class PrefDataSourceImpl(private val userPreference: UserPreference): PrefDataSo
         return userPreference.setLogin(isLogin)
     }
 
+    override fun getUserID(): String {
+        return userPreference.getUserID()
+    }
+
+    override fun setUserID(userID: String) {
+        return userPreference.setUserID(userID)
+    }
+
     override fun getToken(): String {
         return userPreference.getToken()
     }

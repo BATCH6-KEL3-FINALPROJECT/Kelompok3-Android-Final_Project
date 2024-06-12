@@ -28,6 +28,7 @@ import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Multipart
+import retrofit2.http.PATCH
 import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Part
@@ -90,14 +91,14 @@ interface ApiService {
     ): UserResponse
 
     @Multipart
-    @PUT("user/{id}")
+    @PATCH("user/{id}")
     suspend fun updateUserData(
         @Header("Authorization") token: String,
         @Path("userId") userId: String,
-        @Part("name") name: RequestBody,
-        @Part("email") email: RequestBody,
-        @Part("phone_number") phoneNumber: RequestBody,
-        @Part("password") password: RequestBody,
+        @Part("name") name: RequestBody? = null,
+        @Part("email") email: RequestBody? = null,
+        @Part("phone_number") phoneNumber: RequestBody? = null,
+        @Part("password") password: RequestBody? = null,
         @Part image: MultipartBody.Part? = null
     ): EditUserResponse
 
