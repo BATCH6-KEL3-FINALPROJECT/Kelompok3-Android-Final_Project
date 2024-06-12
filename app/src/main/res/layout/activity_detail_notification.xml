@@ -12,13 +12,13 @@
     <LinearLayout
         android:id="@+id/toolbar_detail_notification"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/darkpurple"
+        android:layout_height="50dp"
+        android:background="?attr/colorPrimary"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:orientation="horizontal"
-        android:padding="10dp">
+        android:paddingHorizontal="16dp">
 
 
         <ImageView
@@ -26,6 +26,7 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:padding="4dp"
+            android:layout_gravity="center_vertical"
             android:src="@drawable/ic_back_2"
             app:tint="@color/md_theme_onPrimary"
             android:background="@drawable/bg_icon_round"
@@ -35,9 +36,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginStart="18dp"
+            android:layout_marginStart="12dp"
             android:text="@string/text_toolbar_notification"
-            android:textColor="@android:color/white"
+            android:textColor="?attr/colorSurface"
             android:textStyle="bold"
             android:textSize="14sp" />
 
