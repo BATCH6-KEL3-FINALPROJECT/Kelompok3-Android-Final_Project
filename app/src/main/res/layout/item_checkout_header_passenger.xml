@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/bg_header_checkout"
     android:layout_marginTop="8dp"
-    android:layout_marginHorizontal="16dp"
+    android:layout_marginHorizontal="8dp"
     android:layout_height="wrap_content">
 
     <TextView
@@ -15,12 +15,12 @@
 
         android:layout_marginStart="18dp"
         android:text="@string/title_form_data_passenger"
-        android:textStyle="normal"
-        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:textColor="?attr/colorSurface"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:textSize="16sp"
+        android:textSize="14sp"
         >
 
     </TextView>

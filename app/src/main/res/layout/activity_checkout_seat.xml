@@ -8,9 +8,9 @@
     <LinearLayout
         android:id="@+id/toolbar_Seat_checkout"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="50dp"
         android:gravity="center"
-        android:background="@color/darkpurple"
+        android:background="?attr/colorPrimary"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -29,12 +29,12 @@
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:text="@string/text_toolbar_checkout_seat"
             android:textStyle="bold"
-            android:gravity="center"
-            android:textColor="@android:color/white"
-            android:textSize="18sp" />
+            android:layout_marginStart="20dp"
+            android:textColor="?attr/colorSurface"
+            android:textSize="16sp" />
 
     </LinearLayout>
 

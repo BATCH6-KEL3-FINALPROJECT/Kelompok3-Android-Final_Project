@@ -11,7 +11,7 @@
         android:id="@+id/toolbar_passenger_checkout"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/darkpurple"
+        android:background="?attr/colorPrimary"
         android:orientation="horizontal"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -34,13 +34,14 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:text="@string/text_toolbar_checkout_passenger"
             android:textStyle="bold"
+            android:layout_gravity="center"
             android:gravity="center_horizontal"
-            android:textColor="@android:color/white"
-            android:textSize="18sp" />
+            android:textColor="?attr/colorSurface"
+            android:textSize="16sp" />
 
     </LinearLayout>
 
@@ -60,6 +61,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_passenger_data"
                 android:layout_width="match_parent"
+                android:paddingBottom="150dp"
                 android:layout_height="wrap_content"/>
 
         </androidx.core.widget.NestedScrollView>
@@ -68,7 +70,7 @@
     <Button
         app:backgroundTint="@null"
         android:id="@+id/btnSubmit"
-        android:padding="14dp"
+        android:padding="8dp"
         android:layout_margin="20dp"
         android:textAllCaps="false"
         android:text="@string/button_checkout_passenger"

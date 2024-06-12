@@ -27,62 +27,63 @@ class CheckoutDetailActivity : AppCompatActivity() {
         setClickListeners()
     }
     private fun setClickListeners() {
-//        onclick binding
+        binding.btnBack.setOnClickListener {
+            onBackPressed()
+        }
     }
     private fun observeResult(){
 //        observe view model
     }
     private fun getArgumentData() {
         intent.extras?.getParcelable<OrderUser>(EXTRA_FLIGHT)?. let {
-            sendOrderData(it)
             setProfileData(it)
+            sendOrderData(it)
+
         }
     }
     private fun setProfileData(item: OrderUser) {
         binding.apply {
-            binding.tvTotalPrice.text = item.priceTotal.toIndonesianFormat()
-            binding.rvTicketDetail.tvAirportDeparture.text = item.departureAirportName
-            binding.rvTicketDetail.tvAirportArrival.text = item.arrivalAirportName
-            binding.rvTicketDetail.tvAirline.text = item.airlineName
-            binding.rvTicketDetail.tvCityDeparture.text = item.departureCity
-            binding.rvTicketDetail.tvCityArrival.text = item.arrivalCity
-            binding.rvTicketDetail.tvDateDeparture.text = item.flightDepartureDate
-            binding.rvTicketDetail.tvDateArrival.text = item.flightArrivalDate
-            binding.rvTicketDetail.tvTimeDeparture.text = item.departureTime
-            binding.rvTicketDetail.tvTimeArrival.text = item.arrivalTime
-            binding.rvTicketDetail.tvInfoDetail.text = item.flightDescription
-            binding.rvTicketDetail.tvFlightCode.text = item.flightCode
-
-
             if (item.isRoundTrip == false && item.supportRoundTrip == true) {
-                binding.tvTotalPrice.text = (item.priceTotal?.plus(item.priceTotalRoundTrip!!)).toIndonesianFormat()
+                tvTotalPrice.text = (item.priceTotal?.plus(item.priceTotalRoundTrip!!)).toIndonesianFormat()
                 // change departure to arrival
-                binding.rvTicketDetail.tvAirportDeparture.text = item.departureAirportNameRoundTrip
-                binding.rvTicketDetail.tvAirportArrival.text = item.arrivalAirportNameRoundTrip
-                binding.rvTicketDetail.tvAirline.text = item.airlineNameRoundTrip
-                binding.rvTicketDetail.tvCityDeparture.text = item.arrivalCity
-                binding.rvTicketDetail.tvCityArrival.text = item.departureCity
-                binding.rvTicketDetail.tvDateDeparture.text = item.flightDepartureDateRoundTrip
-                binding.rvTicketDetail.tvDateArrival.text = item.flightArrivalDateRoundTrip
-                binding.rvTicketDetail.tvTimeDeparture.text = item.departureTimeRoundTrip
-                binding.rvTicketDetail.tvTimeArrival.text = item.arrivalTimeRoundTrip
-                binding.rvTicketDetail.tvInfoDetail.text = item.flightDescriptionRoundTrip
-                binding.rvTicketDetail.tvFlightCode.text = item.flightCodeRoundTrip
+                rvTicketDetail.tvAirportDeparture.text = item.departureAirportNameRoundTrip
+                rvTicketDetail.tvAirportArrival.text = item.arrivalAirportNameRoundTrip
+                rvTicketDetail.tvAirline.text = item.airlineNameRoundTrip
+                rvTicketDetail.tvCityDeparture.text = item.arrivalCity
+                rvTicketDetail.tvCityArrival.text = item.departureCity
+                rvTicketDetail.tvDateDeparture.text = item.flightDepartureDateRoundTrip
+                rvTicketDetail.tvDateArrival.text = item.flightArrivalDateRoundTrip
+                rvTicketDetail.tvTimeDeparture.text = item.departureTimeRoundTrip
+                rvTicketDetail.tvTimeArrival.text = item.arrivalTimeRoundTrip
+                rvTicketDetail.tvInfoDetail.text = item.flightDescriptionRoundTrip
+                rvTicketDetail.tvFlightCode.text = item.flightCodeRoundTrip
 
-                binding.rvTicketDetailRound.tvAirportDeparture.text = item.departureAirportName
-                binding.rvTicketDetailRound.tvAirportArrival.text = item.arrivalAirportName
-                binding.rvTicketDetailRound.tvAirline.text = item.airlineName
-                binding.rvTicketDetailRound.tvCityDeparture.text = item.departureCity
-                binding.rvTicketDetailRound.tvCityArrival.text = item.arrivalCity
-                binding.rvTicketDetailRound.tvDateDeparture.text = item.flightDepartureDate
-                binding.rvTicketDetailRound.tvDateArrival.text = item.flightArrivalDate
-                binding.rvTicketDetailRound.tvTimeDeparture.text = item.departureTime
-                binding.rvTicketDetailRound.tvTimeArrival.text = item.arrivalTime
-                binding.rvTicketDetailRound.tvInfoDetail.text = item.flightDescription
-                binding.rvTicketDetailRound.tvFlightCode.text = item.flightCode
-                binding.rvTicketDetailRound.root.isVisible = true
+                rvTicketDetailRound.tvAirportDeparture.text = item.departureAirportName
+                rvTicketDetailRound.tvAirportArrival.text = item.arrivalAirportName
+                rvTicketDetailRound.tvAirline.text = item.airlineName
+                rvTicketDetailRound.tvCityDeparture.text = item.departureCity
+                rvTicketDetailRound.tvCityArrival.text = item.arrivalCity
+                rvTicketDetailRound.tvDateDeparture.text = item.flightDepartureDate
+                rvTicketDetailRound.tvDateArrival.text = item.flightArrivalDate
+                rvTicketDetailRound.tvTimeDeparture.text = item.departureTime
+                rvTicketDetailRound.tvTimeArrival.text = item.arrivalTime
+                rvTicketDetailRound.tvInfoDetail.text = item.flightDescription
+                rvTicketDetailRound.tvFlightCode.text = item.flightCode
+                rvTicketDetailRound.root.isVisible = true
             }else{
-                binding.rvTicketDetailRound.root.isVisible = false
+                rvTicketDetailRound.root.isVisible = false
+                tvTotalPrice.text = item.priceTotal.toIndonesianFormat()
+                rvTicketDetail.tvAirportDeparture.text = item.departureAirportName
+                rvTicketDetail.tvAirportArrival.text = item.arrivalAirportName
+                rvTicketDetail.tvAirline.text = item.airlineName
+                rvTicketDetail.tvCityDeparture.text = item.departureCity
+                rvTicketDetail.tvCityArrival.text = item.arrivalCity
+                rvTicketDetail.tvDateDeparture.text = item.flightDepartureDate
+                rvTicketDetail.tvDateArrival.text = item.flightArrivalDate
+                rvTicketDetail.tvTimeDeparture.text = item.departureTime
+                rvTicketDetail.tvTimeArrival.text = item.arrivalTime
+                rvTicketDetail.tvInfoDetail.text = item.flightDescription
+                rvTicketDetail.tvFlightCode.text = item.flightCode
             }
         }
     }

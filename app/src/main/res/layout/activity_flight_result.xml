@@ -40,6 +40,7 @@
                 android:text="Pilihan Penerbangan"
                 android:textColor="?attr/colorSurface"
                 android:textSize="16sp"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@id/iv_back_detail"
                 app:layout_constraintStart_toEndOf="@+id/iv_back_detail"
                 app:layout_constraintTop_toTopOf="parent" />

@@ -3,17 +3,10 @@ package com.project.skypass.presentation.checkout.checkoutDataOrder
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.project.skypass.R
-import com.project.skypass.data.model.Flight
 import com.project.skypass.data.model.OrderUser
 import com.project.skypass.databinding.ActivityCheckoutDataOrdersBinding
-import com.project.skypass.databinding.ActivityCheckoutSeatBinding
 import com.project.skypass.presentation.checkout.checkoutDataPassenger.CheckoutDataPassengerActivity
-import com.project.skypass.presentation.flight.result.FlightResultActivity
 
 class CheckoutDataOrdersActivity : AppCompatActivity() {
     private val binding by lazy { ActivityCheckoutDataOrdersBinding.inflate(layoutInflater) }
@@ -23,19 +16,26 @@ class CheckoutDataOrdersActivity : AppCompatActivity() {
         getArgumentData()
         setClickListeners()
     }
+
     private fun setClickListeners() {
-//        onclick binding
+        binding.btnBack.setOnClickListener {
+            onBackPressed()
+        }
     }
-    private fun observeResult(){
+
+    private fun observeResult() {
 //        observe view model
     }
+
     private fun getArgumentData() {
-        intent.extras?.getParcelable<OrderUser>(EXTRA_FLIGHT)?. let {
+        intent.extras?.getParcelable<OrderUser>(EXTRA_FLIGHT)?.let {
             sendOrderData(it)
         }
     }
-        private fun sendOrderData(item: OrderUser) {
-            binding.btnSubmit.setOnClickListener {
+
+    private fun sendOrderData(item: OrderUser) {
+        binding.btnSubmit.setOnClickListener {
+            if (item.supportRoundTrip == true) {
                 CheckoutDataPassengerActivity.sendDataOrder(
                     this,
                     OrderUser(
@@ -54,20 +54,18 @@ class CheckoutDataOrdersActivity : AppCompatActivity() {
                         supportRoundTrip = item.supportRoundTrip,
                         orderDate = item.orderDate,
 
-
-
                         // Convert from arrival into departure
                         airlineCode = item.airlineCodeRoundTrip,
                         airlineName = item.airlineNameRoundTrip,
                         arrivalAirportName = item.arrivalAirportNameRoundTrip,
-                        arrivalIATACode= item.arrivalIATACodeRoundTrip,
+                        arrivalIATACode = item.arrivalIATACodeRoundTrip,
                         arrivalTime = item.arrivalTimeRoundTrip,
                         departureAirportName = item.departureAirportNameRoundTrip,
                         departureIATACode = item.departureIATACodeRoundTrip,
                         departureTime = item.departureTimeRoundTrip,
                         flightCode = item.flightCodeRoundTrip,
                         flightDescription = item.flightDescriptionRoundTrip,
-                        flightDuration= item.flightDurationRoundTrip,
+                        flightDuration = item.flightDurationRoundTrip,
                         flightDurationFormat = item.flightDurationFormatRoundTrip,
                         flightId = item.flightIdRoundTrip,
                         flightStatus = item.flightStatusRoundTrip,
@@ -108,17 +106,94 @@ class CheckoutDataOrdersActivity : AppCompatActivity() {
                         priceTotalRoundTrip = item.priceTotal,
                         paymentPriceRoundTrip = item.paymentPrice,
                         seatsAvailableRoundTrip = item.seatsAvailable,
-                        terminalRoundTrip = item.terminal
+                        terminalRoundTrip = item.terminal,
+
+                        ),
+                )
+            } else {
+                CheckoutDataPassengerActivity.sendDataOrder(
+                    this,
+                    OrderUser(
+                        // Home data
+                        id = item.id,
+                        arrivalCity = item.arrivalCity,
+                        arrivalDate = item.arrivalDate,
+                        seatClass = item.seatClass,
+                        departureCity = item.departureCity,
+                        departureDate = item.departureDate,
+                        passengersTotal = item.passengersTotal,
+                        passengersAdult = item.passengersAdult,
+                        passengersBaby = item.passengersBaby,
+                        passengersChild = item.passengersChild,
+                        isRoundTrip = item.isRoundTrip,
+                        supportRoundTrip = item.supportRoundTrip,
+                        orderDate = item.orderDate,
+
+                        // Flight data (One Way)
+                        airlineCode = item.airlineCode,
+                        airlineName = item.airlineName,
+                        arrivalAirportName = item.arrivalAirportName,
+                        arrivalIATACode = item.arrivalIATACode,
+                        arrivalTime = item.arrivalTime,
+                        departureAirportName = item.departureAirportName,
+                        departureIATACode = item.departureIATACode,
+                        departureTime = item.departureTime,
+                        flightCode = item.flightCode,
+                        flightDescription = item.flightDescription,
+                        flightDuration = item.flightDuration,
+                        flightDurationFormat = item.flightDurationFormat,
+                        flightId = item.flightId,
+                        flightStatus = item.flightStatus,
+                        flightSeat = item.seatClass,
+                        flightArrivalDate = item.flightArrivalDate,
+                        flightDepartureDate = item.flightDepartureDate,
+                        planeType = item.planeType,
+                        priceAdult = item.priceAdult,
+                        priceBaby = item.priceBaby,
+                        priceChild = item.priceChild,
+                        priceTotal = item.priceTotal,
+                        paymentPrice = item.paymentPrice,
+                        seatsAvailable = item.seatsAvailable,
+                        terminal = item.terminal,
+
+                        // Flight data (Round Trip)
+                        airlineCodeRoundTrip = item.airlineCodeRoundTrip,
+                        airlineNameRoundTrip = item.airlineNameRoundTrip,
+                        arrivalAirportNameRoundTrip = item.arrivalAirportNameRoundTrip,
+                        arrivalIATACodeRoundTrip = item.arrivalIATACodeRoundTrip,
+                        arrivalTimeRoundTrip = item.arrivalTimeRoundTrip,
+                        departureAirportNameRoundTrip = item.departureAirportNameRoundTrip,
+                        departureIATACodeRoundTrip = item.departureIATACodeRoundTrip,
+                        departureTimeRoundTrip = item.departureTimeRoundTrip,
+                        flightCodeRoundTrip = item.flightCodeRoundTrip,
+                        flightDescriptionRoundTrip = item.flightDescriptionRoundTrip,
+                        flightDurationRoundTrip = item.flightDurationRoundTrip,
+                        flightDurationFormatRoundTrip = item.flightDurationFormatRoundTrip,
+                        flightIdRoundTrip = item.flightIdRoundTrip,
+                        flightStatusRoundTrip = item.flightStatusRoundTrip,
+                        flightSeatRoundTrip = item.flightSeatRoundTrip,
+                        flightArrivalDateRoundTrip = item.flightArrivalDateRoundTrip,
+                        flightDepartureDateRoundTrip = item.flightDepartureDateRoundTrip,
+                        planeTypeRoundTrip = item.planeTypeRoundTrip,
+                        priceAdultRoundTrip = item.priceAdultRoundTrip,
+                        priceBabyRoundTrip = item.priceBabyRoundTrip,
+                        priceChildRoundTrip = item.priceChildRoundTrip,
+                        priceTotalRoundTrip = item.priceTotalRoundTrip,
+                        paymentPriceRoundTrip = item.paymentPriceRoundTrip,
+                        seatsAvailableRoundTrip = item.seatsAvailableRoundTrip,
+                        terminalRoundTrip = item.terminalRoundTrip
                     ),
                 )
             }
+        }
     }
+
     companion object {
         const val EXTRA_FLIGHT = "extra_flight"
         fun sendDataOrder(
             context: Context,
             orderUser: OrderUser
-        ){
+        ) {
             val intent = Intent(context, CheckoutDataOrdersActivity::class.java)
             intent.putExtra(EXTRA_FLIGHT, orderUser)
             context.startActivity(intent)

@@ -36,7 +36,9 @@ class CheckoutDataPassengerActivity : AppCompatActivity() {
         setData()
     }
     private fun setClickListeners() {
-//        onclick binding
+        binding.btnBack.setOnClickListener {
+            onBackPressed()
+        }
     }
     private fun observeResult(){
 //        observe view model
