@@ -18,6 +18,7 @@ fun OrderUser?.toOrderHistoryEntity() = OrderHistoryEntity(
 )
 
 fun OrderHistoryEntity?.toOrderHistory() = OrderUser(
+    // send to database
     id = this?.id,
     departureCity = this?.from,
     arrivalCity = this?.to,
@@ -26,6 +27,15 @@ fun OrderHistoryEntity?.toOrderHistory() = OrderUser(
     passengersTotal = this?.passengers,
     seatClass = this?.seatClass,
     orderDate = this?.orderDate,
+
+    //Home Data
+    isRoundTrip = null,
+    supportRoundTrip = null,
+    passengersAdult = null,
+    passengersChild = null,
+    passengersBaby = null,
+
+    // Flight Data (One Way)
     airlineCode = "",
     airlineName = "",
     arrivalAirportName = "",
@@ -35,21 +45,50 @@ fun OrderHistoryEntity?.toOrderHistory() = OrderUser(
     departureIATACode = "",
     departureTime = "",
     flightCode = "",
-    flightDuration = null,
-    flightId = "",
-    flightSeat="",
-    flightStatus = "",
     flightDescription = "",
+    flightDuration = null,
+    flightDurationFormat = "",
+    flightId = "",
+    flightStatus = "",
+    flightSeat = "",
+    flightArrivalDate = "",
+    flightDepartureDate = "",
     planeType = "",
     priceAdult = null,
-    priceChild = null,
     priceBaby = null,
+    priceChild = null,
     priceTotal = null,
+    paymentPrice = null,
     seatsAvailable = null,
     terminal = "",
-    passengersBaby = null,
-    passengersChild = null,
-    passengersAdult = null,
+
+    // Flight Data (Round Trip)
+    airlineCodeRoundTrip = "",
+    airlineNameRoundTrip = "",
+    arrivalAirportNameRoundTrip = "",
+    arrivalIATACodeRoundTrip = "",
+    arrivalTimeRoundTrip = "",
+    departureAirportNameRoundTrip = "",
+    departureIATACodeRoundTrip = "",
+    departureTimeRoundTrip = "",
+    flightCodeRoundTrip = "",
+    flightDescriptionRoundTrip = "",
+    flightDurationRoundTrip = null,
+    flightDurationFormatRoundTrip = "",
+    flightIdRoundTrip = "",
+    flightStatusRoundTrip = "",
+    flightSeatRoundTrip = "",
+    flightArrivalDateRoundTrip = "",
+    flightDepartureDateRoundTrip = "",
+    planeTypeRoundTrip = "",
+    priceAdultRoundTrip = null,
+    priceBabyRoundTrip = null,
+    priceChildRoundTrip = null,
+    priceTotalRoundTrip = null,
+    paymentPriceRoundTrip = null,
+    seatsAvailableRoundTrip = null,
+    terminalRoundTrip = ""
+
 )
 
 fun List<OrderHistoryEntity?>.toOrderHistoryList() = this.map { it.toOrderHistory() }

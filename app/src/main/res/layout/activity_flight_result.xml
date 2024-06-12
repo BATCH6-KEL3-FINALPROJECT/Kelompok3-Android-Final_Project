@@ -33,6 +33,7 @@
                 app:tint="@color/md_theme_onPrimary" />
 
             <TextView
+                android:id="@+id/tv_title_flight_result"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -75,7 +76,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:orientation="vertical"
-                android:visibility="gone" />
+                />
         </LinearLayout>
     </ScrollView>
 
@@ -94,8 +95,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginBottom="32dp"
-        android:text="Total"
+        android:layout_marginBottom="18dp"
+        android:text="Price"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@id/btn_select_flight"
@@ -106,7 +107,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="18dp"
         android:text="IDR 4.950.000/pax"
         android:textSize="16sp"
         android:textStyle="bold"

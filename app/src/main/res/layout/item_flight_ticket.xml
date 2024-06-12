@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center|top"
-    android:layout_marginHorizontal="32dp"
+    android:layout_marginHorizontal="8dp"
     android:layout_marginVertical="8dp">
 
     <com.vipulasri.ticketview.TicketView
@@ -20,7 +20,7 @@
         app:ticketCornerType="rounded"
         app:ticketDividerColor="#D0D0D0"
         app:ticketDividerType="dash"
-        app:ticketElevation="8dp"
+        app:ticketElevation="2dp"
         app:ticketOrientation="horizontal"
         app:ticketScallopPositionPercent="70"
         app:ticketScallopRadius="10dp"
@@ -153,31 +153,44 @@
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_time_arrival"/>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:orientation="horizontal"
+    android:layout_marginTop="30dp"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/tv_date_departure">
+
 
         <TextView
             android:id="@+id/tv_airline"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_height="match_parent"
             android:layout_marginStart="8dp"
             android:text="Skyline"
+            android:layout_weight="1"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:gravity="center"
             android:textSize="14sp"
-            android:drawablePadding="8dp"
             app:drawableStartCompat="@drawable/logo_airline"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_date_departure"/>
+         />
 
         <TextView
             android:id="@+id/tv_price"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginEnd="16dp"
+            android:layout_weight="1"
             android:text="Rp. 1.240.000"
+            android:maxLines="1"
+            android:ellipsize="end"
             android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintTop_toTopOf="@id/tv_airline"
-            app:layout_constraintBottom_toBottomOf="@id/tv_airline"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            android:gravity="center"
+            />
+
+</LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -25,6 +25,7 @@ import com.project.skypass.presentation.home.flightclass.FlightClassFragment
 import com.project.skypass.presentation.home.passengers.PassengersFragment
 import com.project.skypass.presentation.home.search.SearchFragment
 import com.project.skypass.utils.convertDateFormat
+import com.project.skypass.utils.orderDate
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeFragment : Fragment(), DataSelection {
@@ -73,41 +74,78 @@ class HomeFragment : Fragment(), DataSelection {
         FlightDetailActivity.startActivity(
             requireContext(),
             OrderUser(
+                // HHome Data
                 id = null,
+                arrivalCity = binding.etToTrip.text.toString(),
+                arrivalDate = convertDateFormat(binding.etReturn.text.toString()),
+                seatClass = binding.etSeatClass.text.toString(),
+                departureCity = binding.etFromTrip.text.toString(),
+                departureDate = convertDateFormat(binding.etDeparture.text.toString()),
+                passengersTotal = binding.etPassengers.text.toString(),
+                passengersAdult = null,
+                passengersBaby = null,
+                passengersChild = null,
+                isRoundTrip = binding.rbRoundTrip.isChecked,
+                supportRoundTrip = binding.rbRoundTrip.isChecked,
+                orderDate = orderDate(),
+
+                // Flight Data (One Way)
                 airlineCode = "",
                 airlineName = "",
                 arrivalAirportName = "",
-                arrivalCity = binding.etToTrip.text.toString(),
-                arrivalDate = convertDateFormat(binding.etReturn.text.toString()),
                 arrivalIATACode = "",
                 arrivalTime = "",
                 departureAirportName = "",
-                departureCity = binding.etFromTrip.text.toString(),
-                departureDate = convertDateFormat(binding.etDeparture.text.toString()),
                 departureIATACode = "",
                 departureTime = "",
                 flightCode = "",
                 flightDescription = "",
                 flightDuration = null,
+                flightDurationFormat = "",
                 flightId = "",
                 flightStatus = "",
                 flightSeat = "",
+                flightArrivalDate = "",
+                flightDepartureDate = "",
                 planeType = "",
                 priceAdult = null,
                 priceBaby = null,
                 priceChild = null,
                 priceTotal = null,
-                seatClass = binding.etSeatClass.text.toString(),
+                paymentPrice = null,
                 seatsAvailable = null,
                 terminal = "",
-                orderDate = "",
-                passengersTotal = binding.etPassengers.text.toString(),
-                passengersAdult = null,
-                passengersBaby = null,
-                passengersChild = null,
+
+                // Flight Data (Round Trip)
+                airlineCodeRoundTrip = "",
+                airlineNameRoundTrip = "",
+                arrivalAirportNameRoundTrip = "",
+                arrivalIATACodeRoundTrip = "",
+                arrivalTimeRoundTrip = "",
+                departureAirportNameRoundTrip = "",
+                departureIATACodeRoundTrip = "",
+                departureTimeRoundTrip = "",
+                flightCodeRoundTrip = "",
+                flightDescriptionRoundTrip = "",
+                flightDurationRoundTrip = null,
+                flightDurationFormatRoundTrip = "",
+                flightIdRoundTrip = "",
+                flightStatusRoundTrip = "",
+                flightSeatRoundTrip = "",
+                flightArrivalDateRoundTrip = "",
+                flightDepartureDateRoundTrip = "",
+                planeTypeRoundTrip = "",
+                priceAdultRoundTrip = null,
+                priceBabyRoundTrip = null,
+                priceChildRoundTrip = null,
+                priceTotalRoundTrip = null,
+                paymentPriceRoundTrip = null,
+                seatsAvailableRoundTrip = null,
+                terminalRoundTrip = ""
             ),
         )
     }
+
 
     private fun clickListener() {
         binding.etPassengers.setOnClickListener {

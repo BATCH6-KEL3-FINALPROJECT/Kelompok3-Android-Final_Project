@@ -41,13 +41,16 @@ class UserPreferenceImpl(private val pref: SharedPreferences): UserPreference {
         Log.e(TAG, "Saving value user pref $isFirstRun")
     }
     override fun isUsingDarkMode(): Boolean = pref.getBoolean(KEY_IS_USING_DARK_MODE, false)
+    override fun deleteToken() {
+       
+    }
 
     override fun setUsingDarkMode(isUsingDarkMode: Boolean) {
         pref[KEY_IS_USING_DARK_MODE] = isUsingDarkMode
     }
 
     override fun clearAll(){
-        pref.edit().clear().apply()
+        pref.edit().remove(KEY_TOKEN)
     }
 
     companion object {

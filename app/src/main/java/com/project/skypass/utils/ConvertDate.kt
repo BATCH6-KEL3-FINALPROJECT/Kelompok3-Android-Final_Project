@@ -32,6 +32,12 @@ fun convertFlightDetail(inputDate: String): String {
     }
 }
 
+fun convertMinutesToHours(minutes: Int): Pair<Int, Int> {
+    val hours = minutes / 60
+    val remainingMinutes = minutes % 60
+    return Pair(hours, remainingMinutes)
+}
+
 fun orderDate(): String {
     val formatter = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
     return formatter.format(Date())

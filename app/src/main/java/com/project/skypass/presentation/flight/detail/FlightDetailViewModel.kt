@@ -15,6 +15,7 @@ class FlightDetailViewModel(
     var setArrivalCity:String? = null
     var setSeatClass:String? = null
     var setDepartureDate:String? = null
+    var setPassenger:String? = null
 
 
     fun getHomeData(item: OrderUser){
@@ -22,7 +23,7 @@ class FlightDetailViewModel(
         setArrivalCity = item.arrivalCity
         setSeatClass = item.seatClass
         setDepartureDate = convertFlightDetail(item.departureDate.toString())
-
+        setPassenger = item.passengersTotal
     }
     fun getFlightDetail() = flightRepository.getFlights(
         departureCity = setDepartureCity,

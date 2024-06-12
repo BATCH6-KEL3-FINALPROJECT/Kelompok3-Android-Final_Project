@@ -92,7 +92,6 @@
     <style name="TextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
         <item name="android:background">@android:color/white</item>
         <item name="boxStrokeColor">@android:color/white</item>
-        <item name="boxStrokeWidth">1dp</item>
         <item name="boxCornerRadiusTopStart">2dp</item>
         <item name="boxCornerRadiusTopEnd">2dp</item>
         <item name="boxCornerRadiusBottomStart">2dp</item>

@@ -202,5 +202,11 @@
     <string name="from_to">%1$s - %2$s</string>
     <string name="idr_rp_fav_des">IDR Rp.%1$s</string>
     <string name="text_toolbar_notification">Detail Information</string>
+    <string name="text_detail_penerbangan">Detail Penerbangan</string>
+    <string name="textConnect">-</string>
+    <string name="text_arrival">Kedatangan</string>
+    <string name="text_Departure">Keberangkatan</string>
+    <string name="text_tutupkurung">)</string>
+    <string name="text_bukakKurung">(</string>
 
 </resources>
