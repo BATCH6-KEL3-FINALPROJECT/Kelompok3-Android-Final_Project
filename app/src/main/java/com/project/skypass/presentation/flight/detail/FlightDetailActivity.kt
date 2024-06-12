@@ -18,6 +18,7 @@ import com.project.skypass.presentation.flight.detail.adapter.FlightDetailAdapte
 import com.project.skypass.presentation.flight.detail.adapter.OnItemClickedListener
 import com.project.skypass.presentation.flight.filter.FilterFragment
 import com.project.skypass.presentation.flight.result.FlightResultActivity
+import com.project.skypass.utils.convertDateFormat
 import com.project.skypass.utils.convertFlightDetail
 import com.project.skypass.utils.proceedWhen
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -50,15 +51,22 @@ class FlightDetailActivity : AppCompatActivity() {
             val filterFragment = FilterFragment()
             filterFragment.show(supportFragmentManager, filterFragment.tag)
         }
-        flightDetailAdapter.setOnTicketClickListener { flight ->
-            onItemClick(flight)
+        flightDetailAdapter.setOnTicketClickListener {
+            intent.extras?.getParcelable<OrderUser>(EXTRA_FLIGHT)?. let {
+                sendOrderData(it)
+            }
         }
     }
 
     private fun onItemClick(flight: Flight) {
-        val intent = Intent(this, FlightResultActivity::class.java)
-        intent.putExtra("EXTRAS", flight)
-        startActivity(intent)
+        intent.extras?.getParcelable<OrderUser>(EXTRA_FLIGHT)?. let {
+            sendOrderData(it)
+        }
+
+//        val intent = Intent(this, FlightResultActivity::class.java)
+//        intent.putExtra("EXTRAS", flight)
+//        startActivity(intent)
+
     }
 
     private fun setupAdapter() {
@@ -161,11 +169,47 @@ class FlightDetailActivity : AppCompatActivity() {
     private fun getArgumentData() {
         intent.extras?.getParcelable<OrderUser>(EXTRA_FLIGHT)?. let {
             flightDetailViewModel.getHomeData(it)
-            sendOrderData(it)
         }
     }
-    private fun sendOrderData(orderData: OrderUser) {
 
+    private fun sendOrderData(item: OrderUser) {
+        FlightResultActivity.sendDataOrder(
+            this,
+            OrderUser(
+                id = null,
+                airlineCode = "",
+                airlineName = "",
+                arrivalAirportName = "",
+                arrivalCity = item.arrivalCity,
+                arrivalDate = item.arrivalDate,
+                arrivalIATACode = "",
+                arrivalTime = "",
+                departureAirportName = "",
+                departureCity = item.departureCity,
+                departureDate = item.departureDate,
+                departureIATACode = "",
+                departureTime = "",
+                flightCode = "",
+                flightDescription = "",
+                flightDuration = null,
+                flightId = "",
+                flightStatus = "",
+                flightSeat = "",
+                planeType = "",
+                priceAdult = null,
+                priceBaby = null,
+                priceChild = null,
+                priceTotal = null,
+                seatClass = item.seatClass,
+                seatsAvailable = null,
+                terminal = "",
+                orderDate = "",
+                passengersTotal = item.passengersTotal,
+                passengersAdult = null,
+                passengersBaby = null,
+                passengersChild = null,
+            ),
+        )
     }
 
 

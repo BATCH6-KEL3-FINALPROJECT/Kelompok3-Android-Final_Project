@@ -1,5 +1,7 @@
 package com.project.skypass.presentation.home
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -17,6 +19,7 @@ import com.project.skypass.databinding.FragmentHomeBinding
 import com.project.skypass.presentation.calendar.CalendarFragment
 import com.project.skypass.presentation.customview.DataSelection
 import com.project.skypass.presentation.flight.detail.FlightDetailActivity
+import com.project.skypass.presentation.flight.result.FlightResultActivity
 import com.project.skypass.presentation.home.adapter.FavoriteDestinationAdapter
 import com.project.skypass.presentation.home.flightclass.FlightClassFragment
 import com.project.skypass.presentation.home.passengers.PassengersFragment
@@ -226,6 +229,8 @@ class HomeFragment : Fragment(), DataSelection {
             }
         }
     }
+
+
 
 
 }
