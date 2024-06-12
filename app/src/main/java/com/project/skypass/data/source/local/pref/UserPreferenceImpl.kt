@@ -18,6 +18,15 @@ class UserPreferenceImpl(private val pref: SharedPreferences): UserPreference {
         Log.e(TAG, "Saving value user pref $token")
     }
 
+    override fun getUserID(): String {
+        return pref.getString(KEY_USER_ID, "").toString()
+    }
+
+    override fun setUserID(userID: String) {
+        pref[KEY_USER_ID] = userID
+        Log.e(TAG, "Saving value user pref $userID")
+    }
+
     override fun isFirstRun(): Boolean {
         return pref.getBoolean(KEY_IS_FIRST_RUN, false)
     }
@@ -44,5 +53,6 @@ class UserPreferenceImpl(private val pref: SharedPreferences): UserPreference {
         const val KEY_IS_LOGIN = "KEY_IS_LOGIN"
         const val KEY_TOKEN = "KEY_TOKEN"
         const val KEY_IS_USING_DARK_MODE = "KEY_IS_USING_DARK_MODE"
+        const val KEY_USER_ID = "KEY_USER_ID"
     }
 }

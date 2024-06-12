@@ -48,6 +48,8 @@ import com.project.skypass.presentation.home.HomeViewModel
 import com.project.skypass.presentation.home.flightclass.FlightClassViewModel
 import com.project.skypass.presentation.home.passengers.PassengersViewModel
 import com.project.skypass.presentation.home.search.SearchViewModel
+import com.project.skypass.presentation.profile.ChangeProfileViewModelExample
+import com.project.skypass.presentation.profile.ProfileViewModelExample
 import com.project.skypass.presentation.profile.SettingsAccountViewModel
 import com.project.skypass.utils.SharedPreferenceUtils
 import org.koin.android.ext.koin.androidContext
@@ -99,7 +101,7 @@ object AppModule {
             AuthDataStoreImpl(get())
         }
         single<UserDataSource> {
-            UserDataSourceImpl(get())
+            UserDataSourceImpl(get(),get())
         }
         single<PriceClassDataSource> {
             PriceClassDataSourceImpl()
@@ -146,6 +148,8 @@ object AppModule {
         viewModelOf(::FlightClassViewModel)
         viewModelOf(::HomeViewModel)
         viewModelOf(::SearchViewModel)
+        viewModelOf(::ChangeProfileViewModelExample)
+        viewModelOf(::ProfileViewModelExample)
     }
 
     val module = listOf<Module>(
