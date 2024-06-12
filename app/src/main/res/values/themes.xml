@@ -93,10 +93,10 @@
         <item name="android:background">@android:color/white</item>
         <item name="boxStrokeColor">@android:color/white</item>
         <item name="boxStrokeWidth">1dp</item>
-        <item name="boxCornerRadiusTopStart">8dp</item>
-        <item name="boxCornerRadiusTopEnd">8dp</item>
-        <item name="boxCornerRadiusBottomStart">8dp</item>
-        <item name="boxCornerRadiusBottomEnd">8dp</item>
+        <item name="boxCornerRadiusTopStart">2dp</item>
+        <item name="boxCornerRadiusTopEnd">2dp</item>
+        <item name="boxCornerRadiusBottomStart">2dp</item>
+        <item name="boxCornerRadiusBottomEnd">2dp</item>
     </style>
     <style name="SeatButtonStyle" parent="Widget.MaterialComponents.Button.OutlinedButton">
         <item name="android:minHeight">0dp</item>
