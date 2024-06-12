@@ -1,6 +1,6 @@
 package com.project.skypass.data.datasource.flight
 
-import com.project.skypass.data.source.network.model.flight.flightdata.FlightResponse
+import com.project.skypass.data.source.network.model.flight.flightdata.GetAllFlightResponse
 
 interface FlightDataSource {
     suspend fun getFlightData(
@@ -17,5 +17,5 @@ interface FlightDataSource {
         page: Int,
         limit: Int,
         departureDate: String
-    ): FlightResponse
+    ): GetAllFlightResponse
 }

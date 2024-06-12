@@ -1,6 +1,6 @@
 package com.project.skypass.data.datasource.flight
 
-import com.project.skypass.data.source.network.model.flight.flightdata.FlightResponse
+import com.project.skypass.data.source.network.model.flight.flightdata.GetAllFlightResponse
 import com.project.skypass.data.source.network.service.ApiService
 
 class FlightDataSourceImpl(private val service: ApiService) : FlightDataSource {
@@ -18,7 +18,7 @@ class FlightDataSourceImpl(private val service: ApiService) : FlightDataSource {
         page: Int,
         limit: Int,
         departureDate: String
-    ): FlightResponse {
+    ): GetAllFlightResponse {
         return service.getFlightData(
             departureCity,
             arrivalCity,

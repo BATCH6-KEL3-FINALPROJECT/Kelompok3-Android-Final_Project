@@ -2,10 +2,9 @@ package com.project.skypass.data.model
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
-
-@Parcelize
 import java.util.UUID
 
+@Parcelize
 data class Flight(
     var id: String = UUID.randomUUID().toString(),
     val airlineCode: String?,
