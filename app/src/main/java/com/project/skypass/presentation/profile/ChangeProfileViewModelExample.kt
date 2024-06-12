@@ -34,4 +34,8 @@ class ChangeProfileViewModelExample(
     fun getUserId(): String {
         return prefRepository.getUserID()
     }
+
+    fun showDataUser(id: String): LiveData<ResultWrapper<User>> {
+        return userRepository.getUser(id).asLiveData(Dispatchers.IO)
+    }
 }
