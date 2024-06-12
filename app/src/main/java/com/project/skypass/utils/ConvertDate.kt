@@ -18,6 +18,20 @@ fun convertDateFormat(inputDate: String): String {
     }
 }
 
+fun convertFlightDetail(inputDate: String): String {
+    val inputFormat = SimpleDateFormat("dd-MM-yyyy", Locale("id", "ID"))
+    val outputFormat = SimpleDateFormat("yyyy-MM-dd", Locale("id", "ID"))
+
+    return try {
+        val date = inputFormat.parse(inputDate)
+        date?.let {
+            outputFormat.format(it)
+        } ?: inputDate
+    } catch (e: Exception) {
+        inputDate
+    }
+}
+
 fun orderDate(): String {
     val formatter = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
     return formatter.format(Date())

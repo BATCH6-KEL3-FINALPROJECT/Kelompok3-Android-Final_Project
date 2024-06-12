@@ -1,5 +1,6 @@
 package com.project.skypass.presentation.flight.detail
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -11,11 +12,13 @@ import com.kizitonwose.calendar.view.MonthDayBinder
 import com.kizitonwose.calendar.view.ViewContainer
 import com.project.skypass.R
 import com.project.skypass.data.model.Flight
+import com.project.skypass.data.model.OrderUser
 import com.project.skypass.databinding.ActivityFlightDetailBinding
 import com.project.skypass.presentation.flight.detail.adapter.FlightDetailAdapter
 import com.project.skypass.presentation.flight.detail.adapter.OnItemClickedListener
 import com.project.skypass.presentation.flight.filter.FilterFragment
 import com.project.skypass.presentation.flight.result.FlightResultActivity
+import com.project.skypass.utils.convertFlightDetail
 import com.project.skypass.utils.proceedWhen
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.time.DayOfWeek
@@ -33,6 +36,7 @@ class FlightDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         setupAdapter()
+        getArgumentData()
         setupCalendarView()
         setClickListeners()
         observeFlightData()
@@ -144,5 +148,26 @@ class FlightDetailActivity : AppCompatActivity() {
 
     companion object {
         const val EXTRA_FLIGHT = "extra_flight"
+        fun startActivity(
+            context: Context,
+            orderData: OrderUser,
+        ) {
+            val intent = Intent(context, FlightDetailActivity::class.java)
+            intent.putExtra(EXTRA_FLIGHT, orderData)
+            context.startActivity((intent))
+        }
     }
+
+    private fun getArgumentData() {
+        intent.extras?.getParcelable<OrderUser>(EXTRA_FLIGHT)?. let {
+            flightDetailViewModel.getHomeData(it)
+            sendOrderData(it)
+        }
+    }
+    private fun sendOrderData(orderData: OrderUser) {
+
+    }
+
+
+
 }

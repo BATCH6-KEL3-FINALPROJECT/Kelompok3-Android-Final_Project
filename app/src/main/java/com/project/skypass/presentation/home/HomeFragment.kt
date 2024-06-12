@@ -1,7 +1,6 @@
 package com.project.skypass.presentation.home
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,6 +21,7 @@ import com.project.skypass.presentation.home.adapter.FavoriteDestinationAdapter
 import com.project.skypass.presentation.home.flightclass.FlightClassFragment
 import com.project.skypass.presentation.home.passengers.PassengersFragment
 import com.project.skypass.presentation.home.search.SearchFragment
+import com.project.skypass.utils.convertDateFormat
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeFragment : Fragment(), DataSelection {
@@ -29,7 +29,7 @@ class HomeFragment : Fragment(), DataSelection {
     private lateinit var binding: FragmentHomeBinding
     private val viewModel: HomeViewModel by viewModel()
     private val favoriteDestinationAdapter: FavoriteDestinationAdapter by lazy {
-        FavoriteDestinationAdapter{
+        FavoriteDestinationAdapter {
 
         }
     }
@@ -48,7 +48,6 @@ class HomeFragment : Fragment(), DataSelection {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         clickListener()
         sendData()
         bindSeatClass(viewModel.getFavoriteDestination())
@@ -68,57 +67,44 @@ class HomeFragment : Fragment(), DataSelection {
     }
 
     private fun moveToFlight() {
-            FlightDetailActivity.startActivity(
-                requireContext(),
-                OrderUser(
-                    id = null,
-                    airlineCode = "",
-                    airlineName = "",
-                    arrivalAirportName = "",
-
-
-
-
-                ),
-            )
-
-        val navController = findNavController()
-        val bundleActivityDetailFlight = bundleOf(Pair(FlightDetailActivity.EXTRA_FLIGHT, formHome))
-        navController.navigate(R.id.action_menu_tab_home_to_flightDetailActivity, bundleActivityDetailFlight)
+        FlightDetailActivity.startActivity(
+            requireContext(),
+            OrderUser(
+                id = null,
+                airlineCode = "",
+                airlineName = "",
+                arrivalAirportName = "",
+                arrivalCity = binding.etToTrip.text.toString(),
+                arrivalDate = convertDateFormat(binding.etReturn.text.toString()),
+                arrivalIATACode = "",
+                arrivalTime = "",
+                departureAirportName = "",
+                departureCity = binding.etFromTrip.text.toString(),
+                departureDate = convertDateFormat(binding.etDeparture.text.toString()),
+                departureIATACode = "",
+                departureTime = "",
+                flightCode = "",
+                flightDescription = "",
+                flightDuration = null,
+                flightId = "",
+                flightStatus = "",
+                flightSeat = "",
+                planeType = "",
+                priceAdult = null,
+                priceBaby = null,
+                priceChild = null,
+                priceTotal = null,
+                seatClass = binding.etSeatClass.text.toString(),
+                seatsAvailable = null,
+                terminal = "",
+                orderDate = "",
+                passengersTotal = binding.etPassengers.text.toString(),
+                passengersAdult = null,
+                passengersBaby = null,
+                passengersChild = null,
+            ),
+        )
     }
-
-    id: Int? = null,
-    val airlineCode: String?,
-    val airlineName: String?,
-    val arrivalAirportName: String?,
-    val arrivalCity: String?,
-    val arrivalDate: String?,
-    val arrivalIATACode: String?,
-    val arrivalTime: String?,
-    val departureAirportName: String?,
-    val departureCity: String?,
-    val departureDate: String?,
-    val departureIATACode: String?,
-    val departureTime: String?,
-    val flightCode: String?,
-    val flightDescription: String?,
-    val flightDuration: Int?,
-    val flightId: String?,
-    val flightStatus: String?,
-    val planeType: String?,
-    val priceAdult: Int?,
-    val priceBaby: Int?,
-    val priceChild: Int?,
-    val priceTotal: Int?,
-    val seatClass: String?,
-    val seatsAvailable: Int?,
-    val terminal: String?,
-    val orderDate: String?,
-    val passengersTotal: Int?,
-    val passengersAdult: Int?,
-    val passengersChild: Int?,
-    val passengersBaby: Int?,
-    val flightSeat: String?,
 
     private fun clickListener() {
         binding.etPassengers.setOnClickListener {
@@ -144,8 +130,12 @@ class HomeFragment : Fragment(), DataSelection {
         binding.etDeparture.setOnClickListener {
             val calendarFragment = CalendarFragment()
             val bundle = Bundle()
-            bundle.putString("currentDateDeparture", binding.etDeparture.text.toString().ifEmpty { "Belum dipilih" })
-            bundle.putString("currentDateReturn", binding.etReturn.text.toString().ifEmpty { "Belum dipilih"})
+            bundle.putString(
+                "currentDateDeparture",
+                binding.etDeparture.text.toString().ifEmpty { "Belum dipilih" })
+            bundle.putString(
+                "currentDateReturn",
+                binding.etReturn.text.toString().ifEmpty { "Belum dipilih" })
             calendarFragment.arguments = bundle
             calendarFragment.dateSelection = this@HomeFragment
             calendarFragment.show(parentFragmentManager, "departure")
@@ -153,13 +143,17 @@ class HomeFragment : Fragment(), DataSelection {
         binding.etReturn.setOnClickListener {
             val calendarFragment = CalendarFragment()
             val bundle = Bundle()
-            bundle.putString("currentDateDeparture", binding.etDeparture.text.toString().ifEmpty { "Belum dipilih" })
-            bundle.putString("currentDateReturn", binding.etReturn.text.toString().ifEmpty { "Belum dipilih"})
+            bundle.putString(
+                "currentDateDeparture",
+                binding.etDeparture.text.toString().ifEmpty { "Belum dipilih" })
+            bundle.putString(
+                "currentDateReturn",
+                binding.etReturn.text.toString().ifEmpty { "Belum dipilih" })
             calendarFragment.arguments = bundle
             calendarFragment.dateSelection = this@HomeFragment
             calendarFragment.show(parentFragmentManager, "return")
         }
-        binding.ivSwitchTrip.setOnClickListener{
+        binding.ivSwitchTrip.setOnClickListener {
             switchFromTo()
         }
 
@@ -182,6 +176,7 @@ class HomeFragment : Fragment(), DataSelection {
                 R.id.rb_one_way -> {
                     binding.layoutReturn.visibility = View.GONE
                 }
+
                 R.id.rb_round_trip -> {
                     binding.layoutReturn.visibility = View.VISIBLE
                 }
@@ -195,6 +190,7 @@ class HomeFragment : Fragment(), DataSelection {
                 binding.etDeparture.setText(date.ddMMMyyyy)
                 formatDateDepartureIntent = date.ddMMyyyy
             }
+
             "return" -> {
                 binding.etReturn.setText(date.ddMMMyyyy)
                 formatDateReturnIntent = date.ddMMyyyy
@@ -224,12 +220,12 @@ class HomeFragment : Fragment(), DataSelection {
             "fromTrip" -> {
                 binding.etFromTrip.setText(trip.city)
             }
+
             "toTrip" -> {
                 binding.etToTrip.setText(trip.city)
             }
         }
     }
-
 
 
 }
