@@ -59,6 +59,10 @@
                 app:boxCornerRadiusBottomStart="16dp"
                 app:boxCornerRadiusTopEnd="16dp"
                 app:boxCornerRadiusTopStart="16dp"
+                app:endIconCheckable="false"
+                app:endIconDrawable="@drawable/ic_success"
+                app:endIconMode="custom"
+                app:endIconTint="@color/colorSuccess"
                 app:hintEnabled="false">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -89,6 +93,9 @@
                 app:boxCornerRadiusTopEnd="16dp"
                 app:boxCornerRadiusTopStart="16dp"
                 app:endIconCheckable="true"
+                app:endIconDrawable="@drawable/ic_success"
+                app:endIconMode="custom"
+                app:endIconTint="@color/colorSuccess"
                 app:hintEnabled="false">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -119,6 +126,9 @@
                 app:boxCornerRadiusTopEnd="16dp"
                 app:boxCornerRadiusTopStart="16dp"
                 app:endIconCheckable="true"
+                app:endIconDrawable="@drawable/ic_success"
+                app:endIconMode="custom"
+                app:endIconTint="@color/colorSuccess"
                 app:hintEnabled="false">
 
                 <com.google.android.material.textfield.TextInputEditText

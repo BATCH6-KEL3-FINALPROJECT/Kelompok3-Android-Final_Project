@@ -57,17 +57,19 @@
 
         <TextView
             android:id="@+id/tv_design_dot"
-            android:layout_width="wrap_content"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:drawablePadding="8dp"
             android:text="- - - - - - - - - - - - - - - - - - -"
             android:textAlignment="center"
+            android:maxLines="1"
             app:drawableEndCompat="@drawable/ic_dot"
             app:drawableStartCompat="@drawable/ic_dot"
             app:drawableTint="?attr/colorOnSurface"
             app:layout_constraintStart_toEndOf="@id/tv_city_name_alias"
             app:layout_constraintEnd_toStartOf="@+id/tv_city_name_destination_alias"
+            app:layout_constraintBottom_toBottomOf="@id/tv_city_name_alias"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -97,7 +99,8 @@
             android:src="@drawable/ic_flight"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_design_dot"
+            app:layout_constraintBottom_toBottomOf="@id/tv_design_dot"
             app:tint="@color/md_theme_primary" />
 
         <TextView
@@ -168,13 +171,12 @@
             android:id="@+id/tv_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:layout_marginStart="64dp"
+            android:layout_marginEnd="16dp"
             android:text="Rp. 1.240.000"
             android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@id/tv_date_departure"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_airline"
+            app:layout_constraintBottom_toBottomOf="@id/tv_airline"
             app:layout_constraintEnd_toEndOf="parent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 

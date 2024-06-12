@@ -3,17 +3,13 @@ package com.project.skypass.presentation.auth.register
 import android.content.Intent
 import android.os.Bundle
 import android.util.Patterns
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
-import com.google.android.gms.common.api.ApiException
 import com.google.android.material.textfield.TextInputLayout
 import com.project.skypass.R
 import com.project.skypass.databinding.ActivityRegisterBinding
 import com.project.skypass.presentation.auth.login.LoginActivity
 import com.project.skypass.presentation.auth.verification.VerificationActivity
-import com.project.skypass.utils.ApiErrorException
-import com.project.skypass.utils.NoInternetException
 import com.project.skypass.utils.highLightWord
 import com.project.skypass.utils.proceedWhen
 import io.github.muddz.styleabletoast.StyleableToast
@@ -87,19 +83,41 @@ class RegisterActivity : AppCompatActivity() {
                         R.style.ToastSuccess
                     ).show()
                 },
-                doOnError = {
-                    binding.pbLoading.isVisible = false
-                    /*StyleableToast.makeText(
-                        this,
-                        getString(R.string.text_otp_send_failed),
-                        R.style.ToastError,
-                    ).show()*/
-                    if (it.exception is ApiErrorException){
-                        val errorBody = it.exception.errorResponse
-                        StyleableToast.makeText(this, errorBody.message, R.style.ToastError).show()
-                    } else if (it.exception is NoInternetException){
-                        StyleableToast.makeText(this, "No internet connection", R.style.ToastError).show()
+                doOnError = { error ->
+                    when (error.exception?.message) {
+                        getString(R.string.email_registered_exception) -> {
+                            StyleableToast.makeText(
+                                this,
+                                getString(R.string.email_registered), R.style.ToastError
+                            ).show()
+                            binding.etEmail.setBackgroundResource(R.drawable.bg_input_error)
+                            binding.etName.setBackgroundResource(R.drawable.bg_selector_input)
+                            binding.etPhoneNumber.setBackgroundResource(R.drawable.bg_selector_input)
+                            binding.etPassword.setBackgroundResource(R.drawable.bg_selector_input)
+                        }
+
+                        getString(R.string.password_less_than_8_char_exception) -> {
+                            StyleableToast.makeText(
+                                this,
+                                getString(R.string.text_error_password_less_than_8_char),
+                                R.style.ToastError
+                            ).show()
+                            binding.etName.setBackgroundResource(R.drawable.bg_selector_input)
+                            binding.etEmail.setBackgroundResource(R.drawable.bg_selector_input)
+                            binding.etPhoneNumber.setBackgroundResource(R.drawable.bg_selector_input)
+                            binding.etPassword.setBackgroundResource(R.drawable.bg_input_error)
+                        }
+
+                        else -> {
+                            StyleableToast.makeText(
+                                this,
+                                error.exception?.message, R.style.ToastError
+                            ).show()
+                            binding.etEmail.setBackgroundResource(R.drawable.bg_selector_input)
+                            binding.etPassword.setBackgroundResource(R.drawable.bg_selector_input)
+                        }
                     }
+                    binding.pbLoading.isVisible = false
                 },
                 doOnLoading = {
                     binding.pbLoading.isVisible = true
@@ -120,38 +138,48 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun checkPhoneNumberValidation(phoneNumber: String): Boolean {
+        binding.tilPhoneNumber.isEndIconVisible = false
         return if (phoneNumber.isEmpty()) {
             binding.tilPhoneNumber.isErrorEnabled = true
+            binding.tilPhoneNumber.isEndIconVisible = false
             binding.tilPhoneNumber.error = getString(R.string.text_error_telepon_cannot_empty)
             false
         } else {
             binding.tilPhoneNumber.isErrorEnabled = false
+            binding.tilPhoneNumber.isEndIconVisible = true
             true
         }
     }
 
     private fun checkNameValidation(fullName: String): Boolean {
+        binding.tilName.isEndIconVisible = false
         return if (fullName.isEmpty()) {
             binding.tilName.isErrorEnabled = true
+            binding.tilName.isEndIconVisible = false
             binding.tilName.error = getString(R.string.text_error_name_cannot_empty)
             false
         } else {
             binding.tilName.isErrorEnabled = false
+            binding.tilName.isEndIconVisible = true
             true
         }
     }
 
     private fun checkEmailValidation(email: String): Boolean {
+        binding.tilEmail.isEndIconVisible = false
         return if (email.isEmpty()) {
             binding.tilEmail.isErrorEnabled = true
+            binding.tilEmail.isEndIconVisible = false
             binding.tilEmail.error = getString(R.string.text_error_email_empty)
             false
         } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             binding.tilEmail.isErrorEnabled = true
+            binding.tilEmail.isEndIconVisible = false
             binding.tilEmail.error = getString(R.string.text_error_email_invalid)
             false
         } else {
             binding.tilEmail.isErrorEnabled = false
+            binding.tilEmail.isEndIconVisible = true
             true
         }
     }

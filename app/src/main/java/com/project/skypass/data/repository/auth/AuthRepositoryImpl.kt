@@ -6,6 +6,7 @@ import com.project.skypass.data.source.network.model.login.LoginResponse
 import com.project.skypass.data.source.network.model.otp.ResendOtpRequestResponse
 import com.project.skypass.data.source.network.model.otp.VerifyRequestResponse
 import com.project.skypass.data.source.network.model.register.RegisterRequestResponse
+import com.project.skypass.data.source.network.model.register.RegisterResponse
 import com.project.skypass.data.source.network.model.resetpassword.ResetPasswordRequestResponse
 import com.project.skypass.utils.ErrorInterceptor
 import com.project.skypass.utils.ResultWrapper
@@ -37,16 +38,20 @@ class AuthRepositoryImpl(private val dataStore: AuthDataStore): AuthRepository {
         email: String,
         phoneNumber: String,
         password: String
-    ): Flow<ResultWrapper<Boolean>> {
+    ): Flow<ResultWrapper<RegisterResponse>> {
         return proceedFlow {
-            dataStore.doRegister(
-                RegisterRequestResponse(
-                    email = email,
-                    password = password,
-                    name = name,
-                    phone_number = phoneNumber
+            try {
+                dataStore.doRegister(
+                    RegisterRequestResponse(
+                        email = email,
+                        password = password,
+                        name = name,
+                        phone_number = phoneNumber
+                    )
                 )
-            ).isSuccess ?: false
+            } catch (e: ErrorInterceptor.HttpException) {
+                throw Exception(e.message)
+            }
         }
     }
 

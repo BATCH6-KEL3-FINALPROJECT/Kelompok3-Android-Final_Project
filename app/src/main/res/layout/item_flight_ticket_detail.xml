@@ -112,29 +112,53 @@
                 android:src="@drawable/logo_airline"
                 app:layout_constraintBottom_toBottomOf="@id/tv_info_detail"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/tv_type_airline" />
+                app:layout_constraintTop_toTopOf="@id/tv_airline" />
 
             <TextView
-                android:id="@+id/tv_type_airline"
+                android:id="@+id/tv_airline"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="Jet Air - Economy"
+                android:text="Jet Air"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@id/iv_logo_airline"
                 app:layout_constraintTop_toBottomOf="@id/view_divider_1" />
 
             <TextView
-                android:id="@+id/tv_fleet_code"
+                android:id="@+id/tv_strip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text=" - "
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@id/tv_airline"
+                app:layout_constraintTop_toBottomOf="@id/view_divider_1" />
+
+            <TextView
+                android:id="@+id/tv_seat_class"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="Economy"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@id/tv_strip"
+                app:layout_constraintTop_toBottomOf="@id/view_divider_1" />
+
+            <TextView
+                android:id="@+id/tv_flight_code"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="JT - 203"
                 android:textSize="14sp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@id/tv_type_airline"
-                app:layout_constraintTop_toBottomOf="@id/tv_type_airline" />
+                app:layout_constraintStart_toStartOf="@id/tv_airline"
+                app:layout_constraintTop_toBottomOf="@id/tv_airline" />
 
             <TextView
                 android:id="@+id/tv_info"
@@ -144,8 +168,8 @@
                 android:text="Informasi:"
                 android:textSize="14sp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@id/tv_type_airline"
-                app:layout_constraintTop_toBottomOf="@+id/tv_fleet_code" />
+                app:layout_constraintStart_toStartOf="@id/tv_airline"
+                app:layout_constraintTop_toBottomOf="@+id/tv_flight_code" />
 
             <TextView
                 android:id="@+id/tv_info_detail"
@@ -153,7 +177,7 @@
                 android:layout_height="wrap_content"
                 android:text="Baggage 20 kg\nCabin baggage 7 kg\nIn Flight Entertainment"
                 android:textSize="14sp"
-                app:layout_constraintStart_toStartOf="@id/tv_type_airline"
+                app:layout_constraintStart_toStartOf="@id/tv_airline"
                 app:layout_constraintTop_toBottomOf="@id/tv_info" />
 
             <View
