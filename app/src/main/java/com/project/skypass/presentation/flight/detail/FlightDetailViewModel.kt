@@ -18,10 +18,11 @@ import java.lang.IllegalStateException
 
 class FlightDetailViewModel(
     private val flightRepository: FlightRepository,
-    private val extras: Bundle?,
+    //private val extras: Bundle?,
     private val orderHistoryRepository: OrderHistoryRepository,
 ) : ViewModel() {
-    var orderHistoryData = extras?.getParcelable<OrderUser>(FlightDetailActivity.EXTRA_FLIGHT)
+
+    var orderHistoryData = Bundle().getParcelable<OrderUser>(FlightDetailActivity.EXTRA_FLIGHT)
 
     private var setDepartureCity:String? = null
     private var setArrivalCity:String? = null

@@ -184,13 +184,14 @@ object AppModule {
         viewModelOf(::SettingsAccountViewModel)
         viewModelOf(::ResetPasswordViewModel)
         viewModelOf(::ForgotPasswordViewModel)
-        viewModel { params ->
+        /*viewModel { params ->
             FlightDetailViewModel(
                 flightRepository = get(),
                 extras = params.get(),
                 orderHistoryRepository = get()
             )
-        }
+        }*/
+        viewModel{ FlightDetailViewModel(get(),get()) }
         viewModel { params ->
             FlightResultViewModel(
                 extras = params.get()
