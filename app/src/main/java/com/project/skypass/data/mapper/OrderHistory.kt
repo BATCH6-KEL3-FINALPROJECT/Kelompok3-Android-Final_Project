@@ -7,14 +7,13 @@ import com.project.skypass.data.source.local.database.entity.OrderHistoryEntity
 
 fun OrderUser?.toOrderHistoryEntity() = OrderHistoryEntity(
     id = this?.id,
-    orderId = this?.flightId,
-    from = this?.departureCity,
-    to = this?.arrivalCity,
-    departureDate = this?.departureDate,
-    returnDate = this?.arrivalDate,
-    passengers = this?.passengersTotal,
-    seatClass = this?.seatClass,
-    orderDate = this?.orderDate
+    from = this?.departureCity.toString(),
+    to = this?.arrivalCity.toString(),
+    departureDate = this?.departureDate.toString(),
+    arrivalDate = this?.arrivalDate.toString(),
+    passengers = this?.passengersTotal.toString(),
+    seatClass = this?.seatClass.toString(),
+    orderDate = this?.orderDate.toString()
 )
 
 fun OrderHistoryEntity?.toOrderHistory() = OrderUser(
@@ -23,7 +22,7 @@ fun OrderHistoryEntity?.toOrderHistory() = OrderUser(
     departureCity = this?.from,
     arrivalCity = this?.to,
     departureDate = this?.departureDate,
-    arrivalDate = this?.returnDate,
+    arrivalDate = this?.arrivalDate,
     passengersTotal = this?.passengers,
     seatClass = this?.seatClass,
     orderDate = this?.orderDate,
@@ -88,7 +87,6 @@ fun OrderHistoryEntity?.toOrderHistory() = OrderUser(
     paymentPriceRoundTrip = null,
     seatsAvailableRoundTrip = null,
     terminalRoundTrip = ""
-
 )
 
 fun List<OrderHistoryEntity?>.toOrderHistoryList() = this.map { it.toOrderHistory() }

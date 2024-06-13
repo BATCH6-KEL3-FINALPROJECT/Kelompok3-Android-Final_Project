@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import com.kizitonwose.calendar.core.CalendarDay
@@ -40,6 +41,7 @@ class FlightDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         setupAdapter()
+        saveToOrderHistory()
         getArgumentData()
         setupCalendarView()
         setClickListeners()
@@ -116,6 +118,30 @@ class FlightDetailActivity : AppCompatActivity() {
                     container.weekTextView.visibility = View.GONE
                 }
             }
+        }
+    }
+
+    private fun saveToOrderHistory() {
+        flightDetailViewModel.saveToOrderHistory().observe(this) {
+            it.proceedWhen(
+                doOnSuccess = {
+                    Toast.makeText(
+                        this,
+                        getString(R.string.text_Save_to_history_success),
+                        Toast.LENGTH_SHORT,
+                    ).show()
+                    finish()
+                },
+                doOnError = {
+                    Toast.makeText(this,
+                        getString(R.string.text_Save_to_history_failed), Toast.LENGTH_SHORT)
+                        .show()
+                },
+                doOnLoading = {
+                    Toast.makeText(this,
+                        getString(R.string.text_Save_to_history_loading), Toast.LENGTH_SHORT).show()
+                },
+            )
         }
     }
 

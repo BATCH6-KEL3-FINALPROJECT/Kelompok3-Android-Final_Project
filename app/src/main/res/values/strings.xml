@@ -209,5 +209,8 @@
     <string name="text_tutupkurung">)</string>
     <string name="text_bukakKurung">(</string>
     <string name="text_due_Date_pasport">Berlaku Sampai (dd-mm-yyyy)</string>
+    <string name="text_Save_to_history_success">Menyimpan Data Ke History</string>
+    <string name="text_Save_to_history_failed">gagal menyimpan data</string>
+    <string name="text_Save_to_history_loading">please wait...</string>
 
 </resources>
