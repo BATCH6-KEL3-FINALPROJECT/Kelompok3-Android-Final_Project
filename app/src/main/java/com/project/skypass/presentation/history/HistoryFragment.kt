@@ -9,9 +9,13 @@ import com.project.skypass.R
 import com.project.skypass.databinding.FragmentHistoryBinding
 import com.project.skypass.databinding.FragmentHomeBinding
 import dev.jahidhasanco.seatbookview.SeatBookView
+import org.koin.core.parameter.parametersOf
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HistoryFragment : Fragment() {
+
     private lateinit var binding: FragmentHistoryBinding
+    private val viewModel: HistoryViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -21,14 +25,9 @@ class HistoryFragment : Fragment() {
         return binding.root
     }
 
-    override fun onViewCreated(
-        view: View,
-        savedInstanceState: Bundle?,
-    ) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
     }
-
-
-
 
 }
