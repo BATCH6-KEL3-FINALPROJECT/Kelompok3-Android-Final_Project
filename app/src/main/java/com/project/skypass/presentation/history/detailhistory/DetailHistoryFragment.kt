@@ -1,4 +1,4 @@
-package com.project.skypass.presentation.history
+package com.project.skypass.presentation.history.detailhistory
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

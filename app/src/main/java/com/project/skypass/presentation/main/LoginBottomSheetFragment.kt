@@ -1,4 +1,4 @@
-package com.project.skypass.presentation
+package com.project.skypass.presentation.main
 
 import android.content.Intent
 import android.os.Bundle

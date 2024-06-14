@@ -214,5 +214,7 @@
     <string name="text_Save_to_history_loading">please wait...</string>
     <string name="text_connector">-</string>
     <string name="text_delete_history">Hapus Riwayat</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

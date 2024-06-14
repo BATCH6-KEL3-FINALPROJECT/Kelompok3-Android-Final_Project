@@ -1,4 +1,4 @@
-package com.project.skypass.presentation.profile
+package com.project.skypass.presentation.profile.settingaccount
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

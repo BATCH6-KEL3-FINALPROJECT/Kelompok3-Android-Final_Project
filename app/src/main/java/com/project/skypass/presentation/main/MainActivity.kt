@@ -10,11 +10,9 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import com.project.skypass.R
-import com.project.skypass.data.model.OrderUser
 import com.project.skypass.core.BaseActivity
+import com.project.skypass.data.model.OrderUser
 import com.project.skypass.databinding.ActivityMainBinding
-import com.project.skypass.presentation.home.HomeFragment
-import com.project.skypass.presentation.LoginBottomSheetFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 @Suppress("DEPRECATION")

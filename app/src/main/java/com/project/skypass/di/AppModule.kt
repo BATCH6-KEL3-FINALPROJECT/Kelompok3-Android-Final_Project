@@ -9,6 +9,8 @@ import com.project.skypass.data.datasource.auth.AuthDataStore
 import com.project.skypass.data.datasource.auth.AuthDataStoreImpl
 import com.project.skypass.data.datasource.flight.FlightDataSource
 import com.project.skypass.data.datasource.flight.FlightDataSourceImpl
+import com.project.skypass.data.datasource.history.HistoryDataSource
+import com.project.skypass.data.datasource.history.HistoryDataSourceImpl
 import com.project.skypass.data.datasource.home.favdestination.FavoriteDestinationDataSource
 import com.project.skypass.data.datasource.home.favdestination.FavoriteDestinationDataSourceImpl
 import com.project.skypass.data.datasource.home.orderHistory.OrderHistoryDataSource
@@ -33,6 +35,8 @@ import com.project.skypass.data.repository.flight.FlightRepository
 import com.project.skypass.data.repository.flight.FlightRepositoryImpl
 import com.project.skypass.data.repository.favoritedestination.FavoriteDestinationRepository
 import com.project.skypass.data.repository.favoritedestination.FavoriteDestinationRepositoryImpl
+import com.project.skypass.data.repository.history.HistoryRepository
+import com.project.skypass.data.repository.history.HistoryRepositoryImpl
 import com.project.skypass.data.repository.oauth.OAuthRepository
 import com.project.skypass.data.repository.oauth.OAuthRepositoryImpl
 import com.project.skypass.data.repository.pref.PrefRepository
@@ -60,23 +64,23 @@ import com.project.skypass.presentation.auth.register.RegisterViewModel
 import com.project.skypass.presentation.auth.resetpassword.ResetPasswordViewModel
 import com.project.skypass.presentation.auth.verification.VerificationViewModel
 import com.project.skypass.presentation.home.HomeViewModel
-import com.project.skypass.presentation.profile.ChangeProfileViewModel
-import com.project.skypass.presentation.profile.ProfileViewModel
+import com.project.skypass.presentation.profile.changeprofile.ChangeProfileViewModel
+import com.project.skypass.presentation.profile.profile.ProfileViewModel
 import com.project.skypass.presentation.home.flightclass.FlightClassViewModel
 import com.project.skypass.presentation.home.passengers.PassengersViewModel
 import com.project.skypass.presentation.main.MainViewModel
 import com.project.skypass.presentation.home.search.SearchViewModel
-import com.project.skypass.presentation.profile.ChangeProfileViewModelExample
-import com.project.skypass.presentation.profile.ProfileViewModelExample
-import com.project.skypass.presentation.profile.SettingsAccountViewModel
+import com.project.skypass.presentation.profile.changeprofile.ChangeProfileViewModelExample
+import com.project.skypass.presentation.profile.profile.ProfileViewModelExample
+import com.project.skypass.presentation.profile.settingaccount.SettingsAccountViewModel
 import com.project.skypass.presentation.flight.detail.FlightDetailViewModel
 import com.project.skypass.presentation.flight.result.FlightResultViewModel
+import com.project.skypass.presentation.history.HistoryViewModel
 import com.project.skypass.utils.SharedPreferenceUtils
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.core.module.Module
-import org.koin.core.scope.get
 import org.koin.dsl.module
 
 object AppModule {
@@ -143,6 +147,9 @@ object AppModule {
         single<OrderHistoryDataSource> {
             OrderHistoryDataSourceImpl(get())
         }
+        single<HistoryDataSource> {
+            HistoryDataSourceImpl()
+        }
     }
 
     private val repositoryModule = module {
@@ -173,6 +180,8 @@ object AppModule {
         single<OrderHistoryRepository>{
             OrderHistoryRepositoryImpl(get())
         }
+        single<ProfileRepository> { ProfileRepositoryImpl(get()) }
+        single<HistoryRepository> { HistoryRepositoryImpl(get()) }
     }
 
     private val viewModelModule = module {
@@ -207,6 +216,7 @@ object AppModule {
         viewModelOf(::SearchViewModel)
         viewModelOf(::ChangeProfileViewModelExample)
         viewModelOf(::ProfileViewModelExample)
+        viewModelOf(::HistoryViewModel)
     }
 
     val module = listOf<Module>(
