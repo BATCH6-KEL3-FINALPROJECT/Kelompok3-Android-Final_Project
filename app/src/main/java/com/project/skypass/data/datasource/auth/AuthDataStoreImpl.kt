@@ -14,10 +14,6 @@ import com.project.skypass.data.source.network.model.resetpassword.ResetPassword
 import com.project.skypass.data.source.network.service.ApiService
 
 class AuthDataStoreImpl(private val service: ApiService): AuthDataStore {
-//    override suspend fun doRegister(payload: RegisterRequestResponse): Response<String?> {
-//        return service.doRegister(payload)
-//    }
-
     override suspend fun doRegister(payload: RegisterRequestResponse): RegisterResponse {
         return service.doRegister(payload)
     }

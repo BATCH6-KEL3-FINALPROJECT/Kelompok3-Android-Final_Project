@@ -14,7 +14,6 @@ import com.project.skypass.data.source.network.model.resetpassword.ResetPassword
 
 interface AuthDataStore {
     suspend fun doRegister(payload: RegisterRequestResponse): RegisterResponse
-//    suspend fun doRegister(payload: RegisterRequestResponse): Response<String?>
     suspend fun doVerify(payload: VerifyRequestResponse): VerifyResponse
     suspend fun doLogin(payload: LoginRequestResponse): LoginResponse
     suspend fun doResendOtp(payload: ResendOtpRequestResponse): ResendOtpResponse
