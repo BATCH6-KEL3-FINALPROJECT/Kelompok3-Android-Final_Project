@@ -16,6 +16,7 @@ import com.project.skypass.data.source.network.model.resetpassword.ResetPassword
 import com.project.skypass.data.source.network.model.search.SearchResponse
 import com.project.skypass.data.source.network.model.seat.SeatResponse
 import com.project.skypass.data.source.network.model.user.deleteuser.DeleteUserResponse
+import com.project.skypass.data.source.network.model.ticket.TicketResponse
 import com.project.skypass.data.source.network.model.user.detailuser.UserResponse
 import com.project.skypass.data.source.network.model.user.edituser.EditUserResponse
 import com.project.skypass.utils.ErrorInterceptor
@@ -119,6 +120,11 @@ interface ApiService {
         @Query("flight_id") flightId: String? = null,
         @Query("limit") page: Int? = null
     ): SeatResponse
+
+    @GET("ticket/{id}")
+    suspend fun getTicketData(
+        @Path("id") id: String
+    ): TicketResponse
 
     companion object {
         @JvmStatic
