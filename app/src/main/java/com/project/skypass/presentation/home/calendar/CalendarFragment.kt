@@ -1,4 +1,4 @@
-package com.project.skypass.presentation.calendar
+package com.project.skypass.presentation.home.calendar
 
 import android.graphics.Color
 import android.os.Bundle

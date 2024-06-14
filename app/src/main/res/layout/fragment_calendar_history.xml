@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/bg_bottomsheet_dialog"
-    tools:context=".presentation.calendar.CalendarFragment">
+    tools:context=".presentation.home.calendar.CalendarFragment">
 
     <View
         android:id="@+id/line_dialog"
