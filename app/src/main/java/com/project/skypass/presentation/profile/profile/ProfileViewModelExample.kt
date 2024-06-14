@@ -13,8 +13,7 @@ import kotlinx.coroutines.flow.Flow
 
 class ProfileViewModelExample(
     private val prefRepository: PrefRepository,
-    private val userRepository: UserRepository,
-    private val orderHistoryRepository: OrderHistoryRepository
+    private val userRepository: UserRepository
 ): ViewModel() {
     fun getUserId(): String {
         return prefRepository.getUserID()
@@ -24,7 +23,4 @@ class ProfileViewModelExample(
         return userRepository.getUser(id).asLiveData(Dispatchers.IO)
     }
 
-    fun deleteDatabase(): LiveData<ResultWrapper<Boolean>> {
-        return orderHistoryRepository.deleteAllOrderHistory().asLiveData(Dispatchers.IO)
-    }
 }

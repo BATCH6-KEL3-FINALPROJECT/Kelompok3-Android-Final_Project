@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Patterns
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.textfield.TextInputLayout
 import com.project.skypass.R
 import com.project.skypass.databinding.ActivityRegisterBinding
@@ -13,6 +14,8 @@ import com.project.skypass.presentation.auth.verification.VerificationActivity
 import com.project.skypass.utils.highLightWord
 import com.project.skypass.utils.proceedWhen
 import io.github.muddz.styleabletoast.StyleableToast
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class RegisterActivity : AppCompatActivity() {
@@ -76,12 +79,15 @@ class RegisterActivity : AppCompatActivity() {
             it.proceedWhen(
                 doOnSuccess = {
                     binding.pbLoading.isVisible = false
-                    navigateToVerification(email)
                     StyleableToast.makeText(
                         this,
                         getString(R.string.text_otp_send_success),
                         R.style.ToastSuccess
                     ).show()
+                    lifecycleScope.launch {
+                        delay(2000)
+                        navigateToVerification(email)
+                    }
                 },
                 doOnError = { error ->
                     when (error.exception?.message) {
