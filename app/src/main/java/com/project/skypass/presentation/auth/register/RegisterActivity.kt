@@ -2,6 +2,8 @@ package com.project.skypass.presentation.auth.register
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Patterns
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
@@ -28,6 +30,7 @@ class RegisterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         setClickListeners()
+        addTextWatchers()
     }
 
     private fun setClickListeners() {
@@ -39,6 +42,23 @@ class RegisterActivity : AppCompatActivity() {
         }
         binding.tvNavToLogin.highLightWord(getString(R.string.text_login_here)) {
             navigateToLogin()
+        }
+    }
+
+    private fun addTextWatchers() {
+        binding.etName.addTextChangedListener(createTextWatcher { checkNameValidation(it) })
+        binding.etEmail.addTextChangedListener(createTextWatcher { checkEmailValidation(it) })
+        binding.etPhoneNumber.addTextChangedListener(createTextWatcher { checkPhoneNumberValidation(it) })
+        binding.etPassword.addTextChangedListener(createTextWatcher { checkPasswordValidation(it, binding.tilPassword) })
+    }
+
+    private fun createTextWatcher(validation: (String) -> Boolean): TextWatcher {
+        return object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+            override fun afterTextChanged(s: Editable?) {
+                validation(s.toString())
+            }
         }
     }
 
@@ -144,48 +164,44 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun checkPhoneNumberValidation(phoneNumber: String): Boolean {
-        binding.tilPhoneNumber.isEndIconVisible = false
         return if (phoneNumber.isEmpty()) {
             binding.tilPhoneNumber.isErrorEnabled = true
-            binding.tilPhoneNumber.isEndIconVisible = false
             binding.tilPhoneNumber.error = getString(R.string.text_error_telepon_cannot_empty)
             false
         } else {
             binding.tilPhoneNumber.isErrorEnabled = false
-            binding.tilPhoneNumber.isEndIconVisible = true
+            binding.tilPhoneNumber.setEndIconDrawable(R.drawable.ic_success)
+            binding.tilPhoneNumber.setEndIconTintList(getColorStateList(R.color.colorSuccess))
             true
         }
     }
 
     private fun checkNameValidation(fullName: String): Boolean {
-        binding.tilName.isEndIconVisible = false
         return if (fullName.isEmpty()) {
             binding.tilName.isErrorEnabled = true
-            binding.tilName.isEndIconVisible = false
             binding.tilName.error = getString(R.string.text_error_name_cannot_empty)
             false
         } else {
             binding.tilName.isErrorEnabled = false
-            binding.tilName.isEndIconVisible = true
+            binding.tilName.setEndIconDrawable(R.drawable.ic_success)
+            binding.tilName.setEndIconTintList(getColorStateList(R.color.colorSuccess))
             true
         }
     }
 
     private fun checkEmailValidation(email: String): Boolean {
-        binding.tilEmail.isEndIconVisible = false
         return if (email.isEmpty()) {
             binding.tilEmail.isErrorEnabled = true
-            binding.tilEmail.isEndIconVisible = false
             binding.tilEmail.error = getString(R.string.text_error_email_empty)
             false
         } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             binding.tilEmail.isErrorEnabled = true
-            binding.tilEmail.isEndIconVisible = false
             binding.tilEmail.error = getString(R.string.text_error_email_invalid)
             false
         } else {
             binding.tilEmail.isErrorEnabled = false
-            binding.tilEmail.isEndIconVisible = true
+            binding.tilEmail.setEndIconDrawable(R.drawable.ic_success)
+            binding.tilEmail.setEndIconTintList(getColorStateList(R.color.colorSuccess))
             true
         }
     }
@@ -196,16 +212,16 @@ class RegisterActivity : AppCompatActivity() {
     ): Boolean {
         return if (password.isEmpty()) {
             textInputLayout.isErrorEnabled = true
-            textInputLayout.error =
-                getString(R.string.text_error_password_empty)
+            textInputLayout.error = getString(R.string.text_error_password_empty)
             false
         } else if (password.length < 8) {
             textInputLayout.isErrorEnabled = true
-            textInputLayout.error =
-                getString(R.string.text_error_password_less_than_8_char)
+            textInputLayout.error = getString(R.string.text_error_password_less_than_8_char)
             false
         } else {
-            textInputLayout.isErrorEnabled = false
+            binding.tilPassword.isErrorEnabled = false
+            binding.tilPassword.setEndIconDrawable(R.drawable.ic_success)
+            binding.tilPassword.setEndIconTintList(getColorStateList(R.color.colorSuccess))
             true
         }
     }

@@ -60,9 +60,7 @@
                 app:boxCornerRadiusTopEnd="16dp"
                 app:boxCornerRadiusTopStart="16dp"
                 app:endIconCheckable="false"
-                app:endIconDrawable="@drawable/ic_success"
                 app:endIconMode="custom"
-                app:endIconTint="@color/colorSuccess"
                 app:hintEnabled="false">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -92,10 +90,8 @@
                 app:boxCornerRadiusBottomStart="16dp"
                 app:boxCornerRadiusTopEnd="16dp"
                 app:boxCornerRadiusTopStart="16dp"
-                app:endIconCheckable="true"
-                app:endIconDrawable="@drawable/ic_success"
+                app:endIconCheckable="false"
                 app:endIconMode="custom"
-                app:endIconTint="@color/colorSuccess"
                 app:hintEnabled="false">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -125,10 +121,8 @@
                 app:boxCornerRadiusBottomStart="16dp"
                 app:boxCornerRadiusTopEnd="16dp"
                 app:boxCornerRadiusTopStart="16dp"
-                app:endIconCheckable="true"
-                app:endIconDrawable="@drawable/ic_success"
+                app:endIconCheckable="false"
                 app:endIconMode="custom"
-                app:endIconTint="@color/colorSuccess"
                 app:hintEnabled="false">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -136,8 +130,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/hint_phone_number"
-                    android:inputType="phone"
-                    android:text="@string/hint_phone_number" />
+                    android:inputType="phone" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -158,7 +151,7 @@
                 app:boxCornerRadiusBottomStart="16dp"
                 app:boxCornerRadiusTopEnd="16dp"
                 app:boxCornerRadiusTopStart="16dp"
-                app:endIconCheckable="true"
+                app:endIconCheckable="false"
                 app:hintEnabled="false"
                 app:passwordToggleEnabled="true">
 
