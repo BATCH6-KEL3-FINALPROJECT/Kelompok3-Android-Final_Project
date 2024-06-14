@@ -4,21 +4,14 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.project.skypass.R
 import com.project.skypass.data.model.OrderUser
 import com.project.skypass.data.model.SectionPassengerCheckout
 import com.project.skypass.databinding.ActivityCheckoutDataPassengerBinding
-import com.project.skypass.databinding.ActivityCheckoutSeatBinding
-import com.project.skypass.presentation.checkout.checkoutDataOrder.CheckoutDataOrdersActivity
 import com.project.skypass.presentation.checkout.checkoutDataPassenger.viewItem.DataItem
 import com.project.skypass.presentation.checkout.checkoutDataPassenger.viewItem.HeaderItem
 import com.project.skypass.presentation.checkout.checkoutSeat.CheckoutSeatActivity
-import com.project.skypass.presentation.flight.result.FlightResultActivity
 import com.xwray.groupie.GroupieAdapter
 import com.xwray.groupie.Section
 

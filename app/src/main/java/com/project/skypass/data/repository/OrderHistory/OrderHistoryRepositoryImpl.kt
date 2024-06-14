@@ -16,13 +16,13 @@ import kotlinx.coroutines.flow.onStart
 import java.lang.IllegalStateException
 
 class OrderHistoryRepositoryImpl(private val orderHistoryDataSource: OrderHistoryDataSource): OrderHistoryRepository {
-    override fun getUserOrderHistoryData(): Flow<ResultWrapper<Pair<List<OrderUser>, Int>>> {
+    override fun getUserOrderHistoryData(): Flow<ResultWrapper<Pair<List<OrderUser>, Double>>> {
         return orderHistoryDataSource.getAllOrderHistory()
             .map {
                 //mapping into cart list and sum the total price
                 proceed {
                     val result = it.toOrderHistoryList()
-                    val totalPassenger = result.sumOf { it.passengersAdult!! + it.passengersChild!!+ it.passengersBaby!! }
+                    val totalPassenger = 2.5
                     Pair(result, totalPassenger)
                 }
             }.map {
@@ -34,6 +34,7 @@ class OrderHistoryRepositoryImpl(private val orderHistoryDataSource: OrderHistor
                 delay(2000)
             }
     }
+
 
     override fun createOrderHistoryDb(item: OrderUser): Flow<ResultWrapper<Boolean>> {
         return item.id?.let { itemId ->
@@ -48,6 +49,7 @@ class OrderHistoryRepositoryImpl(private val orderHistoryDataSource: OrderHistor
                         passengers= item.passengersTotal.toString(),
                         seatClass = item.seatClass.toString(),
                         orderDate = item.orderDate.toString(),
+                        orderId = item.id
                     )
                 )
                 delay(2000)
@@ -61,5 +63,12 @@ class OrderHistoryRepositoryImpl(private val orderHistoryDataSource: OrderHistor
 
     override fun deleteOrderHistory(item: OrderUser): Flow<ResultWrapper<Boolean>> {
         return proceedFlow { orderHistoryDataSource.deleteOrderHistory(item.toOrderHistoryEntity()) > 0 }
+    }
+
+    override fun deleteAllOrderHistory(): Flow<ResultWrapper<Boolean>> {
+        return proceedFlow {
+            orderHistoryDataSource.deleteAllOrderHistory()
+            true
+        }
     }
 }

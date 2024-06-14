@@ -15,11 +15,12 @@ interface OrderHistoryDao {
     fun getAllOrderHistory(): Flow<List<OrderHistoryEntity>>
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertOrderHistory(item: OrderHistoryEntity): Long
+
     @Delete
     suspend fun deleteOrderHistory(cart: OrderHistoryEntity): Int
 
     @Query("DELETE FROM orderhistory")
-    suspend fun deleteAllOrderHistory()
+    fun deleteAllOrderHistory()
 }
 
 

@@ -7,5 +7,5 @@ interface OrderHistoryDataSource {
     fun getAllOrderHistory(): Flow<List<OrderHistoryEntity>>
     suspend fun insertOrderHistory(item: OrderHistoryEntity): Long
     suspend fun deleteOrderHistory(item: OrderHistoryEntity): Int
-    suspend fun deleteAllOrderHistory()
+    fun deleteAllOrderHistory()
 }

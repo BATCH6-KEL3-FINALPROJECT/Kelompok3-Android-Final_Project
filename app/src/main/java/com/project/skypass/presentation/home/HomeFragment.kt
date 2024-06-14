@@ -1,14 +1,12 @@
 package com.project.skypass.presentation.home
 
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
+import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import com.project.skypass.R
 import com.project.skypass.data.model.DateCalendar
 import com.project.skypass.data.model.Destination
@@ -19,13 +17,15 @@ import com.project.skypass.databinding.FragmentHomeBinding
 import com.project.skypass.presentation.calendar.CalendarFragment
 import com.project.skypass.presentation.customview.DataSelection
 import com.project.skypass.presentation.flight.detail.FlightDetailActivity
-import com.project.skypass.presentation.flight.result.FlightResultActivity
 import com.project.skypass.presentation.home.adapter.FavoriteDestinationAdapter
+import com.project.skypass.presentation.home.adapter.OrderHistoryAdapter
+import com.project.skypass.presentation.home.adapter.OrderHistoryItemListener
 import com.project.skypass.presentation.home.flightclass.FlightClassFragment
 import com.project.skypass.presentation.home.passengers.PassengersFragment
 import com.project.skypass.presentation.home.search.SearchFragment
 import com.project.skypass.utils.convertDateFormat
 import com.project.skypass.utils.orderDate
+import com.project.skypass.utils.proceedWhen
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeFragment : Fragment(), DataSelection {
@@ -34,8 +34,24 @@ class HomeFragment : Fragment(), DataSelection {
     private val viewModel: HomeViewModel by viewModel()
     private val favoriteDestinationAdapter: FavoriteDestinationAdapter by lazy {
         FavoriteDestinationAdapter {
-
         }
+    }
+    private val orderHistoryAdapter: OrderHistoryAdapter by lazy {
+        OrderHistoryAdapter(
+            object : OrderHistoryItemListener {
+                override fun onRemoveCartClicked(item: OrderUser) {
+                    viewModel.removeCart(item).observe(viewLifecycleOwner) {
+                        it.proceedWhen(doOnSuccess = {
+                            Toast.makeText(requireContext(), "berhasil", Toast.LENGTH_SHORT).show()
+                        }, doOnLoading = {
+                            Toast.makeText(requireContext(), "loading", Toast.LENGTH_SHORT).show()
+                        }, doOnError = { err ->
+                            Toast.makeText(requireContext(), "error", Toast.LENGTH_SHORT).show()
+                        })
+                    }
+                }
+            },
+        )
     }
 
     private var formatDateDepartureIntent: String? = null
@@ -54,6 +70,8 @@ class HomeFragment : Fragment(), DataSelection {
         super.onViewCreated(view, savedInstanceState)
         clickListener()
         sendData()
+        observeDataOrderHistory()
+        clickItemOrderHistory()
         bindSeatClass(viewModel.getFavoriteDestination())
     }
 
@@ -70,12 +88,14 @@ class HomeFragment : Fragment(), DataSelection {
         }
     }
 
+
+
     private fun moveToFlight() {
         FlightDetailActivity.startActivity(
             requireContext(),
             OrderUser(
                 // HHome Data
-                id = null,
+                id = (0..5000).random(),
                 arrivalCity = binding.etToTrip.text.toString(),
                 arrivalDate = convertDateFormat(binding.etReturn.text.toString()),
                 seatClass = binding.etSeatClass.text.toString(),
@@ -197,6 +217,9 @@ class HomeFragment : Fragment(), DataSelection {
         binding.ivSwitchTrip.setOnClickListener {
             switchFromTo()
         }
+        binding.tvClearHistory.setOnClickListener {
+            deleteAllOrderHistory()
+        }
 
         tripChecked()
     }
@@ -265,6 +288,44 @@ class HomeFragment : Fragment(), DataSelection {
             "toTrip" -> {
                 binding.etToTrip.setText(trip.city)
             }
+        }
+    }
+
+    private fun observeDataOrderHistory() {
+        viewModel.getAllOrderHistory().observe(viewLifecycleOwner) {
+            it.proceedWhen(doOnSuccess = {
+                binding.rvLastSearch.isVisible = true
+                binding.tvLastSearchNotFound.isVisible = false
+                it.payload?.let { (item,data) ->
+                    orderHistoryAdapter.submitData(item,data)
+                }
+            }, doOnLoading = {
+                binding.rvLastSearch.isVisible = true
+                binding.tvLastSearchNotFound.isVisible = true
+            }, doOnError = { err ->
+                binding.rvLastSearch.isVisible = false
+                binding.tvLastSearchNotFound.text = err.exception?.message.orEmpty()
+            }, doOnEmpty = {
+                binding.rvLastSearch.isVisible = false
+                binding.tvLastSearchNotFound.isVisible = true
+            })
+        }
+    }
+
+    private fun clickItemOrderHistory() {
+        binding.rvLastSearch.itemAnimator = null
+        binding.rvLastSearch.adapter = orderHistoryAdapter
+    }
+
+    private fun deleteAllOrderHistory(){
+        viewModel.deleteAllOrderHistory().observe(viewLifecycleOwner) {
+            it.proceedWhen(doOnSuccess = {
+                Toast.makeText(requireContext(), "Menghapus Riwayat Pemesanan", Toast.LENGTH_SHORT).show()
+            }, doOnLoading = {
+
+            }, doOnError = { err ->
+                Toast.makeText(requireContext(), "error", Toast.LENGTH_SHORT).show()
+            })
         }
     }
 

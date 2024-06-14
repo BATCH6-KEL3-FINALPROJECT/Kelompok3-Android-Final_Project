@@ -6,16 +6,11 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import com.project.skypass.R
-import com.project.skypass.data.model.Flight
 import com.project.skypass.data.model.OrderUser
 import com.project.skypass.databinding.ActivityFlightResultBinding
 import com.project.skypass.presentation.checkout.checkoutDataOrder.CheckoutDataOrdersActivity
 import com.project.skypass.presentation.flight.detail.FlightDetailActivity
-import com.project.skypass.utils.convertMinutesToHours
 import com.project.skypass.utils.toIndonesianFormat
-import org.koin.androidx.viewmodel.ext.android.viewModel
-import org.koin.core.parameter.parametersOf
-import kotlin.time.times
 
 class FlightResultActivity : AppCompatActivity() {
     private val binding: ActivityFlightResultBinding by lazy {
@@ -198,14 +193,14 @@ class FlightResultActivity : AppCompatActivity() {
                             airlineCode = item.airlineCodeRoundTrip,
                             airlineName = item.airlineNameRoundTrip,
                             arrivalAirportName = item.arrivalAirportNameRoundTrip,
-                            arrivalIATACode= item.arrivalIATACodeRoundTrip,
+                            arrivalIATACode = item.arrivalIATACodeRoundTrip,
                             arrivalTime = item.arrivalTimeRoundTrip,
                             departureAirportName = item.departureAirportNameRoundTrip,
                             departureIATACode = item.departureIATACodeRoundTrip,
                             departureTime = item.departureTimeRoundTrip,
                             flightCode = item.flightCodeRoundTrip,
                             flightDescription = item.flightDescriptionRoundTrip,
-                            flightDuration= item.flightDurationRoundTrip,
+                            flightDuration = item.flightDurationRoundTrip,
                             flightDurationFormat = item.flightDurationFormatRoundTrip,
                             flightId = item.flightIdRoundTrip,
                             flightStatus = item.flightStatusRoundTrip,

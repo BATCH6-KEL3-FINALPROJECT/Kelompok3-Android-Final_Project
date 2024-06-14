@@ -13,7 +13,7 @@ class OrderHistoryDataSourceImpl(private val dao: OrderHistoryDao) : OrderHistor
     override suspend fun deleteOrderHistory(item: OrderHistoryEntity): Int =
         dao.deleteOrderHistory(item)
 
-    override suspend fun deleteAllOrderHistory() {
+    override fun deleteAllOrderHistory() {
         dao.deleteAllOrderHistory()
     }
 

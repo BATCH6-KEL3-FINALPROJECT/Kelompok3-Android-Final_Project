@@ -160,7 +160,7 @@
     <string name="seat_class">Seat Class</string>
     <string name="input_flight_class">Pilih Kelas</string>
     <string name="search_flight">Cari Penerbangan</string>
-    <string name="last_search_title">Pencarian terakhir</string>
+    <string name="last_search_title">Pencarian Terakhir</string>
     <string name="history_search_empty">Tidak ada riwayat pencarian</string>
     <string name="favorite_destination">Destinasi Favorit</string>
     <string name="no_favorite_destination">Tidak ada saran destinasi favorit</string>
@@ -212,5 +212,7 @@
     <string name="text_Save_to_history_success">Menyimpan Data Ke History</string>
     <string name="text_Save_to_history_failed">gagal menyimpan data</string>
     <string name="text_Save_to_history_loading">please wait...</string>
+    <string name="text_connector">-</string>
+    <string name="text_delete_history">Hapus Riwayat</string>
 
 </resources>

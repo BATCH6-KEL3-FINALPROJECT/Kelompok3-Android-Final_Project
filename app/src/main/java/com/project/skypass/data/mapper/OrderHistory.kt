@@ -6,19 +6,19 @@ import com.project.skypass.data.source.local.database.entity.OrderHistoryEntity
 
 
 fun OrderUser?.toOrderHistoryEntity() = OrderHistoryEntity(
-    id = this?.id,
-    from = this?.departureCity.toString(),
-    to = this?.arrivalCity.toString(),
-    departureDate = this?.departureDate.toString(),
-    arrivalDate = this?.arrivalDate.toString(),
-    passengers = this?.passengersTotal.toString(),
-    seatClass = this?.seatClass.toString(),
-    orderDate = this?.orderDate.toString()
+    orderId = this?.id,
+    from = this?.departureCity,
+    to = this?.arrivalCity,
+    departureDate = this?.departureDate,
+    arrivalDate = this?.arrivalDate,
+    passengers = this?.passengersTotal,
+    seatClass = this?.seatClass,
+    orderDate = this?.orderDate
 )
 
 fun OrderHistoryEntity?.toOrderHistory() = OrderUser(
     // send to database
-    id = this?.id,
+    id = this?.orderId,
     departureCity = this?.from,
     arrivalCity = this?.to,
     departureDate = this?.departureDate,

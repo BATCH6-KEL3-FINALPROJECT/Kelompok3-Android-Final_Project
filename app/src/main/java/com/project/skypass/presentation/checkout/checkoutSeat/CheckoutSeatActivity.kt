@@ -3,17 +3,10 @@ package com.project.skypass.presentation.checkout.checkoutSeat
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.project.skypass.R
 import com.project.skypass.data.model.OrderUser
 import com.project.skypass.databinding.ActivityCheckoutSeatBinding
-import com.project.skypass.databinding.ActivityMainBinding
-import com.project.skypass.presentation.checkout.checkoutDataPassenger.CheckoutDataPassengerActivity
 import com.project.skypass.presentation.checkout.checkoutDetail.CheckoutDetailActivity
-import com.project.skypass.presentation.flight.result.FlightResultActivity
 import dev.jahidhasanco.seatbookview.SeatBookView
 
 class CheckoutSeatActivity : AppCompatActivity() {

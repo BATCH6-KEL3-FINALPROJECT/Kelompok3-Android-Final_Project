@@ -20,10 +20,7 @@ import com.project.skypass.presentation.flight.detail.adapter.FlightDetailAdapte
 import com.project.skypass.presentation.flight.detail.adapter.OnItemClickedListener
 import com.project.skypass.presentation.flight.filter.FilterFragment
 import com.project.skypass.presentation.flight.result.FlightResultActivity
-import com.project.skypass.utils.convertDateFormat
-import com.project.skypass.utils.convertFlightDetail
 import com.project.skypass.utils.convertMinutesToHours
-import com.project.skypass.utils.orderDate
 import com.project.skypass.utils.proceedWhen
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.time.DayOfWeek
@@ -41,7 +38,6 @@ class FlightDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         setupAdapter()
-        saveToOrderHistory()
         getArgumentData()
         setupCalendarView()
         setClickListeners()
@@ -62,8 +58,6 @@ class FlightDetailActivity : AppCompatActivity() {
     }
 
     private fun onItemClick(flight: Flight) {
-
-        intent.putExtra("EXTRAS", flight)
         intent.extras?.getParcelable<OrderUser>(EXTRA_FLIGHT)?. let {
             sendOrderData(it,flight)
         }
@@ -121,8 +115,8 @@ class FlightDetailActivity : AppCompatActivity() {
         }
     }
 
-    private fun saveToOrderHistory() {
-        flightDetailViewModel.saveToOrderHistory().observe(this) {
+    private fun saveToOrderHistory(item: OrderUser) {
+        flightDetailViewModel.saveToOrderHistory(item).observe(this) {
             it.proceedWhen(
                 doOnSuccess = {
                     Toast.makeText(
@@ -130,7 +124,6 @@ class FlightDetailActivity : AppCompatActivity() {
                         getString(R.string.text_Save_to_history_success),
                         Toast.LENGTH_SHORT,
                     ).show()
-                    finish()
                 },
                 doOnError = {
                     Toast.makeText(this,
@@ -138,8 +131,7 @@ class FlightDetailActivity : AppCompatActivity() {
                         .show()
                 },
                 doOnLoading = {
-                    Toast.makeText(this,
-                        getString(R.string.text_Save_to_history_loading), Toast.LENGTH_SHORT).show()
+
                 },
             )
         }
@@ -194,6 +186,11 @@ class FlightDetailActivity : AppCompatActivity() {
         intent.extras?.getParcelable<OrderUser>(EXTRA_FLIGHT)?. let {
             flightDetailViewModel.getHomeData(it)
             setProfileData(it)
+            if (it.isRoundTrip == true && it.supportRoundTrip == true) {
+                saveToOrderHistory(it)
+            }else if (it.supportRoundTrip == false) {
+                saveToOrderHistory(it)
+            }
         }
     }
 

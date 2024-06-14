@@ -22,6 +22,7 @@ class FlightDetailViewModel(
     private val orderHistoryRepository: OrderHistoryRepository,
 ) : ViewModel() {
 
+
     var orderHistoryData = Bundle().getParcelable<OrderUser>(FlightDetailActivity.EXTRA_FLIGHT)
 
     private var setDepartureCity:String? = null
@@ -30,10 +31,8 @@ class FlightDetailViewModel(
     private var setDepartureDate:String? = null
     private var setPassenger:String? = null
 
-    fun saveToOrderHistory(): LiveData<ResultWrapper<Boolean>> {
-        return orderHistoryData?.let {
-            orderHistoryRepository.createOrderHistoryDb(it).asLiveData(Dispatchers.IO)
-        } ?: liveData { emit(ResultWrapper.Error(IllegalStateException("Catalog not found"))) }
+    fun saveToOrderHistory(item: OrderUser): LiveData<ResultWrapper<Boolean>> {
+           return orderHistoryRepository.createOrderHistoryDb(item).asLiveData(Dispatchers.IO)
     }
     fun getHomeData(item: OrderUser){
         setDepartureCity = item.departureCity

@@ -13,7 +13,6 @@ import org.koin.core.context.startKoin
 class App: Application() {
     override fun onCreate() {
         super.onCreate()
-        AppDatabase.getInstance(this)
         startKoin {
             androidLogger()
             androidContext(this@App)

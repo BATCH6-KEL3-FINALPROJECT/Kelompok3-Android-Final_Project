@@ -10,7 +10,7 @@ import com.project.skypass.data.source.local.database.entity.OrderHistoryEntity
 
 @Database(
     entities = [OrderHistoryEntity::class],
-    version = 1,
+    version = 7,
     exportSchema = true
 )
 abstract class AppDatabase : RoomDatabase() {
