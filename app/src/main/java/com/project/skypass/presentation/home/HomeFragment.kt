@@ -14,7 +14,7 @@ import com.project.skypass.data.model.OrderUser
 import com.project.skypass.data.model.Search
 import com.project.skypass.data.model.SeatClass
 import com.project.skypass.databinding.FragmentHomeBinding
-import com.project.skypass.presentation.calendar.CalendarFragment
+import com.project.skypass.presentation.home.calendar.CalendarFragment
 import com.project.skypass.presentation.customview.DataSelection
 import com.project.skypass.presentation.flight.detail.FlightDetailActivity
 import com.project.skypass.presentation.home.adapter.FavoriteDestinationAdapter
@@ -328,8 +328,5 @@ class HomeFragment : Fragment(), DataSelection {
             })
         }
     }
-
-
-
 
 }
