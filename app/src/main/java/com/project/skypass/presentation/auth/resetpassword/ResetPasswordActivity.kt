@@ -13,5 +13,12 @@ class ResetPasswordActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+        onClickListener()
+    }
+
+    private fun onClickListener() {
+        binding.ivAppbarBack.setOnClickListener{
+            onBackPressed()
+        }
     }
 }
