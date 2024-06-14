@@ -7,15 +7,21 @@
     android:padding="32dp"
     tools:context=".presentation.auth.verification.VerificationActivity">
 
+
+
     <ImageView
         android:id="@+id/iv_back_otp"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:src="@drawable/ic_back"
-        app:layout_constraintBottom_toTopOf="@id/tv_tittle_input_otp"
+        android:layout_gravity="center_vertical"
+        android:src="@drawable/ic_back_2"
+        app:tint="?attr/colorOnSurface"
+        android:layout_marginTop="18dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:tint="?attr/colorOnSurface" />
+        android:background="@drawable/bg_icon_round"
+        tools:ignore="ContentDescription" />
+
 
     <TextView
         android:id="@+id/tv_tittle_input_otp"

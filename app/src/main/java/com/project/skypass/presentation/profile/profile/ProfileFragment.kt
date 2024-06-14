@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import coil.load
 import com.project.skypass.core.BaseActivity
@@ -85,12 +86,25 @@ class ProfileFragment : Fragment() {
         builder.setMessage("Apakah kamu yakin ingin keluar?")
         builder.setPositiveButton("Yes") { dialog, _ ->
             logout()
+            deleteOrderHistoryUser()
             dialog.dismiss()
         }
         builder.setNegativeButton("Cancel") { dialog, _ ->
             dialog.dismiss()
         }
         builder.create().show()
+    }
+
+    private fun deleteOrderHistoryUser() {
+        profileViewModel.deleteOrderHistoryUser().observe(viewLifecycleOwner) {
+            it.proceedWhen(doOnSuccess = {
+                Toast.makeText(requireContext(), "Menghapus Riwayat Pemesanan", Toast.LENGTH_SHORT).show()
+            }, doOnLoading = {
+
+            }, doOnError = { err ->
+                Toast.makeText(requireContext(), "error", Toast.LENGTH_SHORT).show()
+            })
+        }
     }
 
     private fun logout() {

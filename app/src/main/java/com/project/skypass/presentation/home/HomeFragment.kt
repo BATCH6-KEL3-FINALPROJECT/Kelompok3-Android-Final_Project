@@ -38,19 +38,7 @@ class HomeFragment : Fragment(), DataSelection {
     }
     private val orderHistoryAdapter: OrderHistoryAdapter by lazy {
         OrderHistoryAdapter(
-            object : OrderHistoryItemListener {
-                override fun onRemoveCartClicked(item: OrderUser) {
-                    viewModel.removeCart(item).observe(viewLifecycleOwner) {
-                        it.proceedWhen(doOnSuccess = {
-                            Toast.makeText(requireContext(), "berhasil", Toast.LENGTH_SHORT).show()
-                        }, doOnLoading = {
-                            Toast.makeText(requireContext(), "loading", Toast.LENGTH_SHORT).show()
-                        }, doOnError = { err ->
-                            Toast.makeText(requireContext(), "error", Toast.LENGTH_SHORT).show()
-                        })
-                    }
-                }
-            },
+
         )
     }
 

@@ -36,7 +36,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="32dp"
                 android:layout_marginTop="64dp"
-                android:text="Email / Nomor Telepon"
+                android:text="@string/text_login_label_email"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -61,7 +61,7 @@
                     android:drawablePadding="8dp"
                     android:ems="10"
                     android:enabled="true"
-                    android:hint="Contoh: johndoe@gmail.com"
+                    android:hint="@string/text_hint_email_login"
                     android:inputType="textEmailAddress"
                     android:padding="12dp"
                     android:textSize="14sp"
@@ -74,7 +74,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="32dp"
                 android:layout_marginTop="16dp"
-                android:text="Password"
+                android:text="@string/text_password_login_label"
                 android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/ed_email" />
@@ -99,7 +99,7 @@
                     android:drawablePadding="8dp"
                     android:ems="10"
                     android:enabled="true"
-                    android:hint="Masukkan password"
+                    android:hint="@string/text_hhint_create_password"
                     android:inputType="textPassword"
                     android:padding="12dp"
                     android:textSize="14sp" />
@@ -110,7 +110,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:text="Lupa kata sandi"
+                android:text="@string/text_forget_password_label"
                 android:textColor="?attr/colorPrimary"
                 app:layout_constraintBottom_toTopOf="@+id/ed_password"
                 app:layout_constraintEnd_toEndOf="@+id/ed_password" />
@@ -122,7 +122,7 @@
                 android:layout_marginHorizontal="32dp"
                 android:layout_marginTop="24dp"
                 android:background="@drawable/bg_button"
-                android:text="Masuk"
+                android:text="@string/text_masuk"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/ed_password" />
@@ -152,14 +152,14 @@
                     android:id="@+id/tv_not_have_account_quest"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Belum punya akun?" />
+                    android:text="@string/etxt_dont_have_account" />
 
                 <TextView
                     android:id="@+id/tv_not_have_account_register"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
-                    android:text="Daftar di sini"
+                    android:text="@string/text_to_register"
                     android:textColor="?attr/colorPrimary"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -181,7 +181,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
-                android:text="OR"
+                android:text="@string/text_or"
                 android:textColor="?attr/colorOutline"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

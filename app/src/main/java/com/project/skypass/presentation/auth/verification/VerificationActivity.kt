@@ -29,7 +29,7 @@ class VerificationActivity : AppCompatActivity() {
 
     private fun setClickListeners() {
         binding.ivBackOtp.setOnClickListener {
-            onBackPressed()
+            finish()
         }
         binding.tvResendOtp.setOnClickListener {
             doResendOtp()
