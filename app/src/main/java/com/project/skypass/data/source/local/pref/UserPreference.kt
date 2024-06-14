@@ -14,7 +14,7 @@ interface UserPreference {
     fun setUserID(userID: String)
 
     fun isUsingDarkMode() : Boolean
-    fun deleteToken()
+
     fun setUsingDarkMode(isUsingDarkMode : Boolean)
 
     fun clearAll()
