@@ -85,6 +85,19 @@ class ProfileFragment : Fragment() {
         builder.setMessage("Apakah kamu yakin ingin keluar?")
         builder.setPositiveButton("Yes") { dialog, _ ->
             logout()
+            profileViewModel.deleteDatabase().observe(viewLifecycleOwner) {
+                it.proceedWhen(
+                    doOnSuccess = {
+
+                    },
+                    doOnLoading = {
+
+                    },
+                    doOnError = {
+
+                    }
+                )
+            }
             dialog.dismiss()
         }
         builder.setNegativeButton("Cancel") { dialog, _ ->

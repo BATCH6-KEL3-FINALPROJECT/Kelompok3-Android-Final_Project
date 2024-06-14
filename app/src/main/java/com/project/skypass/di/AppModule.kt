@@ -203,7 +203,7 @@ object AppModule {
         viewModel{ FlightDetailViewModel(get(),get()) }
         viewModel { params ->
             FlightResultViewModel(
-                extras = params.get()
+                get()
             )
         }
         viewModelOf(::PassengersViewModel)

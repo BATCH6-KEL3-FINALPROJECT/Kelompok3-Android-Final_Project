@@ -62,7 +62,7 @@ class AuthRepositoryImpl(private val dataStore: AuthDataStore): AuthRepository {
                     email = email,
                     otp = otp
                 )
-            ).isSuccess ?: false
+            ).is_success ?: false
         }
     }
 

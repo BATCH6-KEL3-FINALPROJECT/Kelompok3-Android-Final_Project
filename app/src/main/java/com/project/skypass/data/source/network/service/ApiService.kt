@@ -9,6 +9,7 @@ import com.project.skypass.data.source.network.model.login.LoginResponse
 import com.project.skypass.data.source.network.model.otp.ResendOtpRequestResponse
 import com.project.skypass.data.source.network.model.otp.ResendOtpResponse
 import com.project.skypass.data.source.network.model.otp.VerifyRequestResponse
+import com.project.skypass.data.source.network.model.otp.VerifyResponse
 import com.project.skypass.data.source.network.model.register.RegisterRequestResponse
 import com.project.skypass.data.source.network.model.register.RegisterResponse
 import com.project.skypass.data.source.network.model.resetpassword.ResetPasswordRequestResponse
@@ -47,7 +48,7 @@ interface ApiService {
     @POST("auth/verify")
     suspend fun doVerify(
         @Body verifyRequest: VerifyRequestResponse
-    ): Response<String?>
+    ): VerifyResponse
 
     @POST("auth/login")
     suspend fun doLogin(
