@@ -64,15 +64,15 @@ import com.project.skypass.presentation.auth.register.RegisterViewModel
 import com.project.skypass.presentation.auth.resetpassword.ResetPasswordViewModel
 import com.project.skypass.presentation.auth.verification.VerificationViewModel
 import com.project.skypass.presentation.home.HomeViewModel
-import com.project.skypass.presentation.profile.ChangeProfileViewModel
-import com.project.skypass.presentation.profile.ProfileViewModel
+import com.project.skypass.presentation.profile.changeprofile.ChangeProfileViewModel
+import com.project.skypass.presentation.profile.profile.ProfileViewModel
 import com.project.skypass.presentation.home.flightclass.FlightClassViewModel
 import com.project.skypass.presentation.home.passengers.PassengersViewModel
 import com.project.skypass.presentation.main.MainViewModel
 import com.project.skypass.presentation.home.search.SearchViewModel
-import com.project.skypass.presentation.profile.ChangeProfileViewModelExample
-import com.project.skypass.presentation.profile.ProfileViewModelExample
-import com.project.skypass.presentation.profile.SettingsAccountViewModel
+import com.project.skypass.presentation.profile.changeprofile.ChangeProfileViewModelExample
+import com.project.skypass.presentation.profile.profile.ProfileViewModelExample
+import com.project.skypass.presentation.profile.settingaccount.SettingsAccountViewModel
 import com.project.skypass.presentation.flight.detail.FlightDetailViewModel
 import com.project.skypass.presentation.flight.result.FlightResultViewModel
 import com.project.skypass.presentation.history.HistoryViewModel
@@ -81,7 +81,6 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.core.module.Module
-import org.koin.core.scope.get
 import org.koin.dsl.module
 
 object AppModule {

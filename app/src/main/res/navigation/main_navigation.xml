@@ -26,7 +26,7 @@
         tools:layout="@layout/fragment_notification" />
     <fragment
         android:id="@+id/menu_tab_profile"
-        android:name="com.project.skypass.presentation.profile.ProfileFragment"
+        android:name="com.project.skypass.presentation.profile.profile.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
     <activity

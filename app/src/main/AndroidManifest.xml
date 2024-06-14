@@ -33,10 +33,10 @@
             android:name=".presentation.auth.resetpassword.ResetPasswordActivity"
             android:exported="false" />
         <activity
-            android:name=".presentation.profile.SettingsAccountActivity"
+            android:name=".presentation.profile.settingaccount.SettingsAccountActivity"
             android:exported="false" />
         <activity
-            android:name=".presentation.profile.ChangeProfileActivity"
+            android:name=".presentation.profile.changeprofile.ChangeProfileActivity"
             android:exported="false" />
         <activity
             android:name=".presentation.auth.forgetpassword.ForgetPasswordActivity"

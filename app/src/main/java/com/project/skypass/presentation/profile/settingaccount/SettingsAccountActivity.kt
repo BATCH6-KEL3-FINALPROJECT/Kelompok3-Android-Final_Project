@@ -1,12 +1,8 @@
-package com.project.skypass.presentation.profile
+package com.project.skypass.presentation.profile.settingaccount
 
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.project.skypass.R
 import com.project.skypass.databinding.ActivitySettingsAccountBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 

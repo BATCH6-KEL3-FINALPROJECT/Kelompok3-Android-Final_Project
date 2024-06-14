@@ -4,7 +4,7 @@ import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
 import com.project.skypass.data.source.local.database.AppDatabase
 import com.project.skypass.di.AppModule
-import com.project.skypass.presentation.profile.SettingsAccountViewModel
+import com.project.skypass.presentation.profile.settingaccount.SettingsAccountViewModel
 import org.koin.android.ext.android.getKoin
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger

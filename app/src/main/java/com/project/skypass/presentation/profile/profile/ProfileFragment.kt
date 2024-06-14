@@ -1,4 +1,4 @@
-package com.project.skypass.presentation.profile
+package com.project.skypass.presentation.profile.profile
 
 import android.app.AlertDialog
 import android.content.Intent
@@ -10,6 +10,8 @@ import androidx.fragment.app.Fragment
 import coil.load
 import com.project.skypass.core.BaseActivity
 import com.project.skypass.databinding.FragmentProfileBinding
+import com.project.skypass.presentation.profile.settingaccount.SettingsAccountActivity
+import com.project.skypass.presentation.profile.changeprofile.ChangeProfileActivity
 import com.project.skypass.utils.proceedWhen
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
