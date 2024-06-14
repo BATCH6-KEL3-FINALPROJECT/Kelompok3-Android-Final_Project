@@ -281,6 +281,9 @@
                             android:id="@+id/iv_departure"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:padding="2dp"
+                            android:background="@drawable/bg_change_icon"
+                            android:elevation="1dp"
                             android:src="@drawable/ic_calendar"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -353,6 +356,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:src="@drawable/ic_calendar"
+                            android:padding="2dp"
+                            android:background="@drawable/bg_change_icon"
+                            android:elevation="1dp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
@@ -435,7 +441,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:src="@drawable/ic_passenger"
-
+                            android:padding="2dp"
+                            android:background="@drawable/bg_change_icon"
+                            android:elevation="1dp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
@@ -506,7 +514,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:src="@drawable/ic_seat_class"
-
+                            android:padding="2dp"
+                            android:background="@drawable/bg_change_icon"
+                            android:elevation="1dp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
@@ -588,23 +598,36 @@
 
         <TextView
             android:id="@+id/tv_last_search"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="32dp"
             android:text="@string/last_search_title"
             android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/card_trip_all" />
+
+        <TextView
+            android:id="@+id/tv_clear_history"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="32dp"
+            android:text="@string/text_delete_history"
+            android:textSize="16sp"
+            android:textColor="?attr/colorPrimary"
+            android:textStyle="normal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/card_trip_all" />
+
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layout_last_search"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+
+            android:layout_height="100dp"
             android:layout_marginTop="8dp"
-            android:layout_marginHorizontal="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_last_search">
@@ -612,7 +635,9 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_last_search"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="16dp"
+                android:paddingVertical="10dp"
                 android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintTop_toTopOf="parent"
@@ -623,13 +648,15 @@
 
             <TextView
                 android:id="@+id/tv_last_search_not_found"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:text="@string/history_search_empty"
                 android:textStyle="italic"
                 app:layout_constraintTop_toTopOf="parent"
+                android:gravity="center|center"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
+                android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

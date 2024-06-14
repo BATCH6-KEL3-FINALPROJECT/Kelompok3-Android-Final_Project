@@ -123,12 +123,12 @@
     <string name="text_button_checkout">Simpan</string>
     <string name="text_toolbar_checkout_passenger">Biodata Penumpang</string>
     <string name="text_data_passenger_label_date_country">Berlaku Sampai</string>
-    <string name="hint_dd_mm_yyyy">dd--mm--yyyy</string>
+    <string name="hint_dd_mm_yyyy">Tanggal Lahir (dd-mm-yyyy)</string>
     <string name="hint_country_ktp">Negara Penerbit</string>
     <string name="hint_ktpOrpassport">KTP/Paspor</string>
     <string name="hint_Citizenship">Kewarganegaraan</string>
     <string name="table_DateBorn">Tanggal Lahir</string>
-    <string name="hint_noPhone">0821 xxxx xxxx</string>
+    <string name="hint_noPhone">Nomor Telepon +62</string>
     <string name="label_nomor_telphone">Nomor Telphone</string>
     <string name="hint_family_name">Nama Keluarga</string>
     <string name="label_switch_data_passenger_checkout">Punya Nama Keluarga</string>
@@ -160,7 +160,7 @@
     <string name="seat_class">Seat Class</string>
     <string name="input_flight_class">Pilih Kelas</string>
     <string name="search_flight">Cari Penerbangan</string>
-    <string name="last_search_title">Pencarian terakhir</string>
+    <string name="last_search_title">Pencarian Terakhir</string>
     <string name="history_search_empty">Tidak ada riwayat pencarian</string>
     <string name="favorite_destination">Destinasi Favorit</string>
     <string name="no_favorite_destination">Tidak ada saran destinasi favorit</string>
@@ -202,5 +202,17 @@
     <string name="from_to">%1$s - %2$s</string>
     <string name="idr_rp_fav_des">IDR Rp.%1$s</string>
     <string name="text_toolbar_notification">Detail Information</string>
+    <string name="text_detail_penerbangan">Detail Penerbangan</string>
+    <string name="textConnect">-</string>
+    <string name="text_arrival">Kedatangan</string>
+    <string name="text_Departure">Keberangkatan</string>
+    <string name="text_tutupkurung">)</string>
+    <string name="text_bukakKurung">(</string>
+    <string name="text_due_Date_pasport">Berlaku Sampai (dd-mm-yyyy)</string>
+    <string name="text_Save_to_history_success">Menyimpan Data Ke History</string>
+    <string name="text_Save_to_history_failed">gagal menyimpan data</string>
+    <string name="text_Save_to_history_loading">please wait...</string>
+    <string name="text_connector">-</string>
+    <string name="text_delete_history">Hapus Riwayat</string>
 
 </resources>

@@ -1,16 +1,16 @@
 package com.project.skypass.presentation.home
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
+import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import com.project.skypass.R
 import com.project.skypass.data.model.DateCalendar
 import com.project.skypass.data.model.Destination
+import com.project.skypass.data.model.OrderUser
 import com.project.skypass.data.model.Search
 import com.project.skypass.data.model.SeatClass
 import com.project.skypass.databinding.FragmentHomeBinding
@@ -18,9 +18,14 @@ import com.project.skypass.presentation.calendar.CalendarFragment
 import com.project.skypass.presentation.customview.DataSelection
 import com.project.skypass.presentation.flight.detail.FlightDetailActivity
 import com.project.skypass.presentation.home.adapter.FavoriteDestinationAdapter
+import com.project.skypass.presentation.home.adapter.OrderHistoryAdapter
+import com.project.skypass.presentation.home.adapter.OrderHistoryItemListener
 import com.project.skypass.presentation.home.flightclass.FlightClassFragment
 import com.project.skypass.presentation.home.passengers.PassengersFragment
 import com.project.skypass.presentation.home.search.SearchFragment
+import com.project.skypass.utils.convertDateFormat
+import com.project.skypass.utils.orderDate
+import com.project.skypass.utils.proceedWhen
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeFragment : Fragment(), DataSelection {
@@ -28,9 +33,25 @@ class HomeFragment : Fragment(), DataSelection {
     private lateinit var binding: FragmentHomeBinding
     private val viewModel: HomeViewModel by viewModel()
     private val favoriteDestinationAdapter: FavoriteDestinationAdapter by lazy {
-        FavoriteDestinationAdapter{
-
+        FavoriteDestinationAdapter {
         }
+    }
+    private val orderHistoryAdapter: OrderHistoryAdapter by lazy {
+        OrderHistoryAdapter(
+            object : OrderHistoryItemListener {
+                override fun onRemoveCartClicked(item: OrderUser) {
+                    viewModel.removeCart(item).observe(viewLifecycleOwner) {
+                        it.proceedWhen(doOnSuccess = {
+                            Toast.makeText(requireContext(), "berhasil", Toast.LENGTH_SHORT).show()
+                        }, doOnLoading = {
+                            Toast.makeText(requireContext(), "loading", Toast.LENGTH_SHORT).show()
+                        }, doOnError = { err ->
+                            Toast.makeText(requireContext(), "error", Toast.LENGTH_SHORT).show()
+                        })
+                    }
+                }
+            },
+        )
     }
 
     private var formatDateDepartureIntent: String? = null
@@ -47,9 +68,10 @@ class HomeFragment : Fragment(), DataSelection {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         clickListener()
         sendData()
+        observeDataOrderHistory()
+        clickItemOrderHistory()
         bindSeatClass(viewModel.getFavoriteDestination())
     }
 
@@ -66,30 +88,84 @@ class HomeFragment : Fragment(), DataSelection {
         }
     }
 
+
+
     private fun moveToFlight() {
-        val fromTrip = binding.etFromTrip.text.toString()
-        val toTrip = binding.etToTrip.text.toString()
-        val seatClass = binding.etSeatClass.text.toString()
+        FlightDetailActivity.startActivity(
+            requireContext(),
+            OrderUser(
+                // HHome Data
+                id = (0..5000).random(),
+                arrivalCity = binding.etToTrip.text.toString(),
+                arrivalDate = convertDateFormat(binding.etReturn.text.toString()),
+                seatClass = binding.etSeatClass.text.toString(),
+                departureCity = binding.etFromTrip.text.toString(),
+                departureDate = convertDateFormat(binding.etDeparture.text.toString()),
+                passengersTotal = binding.etPassengers.text.toString(),
+                passengersAdult = null,
+                passengersBaby = null,
+                passengersChild = null,
+                isRoundTrip = binding.rbRoundTrip.isChecked,
+                supportRoundTrip = binding.rbRoundTrip.isChecked,
+                orderDate = orderDate(),
 
-        val formHome = Destination(
-            isRoundTrip = binding.rbRoundTrip.isChecked,
-            from = fromTrip,
-            to = toTrip,
-            departureDate = formatDateDepartureIntent ?: "",
-            returnDate = formatDateReturnIntent ?: "",
-            passengers = passengers ?: "",
-            seatClass = seatClass,
-            discount = "",
-            price = 0.0,
-            airline = "",
-            imageUrl = ""
+                // Flight Data (One Way)
+                airlineCode = "",
+                airlineName = "",
+                arrivalAirportName = "",
+                arrivalIATACode = "",
+                arrivalTime = "",
+                departureAirportName = "",
+                departureIATACode = "",
+                departureTime = "",
+                flightCode = "",
+                flightDescription = "",
+                flightDuration = null,
+                flightDurationFormat = "",
+                flightId = "",
+                flightStatus = "",
+                flightSeat = "",
+                flightArrivalDate = "",
+                flightDepartureDate = "",
+                planeType = "",
+                priceAdult = null,
+                priceBaby = null,
+                priceChild = null,
+                priceTotal = null,
+                paymentPrice = null,
+                seatsAvailable = null,
+                terminal = "",
+
+                // Flight Data (Round Trip)
+                airlineCodeRoundTrip = "",
+                airlineNameRoundTrip = "",
+                arrivalAirportNameRoundTrip = "",
+                arrivalIATACodeRoundTrip = "",
+                arrivalTimeRoundTrip = "",
+                departureAirportNameRoundTrip = "",
+                departureIATACodeRoundTrip = "",
+                departureTimeRoundTrip = "",
+                flightCodeRoundTrip = "",
+                flightDescriptionRoundTrip = "",
+                flightDurationRoundTrip = null,
+                flightDurationFormatRoundTrip = "",
+                flightIdRoundTrip = "",
+                flightStatusRoundTrip = "",
+                flightSeatRoundTrip = "",
+                flightArrivalDateRoundTrip = "",
+                flightDepartureDateRoundTrip = "",
+                planeTypeRoundTrip = "",
+                priceAdultRoundTrip = null,
+                priceBabyRoundTrip = null,
+                priceChildRoundTrip = null,
+                priceTotalRoundTrip = null,
+                paymentPriceRoundTrip = null,
+                seatsAvailableRoundTrip = null,
+                terminalRoundTrip = ""
+            ),
         )
-        Log.d("formHome", formHome.toString())
-
-        val navController = findNavController()
-        val bundleActivityDetailFlight = bundleOf(Pair(FlightDetailActivity.EXTRA_FLIGHT, formHome))
-        navController.navigate(R.id.action_menu_tab_home_to_flightDetailActivity, bundleActivityDetailFlight)
     }
+
 
     private fun clickListener() {
         binding.etPassengers.setOnClickListener {
@@ -115,8 +191,12 @@ class HomeFragment : Fragment(), DataSelection {
         binding.etDeparture.setOnClickListener {
             val calendarFragment = CalendarFragment()
             val bundle = Bundle()
-            bundle.putString("currentDateDeparture", binding.etDeparture.text.toString().ifEmpty { "Belum dipilih" })
-            bundle.putString("currentDateReturn", binding.etReturn.text.toString().ifEmpty { "Belum dipilih"})
+            bundle.putString(
+                "currentDateDeparture",
+                binding.etDeparture.text.toString().ifEmpty { "Belum dipilih" })
+            bundle.putString(
+                "currentDateReturn",
+                binding.etReturn.text.toString().ifEmpty { "Belum dipilih" })
             calendarFragment.arguments = bundle
             calendarFragment.dateSelection = this@HomeFragment
             calendarFragment.show(parentFragmentManager, "departure")
@@ -124,14 +204,21 @@ class HomeFragment : Fragment(), DataSelection {
         binding.etReturn.setOnClickListener {
             val calendarFragment = CalendarFragment()
             val bundle = Bundle()
-            bundle.putString("currentDateDeparture", binding.etDeparture.text.toString().ifEmpty { "Belum dipilih" })
-            bundle.putString("currentDateReturn", binding.etReturn.text.toString().ifEmpty { "Belum dipilih"})
+            bundle.putString(
+                "currentDateDeparture",
+                binding.etDeparture.text.toString().ifEmpty { "Belum dipilih" })
+            bundle.putString(
+                "currentDateReturn",
+                binding.etReturn.text.toString().ifEmpty { "Belum dipilih" })
             calendarFragment.arguments = bundle
             calendarFragment.dateSelection = this@HomeFragment
             calendarFragment.show(parentFragmentManager, "return")
         }
-        binding.ivSwitchTrip.setOnClickListener{
+        binding.ivSwitchTrip.setOnClickListener {
             switchFromTo()
+        }
+        binding.tvClearHistory.setOnClickListener {
+            deleteAllOrderHistory()
         }
 
         tripChecked()
@@ -153,6 +240,7 @@ class HomeFragment : Fragment(), DataSelection {
                 R.id.rb_one_way -> {
                     binding.layoutReturn.visibility = View.GONE
                 }
+
                 R.id.rb_round_trip -> {
                     binding.layoutReturn.visibility = View.VISIBLE
                 }
@@ -166,6 +254,7 @@ class HomeFragment : Fragment(), DataSelection {
                 binding.etDeparture.setText(date.ddMMMyyyy)
                 formatDateDepartureIntent = date.ddMMyyyy
             }
+
             "return" -> {
                 binding.etReturn.setText(date.ddMMMyyyy)
                 formatDateReturnIntent = date.ddMMyyyy
@@ -195,10 +284,52 @@ class HomeFragment : Fragment(), DataSelection {
             "fromTrip" -> {
                 binding.etFromTrip.setText(trip.city)
             }
+
             "toTrip" -> {
                 binding.etToTrip.setText(trip.city)
             }
         }
     }
+
+    private fun observeDataOrderHistory() {
+        viewModel.getAllOrderHistory().observe(viewLifecycleOwner) {
+            it.proceedWhen(doOnSuccess = {
+                binding.rvLastSearch.isVisible = true
+                binding.tvLastSearchNotFound.isVisible = false
+                it.payload?.let { (item,data) ->
+                    orderHistoryAdapter.submitData(item,data)
+                }
+            }, doOnLoading = {
+                binding.rvLastSearch.isVisible = true
+                binding.tvLastSearchNotFound.isVisible = true
+            }, doOnError = { err ->
+                binding.rvLastSearch.isVisible = false
+                binding.tvLastSearchNotFound.text = err.exception?.message.orEmpty()
+            }, doOnEmpty = {
+                binding.rvLastSearch.isVisible = false
+                binding.tvLastSearchNotFound.isVisible = true
+            })
+        }
+    }
+
+    private fun clickItemOrderHistory() {
+        binding.rvLastSearch.itemAnimator = null
+        binding.rvLastSearch.adapter = orderHistoryAdapter
+    }
+
+    private fun deleteAllOrderHistory(){
+        viewModel.deleteAllOrderHistory().observe(viewLifecycleOwner) {
+            it.proceedWhen(doOnSuccess = {
+                Toast.makeText(requireContext(), "Menghapus Riwayat Pemesanan", Toast.LENGTH_SHORT).show()
+            }, doOnLoading = {
+
+            }, doOnError = { err ->
+                Toast.makeText(requireContext(), "error", Toast.LENGTH_SHORT).show()
+            })
+        }
+    }
+
+
+
 
 }

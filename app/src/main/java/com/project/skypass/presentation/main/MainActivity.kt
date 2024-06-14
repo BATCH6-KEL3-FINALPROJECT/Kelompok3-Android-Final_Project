@@ -1,5 +1,7 @@
 package com.project.skypass.presentation.main
 
+import android.content.Context
+import android.content.Intent
 import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Bundle
@@ -8,8 +10,10 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import com.project.skypass.R
+import com.project.skypass.data.model.OrderUser
 import com.project.skypass.core.BaseActivity
 import com.project.skypass.databinding.ActivityMainBinding
+import com.project.skypass.presentation.home.HomeFragment
 import com.project.skypass.presentation.LoginBottomSheetFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -54,6 +58,7 @@ class MainActivity : BaseActivity() {
                     window.statusBarColor = getColor(R.color.colorNavbar)
                 }
                 else -> {
+                    //window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
                     window.decorView.systemUiVisibility = if (isNightMode()) {
                         View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                     } else {
@@ -68,6 +73,18 @@ class MainActivity : BaseActivity() {
     private fun isNightMode(): Boolean {
         val currentNightMode = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
         return currentNightMode == Configuration.UI_MODE_NIGHT_YES
+    }
+
+    companion object {
+        const val EXTRA_FLIGHT = "extra_flight"
+        fun sendDataOrder(
+            context: Context,
+            orderUser: OrderUser
+        ){
+            val intent = Intent(context, MainActivity::class.java)
+            intent.putExtra(EXTRA_FLIGHT, orderUser)
+            context.startActivity(intent)
+        }
     }
 
     private fun showLoginBottomSheet() {

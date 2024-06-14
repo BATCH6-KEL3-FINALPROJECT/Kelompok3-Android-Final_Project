@@ -47,7 +47,9 @@ class UserPreferenceImpl(private val pref: SharedPreferences): UserPreference {
     }
 
     override fun clearAll(){
-        pref.edit().clear().apply()
+        pref.edit().remove(KEY_TOKEN).apply()
+        pref.edit().remove(KEY_IS_LOGIN).apply()
+        pref.edit().remove(KEY_USER_ID).apply()
     }
 
     companion object {

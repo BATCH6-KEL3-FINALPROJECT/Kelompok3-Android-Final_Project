@@ -6,37 +6,74 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="8dp"
     app:cardElevation="2dp"
-    android:layout_marginEnd="4dp">
+    android:layout_marginEnd="8dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
+        android:layout_width="165dp"
+        android:padding="4dp"
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/tv_title_last_search"
+            android:id="@+id/tv_departure"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="8dp"
-            android:layout_marginTop="8dp"
-            android:text="Jakarta - Bandung"
+            android:text="Jakarta"
             android:textSize="14sp"
             android:textStyle="bold"
             android:textColor="?attr/colorPrimary"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_date_order" />
+        <TextView
+            android:id="@+id/con1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:text="@string/text_connector"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="?attr/colorPrimary"
+            app:layout_constraintStart_toEndOf="@+id/tv_departure"
+            app:layout_constraintTop_toBottomOf="@id/tv_date_order" />
+
+        <TextView
+            android:id="@+id/tv_arrival"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            tools:text="bali"
+            android:textSize="14sp"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textStyle="bold"
+            android:textColor="?attr/colorPrimary"
+            app:layout_constraintStart_toEndOf="@+id/con1"
+            app:layout_constraintTop_toBottomOf="@id/tv_date_order"
+            />
+
+        <TextView
+            android:id="@+id/tv_date_order"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="12-06-2024"
+            android:layout_marginHorizontal="8dp"
+            android:textSize="11sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_content_date_passenger_class"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="2 Januari 2024 - 2 orang - Ekonomi"
+            tools:text="2 orang - Ekonomi"
             android:layout_marginHorizontal="8dp"
             android:layout_marginVertical="8dp"
             android:textSize="12sp"
+            android:maxLines="1"
+            android:ellipsize="end"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_title_last_search" />
+            app:layout_constraintTop_toBottomOf="@id/tv_departure" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

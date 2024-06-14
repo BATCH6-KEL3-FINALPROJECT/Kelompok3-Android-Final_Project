@@ -11,6 +11,8 @@ import com.project.skypass.data.datasource.flight.FlightDataSource
 import com.project.skypass.data.datasource.flight.FlightDataSourceImpl
 import com.project.skypass.data.datasource.home.favdestination.FavoriteDestinationDataSource
 import com.project.skypass.data.datasource.home.favdestination.FavoriteDestinationDataSourceImpl
+import com.project.skypass.data.datasource.home.orderHistory.OrderHistoryDataSource
+import com.project.skypass.data.datasource.home.orderHistory.OrderHistoryDataSourceImpl
 import com.project.skypass.data.datasource.home.seatclass.PriceClassDataSource
 import com.project.skypass.data.datasource.home.seatclass.PriceClassDataSourceImpl
 import com.project.skypass.data.datasource.oauth.OAuthDataSource
@@ -23,6 +25,8 @@ import com.project.skypass.data.datasource.search.SearchDataSource
 import com.project.skypass.data.datasource.search.SearchDataSourceImpl
 import com.project.skypass.data.datasource.user.UserDataSource
 import com.project.skypass.data.datasource.user.UserDataSourceImpl
+import com.project.skypass.data.repository.OrderHistory.OrderHistoryRepository
+import com.project.skypass.data.repository.OrderHistory.OrderHistoryRepositoryImpl
 import com.project.skypass.data.repository.auth.AuthRepository
 import com.project.skypass.data.repository.auth.AuthRepositoryImpl
 import com.project.skypass.data.repository.flight.FlightRepository
@@ -41,6 +45,8 @@ import com.project.skypass.data.repository.profile.ProfileRepository
 import com.project.skypass.data.repository.profile.ProfileRepositoryImpl
 import com.project.skypass.data.repository.user.UserRepository
 import com.project.skypass.data.repository.user.UserRepositoryImpl
+import com.project.skypass.data.source.local.database.AppDatabase
+import com.project.skypass.data.source.local.database.dao.OrderHistoryDao
 import com.project.skypass.data.source.local.pref.UserPreference
 import com.project.skypass.data.source.local.pref.UserPreferenceImpl
 import com.project.skypass.data.source.network.model.oauth.GoogleOAuthService
@@ -70,6 +76,7 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.core.module.Module
+import org.koin.core.scope.get
 import org.koin.dsl.module
 
 object AppModule {
@@ -87,6 +94,8 @@ object AppModule {
         single<UserPreference> {
             UserPreferenceImpl(get())
         }
+        single<AppDatabase> { AppDatabase.getInstance(androidContext()) }
+        single<OrderHistoryDao> { get<AppDatabase>().orderHistoryDao() }
     }
 
     private val googleOAuthModule = module {
@@ -125,16 +134,19 @@ object AppModule {
         single<SearchDataSource> {
             SearchDataSourceImpl(get())
         }
-        single<FavoriteDestinationDataSource> {
+        single<FavoriteDestinationDataSource>{
             FavoriteDestinationDataSourceImpl()
         }
         single<FlightDataSource> {
             FlightDataSourceImpl(get())
         }
+        single<OrderHistoryDataSource> {
+            OrderHistoryDataSourceImpl(get())
+        }
     }
 
     private val repositoryModule = module {
-        single<PrefRepository> {
+        single<PrefRepository>{
             PrefRepositoryImpl(get())
         }
         single<AuthRepository> {
@@ -152,10 +164,15 @@ object AppModule {
         single<SearchRepository> {
             SearchRepositoryImpl(get())
         }
-        single<FavoriteDestinationRepository> {
+        single<FavoriteDestinationRepository>{
             FavoriteDestinationRepositoryImpl(get())
         }
-        single<ProfileRepository> { ProfileRepositoryImpl(get()) }
+        single<ProfileRepository> {
+            ProfileRepositoryImpl(get())
+        }
+        single<OrderHistoryRepository>{
+            OrderHistoryRepositoryImpl(get())
+        }
     }
 
     private val viewModelModule = module {
@@ -167,7 +184,14 @@ object AppModule {
         viewModelOf(::SettingsAccountViewModel)
         viewModelOf(::ResetPasswordViewModel)
         viewModelOf(::ForgotPasswordViewModel)
-        viewModelOf(::FlightDetailViewModel)
+        /*viewModel { params ->
+            FlightDetailViewModel(
+                flightRepository = get(),
+                extras = params.get(),
+                orderHistoryRepository = get()
+            )
+        }*/
+        viewModel{ FlightDetailViewModel(get(),get()) }
         viewModel { params ->
             FlightResultViewModel(
                 extras = params.get()

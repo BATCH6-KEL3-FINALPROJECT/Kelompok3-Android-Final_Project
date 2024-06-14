@@ -1,9 +1,12 @@
 package com.project.skypass.presentation.flight.detail
 
+import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import com.kizitonwose.calendar.core.CalendarDay
@@ -11,11 +14,13 @@ import com.kizitonwose.calendar.view.MonthDayBinder
 import com.kizitonwose.calendar.view.ViewContainer
 import com.project.skypass.R
 import com.project.skypass.data.model.Flight
+import com.project.skypass.data.model.OrderUser
 import com.project.skypass.databinding.ActivityFlightDetailBinding
 import com.project.skypass.presentation.flight.detail.adapter.FlightDetailAdapter
 import com.project.skypass.presentation.flight.detail.adapter.OnItemClickedListener
 import com.project.skypass.presentation.flight.filter.FilterFragment
 import com.project.skypass.presentation.flight.result.FlightResultActivity
+import com.project.skypass.utils.convertMinutesToHours
 import com.project.skypass.utils.proceedWhen
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.time.DayOfWeek
@@ -33,6 +38,7 @@ class FlightDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         setupAdapter()
+        getArgumentData()
         setupCalendarView()
         setClickListeners()
         observeFlightData()
@@ -46,15 +52,15 @@ class FlightDetailActivity : AppCompatActivity() {
             val filterFragment = FilterFragment()
             filterFragment.show(supportFragmentManager, filterFragment.tag)
         }
-        flightDetailAdapter.setOnTicketClickListener { flight ->
-            onItemClick(flight)
+        flightDetailAdapter.setOnTicketClickListener {
+
         }
     }
 
     private fun onItemClick(flight: Flight) {
-        val intent = Intent(this, FlightResultActivity::class.java)
-        intent.putExtra("EXTRAS", flight)
-        startActivity(intent)
+        intent.extras?.getParcelable<OrderUser>(EXTRA_FLIGHT)?. let {
+            sendOrderData(it,flight)
+        }
     }
 
     private fun setupAdapter() {
@@ -109,6 +115,28 @@ class FlightDetailActivity : AppCompatActivity() {
         }
     }
 
+    private fun saveToOrderHistory(item: OrderUser) {
+        flightDetailViewModel.saveToOrderHistory(item).observe(this) {
+            it.proceedWhen(
+                doOnSuccess = {
+                    Toast.makeText(
+                        this,
+                        getString(R.string.text_Save_to_history_success),
+                        Toast.LENGTH_SHORT,
+                    ).show()
+                },
+                doOnError = {
+                    Toast.makeText(this,
+                        getString(R.string.text_Save_to_history_failed), Toast.LENGTH_SHORT)
+                        .show()
+                },
+                doOnLoading = {
+
+                },
+            )
+        }
+    }
+
     private fun observeFlightData() {
         flightDetailViewModel.getFlightDetail().observe(this) {
             it.proceedWhen(
@@ -144,5 +172,114 @@ class FlightDetailActivity : AppCompatActivity() {
 
     companion object {
         const val EXTRA_FLIGHT = "extra_flight"
+        fun startActivity(
+            context: Context,
+            orderData: OrderUser,
+        ) {
+            val intent = Intent(context, FlightDetailActivity::class.java)
+            intent.putExtra(EXTRA_FLIGHT, orderData)
+            context.startActivity((intent))
+        }
     }
+
+    private fun getArgumentData() {
+        intent.extras?.getParcelable<OrderUser>(EXTRA_FLIGHT)?. let {
+            flightDetailViewModel.getHomeData(it)
+            setProfileData(it)
+            if (it.isRoundTrip == true && it.supportRoundTrip == true) {
+                saveToOrderHistory(it)
+            }else if (it.supportRoundTrip == false) {
+                saveToOrderHistory(it)
+            }
+        }
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun setProfileData(item: OrderUser){
+        binding.layoutHeader.tvTypeFlight.text = item.seatClass
+        binding.layoutHeader.tvPassenger.text = item.passengersTotal
+        binding.layoutHeader.tvDestination.text = "${item.departureCity} > ${item.arrivalCity}"
+
+    }
+
+
+
+    private fun sendOrderData(item: OrderUser, itemFlight: Flight) {
+        FlightResultActivity.sendDataOrder(
+            this,
+            OrderUser(
+                // Home data
+                id = item.id,
+                arrivalCity = item.arrivalCity,
+                arrivalDate = item.arrivalDate,
+                seatClass = item.seatClass,
+                departureCity = item.departureCity,
+                departureDate = item.departureDate,
+                passengersTotal = item.passengersTotal,
+                passengersAdult = item.passengersAdult,
+                passengersBaby = item.passengersBaby,
+                passengersChild = item.passengersChild,
+                isRoundTrip = item.isRoundTrip,
+                supportRoundTrip = item.supportRoundTrip,
+                orderDate = item.orderDate,
+
+                // Flight data (One Way)
+                airlineCode = itemFlight.airlineCode,
+                airlineName = itemFlight.airlineName,
+                arrivalAirportName = itemFlight.arrivalAirportName,
+                arrivalIATACode = itemFlight.arrivalIATACode,
+                arrivalTime = itemFlight.arrivalTime,
+                departureAirportName = itemFlight.departureAirportName,
+                departureIATACode = itemFlight.departureIATACode,
+                departureTime = itemFlight.departureTime,
+                flightCode = itemFlight.flightCode,
+                flightDescription = itemFlight.flightDescription,
+                flightDuration = itemFlight.flightDuration,
+                flightDurationFormat =  itemFlight.flightDuration?.let { duration -> val (hours, remainingMinutes) = convertMinutesToHours(duration)}.toString(),
+                flightId = itemFlight.flightId,
+                flightStatus = itemFlight.flightStatus,
+                flightSeat = itemFlight.seatClass,
+                flightArrivalDate = itemFlight.arrivalDate,
+                flightDepartureDate = itemFlight.departureDate,
+                planeType = itemFlight.planeType,
+                priceAdult = item.priceAdult, // add edit
+                priceBaby = item.priceBaby, // add edit
+                priceChild = item.priceChild,// add edit
+                priceTotal = itemFlight.price,
+                paymentPrice = item.paymentPrice,// add edit
+                seatsAvailable = itemFlight.seatsAvailable,
+                terminal = itemFlight.terminal,
+
+                // Flight data (Round Trip)
+                airlineCodeRoundTrip = item.airlineCodeRoundTrip,
+                airlineNameRoundTrip = item.airlineNameRoundTrip,
+                arrivalAirportNameRoundTrip = item.arrivalAirportNameRoundTrip,
+                arrivalIATACodeRoundTrip = item.arrivalIATACodeRoundTrip,
+                arrivalTimeRoundTrip = item.arrivalTimeRoundTrip,
+                departureAirportNameRoundTrip = item.departureAirportNameRoundTrip,
+                departureIATACodeRoundTrip = item.departureIATACodeRoundTrip,
+                departureTimeRoundTrip = item.departureTimeRoundTrip,
+                flightCodeRoundTrip = item.flightCodeRoundTrip,
+                flightDescriptionRoundTrip = item.flightDescriptionRoundTrip,
+                flightDurationRoundTrip = item.flightDurationRoundTrip,
+                flightDurationFormatRoundTrip = item.flightDurationFormatRoundTrip,
+                flightIdRoundTrip = item.flightIdRoundTrip,
+                flightStatusRoundTrip = item.flightStatusRoundTrip,
+                flightSeatRoundTrip = item.flightSeatRoundTrip,
+                flightArrivalDateRoundTrip = item.flightArrivalDateRoundTrip,
+                flightDepartureDateRoundTrip = item.flightDepartureDateRoundTrip,
+                planeTypeRoundTrip = item.planeTypeRoundTrip,
+                priceAdultRoundTrip = item.priceAdultRoundTrip,
+                priceBabyRoundTrip = item.priceBabyRoundTrip,
+                priceChildRoundTrip = item.priceChildRoundTrip,
+                priceTotalRoundTrip = item.priceTotalRoundTrip,
+                paymentPriceRoundTrip = item.paymentPriceRoundTrip,
+                seatsAvailableRoundTrip = item.seatsAvailableRoundTrip,
+                terminalRoundTrip = item.terminalRoundTrip
+            )
+        )
+    }
+
+
+
 }

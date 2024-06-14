@@ -14,6 +14,7 @@ interface UserPreference {
     fun setUserID(userID: String)
 
     fun isUsingDarkMode() : Boolean
+
     fun setUsingDarkMode(isUsingDarkMode : Boolean)
 
     fun clearAll()
