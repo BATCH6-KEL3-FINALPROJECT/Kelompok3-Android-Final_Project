@@ -44,7 +44,7 @@
     <string name="text_resend_otp_success">Kirim Ulang Berhasil, tolong cek email anda</string>
     <string name="tv_account">Account</string>
     <string name="text_edit_profile">Ubah Profile</string>
-    <string name="text_settings_account">Pengaturan Akun</string>
+    <string name="text_settings_account">Pengaturan</string>
     <string name="text_logout">Keluar</string>
     <string name="text_version">Version 1.1.0</string>
     <string name="text_ubah_profile">Ubah Profile</string>
@@ -58,7 +58,7 @@
     <string name="hint_number_phone">+62</string>
     <string name="btn_simpan">Simpan</string>
     <string name="text_pengaturan_akun">Pengaturan Akun</string>
-    <string name="text_tema">Tema</string>
+    <string name="text_tema">Ganti tema</string>
     <string name="text_hapus_akun">Hapus Akun</string>
     <string name="text_rincian_penerbangan">Rincian Penerbangan</string>
     <string name="text_unpaid">Unpaid</string>
