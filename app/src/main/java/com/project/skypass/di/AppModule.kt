@@ -71,11 +71,11 @@ import com.project.skypass.presentation.home.passengers.PassengersViewModel
 import com.project.skypass.presentation.main.MainViewModel
 import com.project.skypass.presentation.home.search.SearchViewModel
 import com.project.skypass.presentation.profile.changeprofile.ChangeProfileViewModelExample
-import com.project.skypass.presentation.profile.profile.ProfileViewModelExample
 import com.project.skypass.presentation.profile.settingaccount.SettingsAccountViewModel
 import com.project.skypass.presentation.flight.detail.FlightDetailViewModel
 import com.project.skypass.presentation.flight.result.FlightResultViewModel
 import com.project.skypass.presentation.history.HistoryViewModel
+import com.project.skypass.presentation.profile.ProfileViewModelExample
 import com.project.skypass.utils.SharedPreferenceUtils
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
