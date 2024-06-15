@@ -1,6 +1,7 @@
 package com.project.skypass.data.datasource.user
 
 import com.project.skypass.data.source.local.pref.UserPreference
+import com.project.skypass.data.source.network.model.user.deleteuser.DeleteUserResponse
 import com.project.skypass.data.source.network.model.user.detailuser.UserResponse
 import com.project.skypass.data.source.network.model.user.edituser.EditUserResponse
 import com.project.skypass.data.source.network.service.ApiService
@@ -42,5 +43,9 @@ class UserDataSourceImpl (
         val photoRequestBody = photo?.asRequestBody("image/*".toMediaTypeOrNull())
         val photoPart = photoRequestBody?.let { MultipartBody.Part.createFormData("image", photo.name, it) }
         return apiService.updateUserData(token, id, namePart, emailPart, phoneNumberPart, passwordPart, photoPart)
+    }
+
+    override suspend fun deleteUser(id: String): DeleteUserResponse {
+        return apiService.deleteUser(id)
     }
 }

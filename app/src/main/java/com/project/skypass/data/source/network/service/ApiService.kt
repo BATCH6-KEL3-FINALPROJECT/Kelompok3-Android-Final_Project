@@ -15,6 +15,7 @@ import com.project.skypass.data.source.network.model.resetpassword.ResetPassword
 import com.project.skypass.data.source.network.model.resetpassword.ResetPasswordResponse
 import com.project.skypass.data.source.network.model.search.SearchResponse
 import com.project.skypass.data.source.network.model.seat.SeatResponse
+import com.project.skypass.data.source.network.model.user.deleteuser.DeleteUserResponse
 import com.project.skypass.data.source.network.model.user.detailuser.UserResponse
 import com.project.skypass.data.source.network.model.user.edituser.EditUserResponse
 import com.project.skypass.utils.ErrorInterceptor
@@ -25,6 +26,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Multipart
@@ -100,6 +102,11 @@ interface ApiService {
         @Part("password") password: RequestBody? = null,
         @Part image: MultipartBody.Part? = null
     ): EditUserResponse
+
+    @DELETE("user/{id}")
+    suspend fun deleteUser(
+        @Path("id") id: String
+    ): DeleteUserResponse
 
     @GET("airport/")
     suspend fun searchDestination(
