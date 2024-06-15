@@ -3,6 +3,7 @@ package com.project.skypass.data.repository.user
 import com.project.skypass.data.datasource.user.UserDataSource
 import com.project.skypass.data.mapper.toUser
 import com.project.skypass.data.model.User
+import com.project.skypass.data.source.network.model.user.deleteuser.DeleteUserResponse
 import com.project.skypass.data.source.network.model.user.edituser.EditUserResponse
 import com.project.skypass.utils.ResultWrapper
 import com.project.skypass.utils.proceedFlow
@@ -35,6 +36,12 @@ class UserRepositoryImpl (private val dataSource: UserDataSource) : UserReposito
     ): Flow<ResultWrapper<EditUserResponse>> {
         return proceedFlow {
             dataSource.editUser(token, id, name, email, phoneNumber, password, photo)
+        }
+    }
+
+    override fun deleteUser(id: String): Flow<ResultWrapper<DeleteUserResponse>> {
+        return proceedFlow {
+            dataSource.deleteUser(id)
         }
     }
 }

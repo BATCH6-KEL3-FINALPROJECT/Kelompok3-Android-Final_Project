@@ -1,6 +1,7 @@
 package com.project.skypass.data.repository.user
 
 import com.project.skypass.data.model.User
+import com.project.skypass.data.source.network.model.user.deleteuser.DeleteUserResponse
 import com.project.skypass.data.source.network.model.user.edituser.EditUserResponse
 import com.project.skypass.utils.ResultWrapper
 import kotlinx.coroutines.flow.Flow
@@ -23,4 +24,6 @@ interface UserRepository {
         password: String? = null,
         photo: File? = null
     ): Flow<ResultWrapper<EditUserResponse>>
+
+    fun deleteUser(id: String): Flow<ResultWrapper<DeleteUserResponse>>
 }

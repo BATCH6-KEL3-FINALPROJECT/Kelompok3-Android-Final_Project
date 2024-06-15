@@ -159,7 +159,8 @@ dependencies {
     implementation(libs.styleable.toast)
 
     //lottie
-    implementation(libs.lottie)
+    //implementation(libs.lottie)
+    implementation ("com.airbnb.android:lottie:6.4.1")
 
     //groupie
     implementation (libs.groupie)

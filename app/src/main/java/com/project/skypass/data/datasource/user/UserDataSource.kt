@@ -1,5 +1,6 @@
 package com.project.skypass.data.datasource.user
 
+import com.project.skypass.data.source.network.model.user.deleteuser.DeleteUserResponse
 import com.project.skypass.data.source.network.model.user.detailuser.UserResponse
 import com.project.skypass.data.source.network.model.user.edituser.EditUserResponse
 import java.io.File
@@ -21,5 +22,7 @@ interface UserDataSource {
         password: String? = null,
         photo: File? = null
     ): EditUserResponse
+
+    suspend fun deleteUser(id: String): DeleteUserResponse
 
 }
