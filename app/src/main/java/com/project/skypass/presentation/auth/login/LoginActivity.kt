@@ -156,7 +156,7 @@ class LoginActivity : AppCompatActivity() {
     private fun navigateToMain() {
         startActivity(
             Intent(this, MainActivity::class.java).apply {
-                flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK
             },
         )
     }
@@ -164,7 +164,7 @@ class LoginActivity : AppCompatActivity() {
     private fun navigateToRegister() {
         startActivity(
             Intent(this, RegisterActivity::class.java).apply {
-                flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK
             },
         )
     }
@@ -172,7 +172,7 @@ class LoginActivity : AppCompatActivity() {
     private fun navigateToResetPassword() {
         startActivity(
             Intent(this, ForgetPasswordActivity::class.java).apply {
-                flags = Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP
+                flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
             }
         )
     }

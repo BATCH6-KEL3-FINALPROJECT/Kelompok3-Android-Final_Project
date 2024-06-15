@@ -10,18 +10,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="0dp"
-        android:background="@color/darkpurple"
+        android:background="?attr/colorPrimary"
         android:orientation="horizontal"
         android:padding="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+
         <ImageView
             android:id="@+id/btnBack"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_back_white"
+            android:layout_width="30dp"
+            android:padding="4dp"
+            android:layout_marginStart="16dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/ic_back_2"
+            app:tint="?attr/colorOnPrimary"
+            android:background="@drawable/bg_icon_round"
             tools:ignore="ContentDescription" />
 
         <TextView
@@ -463,6 +469,8 @@
         android:layout_marginTop="14dp"
         android:layout_marginBottom="20dp"
         android:background="@drawable/bg_button"
+        android:backgroundTint="?attr/colorPrimary"
+        android:textColor="?attr/colorOnPrimary"
         android:text="@string/text_button"
         android:textAllCaps="false"
         app:layout_constraintBottom_toBottomOf="parent" />

@@ -121,7 +121,7 @@
         <item name="theme">@style/buttonTheme</item>
         <item name="cornerRadius">8dp</item>
         <item name="android:textColor">#ffffff</item>
-        <item name="android:backgroundTint">@color/md_theme_primary</item>
+        <item name="android:backgroundTint">?attr/colorPrimary</item>
     </style>
     <!--<style name="buttonLoginOauth" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         &lt;!&ndash;<item name="theme">@style/buttonLoginOauth</item>&ndash;&gt;

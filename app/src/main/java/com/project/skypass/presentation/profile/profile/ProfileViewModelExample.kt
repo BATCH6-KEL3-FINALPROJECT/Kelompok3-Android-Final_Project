@@ -1,4 +1,4 @@
-package com.project.skypass.presentation.profile.profile
+package com.project.skypass.presentation.profile
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
@@ -13,7 +13,9 @@ import kotlinx.coroutines.flow.Flow
 
 class ProfileViewModelExample(
     private val prefRepository: PrefRepository,
-    private val userRepository: UserRepository
+    private val userRepository: UserRepository,
+    private val repositoryOrderHistory: OrderHistoryRepository
+
 ): ViewModel() {
     fun getUserId(): String {
         return prefRepository.getUserID()
@@ -23,4 +25,5 @@ class ProfileViewModelExample(
         return userRepository.getUser(id).asLiveData(Dispatchers.IO)
     }
 
+    fun deleteOrderHistoryUser() = repositoryOrderHistory.deleteAllOrderHistory().asLiveData(Dispatchers.IO)
 }
