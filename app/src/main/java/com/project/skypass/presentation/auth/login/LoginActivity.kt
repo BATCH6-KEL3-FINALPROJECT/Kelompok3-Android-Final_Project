@@ -1,5 +1,6 @@
 package com.project.skypass.presentation.auth.login
 
+import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -9,6 +10,9 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import com.project.skypass.R
 import com.project.skypass.databinding.ActivityLoginBinding
+import com.project.skypass.databinding.LayoutStateErrorBinding
+import com.project.skypass.databinding.LayoutStateLoadingBinding
+import com.project.skypass.databinding.LayoutStateSuccessBinding
 import com.project.skypass.presentation.auth.forgetpassword.ForgetPasswordActivity
 import com.project.skypass.presentation.auth.login.LoginViewModel.Companion.RC_SIGN_IN
 import com.project.skypass.presentation.auth.register.RegisterActivity
@@ -28,6 +32,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private val viewModel : LoginViewModel by viewModel()
+    private var dialog: Dialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -97,10 +102,12 @@ class LoginActivity : AppCompatActivity() {
         viewModel.doLogin(email, password).observe(this){result ->
             result.proceedWhen(
                 doOnSuccess = {
+                    dialog?.dismiss()
+                    doSuccess()
                     binding.pbLogin.isVisible = false
                     binding.btnLogin.isEnabled = true
-                    StyleableToast.makeText(this,
-                        getString(R.string.login_success), R.style.ToastSuccess).show()
+                    /*StyleableToast.makeText(this,
+                        getString(R.string.login_success), R.style.ToastSuccess).show()*/
                     setLoginPref(it.payload?.data?.token.toString())
                     lifecycleScope.launch {
                         delay(2000)
@@ -108,10 +115,13 @@ class LoginActivity : AppCompatActivity() {
                     }
                 },
                 doOnLoading = {
+                    dialog?.dismiss()
+                    doLoading()
                     binding.pbLogin.isVisible = true
                     binding.btnLogin.isEnabled = false
                 },
                 doOnError = {error ->
+                    dialog?.dismiss()
                     when (error.exception?.message) {
                         getString(R.string.email_not_found_exception) -> {
                             StyleableToast.makeText(this,
@@ -130,8 +140,9 @@ class LoginActivity : AppCompatActivity() {
                                 getString(R.string.no_internet_connection), R.style.ToastError).show()
                         }
                         else -> {
-                            StyleableToast.makeText(this,
-                                getString(R.string.unknown_error), R.style.ToastError).show()
+                            doError()
+                            /*StyleableToast.makeText(this,
+                                getString(R.string.unknown_error), R.style.ToastError).show()*/
                             binding.etEmail.setBackgroundResource(R.drawable.bg_selector_input)
                             binding.etPassword.setBackgroundResource(R.drawable.bg_selector_input)
                         }
@@ -149,7 +160,6 @@ class LoginActivity : AppCompatActivity() {
     private fun setLoginPref(token: String) {
         viewModel.setToken(token)
         viewModel.setLogin(true)
-        //val userId = decodeJWT(token)
         viewModel.setUserID(token)
     }
 
@@ -175,6 +185,36 @@ class LoginActivity : AppCompatActivity() {
                 flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
             }
         )
+    }
+
+    private fun doLoading(){
+        val dialogBinding = LayoutStateLoadingBinding.inflate(layoutInflater)
+        dialog = Dialog(this).apply {
+            setCancelable(true)
+            setContentView(dialogBinding.root)
+            show()
+            window?.setBackgroundDrawableResource(android.R.color.transparent)
+        }
+    }
+
+    private fun doSuccess(){
+        val dialogBinding = LayoutStateSuccessBinding.inflate(layoutInflater)
+        dialog = Dialog(this).apply {
+            setCancelable(true)
+            setContentView(dialogBinding.root)
+            show()
+            window?.setBackgroundDrawableResource(android.R.color.transparent)
+        }
+    }
+
+    private fun doError(){
+        val dialogBinding = LayoutStateErrorBinding.inflate(layoutInflater)
+        dialog = Dialog(this).apply {
+            setCancelable(true)
+            setContentView(dialogBinding.root)
+            show()
+            window?.setBackgroundDrawableResource(android.R.color.transparent)
+        }
     }
 
 }

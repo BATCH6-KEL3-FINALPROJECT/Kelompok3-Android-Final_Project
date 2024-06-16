@@ -14,7 +14,9 @@ import androidx.lifecycle.lifecycleScope
 import com.project.skypass.R
 import com.project.skypass.core.BaseActivity
 import com.project.skypass.databinding.ActivitySettingsAccountBinding
+import com.project.skypass.databinding.LayoutStateErrorBinding
 import com.project.skypass.databinding.LayoutStateLoadingBinding
+import com.project.skypass.databinding.LayoutStateSuccessBinding
 import com.project.skypass.utils.proceedWhen
 import io.github.muddz.styleabletoast.StyleableToast
 import kotlinx.coroutines.delay
@@ -94,7 +96,8 @@ class SettingsAccountActivity : BaseActivity() {
             it.proceedWhen(
                 doOnSuccess = {
                     dialog?.dismiss()
-                    StyleableToast.makeText(this, "Hapus akun sukses", R.style.ToastSuccess).show()
+                    //StyleableToast.makeText(this, "Hapus akun sukses", R.style.ToastSuccess).show()
+                    doSuccess()
                     deleteOrderHistoryUser()
                     lifecycleScope.launch {
                         delay(2000)
@@ -102,17 +105,13 @@ class SettingsAccountActivity : BaseActivity() {
                     }
                 },
                 doOnLoading = {
-                    val dialogBinding = LayoutStateLoadingBinding.inflate(layoutInflater)
-                    dialog = Dialog(this).apply {
-                        setCancelable(true)
-                        setContentView(dialogBinding.root)
-                        show()
-                        window?.setBackgroundDrawableResource(android.R.color.transparent)
-                    }
+                    dialog?.dismiss()
+                    doLoading()
                 },
                 doOnError = {
                     dialog?.dismiss()
-                    StyleableToast.makeText(this, "Hapus akun gagal", R.style.ToastError).show()
+                    //StyleableToast.makeText(this, "Hapus akun gagal", R.style.ToastError).show()
+                    doError()
                 }
             )
         }
@@ -120,5 +119,35 @@ class SettingsAccountActivity : BaseActivity() {
 
     private fun logout() {
         handleUnAuthorize()
+    }
+
+    private fun doLoading(){
+        val dialogBinding = LayoutStateLoadingBinding.inflate(layoutInflater)
+        dialog = Dialog(this).apply {
+            setCancelable(true)
+            setContentView(dialogBinding.root)
+            show()
+            window?.setBackgroundDrawableResource(android.R.color.transparent)
+        }
+    }
+
+    private fun doSuccess(){
+        val dialogBinding = LayoutStateSuccessBinding.inflate(layoutInflater)
+        dialog = Dialog(this).apply {
+            setCancelable(true)
+            setContentView(dialogBinding.root)
+            show()
+            window?.setBackgroundDrawableResource(android.R.color.transparent)
+        }
+    }
+
+    private fun doError(){
+        val dialogBinding = LayoutStateErrorBinding.inflate(layoutInflater)
+        dialog = Dialog(this).apply {
+            setCancelable(true)
+            setContentView(dialogBinding.root)
+            show()
+            window?.setBackgroundDrawableResource(android.R.color.transparent)
+        }
     }
 }
