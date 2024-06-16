@@ -39,13 +39,13 @@ class FlightDetailActivity : AppCompatActivity() {
         setContentView(binding.root)
         setupAdapter()
         getArgumentData()
-        setupCalendarView()
+        //setupCalendarView()
         setClickListeners()
         observeFlightData()
     }
 
     private fun setClickListeners() {
-        binding.layoutHeader.ivBackFlight.setOnClickListener {
+        binding.ivBackFlight.setOnClickListener {
             onBackPressed()
         }
         binding.cardFilter.setOnClickListener {
@@ -196,9 +196,9 @@ class FlightDetailActivity : AppCompatActivity() {
 
     @SuppressLint("SetTextI18n")
     private fun setProfileData(item: OrderUser){
-        binding.layoutHeader.tvTypeFlight.text = item.seatClass
-        binding.layoutHeader.tvPassenger.text = item.passengersTotal
-        binding.layoutHeader.tvDestination.text = "${item.departureCity} > ${item.arrivalCity}"
+        binding.tvTypeFlight.text = item.seatClass
+        binding.tvPassenger.text = item.passengersTotal
+        binding.tvDestination.text = "${item.departureCity} > ${item.arrivalCity}"
 
     }
 
