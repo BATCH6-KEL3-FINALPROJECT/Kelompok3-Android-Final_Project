@@ -5,7 +5,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class OrderUser(
-    // common data
+    // home data
     var id: Int?,
     var arrivalCity: String?,
     var arrivalDate: String?,
@@ -21,7 +21,6 @@ data class OrderUser(
     var orderDate: String?,
 
     // one way
-
     var airlineCode: String?,
     var airlineName: String?,
     var arrivalAirportName: String?,

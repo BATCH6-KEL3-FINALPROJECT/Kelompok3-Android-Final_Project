@@ -61,6 +61,7 @@ import com.project.skypass.presentation.auth.login.LoginViewModel
 import com.project.skypass.presentation.onboarding.OnboardingViewModel
 import com.project.skypass.presentation.splashscreen.SplashViewModel
 import com.project.skypass.presentation.auth.register.RegisterViewModel
+import com.project.skypass.presentation.checkout.checkoutDataOrder.CheckoutDataOrdersViewModel
 import com.project.skypass.presentation.auth.resetpassword.ResetPasswordViewModel
 import com.project.skypass.presentation.auth.verification.VerificationViewModel
 import com.project.skypass.presentation.home.HomeViewModel
@@ -213,6 +214,7 @@ object AppModule {
         viewModel {BaseViewModel(get())}
         viewModelOf(:: MainViewModel)
         viewModelOf(::HomeViewModel)
+        viewModelOf(::CheckoutDataOrdersViewModel)
         viewModelOf(::SearchViewModel)
         viewModelOf(::ChangeProfileViewModelExample)
         viewModelOf(::ProfileViewModelExample)

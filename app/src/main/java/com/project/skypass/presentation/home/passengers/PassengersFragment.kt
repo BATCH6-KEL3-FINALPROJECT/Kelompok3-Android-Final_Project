@@ -26,7 +26,6 @@ class PassengersFragment : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         setOnClickListener()
         sendData()
     }
@@ -40,9 +39,12 @@ class PassengersFragment : BottomSheetDialogFragment() {
     private fun sendData() {
         binding.btnSavePassengers.setOnClickListener {
             val totalPassengers = viewModel.totalPassengersCount()
+            val totalAdult = viewModel.passengersAdultCount()
+            val totalChildren = viewModel.passengersChildrenCount()
+            val totalInfants = viewModel.passengersInfantCount()
             Toast.makeText(requireContext(), totalPassengers.toString(), Toast.LENGTH_SHORT).show()
             if (tag == "passengers"){
-                passengersSelection?.onPassengerSelected(tag ?: "", totalPassengers.toString())
+                passengersSelection?.onPassengerSelected(tag ?: "", totalPassengers.toString(),totalAdult, totalChildren, totalInfants)
             }
             dismiss()
         }

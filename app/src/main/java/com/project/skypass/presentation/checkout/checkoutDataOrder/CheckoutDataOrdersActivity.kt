@@ -3,18 +3,28 @@ package com.project.skypass.presentation.checkout.checkoutDataOrder
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
+import coil.load
+import com.project.skypass.data.model.OrderPassangers
 import com.project.skypass.data.model.OrderUser
 import com.project.skypass.databinding.ActivityCheckoutDataOrdersBinding
 import com.project.skypass.presentation.checkout.checkoutDataPassenger.CheckoutDataPassengerActivity
+import com.project.skypass.presentation.profile.ProfileViewModelExample
+import com.project.skypass.utils.proceedWhen
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class CheckoutDataOrdersActivity : AppCompatActivity() {
     private val binding by lazy { ActivityCheckoutDataOrdersBinding.inflate(layoutInflater) }
+
+    private val viewModel: CheckoutDataOrdersViewModel by viewModel()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         getArgumentData()
         setClickListeners()
+        observeResult()
     }
 
     private fun setClickListeners() {
@@ -24,12 +34,39 @@ class CheckoutDataOrdersActivity : AppCompatActivity() {
     }
 
     private fun observeResult() {
-//        observe view model
+        addFamilyName()
+        displayProfileData()
     }
 
     private fun getArgumentData() {
         intent.extras?.getParcelable<OrderUser>(EXTRA_FLIGHT)?.let {
             sendOrderData(it)
+        }
+
+    }
+
+    private fun displayProfileData() {
+        val userId = viewModel.getUserId()
+        viewModel.showDataUser(userId).observe(this ){
+            it.proceedWhen(
+                doOnSuccess = {
+                    binding.etName.setText(it.payload?.name)
+                    binding.etEmail.setText(it.payload?.email)
+                    binding.etNoPhone.setText(it.payload?.phoneNumber)
+                },
+                doOnLoading = {
+
+                },
+                doOnError = {
+
+                }
+            )
+        }
+    }
+
+    private fun addFamilyName() {
+        binding.switchMaterial.setOnCheckedChangeListener { _, isChecked ->
+            binding.checkFamilyName.isVisible = isChecked
         }
     }
 
@@ -107,8 +144,13 @@ class CheckoutDataOrdersActivity : AppCompatActivity() {
                         paymentPriceRoundTrip = item.paymentPrice,
                         seatsAvailableRoundTrip = item.seatsAvailable,
                         terminalRoundTrip = item.terminal,
-
-                        ),
+                        ), OrderPassangers(
+                        name = binding.etName.text.toString(),
+                        email = binding.etEmail.text.toString(),
+                        familyName = binding.etFamilyName.text.toString(),
+                        noTelephone = binding.etNoPhone.text.toString(),
+                        passengers = null
+                    )
                 )
             } else {
                 CheckoutDataPassengerActivity.sendDataOrder(
@@ -183,6 +225,13 @@ class CheckoutDataOrdersActivity : AppCompatActivity() {
                         seatsAvailableRoundTrip = item.seatsAvailableRoundTrip,
                         terminalRoundTrip = item.terminalRoundTrip
                     ),
+                    OrderPassangers(
+                        name = binding.etName.text.toString(),
+                        email = binding.etEmail.text.toString(),
+                        familyName = binding.etFamilyName.text.toString(),
+                        noTelephone = binding.etNoPhone.text.toString(),
+                        passengers = null
+                    )
                 )
             }
         }
@@ -192,10 +241,12 @@ class CheckoutDataOrdersActivity : AppCompatActivity() {
         const val EXTRA_FLIGHT = "extra_flight"
         fun sendDataOrder(
             context: Context,
-            orderUser: OrderUser
+            orderUser: OrderUser,
+
         ) {
             val intent = Intent(context, CheckoutDataOrdersActivity::class.java)
             intent.putExtra(EXTRA_FLIGHT, orderUser)
+
             context.startActivity(intent)
         }
     }

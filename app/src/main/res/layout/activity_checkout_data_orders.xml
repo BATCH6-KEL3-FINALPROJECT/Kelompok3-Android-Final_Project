@@ -157,7 +157,7 @@
                         android:textStyle="bold" />
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/familyName"
+                        android:id="@+id/inputFamilyName"
                         style="@style/TextInputLayoutStyle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -172,7 +172,7 @@
                         app:hintTextColor="@color/purple">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/inputFamilyName"
+                            android:id="@+id/etFamilyName"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="textPersonName"

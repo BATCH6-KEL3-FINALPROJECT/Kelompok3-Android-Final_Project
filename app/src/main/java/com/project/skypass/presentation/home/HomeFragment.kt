@@ -45,6 +45,9 @@ class HomeFragment : Fragment(), DataSelection {
     private var formatDateDepartureIntent: String? = null
     private var formatDateReturnIntent: String? = null
     private var passengers: String? = null
+    private var adultPassenger: Int? = null
+    private var childPassenger: Int? = null
+    private var babyPassenger: Int? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -90,9 +93,9 @@ class HomeFragment : Fragment(), DataSelection {
                 departureCity = binding.etFromTrip.text.toString(),
                 departureDate = convertDateFormat(binding.etDeparture.text.toString()),
                 passengersTotal = binding.etPassengers.text.toString(),
-                passengersAdult = null,
-                passengersBaby = null,
-                passengersChild = null,
+                passengersAdult = adultPassenger,
+                passengersBaby = babyPassenger,
+                passengersChild = childPassenger,
                 isRoundTrip = binding.rbRoundTrip.isChecked,
                 supportRoundTrip = binding.rbRoundTrip.isChecked,
                 orderDate = orderDate(),
@@ -250,11 +253,14 @@ class HomeFragment : Fragment(), DataSelection {
         }
     }
 
-    override fun onPassengerSelected(tag: String, passenger: String) {
+    override fun onPassengerSelected(tag: String, passenger: String, adult: Int, child: Int, baby: Int) {
         when (tag) {
             "passengers" -> {
                 binding.etPassengers.setText(getString(R.string.passengers_qyt_value, passenger))
-                passengers = passenger
+                passengers = passengers
+                adultPassenger = adult
+                childPassenger = child
+                babyPassenger = baby
             }
         }
     }
