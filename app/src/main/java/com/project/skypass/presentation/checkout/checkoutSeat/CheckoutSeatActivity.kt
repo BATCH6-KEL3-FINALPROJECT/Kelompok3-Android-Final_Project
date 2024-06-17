@@ -12,12 +12,16 @@ import com.project.skypass.presentation.checkout.checkoutDetail.CheckoutDetailAc
 import dev.jahidhasanco.seatbookview.SeatBookView
 import dev.jahidhasanco.seatbookview.SeatClickListener
 import dev.jahidhasanco.seatbookview.SeatLongClickListener
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class CheckoutSeatActivity : AppCompatActivity() {
 
     private val binding by lazy { ActivityCheckoutSeatBinding.inflate(layoutInflater) }
     private val title = mutableListOf<String>()
     private val seatss = StringBuilder()
+
+    private val viewModel: CheckoutSeatViewModel by viewModel()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)

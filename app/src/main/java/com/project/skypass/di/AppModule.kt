@@ -25,6 +25,7 @@ import com.project.skypass.data.datasource.profile.ProfileDataSource
 import com.project.skypass.data.datasource.profile.ProfileDummyDataSource
 import com.project.skypass.data.datasource.search.SearchDataSource
 import com.project.skypass.data.datasource.search.SearchDataSourceImpl
+import com.project.skypass.data.datasource.seat.SeatDataSource
 import com.project.skypass.data.datasource.user.UserDataSource
 import com.project.skypass.data.datasource.user.UserDataSourceImpl
 import com.project.skypass.data.repository.OrderHistory.OrderHistoryRepository
@@ -47,6 +48,8 @@ import com.project.skypass.data.repository.seatclass.SeatClassRepository
 import com.project.skypass.data.repository.seatclass.SeatClassRepositoryImpl
 import com.project.skypass.data.repository.profile.ProfileRepository
 import com.project.skypass.data.repository.profile.ProfileRepositoryImpl
+import com.project.skypass.data.repository.seat.SeatRepository
+import com.project.skypass.data.repository.seat.SeatRepositoryImpl
 import com.project.skypass.data.repository.user.UserRepository
 import com.project.skypass.data.repository.user.UserRepositoryImpl
 import com.project.skypass.data.source.local.database.AppDatabase
@@ -64,6 +67,7 @@ import com.project.skypass.presentation.auth.register.RegisterViewModel
 import com.project.skypass.presentation.checkout.checkoutDataOrder.CheckoutDataOrdersViewModel
 import com.project.skypass.presentation.auth.resetpassword.ResetPasswordViewModel
 import com.project.skypass.presentation.auth.verification.VerificationViewModel
+import com.project.skypass.presentation.checkout.checkoutSeat.CheckoutSeatViewModel
 import com.project.skypass.presentation.home.HomeViewModel
 import com.project.skypass.presentation.profile.changeprofile.ChangeProfileViewModel
 import com.project.skypass.presentation.profile.profile.ProfileViewModel
@@ -151,6 +155,9 @@ object AppModule {
         single<HistoryDataSource> {
             HistoryDataSourceImpl()
         }
+        single<SeatDataSource> {
+            SeatDataSource(get(), get(), get())
+        }
     }
 
     private val repositoryModule = module {
@@ -181,8 +188,15 @@ object AppModule {
         single<OrderHistoryRepository>{
             OrderHistoryRepositoryImpl(get())
         }
-        single<ProfileRepository> { ProfileRepositoryImpl(get()) }
-        single<HistoryRepository> { HistoryRepositoryImpl(get()) }
+        single<ProfileRepository> {
+            ProfileRepositoryImpl(get())
+        }
+        single<HistoryRepository> {
+            HistoryRepositoryImpl(get())
+        }
+        single<SeatRepository> {
+            SeatRepositoryImpl(get())
+        }
     }
 
     private val viewModelModule = module {
@@ -194,13 +208,6 @@ object AppModule {
         viewModelOf(::SettingsAccountViewModel)
         viewModelOf(::ResetPasswordViewModel)
         viewModelOf(::ForgotPasswordViewModel)
-        /*viewModel { params ->
-            FlightDetailViewModel(
-                flightRepository = get(),
-                extras = params.get(),
-                orderHistoryRepository = get()
-            )
-        }*/
         viewModel{ FlightDetailViewModel(get(),get()) }
         viewModel { params ->
             FlightResultViewModel(
@@ -219,6 +226,7 @@ object AppModule {
         viewModelOf(::ChangeProfileViewModelExample)
         viewModelOf(::ProfileViewModelExample)
         viewModelOf(::HistoryViewModel)
+        viewModelOf(::CheckoutSeatViewModel)
     }
 
     val module = listOf<Module>(
