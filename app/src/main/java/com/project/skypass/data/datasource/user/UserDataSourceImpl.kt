@@ -7,6 +7,7 @@ import com.project.skypass.data.source.network.model.user.edituser.EditUserRespo
 import com.project.skypass.data.source.network.service.ApiService
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
@@ -30,19 +31,19 @@ class UserDataSourceImpl (
     override suspend fun editUser(
         token: String,
         id: String,
-        name: String?,
-        email: String?,
-        phoneNumber: String?,
-        password: String?,
-        photo: File?
+        name: RequestBody,
+        email: RequestBody,
+        phoneNumber: RequestBody,
+        photo: MultipartBody.Part?
     ): EditUserResponse {
-        val namePart = name?.toRequestBody("text/plain".toMediaTypeOrNull())
-        val emailPart = email?.toRequestBody("text/plain".toMediaTypeOrNull())
-        val phoneNumberPart = phoneNumber?.toRequestBody("text/plain".toMediaTypeOrNull())
-        val passwordPart = password?.toRequestBody("text/plain".toMediaTypeOrNull())
-        val photoRequestBody = photo?.asRequestBody("image/*".toMediaTypeOrNull())
-        val photoPart = photoRequestBody?.let { MultipartBody.Part.createFormData("image", photo.name, it) }
-        return apiService.updateUserData(token, id, namePart, emailPart, phoneNumberPart, passwordPart, photoPart)
+        return apiService.updateUserData(
+            token = token,
+            id = id,
+            name = name,
+            email = email,
+            phoneNumber = phoneNumber,
+            image = photo
+        )
     }
 
     override suspend fun deleteUser(id: String): DeleteUserResponse {

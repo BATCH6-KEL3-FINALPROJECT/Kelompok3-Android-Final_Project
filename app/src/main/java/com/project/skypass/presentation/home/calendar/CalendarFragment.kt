@@ -99,9 +99,9 @@ class CalendarFragment : BottomSheetDialogFragment() {
                 textView.text = daysOfWeek[index].displayText()
             }
         val currentMonth = YearMonth.now()
-        val startMonth = currentMonth.minusMonths(100)  // Adjust as needed
-        val endMonth = currentMonth.plusMonths(100)  // Adjust as needed
-        val firstDayOfWeek = firstDayOfWeekFromLocale() // Available from the library
+        val startMonth = currentMonth.minusMonths(100)
+        val endMonth = currentMonth.plusMonths(100)
+        val firstDayOfWeek = firstDayOfWeekFromLocale()
         binding.rvDate.setup(startMonth, endMonth, firstDayOfWeek)
         binding.rvDate.scrollToMonth(currentMonth)
         binding.rvDate.monthScrollListener = { month ->
@@ -112,12 +112,11 @@ class CalendarFragment : BottomSheetDialogFragment() {
 
     inner class DayViewContainer(view: View) : ViewContainer(view) {
         val textView = view.findViewById<TextView>(R.id.tv_date)
-        // Will be set when this container is bound
         lateinit var day: CalendarDay
 
         init {
             view.setOnClickListener {
-                // Use the CalendarDay associated with this container.
+
             }
         }
     }
