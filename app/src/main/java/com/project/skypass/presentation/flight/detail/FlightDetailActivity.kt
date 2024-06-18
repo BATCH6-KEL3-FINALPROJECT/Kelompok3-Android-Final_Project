@@ -10,22 +10,30 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import com.kizitonwose.calendar.core.CalendarDay
+import com.kizitonwose.calendar.core.WeekDay
+import com.kizitonwose.calendar.core.atStartOfMonth
+import com.kizitonwose.calendar.core.firstDayOfWeekFromLocale
 import com.kizitonwose.calendar.view.MonthDayBinder
 import com.kizitonwose.calendar.view.ViewContainer
+import com.kizitonwose.calendar.view.WeekDayBinder
 import com.project.skypass.R
 import com.project.skypass.data.model.Flight
 import com.project.skypass.data.model.OrderUser
 import com.project.skypass.databinding.ActivityFlightDetailBinding
+import com.project.skypass.databinding.ItemDayBinding
 import com.project.skypass.presentation.flight.detail.adapter.FlightDetailAdapter
 import com.project.skypass.presentation.flight.detail.adapter.OnItemClickedListener
 import com.project.skypass.presentation.flight.filter.FilterFragment
 import com.project.skypass.presentation.flight.result.FlightResultActivity
 import com.project.skypass.utils.convertMinutesToHours
+import com.project.skypass.utils.displayText
+import com.project.skypass.utils.getWeekPageTitle
 import com.project.skypass.utils.proceedWhen
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.YearMonth
+import java.time.format.DateTimeFormatter
 
 class FlightDetailActivity : AppCompatActivity() {
     private val binding: ActivityFlightDetailBinding by lazy {
@@ -34,14 +42,25 @@ class FlightDetailActivity : AppCompatActivity() {
     private val flightDetailViewModel: FlightDetailViewModel by viewModel()
     private lateinit var flightDetailAdapter: FlightDetailAdapter
 
+    private var selectedDate: LocalDate? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         setupAdapter()
         getArgumentData()
-        //setupCalendarView()
+        selectedDate()
         setClickListeners()
         observeFlightData()
+    }
+
+    private fun selectedDate() {
+        val date = flightDetailViewModel.date
+        selectedDate = date?.let { LocalDate.parse(it) }
+        selectedDate?.let {
+            flightDetailViewModel.setSelectedDate(it)
+            setupCalendarView(it)
+        }
     }
 
     private fun setClickListeners() {
@@ -74,45 +93,48 @@ class FlightDetailActivity : AppCompatActivity() {
         binding.rvTicket.adapter = flightDetailAdapter
     }
 
-    private fun setupCalendarView() {
-        val today = LocalDate.now()
-        val endOfWeek = today.plusDays(6)
-//        val dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
-
-        binding.cvCalender.setup(
-            YearMonth.from(today),
-            YearMonth.from(today),
-            DayOfWeek.from(today)
-        )
-        binding.cvCalender.scrollToDate(today)
-
+    private fun setupCalendarView(selectedDate: LocalDate) {
         class DayViewContainer(view: View) : ViewContainer(view) {
-            val textView: TextView = view.findViewById(R.id.tv_day)
-            val weekTextView: TextView = view.findViewById(R.id.tv_week)
-        }
+            val bind = ItemDayBinding.bind(view)
+            lateinit var day: WeekDay
 
-        binding.cvCalender.dayBinder = object : MonthDayBinder<DayViewContainer> {
-            override fun create(view: View): DayViewContainer {
-                return DayViewContainer(view)
-            }
-
-            override fun bind(container: DayViewContainer, day: CalendarDay) {
-                if (day.date in today..endOfWeek) {
-                    container.textView.text =
-                        day.date.dayOfMonth.toString() // format(dateFormatter)
-                    container.weekTextView.text = day.date.dayOfWeek.getDisplayName(
-                        java.time.format.TextStyle.SHORT,
-                        java.util.Locale.getDefault()
-                    )
-
-                    container.textView.visibility = View.VISIBLE
-                    container.weekTextView.visibility = View.VISIBLE
-                } else {
-                    container.textView.visibility = View.INVISIBLE
-                    container.weekTextView.visibility = View.GONE
+            init {
+                view.setOnClickListener {
+                    if (this@FlightDetailActivity.selectedDate != day.date) {
+                        val oldDate = this@FlightDetailActivity.selectedDate
+                        this@FlightDetailActivity.selectedDate = day.date
+                        flightDetailViewModel.setSelectedDate(day.date)
+                        binding.cvCalender.notifyDateChanged(day.date)
+                        oldDate?.let { binding.cvCalender.notifyDateChanged(it) }
+                    }
                 }
             }
+
+            fun bind(day: WeekDay) {
+                this.day = day
+                val dateFormatter = DateTimeFormatter.ofPattern("dd")
+                bind.tvDay.text = dateFormatter.format(day.date)
+                bind.tvWeek.text = day.date.dayOfWeek.displayText()
+                bind.exSevenSelectedView.isVisible = day.date == selectedDate
+            }
         }
+
+        binding.cvCalender.dayBinder = object : WeekDayBinder<DayViewContainer> {
+            override fun create(view: View) = DayViewContainer(view)
+            override fun bind(container: DayViewContainer, data: WeekDay) = container.bind(data)
+        }
+
+        binding.cvCalender.weekScrollListener = {
+            binding.tvMonthFlight.text = getWeekPageTitle(it)
+        }
+
+        val currentMonth = YearMonth.now()
+        binding.cvCalender.setup(
+            currentMonth.minusMonths(5).atStartOfMonth(),
+            currentMonth.plusMonths(5).atEndOfMonth(),
+            firstDayOfWeekFromLocale(),
+        )
+        binding.cvCalender.scrollToDate(selectedDate)
     }
 
     private fun saveToOrderHistory(item: OrderUser) {
@@ -202,8 +224,6 @@ class FlightDetailActivity : AppCompatActivity() {
 
     }
 
-
-
     private fun sendOrderData(item: OrderUser, itemFlight: Flight) {
         FlightResultActivity.sendDataOrder(
             this,
@@ -235,7 +255,7 @@ class FlightDetailActivity : AppCompatActivity() {
                 flightCode = itemFlight.flightCode,
                 flightDescription = itemFlight.flightDescription,
                 flightDuration = itemFlight.flightDuration,
-                flightDurationFormat =  itemFlight.flightDuration?.let { duration -> val (hours, remainingMinutes) = convertMinutesToHours(duration)}.toString(),
+                flightDurationFormat =  itemFlight.flightDuration?.let { duration -> val (_, _) = convertMinutesToHours(duration)}.toString(),
                 flightId = itemFlight.flightId,
                 flightStatus = itemFlight.flightStatus,
                 flightSeat = itemFlight.seatClass,
@@ -279,7 +299,5 @@ class FlightDetailActivity : AppCompatActivity() {
             )
         )
     }
-
-
 
 }

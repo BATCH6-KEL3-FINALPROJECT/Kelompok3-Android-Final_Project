@@ -15,6 +15,7 @@ import com.project.skypass.utils.ResultWrapper
 import com.project.skypass.utils.convertFlightDetail
 import kotlinx.coroutines.Dispatchers
 import java.lang.IllegalStateException
+import java.time.LocalDate
 
 class FlightDetailViewModel(
     private val flightRepository: FlightRepository,
@@ -22,8 +23,7 @@ class FlightDetailViewModel(
     private val orderHistoryRepository: OrderHistoryRepository,
 ) : ViewModel() {
 
-
-    var orderHistoryData = Bundle().getParcelable<OrderUser>(FlightDetailActivity.EXTRA_FLIGHT)
+    //var orderHistoryData = Bundle().getParcelable<OrderUser>(FlightDetailActivity.EXTRA_FLIGHT)
 
     private var setDepartureCity:String? = null
     private var setArrivalCity:String? = null
@@ -31,9 +31,14 @@ class FlightDetailViewModel(
     private var setDepartureDate:String? = null
     private var setPassenger:String? = null
 
+    private var selectedDate: LocalDate? = null
+    val date: String?
+        get() = setDepartureDate
+
     fun saveToOrderHistory(item: OrderUser): LiveData<ResultWrapper<Boolean>> {
            return orderHistoryRepository.createOrderHistoryDb(item).asLiveData(Dispatchers.IO)
     }
+
     fun getHomeData(item: OrderUser){
         setDepartureCity = item.departureCity
         setArrivalCity = item.arrivalCity
@@ -41,6 +46,7 @@ class FlightDetailViewModel(
         setDepartureDate = convertFlightDetail(item.departureDate.toString())
         setPassenger = item.passengersTotal
     }
+
     fun getFlightDetail() = flightRepository.getFlights(
         departureCity = setDepartureCity,
         arrivalCity = setArrivalCity,
@@ -56,4 +62,13 @@ class FlightDetailViewModel(
         10,
         departureDate = setDepartureDate
     ).asLiveData(Dispatchers.IO)
+
+    fun setSelectedDate(date: LocalDate) {
+        selectedDate = date
+    }
+
+    fun getSelectedDate(): LocalDate? {
+        return selectedDate
+    }
+
 }
