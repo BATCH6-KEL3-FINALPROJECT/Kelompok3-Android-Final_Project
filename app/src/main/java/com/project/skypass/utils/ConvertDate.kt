@@ -5,8 +5,11 @@ import java.util.Date
 import java.util.Locale
 
 fun convertDateFormat(inputDate: String): String {
-    val inputFormat = SimpleDateFormat("dd MMMM yyyy", Locale("en", "US"))
-    val outputFormat = SimpleDateFormat("dd-MM-yyyy", Locale("en", "US"))
+    /*val inputFormat = SimpleDateFormat("dd MMMM yyyy", Locale("en", "US"))
+    val outputFormat = SimpleDateFormat("dd-MM-yyyy", Locale("en", "US"))*/
+    val defaultLocale = Locale.getDefault()
+    val inputFormat = SimpleDateFormat("dd MMMM yyyy", defaultLocale)
+    val outputFormat = SimpleDateFormat("dd-MM-yyyy", defaultLocale)
 
     return try {
         val date = inputFormat.parse(inputDate)
