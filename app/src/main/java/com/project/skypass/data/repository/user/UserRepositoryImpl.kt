@@ -37,6 +37,7 @@ class UserRepositoryImpl (private val dataSource: UserDataSource) : UserReposito
         phoneNumber: String,
         photo: File?
     ): Flow<ResultWrapper<EditUserResponse>> {
+        val tokenPart = "Bearer $token"
         val namePart = name.toRequestBody("text/plain".toMediaTypeOrNull())
         val emailPart = email.toRequestBody("text/plain".toMediaTypeOrNull())
         val phoneNumberPart = phoneNumber.toRequestBody("text/plain".toMediaTypeOrNull())
@@ -45,7 +46,7 @@ class UserRepositoryImpl (private val dataSource: UserDataSource) : UserReposito
             MultipartBody.Part.createFormData("picture", it.name, requestFile)
         }
         return proceedFlow {
-            dataSource.editUser(token, id, namePart, emailPart, phoneNumberPart, picturePart)
+            dataSource.editUser(tokenPart, id, namePart, emailPart, phoneNumberPart, picturePart)
         }
     }
 
