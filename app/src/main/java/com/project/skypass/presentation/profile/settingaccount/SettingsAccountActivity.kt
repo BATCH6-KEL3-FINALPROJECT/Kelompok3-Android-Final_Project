@@ -53,6 +53,12 @@ class SettingsAccountActivity : BaseActivity() {
             else AppCompatDelegate.MODE_NIGHT_NO
         )
         binding.switchTheme.isChecked = isUsingDarkMode
+        updateThemeIcon(isUsingDarkMode)
+    }
+
+    private fun updateThemeIcon(isUsingDarkMode: Boolean) {
+        val iconRes = if (isUsingDarkMode) R.drawable.ic_dark else R.drawable.ic_light
+        binding.icTema.setImageResource(iconRes)
     }
 
     private fun setSwitchListener() {
@@ -79,7 +85,7 @@ class SettingsAccountActivity : BaseActivity() {
     }
 
     private fun deleteOrderHistoryUser() {
-        settingsAccountViewModel.deleteOrderHistoryUser().observe(this){
+        settingsAccountViewModel.deleteOrderHistoryUser().observe(this) {
             it.proceedWhen(doOnSuccess = {
                 Toast.makeText(this, "Menghapus Riwayat Pemesanan", Toast.LENGTH_SHORT).show()
             }, doOnLoading = {
@@ -92,7 +98,7 @@ class SettingsAccountActivity : BaseActivity() {
 
     private fun deleteAccount() {
         val userId = settingsAccountViewModel.getIdUser()
-        settingsAccountViewModel.deleteUser(userId).observe(this){
+        settingsAccountViewModel.deleteUser(userId).observe(this) {
             it.proceedWhen(
                 doOnSuccess = {
                     dialog?.dismiss()
@@ -121,7 +127,7 @@ class SettingsAccountActivity : BaseActivity() {
         handleUnAuthorize()
     }
 
-    private fun doLoading(){
+    private fun doLoading() {
         val dialogBinding = LayoutStateLoadingBinding.inflate(layoutInflater)
         dialog = Dialog(this).apply {
             setCancelable(true)
@@ -131,7 +137,7 @@ class SettingsAccountActivity : BaseActivity() {
         }
     }
 
-    private fun doSuccess(){
+    private fun doSuccess() {
         val dialogBinding = LayoutStateSuccessBinding.inflate(layoutInflater)
         dialog = Dialog(this).apply {
             setCancelable(true)
@@ -141,7 +147,7 @@ class SettingsAccountActivity : BaseActivity() {
         }
     }
 
-    private fun doError(){
+    private fun doError() {
         val dialogBinding = LayoutStateErrorBinding.inflate(layoutInflater)
         dialog = Dialog(this).apply {
             setCancelable(true)
