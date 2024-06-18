@@ -26,6 +26,8 @@ import com.project.skypass.data.datasource.profile.ProfileDummyDataSource
 import com.project.skypass.data.datasource.search.SearchDataSource
 import com.project.skypass.data.datasource.search.SearchDataSourceImpl
 import com.project.skypass.data.datasource.seat.SeatDataSource
+import com.project.skypass.data.datasource.seat.SeatsDataSource
+import com.project.skypass.data.datasource.seat.SeatsDataSourceImpl
 import com.project.skypass.data.datasource.user.UserDataSource
 import com.project.skypass.data.datasource.user.UserDataSourceImpl
 import com.project.skypass.data.repository.OrderHistory.OrderHistoryRepository
@@ -50,6 +52,8 @@ import com.project.skypass.data.repository.profile.ProfileRepository
 import com.project.skypass.data.repository.profile.ProfileRepositoryImpl
 import com.project.skypass.data.repository.seat.SeatRepository
 import com.project.skypass.data.repository.seat.SeatRepositoryImpl
+import com.project.skypass.data.repository.seat.SeatsRepository
+import com.project.skypass.data.repository.seat.SeatsRepositoryImpl
 import com.project.skypass.data.repository.user.UserRepository
 import com.project.skypass.data.repository.user.UserRepositoryImpl
 import com.project.skypass.data.source.local.database.AppDatabase
@@ -158,6 +162,9 @@ object AppModule {
         single<SeatDataSource> {
             SeatDataSource(get(), get(), get())
         }
+        single<SeatsDataSource> {
+            SeatsDataSourceImpl(get())
+        }
     }
 
     private val repositoryModule = module {
@@ -196,6 +203,9 @@ object AppModule {
         }
         single<SeatRepository> {
             SeatRepositoryImpl(get())
+        }
+        single<SeatsRepository> {
+            SeatsRepositoryImpl(get())
         }
     }
 

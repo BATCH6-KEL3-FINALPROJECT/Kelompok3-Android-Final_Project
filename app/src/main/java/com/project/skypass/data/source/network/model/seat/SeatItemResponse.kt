@@ -1,11 +1,21 @@
 package com.project.skypass.data.source.network.model.seat
 
+
+import com.google.gson.annotations.SerializedName
+
 data class SeatItemResponse(
-    val column: String?,
-    val flight_id: String?,
-    val is_available: String?,
-    val row: Int?,
-    val seat_class: String?,
-    val seat_id: String?,
-    val seat_number: String?
+    @SerializedName("column")
+    var column: String?,
+    @SerializedName("flight_id")
+    var flightId: String?,
+    @SerializedName("is_available")
+    var isAvailable: String?,
+    @SerializedName("row")
+    var row: Int?,
+    @SerializedName("seat_class")
+    var seatClass: String?,
+    @SerializedName("seat_id")
+    var seatId: String?,
+    @SerializedName("seat_number")
+    var seatNumber: String?
 )

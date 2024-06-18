@@ -26,6 +26,7 @@ class CheckoutSeatActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         getArgumentData()
+        observeResult()
         setClickListeners()
     }
 
@@ -37,8 +38,13 @@ class CheckoutSeatActivity : AppCompatActivity() {
 
     private fun observeResult() {
 //        observe view model
-    }
+        /*viewModel.getSeat("abc", "abc").observe(this){
 
+        }*/
+        viewModel.getSeats("economy", "dc7e52f4-3781-4e92-a099-f2cf88c6f335", 200).observe(this){
+
+        }
+    }
 
     private fun setupTitle(limit: Int) {
         var currentCharCode = 'A'.code
@@ -73,7 +79,7 @@ class CheckoutSeatActivity : AppCompatActivity() {
     }
 
 
-    fun setupSeatBookView(item: OrderUser) {
+    private fun setupSeatBookView(item: OrderUser) {
         val seatBookView: SeatBookView = binding.layoutSeat
         val totalPassenger = item.passengersAdult!! + item.passengersChild!! + item.passengersBaby!!
         seatBookView.setSeatsLayoutString(seatss.toString())
@@ -145,6 +151,5 @@ class CheckoutSeatActivity : AppCompatActivity() {
             context.startActivity(intent)
         }
     }
-
 
 }

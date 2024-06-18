@@ -14,14 +14,13 @@ class SeatRepositoryImpl(private val service: ApiService): SeatRepository {
     override fun getSeat(flightId: String, seatClass: String?): Flow<PagingData<Seat>> {
         return Pager(
             config = PagingConfig(
-                pageSize = PAGE_SIZE,
-                enablePlaceholders = false
+                pageSize = PAGE_SIZE
             ),
             pagingSourceFactory = { SeatDataSource(service, flightId, seatClass) }
         ).flow
     }
 
     companion object {
-        private const val PAGE_SIZE = 20
+        private const val PAGE_SIZE = 10
     }
 }

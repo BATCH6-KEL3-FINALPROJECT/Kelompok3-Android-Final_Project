@@ -21,11 +21,7 @@ class SeatDataSource(
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Seat> {
         return try {
             val page = params.key ?: INITIAL_PAGE_INDEX
-            val response = service.getSeatData(
-                flightId = flightId,
-                seatClass = seatClass,
-                page = page
-            )
+            val response = service.getSeatData(flightId, seatClass, page)
 
             LoadResult.Page(
                 data = response.data?.seats.toSeatList() ?: emptyList(),
