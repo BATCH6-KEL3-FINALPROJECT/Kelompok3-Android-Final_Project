@@ -112,7 +112,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:layout_marginVertical="8dp"
-            android:text="Juni 2024"
+            android:text="Januari 2024"
             android:textAlignment="center"
             android:textColor="?attr/colorBackgroundNavigation"
             android:textSize="16sp"
@@ -121,7 +121,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <com.kizitonwose.calendar.view.CalendarView
+        <com.kizitonwose.calendar.view.WeekCalendarView
             android:id="@+id/cv_calender"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
