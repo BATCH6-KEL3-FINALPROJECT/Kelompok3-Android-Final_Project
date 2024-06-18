@@ -95,11 +95,10 @@ interface ApiService {
     @PATCH("user/{id}")
     suspend fun updateUserData(
         @Header("Authorization") token: String,
-        @Path("userId") userId: String,
-        @Part("name") name: RequestBody? = null,
-        @Part("email") email: RequestBody? = null,
-        @Part("phone_number") phoneNumber: RequestBody? = null,
-        @Part("password") password: RequestBody? = null,
+        @Path("id") id: String,
+        @Part("name") name: RequestBody,
+        @Part("email") email: RequestBody,
+        @Part("phone_number") phoneNumber: RequestBody,
         @Part image: MultipartBody.Part? = null
     ): EditUserResponse
 

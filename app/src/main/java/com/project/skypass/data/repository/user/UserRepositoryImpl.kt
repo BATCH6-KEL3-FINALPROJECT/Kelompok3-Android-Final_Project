@@ -8,6 +8,10 @@ import com.project.skypass.data.source.network.model.user.edituser.EditUserRespo
 import com.project.skypass.utils.ResultWrapper
 import com.project.skypass.utils.proceedFlow
 import kotlinx.coroutines.flow.Flow
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
 
 class UserRepositoryImpl (private val dataSource: UserDataSource) : UserRepository {
@@ -28,14 +32,20 @@ class UserRepositoryImpl (private val dataSource: UserDataSource) : UserReposito
     override fun editUser(
         token: String,
         id: String,
-        name: String?,
-        email: String?,
-        phoneNumber: String?,
-        password: String?,
+        name: String,
+        email: String,
+        phoneNumber: String,
         photo: File?
     ): Flow<ResultWrapper<EditUserResponse>> {
+        val namePart = name.toRequestBody("text/plain".toMediaTypeOrNull())
+        val emailPart = email.toRequestBody("text/plain".toMediaTypeOrNull())
+        val phoneNumberPart = phoneNumber.toRequestBody("text/plain".toMediaTypeOrNull())
+        val picturePart = photo?.let {
+            val requestFile = it.asRequestBody("image/jpeg".toMediaTypeOrNull())
+            MultipartBody.Part.createFormData("picture", it.name, requestFile)
+        }
         return proceedFlow {
-            dataSource.editUser(token, id, name, email, phoneNumber, password, photo)
+            dataSource.editUser(token, id, namePart, emailPart, phoneNumberPart, picturePart)
         }
     }
 

@@ -18,10 +18,9 @@ interface UserRepository {
     fun editUser(
         token: String,
         id: String,
-        name: String? = null,
-        email: String? = null,
-        phoneNumber: String? = null,
-        password: String? = null,
+        name: String,
+        email: String,
+        phoneNumber: String,
         photo: File? = null
     ): Flow<ResultWrapper<EditUserResponse>>
 

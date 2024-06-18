@@ -18,13 +18,12 @@ class ChangeProfileViewModelExample(
     fun editUserData(
         token: String,
         id: String,
-        name: String? = null,
-        email: String? = null,
-        phoneNumber: String? = null,
-        password: String? = null,
+        name: String,
+        email: String,
+        phoneNumber: String,
         photo: File? = null
     ): LiveData<ResultWrapper<EditUserResponse>> {
-        return userRepository.editUser(token, id, name, email, phoneNumber, password, photo).asLiveData(Dispatchers.IO)
+        return userRepository.editUser(token, id, name, email, phoneNumber, photo).asLiveData(Dispatchers.IO)
     }
 
     fun getToken(): String {
