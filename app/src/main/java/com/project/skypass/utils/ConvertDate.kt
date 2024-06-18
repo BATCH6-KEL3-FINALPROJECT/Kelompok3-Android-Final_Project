@@ -22,8 +22,11 @@ fun convertDateFormat(inputDate: String): String {
 }
 
 fun convertFlightDetail(inputDate: String): String {
-    val inputFormat = SimpleDateFormat("dd-MM-yyyy", Locale("id", "ID"))
-    val outputFormat = SimpleDateFormat("yyyy-MM-dd", Locale("id", "ID"))
+    /*val inputFormat = SimpleDateFormat("dd-MM-yyyy", Locale("id", "ID"))
+    val outputFormat = SimpleDateFormat("yyyy-MM-dd", Locale("id", "ID"))*/
+    val defaultLocale = Locale.getDefault()
+    val inputFormat = SimpleDateFormat("dd MMMM yyyy", defaultLocale)
+    val outputFormat = SimpleDateFormat("dd-MM-yyyy", defaultLocale)
 
     return try {
         val date = inputFormat.parse(inputDate)
