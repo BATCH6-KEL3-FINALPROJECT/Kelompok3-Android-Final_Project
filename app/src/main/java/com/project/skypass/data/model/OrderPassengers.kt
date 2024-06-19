@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class OrderPassangers(
+data class OrderPassengers(
     // order name
     val name: String?,
     val familyName: String?,
@@ -12,5 +12,9 @@ data class OrderPassangers(
     val email: String?,
 
     // order passengers
-    val passengers: List<Passenger>?
+    val passengers: List<PassengersData>?,
+
+    // order seat
+    val seatOrderDeparture: List<String>?,
+    val seatOrderArrival: List<String>?
 ):Parcelable

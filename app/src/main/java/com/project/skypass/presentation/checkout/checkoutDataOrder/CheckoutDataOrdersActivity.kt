@@ -3,15 +3,12 @@ package com.project.skypass.presentation.checkout.checkoutDataOrder
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
-import coil.load
-import com.project.skypass.data.model.OrderPassangers
+import com.project.skypass.data.model.OrderPassengers
 import com.project.skypass.data.model.OrderUser
 import com.project.skypass.databinding.ActivityCheckoutDataOrdersBinding
 import com.project.skypass.presentation.checkout.checkoutDataPassenger.CheckoutDataPassengerActivity
-import com.project.skypass.presentation.profile.ProfileViewModelExample
 import com.project.skypass.utils.proceedWhen
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -47,7 +44,7 @@ class CheckoutDataOrdersActivity : AppCompatActivity() {
 
     private fun displayProfileData() {
         val userId = viewModel.getUserId()
-        viewModel.showDataUser(userId).observe(this ){
+        viewModel.showDataUser(userId).observe(this) {
             it.proceedWhen(
                 doOnSuccess = {
                     binding.etName.setText(it.payload?.name)
@@ -144,12 +141,14 @@ class CheckoutDataOrdersActivity : AppCompatActivity() {
                         paymentPriceRoundTrip = item.paymentPrice,
                         seatsAvailableRoundTrip = item.seatsAvailable,
                         terminalRoundTrip = item.terminal,
-                        ), OrderPassangers(
+                    ), OrderPassengers(
                         name = binding.etName.text.toString(),
                         email = binding.etEmail.text.toString(),
                         familyName = binding.etFamilyName.text.toString(),
                         noTelephone = binding.etNoPhone.text.toString(),
-                        passengers = null
+                        passengers = null,
+                        seatOrderDeparture = null,
+                        seatOrderArrival = null
                     )
                 )
             } else {
@@ -225,12 +224,14 @@ class CheckoutDataOrdersActivity : AppCompatActivity() {
                         seatsAvailableRoundTrip = item.seatsAvailableRoundTrip,
                         terminalRoundTrip = item.terminalRoundTrip
                     ),
-                    OrderPassangers(
+                    OrderPassengers(
                         name = binding.etName.text.toString(),
                         email = binding.etEmail.text.toString(),
                         familyName = binding.etFamilyName.text.toString(),
                         noTelephone = binding.etNoPhone.text.toString(),
-                        passengers = null
+                        passengers = null,
+                        seatOrderDeparture = null,
+                        seatOrderArrival = null
                     )
                 )
             }
@@ -243,7 +244,7 @@ class CheckoutDataOrdersActivity : AppCompatActivity() {
             context: Context,
             orderUser: OrderUser,
 
-        ) {
+            ) {
             val intent = Intent(context, CheckoutDataOrdersActivity::class.java)
             intent.putExtra(EXTRA_FLIGHT, orderUser)
 

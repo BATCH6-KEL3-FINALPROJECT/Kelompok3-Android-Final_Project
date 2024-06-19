@@ -45,9 +45,9 @@ class HomeFragment : Fragment(), DataSelection {
     private var formatDateDepartureIntent: String? = null
     private var formatDateReturnIntent: String? = null
     private var passengers: String? = null
-    private var adultPassenger: Int? = null
-    private var childPassenger: Int? = null
-    private var babyPassenger: Int? = null
+    private var adultPassenger: Int = 0
+    private var childPassenger: Int = 0
+    private var babyPassenger: Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -100,6 +100,8 @@ class HomeFragment : Fragment(), DataSelection {
                 supportRoundTrip = binding.rbRoundTrip.isChecked,
                 orderDate = orderDate(),
 
+
+
                 // Flight Data (One Way)
                 airlineCode = "",
                 airlineName = "",
@@ -119,10 +121,10 @@ class HomeFragment : Fragment(), DataSelection {
                 flightArrivalDate = "",
                 flightDepartureDate = "",
                 planeType = "",
-                priceAdult = null,
-                priceBaby = null,
-                priceChild = null,
-                priceTotal = null,
+                priceAdult = 0,
+                priceBaby = 0,
+                priceChild = 0,
+                priceTotal = 0,
                 paymentPrice = null,
                 seatsAvailable = null,
                 terminal = "",
@@ -149,7 +151,7 @@ class HomeFragment : Fragment(), DataSelection {
                 priceAdultRoundTrip = null,
                 priceBabyRoundTrip = null,
                 priceChildRoundTrip = null,
-                priceTotalRoundTrip = null,
+                priceTotalRoundTrip = 0,
                 paymentPriceRoundTrip = null,
                 seatsAvailableRoundTrip = null,
                 terminalRoundTrip = ""

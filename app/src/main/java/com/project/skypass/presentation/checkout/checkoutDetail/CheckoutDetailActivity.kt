@@ -5,8 +5,12 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import com.project.skypass.R
+import com.project.skypass.data.model.OrderPassengers
 import com.project.skypass.data.model.OrderUser
 import com.project.skypass.databinding.ActivityCheckoutDetailBinding
+import com.project.skypass.presentation.checkout.checkoutDataPassenger.CheckoutDataPassengerActivity
+import com.project.skypass.presentation.checkout.checkoutSeat.CheckoutSeatActivity
 import com.project.skypass.presentation.main.MainActivity
 import com.project.skypass.utils.toIndonesianFormat
 
@@ -18,50 +22,64 @@ class CheckoutDetailActivity : AppCompatActivity() {
         getArgumentData()
         setClickListeners()
     }
+
     private fun setClickListeners() {
         binding.btnBack.setOnClickListener {
             onBackPressed()
         }
     }
-    private fun observeResult(){
+
+    private fun observeResult() {
 //        observe view model
     }
+
     private fun getArgumentData() {
-        intent.extras?.getParcelable<OrderUser>(EXTRA_FLIGHT)?. let {
-            setProfileData(it)
-            sendOrderData(it)
+        intent.extras?.getParcelable<OrderUser>(EXTRA_FLIGHT)?.let {
+
+            intent.extras?.getParcelable<OrderPassengers>(CheckoutDataPassengerActivity.EXTRA_USER_ORDER)
+                ?.let { orderPassenger ->
+                    sendOrderData(it,orderPassenger)
+                    setProfileData(it, orderPassenger)
+                }
+
         }
     }
-    private fun setProfileData(item: OrderUser) {
+
+    private fun setProfileData(item: OrderUser, passengerData: OrderPassengers) {
         binding.apply {
-            if (item.isRoundTrip == false && item.supportRoundTrip == true) {
-                tvTotalPrice.text = (item.priceTotal?.plus(item.priceTotalRoundTrip!!)).toIndonesianFormat()
-                // change departure to arrival
-                rvTicketDetail.tvAirportDeparture.text = item.departureAirportNameRoundTrip
-                rvTicketDetail.tvAirportArrival.text = item.arrivalAirportNameRoundTrip
-                rvTicketDetail.tvAirline.text = item.airlineNameRoundTrip
+
+            if (item.isRoundTrip == false && item.supportRoundTrip == false && item.seatsAvailableRoundTrip != null) {
+                tvTotalPrice.text =
+                    (item.priceTotal?.plus(item.priceTotalRoundTrip!!)).toIndonesianFormat()
+                rvTicketDetail.tvAirportDeparture.text = item.departureAirportName
+                rvTicketDetail.tvAirportArrival.text = item.arrivalAirportName
+                rvTicketDetail.tvAirline.text = item.airlineName
                 rvTicketDetail.tvCityDeparture.text = item.arrivalCity
                 rvTicketDetail.tvCityArrival.text = item.departureCity
-                rvTicketDetail.tvDateDeparture.text = item.flightDepartureDateRoundTrip
-                rvTicketDetail.tvDateArrival.text = item.flightArrivalDateRoundTrip
-                rvTicketDetail.tvTimeDeparture.text = item.departureTimeRoundTrip
-                rvTicketDetail.tvTimeArrival.text = item.arrivalTimeRoundTrip
-                rvTicketDetail.tvInfoDetail.text = item.flightDescriptionRoundTrip
-                rvTicketDetail.tvFlightCode.text = item.flightCodeRoundTrip
+                rvTicketDetail.tvDateDeparture.text = item.flightDepartureDate
+                rvTicketDetail.tvDateArrival.text = item.flightArrivalDate
+                rvTicketDetail.tvTimeDeparture.text = item.departureTime
+                rvTicketDetail.tvTimeArrival.text = item.arrivalTime
+                rvTicketDetail.tvInfoDetail.text = item.flightDescription
+                rvTicketDetail.tvFlightCode.text = item.flightCode
+                rvTicketDetail.tvSeatChose.text = passengerData.seatOrderDeparture.toString()
 
-                rvTicketDetailRound.tvAirportDeparture.text = item.departureAirportName
-                rvTicketDetailRound.tvAirportArrival.text = item.arrivalAirportName
-                rvTicketDetailRound.tvAirline.text = item.airlineName
+                rvTicketDetailRound.tvAirportDeparture.text = item.departureAirportNameRoundTrip
+                rvTicketDetailRound.tvAirportArrival.text = item.arrivalAirportNameRoundTrip
+                rvTicketDetailRound.tvAirline.text = item.airlineNameRoundTrip
                 rvTicketDetailRound.tvCityDeparture.text = item.departureCity
                 rvTicketDetailRound.tvCityArrival.text = item.arrivalCity
-                rvTicketDetailRound.tvDateDeparture.text = item.flightDepartureDate
-                rvTicketDetailRound.tvDateArrival.text = item.flightArrivalDate
-                rvTicketDetailRound.tvTimeDeparture.text = item.departureTime
-                rvTicketDetailRound.tvTimeArrival.text = item.arrivalTime
-                rvTicketDetailRound.tvInfoDetail.text = item.flightDescription
-                rvTicketDetailRound.tvFlightCode.text = item.flightCode
+                rvTicketDetailRound.tvDateDeparture.text = item.flightDepartureDateRoundTrip
+                rvTicketDetailRound.tvDateArrival.text = item.flightArrivalDateRoundTrip
+                rvTicketDetailRound.tvTimeDeparture.text = item.departureTimeRoundTrip
+                rvTicketDetailRound.tvTimeArrival.text = item.arrivalTimeRoundTrip
+                rvTicketDetailRound.tvInfoDetail.text = item.flightDescriptionRoundTrip
+                rvTicketDetailRound.tvFlightCode.text = item.flightCodeRoundTrip
+                rvTicketDetailRound.tvSeatChose.text = passengerData.seatOrderArrival.toString()
                 rvTicketDetailRound.root.isVisible = true
-            }else{
+                btnSubmit.text = getString(R.string.text_button_detail_checkout)
+
+            } else {
                 rvTicketDetailRound.root.isVisible = false
                 tvTotalPrice.text = item.priceTotal.toIndonesianFormat()
                 rvTicketDetail.tvAirportDeparture.text = item.departureAirportName
@@ -75,37 +93,136 @@ class CheckoutDetailActivity : AppCompatActivity() {
                 rvTicketDetail.tvTimeArrival.text = item.arrivalTime
                 rvTicketDetail.tvInfoDetail.text = item.flightDescription
                 rvTicketDetail.tvFlightCode.text = item.flightCode
+                rvTicketDetail.tvSeatChose.text = passengerData.seatOrderDeparture.toString()
+                if (item.seatsAvailableRoundTrip != null){
+                    btnSubmit.text = getString(R.string.btn_detail_checkoutBack)
+                }else{
+                    btnSubmit.text = getString(R.string.text_button_detail_checkout)
+                }
+
             }
             //set price detail
-            tvAdultCount.text = item.passengersAdult.toString()
+//            tvAdultCount.text = item.passengersAdult.toString()
+//            tvChildCount.text = item.passengersChild.toString()
+//            tvBabyCount.text = item.passengersBaby.toString()
+            tvAdultCount.text = passengerData.passengers?.get(0)?.toString() ?: "kosong"
             tvChildCount.text = item.passengersChild.toString()
             tvBabyCount.text = item.passengersBaby.toString()
-            val priceAdult = item.priceTotal?.times(item.passengersAdult!!)?.plus(item.priceTotalRoundTrip?.times(item.passengersAdult!!)!!)
-            val priceChild = item.priceTotal?.times(item.passengersChild!!)?.plus(item.priceTotalRoundTrip?.times(item.passengersChild!!)!!)
-            val priceBaby = (item.priceTotal!! /2).times(item.passengersChild!!).plus((item.priceTotalRoundTrip!!/2).times(item.passengersChild!!))
+
+            val priceAdult = item.priceTotal?.times(item.passengersAdult!!)
+                ?.plus(item.priceTotalRoundTrip?.times(item.passengersAdult!!)!!)
+            val priceChild = item.priceTotal?.times(item.passengersChild!!)
+                ?.plus(item.priceTotalRoundTrip?.times(item.passengersChild!!)!!)
+            val priceBaby = (item.priceTotal!! / 2).times(item.passengersBaby!!)
+                .plus((item.priceTotalRoundTrip!! / 2).times(item.passengersBaby!!))
             val priceTotal = priceAdult!! + priceChild!! + priceBaby
             tvPriceAdult.text = "${priceAdult.toIndonesianFormat()}"
             tvPricechild.text = "${priceChild.toIndonesianFormat()}"
-            tvPriceBaby.text = "$priceBaby"
+            tvPriceBaby.text = "${priceBaby.toIndonesianFormat()}"
             tvTotalPrice.text = "${priceTotal.toIndonesianFormat()}"
+            item.paymentPrice = priceTotal
         }
     }
-    private fun sendOrderData(item: OrderUser) {
+
+    private fun sendOrderData(item: OrderUser, passengerData: OrderPassengers) {
+
         binding.btnSubmit.setOnClickListener {
-            MainActivity.sendDataOrder(
-                this,
-                item,
-            )
+            if (item.supportRoundTrip == false) {
+                MainActivity.sendDataOrder(
+                    this,
+                    item,
+                )
+            } else {
+
+                CheckoutSeatActivity.sendDataOrder(
+                    this,
+                    OrderUser(
+                        // Home data
+                        id = item.id,
+                        arrivalCity = item.arrivalCity,
+                        arrivalDate = item.arrivalDate,
+                        seatClass = item.seatClass,
+                        departureCity = item.departureCity,
+                        departureDate = item.departureDate,
+                        passengersTotal = item.passengersTotal,
+                        passengersAdult = item.passengersAdult,
+                        passengersBaby = item.passengersBaby,
+                        passengersChild = item.passengersChild,
+                        isRoundTrip = item.isRoundTrip,
+                        supportRoundTrip = false,
+                        orderDate = item.orderDate,
+
+                        // Flight data (One Way)
+                        airlineCode = item.airlineCode,
+                        airlineName = item.airlineName,
+                        arrivalAirportName = item.arrivalAirportName,
+                        arrivalIATACode = item.arrivalIATACode,
+                        arrivalTime = item.arrivalTime,
+                        departureAirportName = item.departureAirportName,
+                        departureIATACode = item.departureIATACode,
+                        departureTime = item.departureTime,
+                        flightCode = item.flightCode,
+                        flightDescription = item.flightDescription,
+                        flightDuration = item.flightDuration,
+                        flightDurationFormat = item.flightDurationFormat,
+                        flightId = item.flightId,
+                        flightStatus = item.flightStatus,
+                        flightSeat = item.seatClass,
+                        flightArrivalDate = item.flightArrivalDate,
+                        flightDepartureDate = item.flightDepartureDate,
+                        planeType = item.planeType,
+                        priceAdult = item.priceAdult,
+                        priceBaby = item.priceBaby,
+                        priceChild = item.priceChild,
+                        priceTotal = item.priceTotal,
+                        paymentPrice = item.paymentPrice,
+                        seatsAvailable = item.seatsAvailable,
+                        terminal = item.terminal,
+
+                        // Flight data (Round Trip)
+                        airlineCodeRoundTrip = item.airlineCodeRoundTrip,
+                        airlineNameRoundTrip = item.airlineNameRoundTrip,
+                        arrivalAirportNameRoundTrip = item.arrivalAirportNameRoundTrip,
+                        arrivalIATACodeRoundTrip = item.arrivalIATACodeRoundTrip,
+                        arrivalTimeRoundTrip = item.arrivalTimeRoundTrip,
+                        departureAirportNameRoundTrip = item.departureAirportNameRoundTrip,
+                        departureIATACodeRoundTrip = item.departureIATACodeRoundTrip,
+                        departureTimeRoundTrip = item.departureTimeRoundTrip,
+                        flightCodeRoundTrip = item.flightCodeRoundTrip,
+                        flightDescriptionRoundTrip = item.flightDescriptionRoundTrip,
+                        flightDurationRoundTrip = item.flightDurationRoundTrip,
+                        flightDurationFormatRoundTrip = item.flightDurationFormatRoundTrip,
+                        flightIdRoundTrip = item.flightIdRoundTrip,
+                        flightStatusRoundTrip = item.flightStatusRoundTrip,
+                        flightSeatRoundTrip = item.flightSeatRoundTrip,
+                        flightArrivalDateRoundTrip = item.flightArrivalDateRoundTrip,
+                        flightDepartureDateRoundTrip = item.flightDepartureDateRoundTrip,
+                        planeTypeRoundTrip = item.planeTypeRoundTrip,
+                        priceAdultRoundTrip = item.priceAdultRoundTrip,
+                        priceBabyRoundTrip = item.priceBabyRoundTrip,
+                        priceChildRoundTrip = item.priceChildRoundTrip,
+                        priceTotalRoundTrip = item.priceTotalRoundTrip,
+                        paymentPriceRoundTrip = item.paymentPriceRoundTrip,
+                        seatsAvailableRoundTrip = item.seatsAvailableRoundTrip,
+                        terminalRoundTrip = item.terminalRoundTrip
+                    ),
+                    passengerData
+                )
+            }
         }
     }
+
     companion object {
         const val EXTRA_FLIGHT = "extra_flight"
+        const val EXTRA_USER_ORDER = "EXTRA_USER_ORDER"
         fun sendDataOrder(
             context: Context,
-            orderUser: OrderUser
-        ){
+            orderUser: OrderUser,
+            orderPassenger: OrderPassengers
+        ) {
             val intent = Intent(context, CheckoutDetailActivity::class.java)
             intent.putExtra(EXTRA_FLIGHT, orderUser)
+            intent.putExtra(EXTRA_USER_ORDER, orderPassenger)
             context.startActivity(intent)
         }
     }

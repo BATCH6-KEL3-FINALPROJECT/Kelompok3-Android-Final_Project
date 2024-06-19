@@ -228,5 +228,7 @@
     <string name="text_or">OR</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="label_seat_flight">Seat Flight:</string>
+    <string name="btn_detail_checkoutBack">Pilih Seat Arrival</string>
 
 </resources>

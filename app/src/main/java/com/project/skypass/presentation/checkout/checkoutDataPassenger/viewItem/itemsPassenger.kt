@@ -2,39 +2,75 @@ package com.project.skypass.presentation.checkout.checkoutDataPassenger.viewItem
 
 import android.app.DatePickerDialog
 import android.view.View
-import android.content.Intent
+import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.core.view.isVisible
 import com.project.skypass.R
-import com.project.skypass.data.model.OrderUser
-import com.project.skypass.databinding.ActivityCheckoutDataPassengerBinding
+import com.project.skypass.data.model.PassengersData
 import com.project.skypass.databinding.ItemCheckoutDataPassengerBinding
 import com.project.skypass.databinding.ItemCheckoutHeaderPassengerBinding
 import com.project.skypass.presentation.checkout.checkoutDataPassenger.CheckoutDataPassengerActivity
-import com.project.skypass.presentation.checkout.checkoutSeat.CheckoutSeatActivity
 import com.xwray.groupie.viewbinding.BindableItem
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
-import android.content.Context
-import com.project.skypass.data.model.OrderPassangers
 
-
-class DataItem(private var data: String, private val onItemClick: (item: String) -> Unit) :
+class DataItem(private var data: PassengersData, private val onItemClick: (item: PassengersData) -> Unit) :
     BindableItem<ItemCheckoutDataPassengerBinding>() {
 
     override fun bind(viewBinding: ItemCheckoutDataPassengerBinding, position: Int) {
-        val dataName = viewBinding.etName.text.toString()
-        val dataPhone = viewBinding.etNoPhone
-        val dataCitizen = viewBinding.etCitizenship.text.toString()
-        val dataFamilyName = viewBinding.etFamilyName
-        val dataCountryKTP = viewBinding.etCountryKTP
-        val dataDateBorn = viewBinding.etDateBorn
-        data = viewBinding.etName.text.toString()
-        viewBinding.etDateBorn.setOnClickListener{setDateBordCalender(viewBinding)}
+
+        setupTitleDropdown(viewBinding)
+        viewBinding.etDateBorn.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
+            if (hasFocus) {
+                setDateBordCalender(viewBinding)
+            }
+        }
+
+        viewBinding.etLastDateKTP.onFocusChangeListener =
+            View.OnFocusChangeListener { _, hasFocus ->
+                if (hasFocus) {
+                    setDateKTPCalender(viewBinding)
+                }
+            }
+
         addFamilyName(viewBinding)
-        viewBinding.root.setOnClickListener { onItemClick.invoke(data) }
+        viewBinding.btnSubmit.setOnClickListener {
+            val passengersData = PassengersData(
+                title = viewBinding.etDropdownMenu.text.toString(),
+                firstName = viewBinding.etName.text.toString(),
+                lastName = viewBinding.etFamilyName.text.toString(),
+                nationality = viewBinding.etCitizenship.text.toString(),
+                passportNo = viewBinding.etKtpPassport.text.toString(),
+                issuingCountry = viewBinding.etLastDateKTP.text.toString(),
+                dateOfBirth = viewBinding.etDateBorn.text.toString(),
+                email = CheckoutDataPassengerActivity.DataHolder.emailOrder.toString(),
+                phoneNumber = viewBinding.etNoPhone.text.toString(),
+                validUntil = viewBinding.etLastDateKTP.text.toString()
+            )
+            if (passengersData.isValid()) {
+                viewBinding.btnSubmit.isVisible = false
+                onItemClick.invoke(passengersData)
+            } else {
+                Toast.makeText(
+                    viewBinding.root.context,
+                    "Terdapat Data Yang Kosong",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
 
-
+        }
+    }
+    private fun PassengersData.isValid(): Boolean {
+        return title.isNotEmpty() &&
+                firstName.isNotEmpty() &&
+                nationality.isNotEmpty() &&
+                passportNo.isNotEmpty() &&
+                issuingCountry.isNotEmpty() &&
+                dateOfBirth.isNotEmpty() &&
+                email.isNotEmpty() &&
+                phoneNumber.isNotEmpty() &&
+                validUntil.isNotEmpty()
     }
 
     private fun addFamilyName(binding: ItemCheckoutDataPassengerBinding) {
@@ -42,13 +78,15 @@ class DataItem(private var data: String, private val onItemClick: (item: String)
             binding.inputFamilyName.isVisible = isChecked
         }
     }
+    private fun setupTitleDropdown(binding: ItemCheckoutDataPassengerBinding) {
+        val titles = listOf("Mr", "Ms")
+        val adapterDropdown = ArrayAdapter(binding.root.context, R.layout.item_checkout_passengers_title, titles)
+        binding.etDropdownMenu.setAdapter(adapterDropdown)
+    }
+
 
     private fun setDateBordCalender(viewBinding: ItemCheckoutDataPassengerBinding) {
         val calendar = Calendar.getInstance()
-        val year = calendar.get(Calendar.YEAR)
-        val month = calendar.get(Calendar.MONTH)
-        val day = calendar.get(Calendar.DAY_OF_MONTH)
-
         val dateBornCalendar =
             DatePickerDialog(
                 viewBinding.root.context,
@@ -61,9 +99,29 @@ class DataItem(private var data: String, private val onItemClick: (item: String)
                     val formattedDate = SimpleDateFormat("dd-MM-yyyy", Locale("id", "ID")).format(calendar.time)
                     viewBinding.etDateBorn.setText(formattedDate)
                 },
-                day,
-                month,
-                year,
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH)
+            )
+        dateBornCalendar.show()
+    }
+    private fun setDateKTPCalender(viewBinding: ItemCheckoutDataPassengerBinding) {
+        val calendar = Calendar.getInstance()
+        val dateBornCalendar =
+            DatePickerDialog(
+                viewBinding.root.context,
+                { _, selectedYear, selectedMonth, selectedDay ->
+                    calendar.apply {
+                        set(Calendar.YEAR, selectedYear)
+                        set(Calendar.MONTH, selectedMonth)
+                        set(Calendar.DAY_OF_MONTH, selectedDay)
+                    }
+                    val formattedDate = SimpleDateFormat("dd-MM-yyyy", Locale("id", "ID")).format(calendar.time)
+                    viewBinding.etLastDateKTP.setText(formattedDate)
+                },
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH)
             )
         dateBornCalendar.show()
     }
