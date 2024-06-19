@@ -1,7 +1,6 @@
 package com.project.skypass.data.source.network.service
 
 import com.project.skypass.BuildConfig
-import com.project.skypass.data.model.Response
 import com.project.skypass.data.source.network.model.flight.detailflight.DetailFlightResponse
 import com.project.skypass.data.source.network.model.flight.flightdata.GetAllFlightResponse
 import com.project.skypass.data.source.network.model.login.LoginRequestResponse
@@ -14,7 +13,6 @@ import com.project.skypass.data.source.network.model.register.RegisterRequestRes
 import com.project.skypass.data.source.network.model.register.RegisterResponse
 import com.project.skypass.data.source.network.model.resetpassword.ResetPasswordRequestResponse
 import com.project.skypass.data.source.network.model.resetpassword.ResetPasswordResponse
-import com.project.skypass.data.source.network.model.search.SearchItemResponse
 import com.project.skypass.data.source.network.model.search.SearchResponse
 import com.project.skypass.data.source.network.model.seat.SeatResponse
 import com.project.skypass.data.source.network.model.user.detailuser.UserResponse
@@ -32,7 +30,6 @@ import retrofit2.http.Header
 import retrofit2.http.Multipart
 import retrofit2.http.PATCH
 import retrofit2.http.POST
-import retrofit2.http.PUT
 import retrofit2.http.Part
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -114,7 +111,7 @@ interface ApiService {
     suspend fun getSeatData(
         @Query("seat_class") seatClass: String? = null,
         @Query("flight_id") flightId: String? = null,
-        @Query("page") page: Int? = null
+        @Query("limit") page: Int? = null
     ): SeatResponse
 
     companion object {

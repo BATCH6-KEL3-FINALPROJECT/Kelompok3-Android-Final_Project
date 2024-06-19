@@ -6,19 +6,19 @@ class PriceClassDataSourceImpl: PriceClassDataSource {
     override fun getPriceClassData(): List<SeatClass> {
         return listOf(
             SeatClass(
-                classType = "Economy",
+                classType = "economy",
                 price = 4950000
             ),
             SeatClass(
-                classType = "Premium Economy",
+                classType = "premium economy",
                 price = 7550000
             ),
             SeatClass(
-                classType = "Business",
+                classType = "business",
                 price = 29220000
             ),
             SeatClass(
-                classType = "First Class",
+                classType = "first class",
                 price = 87620000
             )
         )

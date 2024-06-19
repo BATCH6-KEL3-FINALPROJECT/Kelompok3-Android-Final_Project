@@ -63,4 +63,17 @@ class PassengersViewModel: ViewModel() {
         val adultCount = passengersAdultCountLiveData.value ?: 0
         return infantCount + childrenCount + adultCount
     }
+
+    fun passengersAdultCount(): Int{
+        val adultCount = passengersAdultCountLiveData.value ?: 0
+        return adultCount
+    }
+    fun passengersChildrenCount(): Int{
+        val count = passengersChildrenCountLiveData.value ?: 0
+        return count
+    }
+    fun passengersInfantCount(): Int{
+        val count = passengersInfantCountLiveData.value ?: 0
+        return count
+    }
 }

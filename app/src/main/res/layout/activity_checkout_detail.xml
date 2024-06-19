@@ -14,18 +14,20 @@
     <LinearLayout
         android:id="@+id/toolbar_detail_checkout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/darkpurple"
+        android:layout_height="50dp"
+        android:background="?attr/colorPrimary"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:orientation="horizontal"
-        android:padding="10dp">
+        >
 
 
         <ImageView
             android:id="@+id/btnBack"
             android:layout_width="30dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="16dp"
             android:layout_height="30dp"
             android:padding="4dp"
             android:src="@drawable/ic_back_2"
@@ -34,6 +36,7 @@
             tools:ignore="ContentDescription" />
 
         <TextView
+            android:id="@+id/tv_title_heeader"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -59,7 +62,7 @@
             <!--            flight go -->
             <include
                 android:id="@+id/rv_ticket_detail"
-                layout="@layout/item_flight_ticket_detail"
+                layout="@layout/item_checkout_detail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -68,7 +71,7 @@
             <!--            flight back -->
             <include
                 android:id="@+id/rv_ticket_detail_round"
-                layout="@layout/item_flight_ticket_detail"
+                layout="@layout/item_checkout_detail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -258,8 +261,8 @@
         android:id="@+id/btnSubmit"
         android:padding="14dp"
         android:textAllCaps="false"
-        android:text="@string/text_button_detail_checkout"
         app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginHorizontal="16dp"
         android:layout_marginBottom="20dp"
         android:background="@drawable/bg_button"
         android:layout_width="match_parent"

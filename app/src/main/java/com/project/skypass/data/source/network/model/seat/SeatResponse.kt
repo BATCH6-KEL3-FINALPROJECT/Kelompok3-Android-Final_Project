@@ -1,7 +1,13 @@
 package com.project.skypass.data.source.network.model.seat
 
+
+import com.google.gson.annotations.SerializedName
+
 data class SeatResponse(
-    val code: Int?,
-    val data: Data?,
-    val is_success: Boolean?
+    @SerializedName("code")
+    var code: Int?,
+    @SerializedName("data")
+    var data: Data?,
+    @SerializedName("is_success")
+    var isSuccess: Boolean?
 )

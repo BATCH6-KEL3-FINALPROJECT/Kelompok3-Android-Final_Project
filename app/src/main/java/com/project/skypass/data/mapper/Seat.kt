@@ -5,13 +5,13 @@ import com.project.skypass.data.source.network.model.seat.SeatItemResponse
 
 fun SeatItemResponse?.toSeat() =
     Seat(
-        flightId = this?.flight_id.orEmpty(),
-        isAvailable = this?.is_available.orEmpty(),
+        flightId = this?.flightId.orEmpty(),
+        isAvailable = this?.isAvailable.orEmpty(),
         column = this?.column.orEmpty(),
         row = this?.row ?: 0,
-        seatId = this?.seat_id.orEmpty(),
-        seatNumber = this?.seat_number.orEmpty(),
-        seatClass = this?.seat_class.orEmpty(),
+        seatId = this?.seatId.orEmpty(),
+        seatNumber = this?.seatNumber.orEmpty(),
+        seatClass = this?.seatClass.orEmpty(),
     )
 
 fun Collection<SeatItemResponse>?.toSeatList() = this?.map { it.toSeat() } ?: listOf()

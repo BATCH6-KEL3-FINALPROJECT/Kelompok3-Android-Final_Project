@@ -35,6 +35,8 @@ room = "2.6.1"
 #networking
 retrofit = "2.9.0"
 okhttp = "4.11.0"
+
+#paging
 paging = "3.3.0"
 
 #shimmer
@@ -79,6 +81,8 @@ viewCalendar = "2.5.1"
 
 #seatbookview
 seatBook = "1.0.4"
+
+#firebase
 firebaseCrashlytics = "19.0.1"
 googleGmsGoogleServices = "4.4.2"
 googleFirebaseCrashlytics = "3.0.1"
