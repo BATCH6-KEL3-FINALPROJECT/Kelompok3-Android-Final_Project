@@ -260,7 +260,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
-                    android:text="Status verifikasi akun, ubah tema dan hapus akun"
+                    android:text="Keluar dari akun ini"
                     android:textSize="11sp" />
 
             </LinearLayout>

@@ -1,6 +1,11 @@
 package com.project.skypass.presentation.profile.changeprofile
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
+import android.provider.MediaStore
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import coil.load
 import com.project.skypass.databinding.ActivityChangeProfileBinding
@@ -22,32 +27,72 @@ class ChangeProfileActivity : AppCompatActivity() {
         }
 
         displayProfileData()
+
+        binding.ivEditPhoto.setOnClickListener {
+            openGalleryForImage()
+        }
+
+        binding.btnEdit.setOnClickListener {
+            val token = changeProfileViewModel.getToken()
+            val userId = changeProfileViewModel.getUserId()
+            val name = binding.etName.text.toString()
+            val email = binding.etEmail.text.toString()
+            val phoneNumber = binding.etNumberPhone.text.toString()
+            val photo = changeProfileViewModel.profilePhotoUri.value
+
+            changeProfileViewModel.editUserData(token, userId, name, email, phoneNumber).observe(this) { result ->
+                result.proceedWhen(
+                    doOnSuccess = {
+                        Toast.makeText(this, "Profile updated", Toast.LENGTH_SHORT).show()
+
+                        // Set result to indicate profile update success
+                        setResult(Activity.RESULT_OK)
+
+                        // Finish activity to return to the previous screen
+                        finish()
+                    },
+                    doOnLoading = {
+                    },
+                    doOnError = {
+                        Toast.makeText(this, "Failed to update profile", Toast.LENGTH_SHORT).show()
+                    }
+                )
+            }
+        }
     }
 
     private fun displayProfileData() {
-        /*val profiles = changeProfileViewModel.getProfile()
-        profiles.firstOrNull()?.let { profile ->
-            binding.etName.setText(profile.name)
-            binding.etEmail.setText(profile.email)
-            binding.etNumberPhone.setText(profile.phoneNumber)
-            binding.ivProfile.load(profile.photoUrl)
-        }*/
         val userId = changeProfileViewModel.getUserId()
-        changeProfileViewModel.showDataUser(userId).observe(this) {
-            it.proceedWhen(
+        changeProfileViewModel.showDataUser(userId).observe(this) { result ->
+            result.proceedWhen(
                 doOnSuccess = {
-                    binding.ivProfile.load(it.payload?.photoUrl)
-                    binding.etName.setText(it.payload?.name)
-                    binding.etEmail.setText(it.payload?.email)
-                    binding.etNumberPhone.setText(it.payload?.phoneNumber)
+                    it.payload?.let { user ->
+                        binding.ivProfile.load(user.photoUrl)
+                        binding.etName.setText(user.name)
+                        binding.etEmail.setText(user.email)
+                        binding.etNumberPhone.setText(user.phoneNumber)
+                    }
                 },
                 doOnLoading = {
 
                 },
                 doOnError = {
-
                 }
             )
         }
+    }
+
+    private val galleryLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == RESULT_OK) {
+            result.data?.data?.let { uri ->
+                binding.ivProfile.setImageURI(uri)
+                changeProfileViewModel.setProfilePhoto(uri)
+            }
+        }
+    }
+
+    private fun openGalleryForImage() {
+        val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+        galleryLauncher.launch(intent)
     }
 }

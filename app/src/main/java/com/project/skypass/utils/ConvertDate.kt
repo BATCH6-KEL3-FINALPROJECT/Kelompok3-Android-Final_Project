@@ -5,8 +5,11 @@ import java.util.Date
 import java.util.Locale
 
 fun convertDateFormat(inputDate: String): String {
-    val inputFormat = SimpleDateFormat("dd MMMM yyyy", Locale("id", "ID"))
-    val outputFormat = SimpleDateFormat("dd-MM-yyyy", Locale("id", "ID"))
+    /*val inputFormat = SimpleDateFormat("dd MMMM yyyy", Locale("en", "US"))
+    val outputFormat = SimpleDateFormat("dd-MM-yyyy", Locale("en", "US"))*/
+    val defaultLocale = Locale.getDefault()
+    val inputFormat = SimpleDateFormat("dd MMMM yyyy", defaultLocale)
+    val outputFormat = SimpleDateFormat("dd-MM-yyyy", defaultLocale)
 
     return try {
         val date = inputFormat.parse(inputDate)
@@ -19,9 +22,26 @@ fun convertDateFormat(inputDate: String): String {
 }
 
 fun convertFlightDetail(inputDate: String): String {
-    val inputFormat = SimpleDateFormat("dd-MM-yyyy", Locale("id", "ID"))
-    val outputFormat = SimpleDateFormat("yyyy-MM-dd", Locale("id", "ID"))
+    /*val inputFormat = SimpleDateFormat("dd-MM-yyyy", Locale("id", "ID"))
+    val outputFormat = SimpleDateFormat("yyyy-MM-dd", Locale("id", "ID"))*/
+    val defaultLocale = Locale.getDefault()
+    val inputFormat = SimpleDateFormat("dd-MM-yyyy", defaultLocale)
+    val outputFormat = SimpleDateFormat("yyyy-MM-dd", defaultLocale)
 
+    return try {
+        val date = inputFormat.parse(inputDate)
+        date?.let {
+            outputFormat.format(it)
+        } ?: inputDate
+    } catch (e: Exception) {
+        inputDate
+    }
+}
+
+fun convertDateCalendar(inputDate: String): String {
+    val defaultLocale = Locale.getDefault()
+    val inputFormat = SimpleDateFormat("dd MMMM yyyy", defaultLocale)
+    val outputFormat = SimpleDateFormat("yyyy-MM-dd", defaultLocale)
     return try {
         val date = inputFormat.parse(inputDate)
         date?.let {

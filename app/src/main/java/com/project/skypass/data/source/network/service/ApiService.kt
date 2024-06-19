@@ -15,6 +15,7 @@ import com.project.skypass.data.source.network.model.resetpassword.ResetPassword
 import com.project.skypass.data.source.network.model.resetpassword.ResetPasswordResponse
 import com.project.skypass.data.source.network.model.search.SearchResponse
 import com.project.skypass.data.source.network.model.seat.SeatResponse
+import com.project.skypass.data.source.network.model.user.deleteuser.DeleteUserResponse
 import com.project.skypass.data.source.network.model.user.detailuser.UserResponse
 import com.project.skypass.data.source.network.model.user.edituser.EditUserResponse
 import com.project.skypass.utils.ErrorInterceptor
@@ -25,6 +26,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Multipart
@@ -93,13 +95,17 @@ interface ApiService {
     @PATCH("user/{id}")
     suspend fun updateUserData(
         @Header("Authorization") token: String,
-        @Path("userId") userId: String,
-        @Part("name") name: RequestBody? = null,
-        @Part("email") email: RequestBody? = null,
-        @Part("phone_number") phoneNumber: RequestBody? = null,
-        @Part("password") password: RequestBody? = null,
+        @Path("id") id: String,
+        @Part("name") name: RequestBody,
+        @Part("email") email: RequestBody,
+        @Part("phone_number") phoneNumber: RequestBody,
         @Part image: MultipartBody.Part? = null
     ): EditUserResponse
+
+    @DELETE("user/{id}")
+    suspend fun deleteUser(
+        @Path("id") id: String
+    ): DeleteUserResponse
 
     @GET("airport/")
     suspend fun searchDestination(

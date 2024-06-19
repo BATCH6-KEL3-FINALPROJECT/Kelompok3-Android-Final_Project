@@ -15,8 +15,8 @@ class ProfileViewModelExample(
     private val prefRepository: PrefRepository,
     private val userRepository: UserRepository,
     private val repositoryOrderHistory: OrderHistoryRepository
+) : ViewModel() {
 
-): ViewModel() {
     fun getUserId(): String {
         return prefRepository.getUserID()
     }
