@@ -1,28 +1,55 @@
 package com.project.skypass.data.source.network.model.flight.flightdata
 
+
+import com.google.gson.annotations.SerializedName
+
 data class GetAllFlightItemResponse(
-    val airline_code: String?,
-    val airline_name: String?,
-    val arrival_airport_name: String?,
-    val arrival_city: String?,
-    val arrival_date: String?,
-    val arrival_iata_code: String?,
-    val arrival_time: String?,
-    val departure_airport_name: String?,
-    val departure_city: String?,
-    val departure_date: String?,
-    val departure_iata_code: String?,
-    val departure_time: String?,
-    val flight_code: String?,
-    val flight_description: String?,
-    val flight_duration: Int?,
-    val flight_id: String?,
-    val flight_status: String?,
-    val plane_type: String?,
-    val price: Int?,
-    val price_for_child: Int?,
-    val price_for_infant: Int?,
-    val seat_class: String?,
-    val seats_available: Int?,
-    val terminal: Boolean?
+    @SerializedName("airline_code")
+    var airlineCode: String?,
+    @SerializedName("airline_name")
+    var airlineName: String?,
+    @SerializedName("arrival_airport_name")
+    var arrivalAirportName: String?,
+    @SerializedName("arrival_city")
+    var arrivalCity: String?,
+    @SerializedName("arrival_date")
+    var arrivalDate: String?,
+    @SerializedName("arrival_iata_code")
+    var arrivalIataCode: String?,
+    @SerializedName("arrival_time")
+    var arrivalTime: String?,
+    @SerializedName("departure_airport_name")
+    var departureAirportName: String?,
+    @SerializedName("departure_city")
+    var departureCity: String?,
+    @SerializedName("departure_date")
+    var departureDate: String?,
+    @SerializedName("departure_iata_code")
+    var departureIataCode: String?,
+    @SerializedName("departure_time")
+    var departureTime: String?,
+    @SerializedName("flight_code")
+    var flightCode: String?,
+    @SerializedName("flight_description")
+    var flightDescription: FlightDescription?,
+    @SerializedName("flight_duration")
+    var flightDuration: Int?,
+    @SerializedName("flight_id")
+    var flightId: String?,
+    @SerializedName("flight_status")
+    var flightStatus: String?,
+    @SerializedName("plane_type")
+    var planeType: String?,
+    @SerializedName("price")
+    var price: Int?,
+    @SerializedName("price_for_child")
+    var priceForChild: Int?,
+    @SerializedName("price_for_infant")
+    var priceForInfant: Int?,
+    @SerializedName("seat_class")
+    var seatClass: String?,
+    @SerializedName("seats_available")
+    var seatsAvailable: Int?,
+    @SerializedName("terminal")
+    var terminal: Boolean?
 )
