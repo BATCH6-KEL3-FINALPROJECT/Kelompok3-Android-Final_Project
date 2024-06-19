@@ -19,11 +19,8 @@ class CheckoutSeatViewModel(
     private val seatRepository: SeatRepository,
     private val seatsRepository: SeatsRepository
 ): ViewModel() {
-   fun getSeat(flightId: String, seatClass: String): LiveData<PagingData<Seat>> {
-        return seatRepository.getSeat(flightId, seatClass).asLiveData(Dispatchers.IO)
-    }
 
-    fun getSeats(seatsClass: String, flightId: String, page: Int): LiveData<ResultWrapper<List<Seat>>> {
+    fun getSeats(seatsClass: String, flightId: String, page: Int): LiveData<ResultWrapper<Triple<String,List<String>, List<String>>>> {
         return seatsRepository.getSeats(seatsClass, flightId, page).asLiveData(Dispatchers.IO)
     }
 

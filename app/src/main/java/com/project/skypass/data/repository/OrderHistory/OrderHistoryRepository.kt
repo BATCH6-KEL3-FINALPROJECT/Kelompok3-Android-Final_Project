@@ -8,7 +8,6 @@ interface OrderHistoryRepository {
     fun getUserOrderHistoryData(): Flow<ResultWrapper<Pair<List<OrderUser>, Double>>>
     fun createOrderHistoryDb(item: OrderUser): Flow<ResultWrapper<Boolean>>
     fun deleteOrderHistory(item: OrderUser): Flow<ResultWrapper<Boolean>>
-
     fun deleteAllOrderHistory(): Flow<ResultWrapper<Boolean>>
 }
 

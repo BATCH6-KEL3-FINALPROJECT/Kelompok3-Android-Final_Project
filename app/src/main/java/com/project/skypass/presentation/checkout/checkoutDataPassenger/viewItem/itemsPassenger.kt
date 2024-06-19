@@ -50,6 +50,16 @@ class DataItem(private var data: PassengersData, private val onItemClick: (item:
             )
             if (passengersData.isValid()) {
                 viewBinding.btnSubmit.isVisible = false
+                viewBinding.etDropdownMenu.isEnabled = false
+                viewBinding.etName.isEnabled = false
+                viewBinding.etFamilyName.isEnabled = false
+                viewBinding.etCitizenship.isEnabled = false
+                viewBinding.etKtpPassport.isEnabled = false
+                viewBinding.etLastDateKTP.isEnabled = false
+                viewBinding.etDateBorn.isEnabled = false
+                viewBinding.etNoPhone.isEnabled = false
+                viewBinding.etLastDateKTP.isEnabled = false
+
                 onItemClick.invoke(passengersData)
             } else {
                 Toast.makeText(

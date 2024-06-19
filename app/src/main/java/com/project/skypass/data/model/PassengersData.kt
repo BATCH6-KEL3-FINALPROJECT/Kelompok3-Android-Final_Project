@@ -2,10 +2,11 @@ package com.project.skypass.data.model
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
+import java.util.UUID
 
 @Parcelize
 data class PassengersData(
-//    var id: String? = UUID.randomUUID().toString(),
+    var id: String? = UUID.randomUUID().toString(),
     var title: String,
     var firstName: String,
     var lastName: String,
@@ -18,5 +19,4 @@ data class PassengersData(
     var validUntil: String,
     var seatsDepartureId: String? = null,
     var seatsArrivalId: String? = null
-
 ) : Parcelable

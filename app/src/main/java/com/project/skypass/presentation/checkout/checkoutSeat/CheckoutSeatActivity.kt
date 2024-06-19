@@ -27,7 +27,9 @@ class CheckoutSeatActivity : AppCompatActivity() {
 
     private val binding by lazy { ActivityCheckoutSeatBinding.inflate(layoutInflater) }
     private val title = mutableListOf<String>()
-    var listSeat: Seat? = null
+    var listSeat:String = ""
+    var listTitle: List<String>? = null
+    var listSeatId: List<String>? = null
     private val seats = StringBuilder()
     var toSeat = listOf<String>()
 
@@ -37,8 +39,6 @@ class CheckoutSeatActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         getArgumentData()
-        observeResult()
-        setClickListeners()
     }
 
     private fun setClickListeners() {
@@ -48,13 +48,7 @@ class CheckoutSeatActivity : AppCompatActivity() {
     }
 
     private fun observeResult() {
-//        observe view model
-        /*viewModel.getSeat("abc", "abc").observe(this){
 
-        }*/
-        viewModel.getSeats("economy", "dc7e52f4-3781-4e92-a099-f2cf88c6f335", 200).observe(this){
-
-        }
     }
 
     private fun setupTitle(limit: Int) {
@@ -93,9 +87,9 @@ class CheckoutSeatActivity : AppCompatActivity() {
     private fun setupSeatBookView(item: OrderUser) {
         val seatBookView: SeatBookView = binding.layoutSeat
         val totalPassenger = item.passengersAdult!! + item.passengersChild!! + item.passengersBaby!!
-        seatBookView.setSeatsLayoutString(seats.toString())
+        seatBookView.setSeatsLayoutString(listSeat)
             .isCustomTitle(true)
-            .setCustomTitle(title)
+            .setCustomTitle(listTitle!!)
             .setSeatLayoutPadding(0)
             .setSelectSeatLimit(totalPassenger)
             .setSeatSizeBySeatsColumnAndLayoutWidth(7, -1)
@@ -107,7 +101,7 @@ class CheckoutSeatActivity : AppCompatActivity() {
                     selectedIdList: List<Int>,
                     view: View,
                 ) {
-                    toSeat = getSelectedTitles(selectedIdList, title)
+                    toSeat = getSelectedTitles(selectedIdList, listSeatId!!)
                     Toast.makeText(this@CheckoutSeatActivity, "$toSeat", Toast.LENGTH_SHORT).show()
                 }
 
@@ -143,11 +137,8 @@ class CheckoutSeatActivity : AppCompatActivity() {
         for (index in selectedIdList) {
 
             if (index in title.indices) {
-                var cleanTitle = index / 3
-                if (index % 3 == 0) {
-                    cleanTitle -= 1
-                }
-                selectedTitles.add(title[index + cleanTitle])
+
+                selectedTitles.add(title[index - 1])
             }
         }
         return selectedTitles
@@ -155,23 +146,17 @@ class CheckoutSeatActivity : AppCompatActivity() {
 
     private fun getArgumentData() {
         intent.extras?.getParcelable<OrderUser>(CheckoutSeatActivity.EXTRA_FLIGHT)?.let {
-            Toast.makeText(
-                this@CheckoutSeatActivity,
-                "${it.flightId} && ${it.seatClass}",
-                Toast.LENGTH_SHORT
-            ).show()
-            viewModel.getSeats(it.flightId!!, it.seatClass!!,200).observe(this) {
-                it.proceedWhen(
-                    doOnSuccess = {
-                    },
-                    doOnLoading = {
 
-                  }
-                )
+            viewModel.getSeats(it.seatClass!!, it.flightId!!, 200).observe(this){result ->
+                result.payload?.let { (seat, seatId, title ) ->
+                    listSeat = seat
+                    listTitle = title
+                    listSeatId = seatId
+                    observeResult()
+                    setClickListeners()
+                    setupSeatBookView(it)
+                }
             }
-            setupTitle(it.seatsAvailable!!)
-            setupSeatBookView(it)
-//            getAvailableSeats(it.flightId!!, it.seatClass!!)
 
             intent.extras?.getParcelable<OrderPassengers>(CheckoutDataPassengerActivity.EXTRA_USER_ORDER)
                 ?.let { orderPassenger ->
@@ -189,6 +174,7 @@ class CheckoutSeatActivity : AppCompatActivity() {
                 binding.tvHeader.text = "Kursi Tersedia " + item.seatsAvailable + " Departure"
             }
         }
+
     }
 
 
