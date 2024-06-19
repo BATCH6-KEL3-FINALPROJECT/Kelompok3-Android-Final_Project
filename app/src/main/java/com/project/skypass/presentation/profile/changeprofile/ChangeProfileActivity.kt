@@ -9,7 +9,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import coil.load
 import com.project.skypass.databinding.ActivityChangeProfileBinding
-import com.project.skypass.presentation.main.MainActivity
 import com.project.skypass.utils.proceedWhen
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -41,25 +40,24 @@ class ChangeProfileActivity : AppCompatActivity() {
             val phoneNumber = binding.etNumberPhone.text.toString()
             val photo = changeProfileViewModel.profilePhotoUri.value
 
-            changeProfileViewModel.editUserData(token, userId, name, email, phoneNumber, photo)
-                .observe(this) { result ->
-                    result.proceedWhen(
-                        doOnSuccess = {
-                            Toast.makeText(this, "Profile updated", Toast.LENGTH_SHORT).show()
+            changeProfileViewModel.editUserData(token, userId, name, email, phoneNumber).observe(this) { result ->
+                result.proceedWhen(
+                    doOnSuccess = {
+                        Toast.makeText(this, "Profile updated", Toast.LENGTH_SHORT).show()
 
-                            // Set result to indicate profile update success
-                            setResult(Activity.RESULT_OK)
+                        // Set result to indicate profile update success
+                        setResult(Activity.RESULT_OK)
 
-                            // Finish activity to return to the previous screen
-                            finish()
-                        },
-                        doOnLoading = {
-                        },
-                        doOnError = {
-                            Toast.makeText(this, "Failed to update profile", Toast.LENGTH_SHORT).show()
-                        }
-                    )
-                }
+                        // Finish activity to return to the previous screen
+                        finish()
+                    },
+                    doOnLoading = {
+                    },
+                    doOnError = {
+                        Toast.makeText(this, "Failed to update profile", Toast.LENGTH_SHORT).show()
+                    }
+                )
+            }
         }
     }
 

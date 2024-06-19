@@ -36,7 +36,7 @@ class UserRepositoryImpl (private val dataSource: UserDataSource) : UserReposito
         name: String,
         email: String,
         phoneNumber: String,
-        photo: Uri?
+        photo: File?
     ): Flow<ResultWrapper<EditUserResponse>> {
         val tokenPart = "Bearer $token"
         val namePart = name.toRequestBody("text/plain".toMediaTypeOrNull())

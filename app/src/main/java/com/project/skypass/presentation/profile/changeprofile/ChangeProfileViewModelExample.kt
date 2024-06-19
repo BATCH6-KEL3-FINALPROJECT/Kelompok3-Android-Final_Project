@@ -28,7 +28,7 @@ class ChangeProfileViewModelExample(
         name: String,
         email: String,
         phoneNumber: String,
-        photo: Uri? = null
+        photo: File? = null
     ): LiveData<ResultWrapper<EditUserResponse>> {
         return userRepository.editUser(token, id, name, email, phoneNumber, photo).asLiveData(Dispatchers.IO)
     }

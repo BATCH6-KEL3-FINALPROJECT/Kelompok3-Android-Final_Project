@@ -22,7 +22,7 @@ interface UserRepository {
         name: String,
         email: String,
         phoneNumber: String,
-        photo: Uri? = null
+        photo: File? = null
     ): Flow<ResultWrapper<EditUserResponse>>
 
     fun deleteUser(id: String): Flow<ResultWrapper<DeleteUserResponse>>
