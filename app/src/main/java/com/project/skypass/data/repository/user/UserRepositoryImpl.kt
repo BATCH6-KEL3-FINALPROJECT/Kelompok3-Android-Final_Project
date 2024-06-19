@@ -1,5 +1,6 @@
 package com.project.skypass.data.repository.user
 
+import android.net.Uri
 import com.project.skypass.data.datasource.user.UserDataSource
 import com.project.skypass.data.mapper.toUser
 import com.project.skypass.data.model.User
@@ -35,7 +36,7 @@ class UserRepositoryImpl (private val dataSource: UserDataSource) : UserReposito
         name: String,
         email: String,
         phoneNumber: String,
-        photo: File?
+        photo: Uri?
     ): Flow<ResultWrapper<EditUserResponse>> {
         val tokenPart = "Bearer $token"
         val namePart = name.toRequestBody("text/plain".toMediaTypeOrNull())

@@ -1,5 +1,6 @@
 package com.project.skypass.data.repository.user
 
+import android.net.Uri
 import com.project.skypass.data.model.User
 import com.project.skypass.data.source.network.model.user.deleteuser.DeleteUserResponse
 import com.project.skypass.data.source.network.model.user.edituser.EditUserResponse
@@ -21,7 +22,7 @@ interface UserRepository {
         name: String,
         email: String,
         phoneNumber: String,
-        photo: File? = null
+        photo: Uri? = null
     ): Flow<ResultWrapper<EditUserResponse>>
 
     fun deleteUser(id: String): Flow<ResultWrapper<DeleteUserResponse>>

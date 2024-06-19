@@ -37,6 +37,10 @@ class ProfileFragment : Fragment() {
     ) {
         super.onViewCreated(view, savedInstanceState)
         setClickAction()
+    }
+
+    override fun onResume() {
+        super.onResume()
         displayProfileData()
     }
 
@@ -55,16 +59,9 @@ class ProfileFragment : Fragment() {
     }
 
     private fun displayProfileData() {
-        /*val profiles = profileViewModel.getProfile()
-        profiles.firstOrNull()?.let { profile ->
-            binding.tvNameProfile.text = profile.name
-            binding.tvEmailProfile.text = profile.email
-            binding.tvNumberPhoneProfile.text = profile.phoneNumber
-            binding.ivProfile.load(profile.photoUrl)
-        }*/
         val userId = profileViewModel.getUserId()
-        profileViewModel.showDataUser(userId).observe(viewLifecycleOwner){
-            it.proceedWhen(
+        profileViewModel.showDataUser(userId).observe(viewLifecycleOwner) { result ->
+            result.proceedWhen(
                 doOnSuccess = {
                     binding.tvNameProfile.text = it.payload?.name
                     binding.tvEmailProfile.text = it.payload?.email
@@ -72,10 +69,8 @@ class ProfileFragment : Fragment() {
                     binding.ivProfile.load(it.payload?.photoUrl)
                 },
                 doOnLoading = {
-
                 },
                 doOnError = {
-
                 }
             )
         }
@@ -101,7 +96,6 @@ class ProfileFragment : Fragment() {
             it.proceedWhen(doOnSuccess = {
                 Toast.makeText(requireContext(), "Menghapus Riwayat Pemesanan", Toast.LENGTH_SHORT).show()
             }, doOnLoading = {
-
             }, doOnError = { err ->
                 Toast.makeText(requireContext(), "error", Toast.LENGTH_SHORT).show()
             })
@@ -112,4 +106,3 @@ class ProfileFragment : Fragment() {
         (activity as BaseActivity).handleUnAuthorize()
     }
 }
-

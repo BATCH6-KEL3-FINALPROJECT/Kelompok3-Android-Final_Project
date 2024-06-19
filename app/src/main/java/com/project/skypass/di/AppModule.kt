@@ -238,6 +238,7 @@ object AppModule {
         viewModelOf(::ProfileViewModelExample)
         viewModelOf(::HistoryViewModel)
         viewModelOf(::CalendarHomeViewModel)
+        viewModelOf(::CalendarHomeViewModel)
         viewModelOf(::CheckoutSeatViewModel)
     }
 
