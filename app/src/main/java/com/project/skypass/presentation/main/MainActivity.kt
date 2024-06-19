@@ -26,6 +26,12 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         setBottomNav()
+
+//        val fragment = intent.getStringExtra("fragment")
+//        if (fragment == "profile") {
+//            val navController = findNavController(R.id.nav_host_fragment_activity_main)
+//            navController.navigate(R.id.menu_tab_profile)
+//        }
     }
 
     private fun setBottomNav() {
@@ -56,7 +62,6 @@ class MainActivity : BaseActivity() {
                     window.statusBarColor = getColor(R.color.colorNavbar)
                 }
                 else -> {
-                    //window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
                     window.decorView.systemUiVisibility = if (isNightMode()) {
                         View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                     } else {

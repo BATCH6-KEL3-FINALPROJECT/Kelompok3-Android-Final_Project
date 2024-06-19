@@ -1,17 +1,16 @@
 package com.project.skypass.presentation.profile.changeprofile
 
-import android.graphics.Bitmap
-import android.graphics.drawable.BitmapDrawable
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
-import android.widget.ImageView
+import android.provider.MediaStore
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import coil.load
 import com.project.skypass.databinding.ActivityChangeProfileBinding
+import com.project.skypass.presentation.main.MainActivity
 import com.project.skypass.utils.proceedWhen
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ChangeProfileActivity : AppCompatActivity() {
@@ -30,19 +29,29 @@ class ChangeProfileActivity : AppCompatActivity() {
 
         displayProfileData()
 
+        binding.ivEditPhoto.setOnClickListener {
+            openGalleryForImage()
+        }
+
         binding.btnEdit.setOnClickListener {
             val token = changeProfileViewModel.getToken()
             val userId = changeProfileViewModel.getUserId()
             val name = binding.etName.text.toString()
             val email = binding.etEmail.text.toString()
             val phoneNumber = binding.etNumberPhone.text.toString()
+            val photo = changeProfileViewModel.profilePhotoUri.value
 
-            changeProfileViewModel.editUserData(token, userId, name, email, phoneNumber)
+            changeProfileViewModel.editUserData(token, userId, name, email, phoneNumber, photo)
                 .observe(this) { result ->
                     result.proceedWhen(
                         doOnSuccess = {
                             Toast.makeText(this, "Profile updated", Toast.LENGTH_SHORT).show()
-                            displayProfileData()
+
+                            // Set result to indicate profile update success
+                            setResult(Activity.RESULT_OK)
+
+                            // Finish activity to return to the previous screen
+                            finish()
                         },
                         doOnLoading = {
                         },
@@ -74,18 +83,17 @@ class ChangeProfileActivity : AppCompatActivity() {
         }
     }
 
-    private fun getFileFromImageView(imageView: ImageView): MultipartBody.Part? {
-        val drawable = imageView.drawable
-        if (drawable is BitmapDrawable) {
-            val bitmap = drawable.bitmap
-            val file = createTempFile("temp_photo", ".jpg")
-            file.outputStream().use { outputStream ->
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
+    private val galleryLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == RESULT_OK) {
+            result.data?.data?.let { uri ->
+                binding.ivProfile.setImageURI(uri)
+                changeProfileViewModel.setProfilePhoto(uri)
             }
-            val requestBody =
-                RequestBody.create("image/jpeg".toMediaTypeOrNull(), file)
-            return MultipartBody.Part.createFormData("photo", file.name, requestBody)
         }
-        return null
+    }
+
+    private fun openGalleryForImage() {
+        val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+        galleryLauncher.launch(intent)
     }
 }
