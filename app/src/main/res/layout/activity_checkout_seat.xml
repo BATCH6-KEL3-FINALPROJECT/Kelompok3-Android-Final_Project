@@ -77,6 +77,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:minHeight="500dp"
                         android:orientation="vertical">
 
                         <!-- position seat -->
@@ -92,6 +93,16 @@
                             app:seat_text_size="15sp"
                             app:available_seats_text_color="#59575C"
                             app:seat_select_limit="2"
+                            />
+
+                        <include
+                            android:id="@+id/layout_content_state"
+                            layout="@layout/layout_content_state"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:orientation="vertical"
+                            android:visibility="gone"
                             />
 
                     </LinearLayout>

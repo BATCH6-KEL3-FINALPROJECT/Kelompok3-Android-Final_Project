@@ -16,5 +16,9 @@ data class OrderPassengers(
 
     // order seat
     val seatOrderDeparture: List<String>?,
-    val seatOrderArrival: List<String>?
+    val seatOrderArrival: List<String>?,
+
+    // seat id
+    val seatIdDeparture: List<String>?,
+    val seatIdArrival: List<String>?
 ):Parcelable

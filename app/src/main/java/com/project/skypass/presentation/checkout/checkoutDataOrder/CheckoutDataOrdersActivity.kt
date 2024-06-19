@@ -148,7 +148,9 @@ class CheckoutDataOrdersActivity : AppCompatActivity() {
                         noTelephone = binding.etNoPhone.text.toString(),
                         passengers = null,
                         seatOrderDeparture = null,
-                        seatOrderArrival = null
+                        seatOrderArrival = null,
+                        seatIdArrival = null,
+                        seatIdDeparture = null
                     )
                 )
             } else {
@@ -231,7 +233,9 @@ class CheckoutDataOrdersActivity : AppCompatActivity() {
                         noTelephone = binding.etNoPhone.text.toString(),
                         passengers = null,
                         seatOrderDeparture = null,
-                        seatOrderArrival = null
+                        seatOrderArrival = null,
+                        seatIdArrival = null,
+                        seatIdDeparture = null
                     )
                 )
             }

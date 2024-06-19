@@ -20,7 +20,7 @@ import com.xwray.groupie.Section
 
 class CheckoutDataPassengerActivity : AppCompatActivity() {
     private val binding by lazy { ActivityCheckoutDataPassengerBinding.inflate(layoutInflater) }
-   private var dataPassengersOrder = mutableListOf<PassengersData>()
+    private var dataPassengersOrder = mutableListOf<PassengersData>()
     private var getPassengersAdult = Int ?: 0
     private var getPassengersChild = Int ?: 0
     private var getPassengersBaby = Int ?: 0
@@ -49,8 +49,6 @@ class CheckoutDataPassengerActivity : AppCompatActivity() {
     }
 
 
-
-
     private fun setData() {
         binding.rvPassengerData.apply {
             layoutManager = LinearLayoutManager(this@CheckoutDataPassengerActivity)
@@ -65,7 +63,8 @@ class CheckoutDataPassengerActivity : AppCompatActivity() {
             val dataSection = it.data.map {
                 DataItem(it!!) { passenger ->
                     dataPassengersOrder.add(passenger)
-                    Toast.makeText(this, "Item Clicked : $dataPassengersOrder", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Item Clicked : $dataPassengersOrder", Toast.LENGTH_SHORT)
+                        .show()
                 }
             }
             section.addAll(dataSection)
@@ -100,8 +99,8 @@ class CheckoutDataPassengerActivity : AppCompatActivity() {
     private fun getArgumentData() {
         intent.extras?.getParcelable<OrderUser>(EXTRA_FLIGHT)?.let {
             intent.extras?.getParcelable<OrderPassengers>(EXTRA_USER_ORDER)?.let { orderPassenger ->
-                sendOrderData(it,orderPassenger)
-                getDataPassenger(it,orderPassenger)
+                sendOrderData(it, orderPassenger)
+                getDataPassenger(it, orderPassenger)
             }
         }
     }
@@ -118,7 +117,9 @@ class CheckoutDataPassengerActivity : AppCompatActivity() {
                     noTelephone = passengerData.noTelephone,
                     passengers = dataPassengersOrder,
                     seatOrderDeparture = passengerData.seatOrderDeparture,
-                    seatOrderArrival = passengerData.seatOrderArrival
+                    seatOrderArrival = passengerData.seatOrderArrival,
+                    seatIdArrival = passengerData.seatIdArrival,
+                    seatIdDeparture = passengerData.seatIdDeparture
                 )
             )
         }
@@ -145,6 +146,7 @@ class CheckoutDataPassengerActivity : AppCompatActivity() {
             context.startActivity(intent)
         }
     }
+
     object DataHolder {
         var emailOrder: String? = null
         var passengersDataData = PassengersData(

@@ -3,16 +3,13 @@ package com.project.skypass.presentation.checkout.checkoutSeat
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
-import androidx.lifecycle.lifecycleScope
-import androidx.paging.map
+import com.project.skypass.R
 import com.project.skypass.data.model.OrderPassengers
 import com.project.skypass.data.model.OrderUser
-import com.project.skypass.data.model.Seat
 import com.project.skypass.databinding.ActivityCheckoutSeatBinding
 import com.project.skypass.presentation.checkout.checkoutDataPassenger.CheckoutDataPassengerActivity
 import com.project.skypass.presentation.checkout.checkoutDetail.CheckoutDetailActivity
@@ -20,7 +17,6 @@ import com.project.skypass.utils.proceedWhen
 import dev.jahidhasanco.seatbookview.SeatBookView
 import dev.jahidhasanco.seatbookview.SeatClickListener
 import dev.jahidhasanco.seatbookview.SeatLongClickListener
-import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class CheckoutSeatActivity : AppCompatActivity() {
@@ -31,7 +27,8 @@ class CheckoutSeatActivity : AppCompatActivity() {
     var listTitle: List<String>? = null
     var listSeatId: List<String>? = null
     private val seats = StringBuilder()
-    var toSeat = listOf<String>()
+    var getSeatId = listOf<String>()
+    var getSeatTitle = listOf<String>()
 
     private val viewModel: CheckoutSeatViewModel by viewModel()
 
@@ -101,8 +98,9 @@ class CheckoutSeatActivity : AppCompatActivity() {
                     selectedIdList: List<Int>,
                     view: View,
                 ) {
-                    toSeat = getSelectedTitles(selectedIdList, listSeatId!!)
-                    Toast.makeText(this@CheckoutSeatActivity, "$toSeat", Toast.LENGTH_SHORT).show()
+                    getSeatId = getSelectedSeatId(selectedIdList, listSeatId!!)
+                    getSeatTitle = getSelectedTitle(selectedIdList, listTitle!!)
+                    Toast.makeText(this@CheckoutSeatActivity, "$getSeatId", Toast.LENGTH_SHORT).show()
                 }
 
                 override fun onBookedSeatClick(view: View) {
@@ -132,31 +130,68 @@ class CheckoutSeatActivity : AppCompatActivity() {
         )
     }
 
-    private fun getSelectedTitles(selectedIdList: List<Int>, title: List<String>): List<String> {
-        val selectedTitles = mutableListOf<String>()
+    private fun getSelectedSeatId(selectedIdList: List<Int>, seatId: List<String>): List<String> {
+        val selectedSeatId = mutableListOf<String>()
         for (index in selectedIdList) {
 
-            if (index in title.indices) {
+            if (index in seatId.indices) {
 
-                selectedTitles.add(title[index - 1])
+                selectedSeatId.add(seatId[index - 1])
             }
         }
-        return selectedTitles
+        return selectedSeatId
+    }
+    private fun getSelectedTitle(selectedIdList: List<Int>, titleSeat: List<String>): List<String> {
+        val selectedSeatTitle = mutableListOf<String>()
+        for (index in selectedIdList) {
+
+            if (index in titleSeat.indices) {
+                var cleanTitle = index / 3
+                if (index % 3 == 0) {
+                    cleanTitle -= 1
+                }
+                selectedSeatTitle.add(titleSeat[index + cleanTitle])
+            }
+        }
+        return selectedSeatTitle
     }
 
     private fun getArgumentData() {
         intent.extras?.getParcelable<OrderUser>(CheckoutSeatActivity.EXTRA_FLIGHT)?.let {
 
-            viewModel.getSeats(it.seatClass!!, it.flightId!!, 200).observe(this){result ->
-                result.payload?.let { (seat, seatId, title ) ->
-                    listSeat = seat
-                    listTitle = title
-                    listSeatId = seatId
-                    observeResult()
-                    setClickListeners()
-                    setupSeatBookView(it)
-                }
+            viewModel.getSeats(it.seatClass!!, it.flightId!!, 200).observe(this) {data ->
+                data.proceedWhen(
+                    doOnSuccess = { result ->
+                        binding.layoutContentState.root.isVisible = false
+                        result.payload?.let { (seat, seatId, title) ->
+                            listSeat = seat
+                            listTitle = title
+                            listSeatId = seatId
+                            observeResult()
+                            setClickListeners()
+                            setupSeatBookView(it)
+                        }
+                    },
+                    doOnEmpty = {
+                        binding.layoutContentState.root.isVisible = true
+                        binding.layoutContentState.textError.text =
+                            getString(R.string.text_empty_seat_class)
+                        binding.layoutContentState.pbLoadingEmptyState.isVisible = false
+                    },
+                    doOnLoading = {
+                        binding.layoutContentState.root.isVisible = true
+                        binding.layoutContentState.textError.isVisible = false
+                        binding.layoutContentState.pbLoadingEmptyState.isVisible = true
+                    }, doOnError = {
+                        binding.layoutContentState.root.isVisible = true
+                        binding.layoutContentState.textError.text =
+                            getString(R.string.text_error_seat_checkout)
+                        binding.layoutContentState.pbLoadingEmptyState.isVisible = false
+                    }
+                )
             }
+
+
 
             intent.extras?.getParcelable<OrderPassengers>(CheckoutDataPassengerActivity.EXTRA_USER_ORDER)
                 ?.let { orderPassenger ->
@@ -190,8 +225,10 @@ class CheckoutSeatActivity : AppCompatActivity() {
                         familyName = passengerData.familyName,
                         noTelephone = passengerData.noTelephone,
                         passengers = passengerData.passengers,
-                        seatOrderDeparture = toSeat,
-                        seatOrderArrival = passengerData.seatOrderArrival
+                        seatOrderDeparture = getSeatTitle,
+                        seatOrderArrival = passengerData.seatOrderArrival,
+                        seatIdDeparture = getSeatId,
+                        seatIdArrival = passengerData.seatIdArrival
                     )
                 )
             }else if(item.isRoundTrip == false && item.supportRoundTrip == false && item.seatsAvailableRoundTrip == null){
@@ -204,8 +241,10 @@ class CheckoutSeatActivity : AppCompatActivity() {
                         familyName = passengerData.familyName,
                         noTelephone = passengerData.noTelephone,
                         passengers = passengerData.passengers,
-                        seatOrderDeparture = toSeat,
-                        seatOrderArrival = passengerData.seatOrderArrival
+                        seatOrderDeparture = getSeatTitle,
+                        seatOrderArrival = passengerData.seatOrderArrival,
+                        seatIdDeparture = getSeatId,
+                        seatIdArrival = passengerData.seatIdArrival
                     )
                 )
             }
@@ -219,8 +258,10 @@ class CheckoutSeatActivity : AppCompatActivity() {
                         familyName = passengerData.familyName,
                         noTelephone = passengerData.noTelephone,
                         passengers = passengerData.passengers, // need edit
-                        seatOrderDeparture = passengerData.seatOrderDeparture,
-                        seatOrderArrival = toSeat
+                        seatOrderDeparture = passengerData.seatIdDeparture,
+                        seatOrderArrival = getSeatTitle,
+                        seatIdDeparture = passengerData.seatIdDeparture,
+                        seatIdArrival = getSeatId
                     )
                 )
             }

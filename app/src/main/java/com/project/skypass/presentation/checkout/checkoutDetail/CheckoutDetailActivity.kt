@@ -3,11 +3,15 @@ package com.project.skypass.presentation.checkout.checkoutDetail
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import com.project.skypass.R
+import com.project.skypass.data.model.CheckoutPayment
 import com.project.skypass.data.model.OrderPassengers
 import com.project.skypass.data.model.OrderUser
+import com.project.skypass.data.model.PassengersData
 import com.project.skypass.databinding.ActivityCheckoutDetailBinding
 import com.project.skypass.presentation.checkout.checkoutDataPassenger.CheckoutDataPassengerActivity
 import com.project.skypass.presentation.checkout.checkoutSeat.CheckoutSeatActivity
@@ -16,6 +20,11 @@ import com.project.skypass.utils.toIndonesianFormat
 
 class CheckoutDetailActivity : AppCompatActivity() {
     private val binding by lazy { ActivityCheckoutDetailBinding.inflate(layoutInflater) }
+
+    var priceTotal: Int? = null
+    var priceAdult: Int? = null
+    var priceChild: Int? = null
+    var priceBaby: Int? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -40,9 +49,37 @@ class CheckoutDetailActivity : AppCompatActivity() {
                 ?.let { orderPassenger ->
                     sendOrderData(it,orderPassenger)
                     setProfileData(it, orderPassenger)
+                    val toCheckout = sendToPayment(it, orderPassenger)
+                    Log.d("checkSeatInPassengersData", "Passengers Data: ${toCheckout.passengersData}")
                 }
 
         }
+    }
+    private fun sendToPayment(item: OrderUser, passengerData: OrderPassengers):CheckoutPayment {
+        val totalPassengers = item.passengersBaby!! + item.passengersAdult!! + item.passengersChild!!
+        val payment = CheckoutPayment(
+            totalAmount = priceTotal!!,
+            departureFlightId = item.flightId!!,
+            returnFlightId = item.flightIdRoundTrip!!,
+            passengersData = passengerData.passengers!!.mapIndexed {index, it ->
+                PassengersData(
+                    title = it.title,
+                    firstName = it.firstName,
+                    lastName = it.lastName,
+                    dateOfBirth = it.dateOfBirth,
+                    email = it.email,
+                    phoneNumber = it.phoneNumber,
+                    nationality = it.nationality,
+                    passportNo = it.passportNo,
+                    issuingCountry = it.issuingCountry,
+                    validUntil = it.validUntil,
+                    seatsDepartureId = passengerData.seatIdDeparture?.get(index),
+                    seatsArrivalId = passengerData.seatIdArrival?.get(index),
+                )
+            },
+            noOfPassenger = totalPassengers
+        )
+        return payment
     }
 
     private fun setProfileData(item: OrderUser, passengerData: OrderPassengers) {
@@ -102,20 +139,17 @@ class CheckoutDetailActivity : AppCompatActivity() {
 
             }
             //set price detail
-//            tvAdultCount.text = item.passengersAdult.toString()
-//            tvChildCount.text = item.passengersChild.toString()
-//            tvBabyCount.text = item.passengersBaby.toString()
-            tvAdultCount.text = passengerData.passengers?.get(0)?.toString() ?: "kosong"
+            tvAdultCount.text = item.passengersAdult.toString()
             tvChildCount.text = item.passengersChild.toString()
             tvBabyCount.text = item.passengersBaby.toString()
 
-            val priceAdult = item.priceTotal?.times(item.passengersAdult!!)
+            priceAdult = item.priceTotal?.times(item.passengersAdult!!)
                 ?.plus(item.priceTotalRoundTrip?.times(item.passengersAdult!!)!!)
-            val priceChild = item.priceTotal?.times(item.passengersChild!!)
+            priceChild = item.priceTotal?.times(item.passengersChild!!)
                 ?.plus(item.priceTotalRoundTrip?.times(item.passengersChild!!)!!)
-            val priceBaby = (item.priceTotal!! / 2).times(item.passengersBaby!!)
+            priceBaby = (item.priceTotal!! / 2).times(item.passengersBaby!!)
                 .plus((item.priceTotalRoundTrip!! / 2).times(item.passengersBaby!!))
-            val priceTotal = priceAdult!! + priceChild!! + priceBaby
+            priceTotal = priceAdult!! + priceChild!! + priceBaby!!
             tvPriceAdult.text = "${priceAdult.toIndonesianFormat()}"
             tvPricechild.text = "${priceChild.toIndonesianFormat()}"
             tvPriceBaby.text = "${priceBaby.toIndonesianFormat()}"
