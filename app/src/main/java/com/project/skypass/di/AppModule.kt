@@ -75,6 +75,7 @@ import com.project.skypass.presentation.profile.settingaccount.SettingsAccountVi
 import com.project.skypass.presentation.flight.detail.FlightDetailViewModel
 import com.project.skypass.presentation.flight.result.FlightResultViewModel
 import com.project.skypass.presentation.history.HistoryViewModel
+import com.project.skypass.presentation.home.calendar.CalendarHomeViewModel
 import com.project.skypass.presentation.profile.ProfileViewModelExample
 import com.project.skypass.utils.SharedPreferenceUtils
 import org.koin.android.ext.koin.androidContext
@@ -217,6 +218,7 @@ object AppModule {
         viewModelOf(::ChangeProfileViewModelExample)
         viewModelOf(::ProfileViewModelExample)
         viewModelOf(::HistoryViewModel)
+        viewModelOf(::CalendarHomeViewModel)
     }
 
     val module = listOf<Module>(
