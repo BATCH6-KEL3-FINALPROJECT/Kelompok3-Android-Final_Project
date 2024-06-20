@@ -1,4 +1,4 @@
-package com.project.skypass.data.source.network.model.history
+package com.project.skypass.data.source.network.model.history.allhistory
 
 
 import com.google.gson.annotations.SerializedName

@@ -1,9 +1,9 @@
-package com.project.skypass.data.source.network.model.history
+package com.project.skypass.data.source.network.model.history.allhistory
 
 
 import com.google.gson.annotations.SerializedName
 
-data class Booking(
+data class AllHistoryItemResponse(
     @SerializedName("booking_code")
     var bookingCode: String?,
     @SerializedName("booking_date")

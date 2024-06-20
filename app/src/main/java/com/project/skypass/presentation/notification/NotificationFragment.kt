@@ -7,18 +7,19 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.project.skypass.R
-import com.project.skypass.data.datasource.notification.DataSourceNotification
-import com.project.skypass.data.datasource.notification.DataSourceNotificationImpl
 import com.project.skypass.data.model.Notification
 import com.project.skypass.databinding.FragmentHomeBinding
 import com.project.skypass.databinding.FragmentNotificationBinding
 import com.project.skypass.presentation.notification.adapter.NotificationAdapter
 import com.project.skypass.presentation.notification.adapter.OnItemCLickedListener
 import com.project.skypass.presentation.notification.detailNotification.DetailNotificationActivity
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class NotificationFragment : Fragment() {
     private lateinit var binding: FragmentNotificationBinding
-    private val dataSourceNotification: DataSourceNotification by lazy { DataSourceNotificationImpl() }
+    /*private val dataSourceNotification: DataSourceNotification by lazy { DataSourceNotificationImpl() }*/
+
+    private val viewModel: NotificationViewModel by viewModel()
 
     private var notificationAdapter: NotificationAdapter? = null
 
@@ -72,8 +73,6 @@ class NotificationFragment : Fragment() {
                 item.category,
                 item.date,
                 item.status,
-
-
             )
         )
     }

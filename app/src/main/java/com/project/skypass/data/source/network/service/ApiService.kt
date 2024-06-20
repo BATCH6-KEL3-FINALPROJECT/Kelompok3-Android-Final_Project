@@ -5,6 +5,8 @@ import com.project.skypass.data.source.network.model.flight.detailflight.DetailF
 import com.project.skypass.data.source.network.model.flight.flightdata.GetAllFlightResponse
 import com.project.skypass.data.source.network.model.login.LoginRequestResponse
 import com.project.skypass.data.source.network.model.login.LoginResponse
+import com.project.skypass.data.source.network.model.notification.all.NotificationResponse
+import com.project.skypass.data.source.network.model.notification.detail.DetailNotificationResponse
 import com.project.skypass.data.source.network.model.otp.ResendOtpRequestResponse
 import com.project.skypass.data.source.network.model.otp.ResendOtpResponse
 import com.project.skypass.data.source.network.model.otp.VerifyRequestResponse
@@ -125,6 +127,28 @@ interface ApiService {
     suspend fun getTicketData(
         @Path("id") id: String
     ): TicketResponse
+
+    @GET("notification")
+    suspend fun getAllNotification(
+        @Header("Authorization") token: String,
+    ): NotificationResponse
+
+    @GET("notification/{id}")
+    suspend fun getDetailNotification(
+        @Header("Authorization") token: String,
+        @Path("id") id: String
+    ): DetailNotificationResponse
+
+    @GET("booking/history")
+    suspend fun getAllHistory(
+        @Header("Authorization") token: String
+    )
+
+    @GET("booking/history/{id}")
+    suspend fun getDetailHistory(
+        @Header("Authorization") token: String,
+        @Path("id") id: String
+    )
 
     companion object {
         @JvmStatic

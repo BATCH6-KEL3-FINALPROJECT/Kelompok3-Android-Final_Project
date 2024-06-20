@@ -5,11 +5,11 @@ import com.google.gson.annotations.SerializedName
 
 data class DetailNotificationItemResponse(
     @SerializedName("booking_id")
-    var bookingId: Any?,
+    var bookingId: String?,
     @SerializedName("createdAt")
     var createdAt: String?,
     @SerializedName("flight_id")
-    var flightId: Any?,
+    var flightId: String?,
     @SerializedName("is_read")
     var isRead: Boolean?,
     @SerializedName("message")
@@ -19,9 +19,9 @@ data class DetailNotificationItemResponse(
     @SerializedName("notification_type")
     var notificationType: String?,
     @SerializedName("promotion_id")
-    var promotionId: Any?,
+    var promotionId: String?,
     @SerializedName("updatedAt")
     var updatedAt: String?,
     @SerializedName("user_id")
-    var userId: Any?
+    var userId: String?
 )

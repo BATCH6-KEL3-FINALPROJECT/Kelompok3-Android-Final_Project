@@ -17,6 +17,8 @@ import com.project.skypass.data.datasource.home.orderHistory.OrderHistoryDataSou
 import com.project.skypass.data.datasource.home.orderHistory.OrderHistoryDataSourceImpl
 import com.project.skypass.data.datasource.home.seatclass.PriceClassDataSource
 import com.project.skypass.data.datasource.home.seatclass.PriceClassDataSourceImpl
+import com.project.skypass.data.datasource.notification.NotificationDataSource
+import com.project.skypass.data.datasource.notification.NotificationDataSourceImpl
 import com.project.skypass.data.datasource.oauth.OAuthDataSource
 import com.project.skypass.data.datasource.oauth.OAuthDataSourceImpl
 import com.project.skypass.data.datasource.preference.PrefDataSource
@@ -40,6 +42,8 @@ import com.project.skypass.data.repository.favoritedestination.FavoriteDestinati
 import com.project.skypass.data.repository.favoritedestination.FavoriteDestinationRepositoryImpl
 import com.project.skypass.data.repository.history.HistoryRepository
 import com.project.skypass.data.repository.history.HistoryRepositoryImpl
+import com.project.skypass.data.repository.notification.NotificationRepository
+import com.project.skypass.data.repository.notification.NotificationRepositoryImpl
 import com.project.skypass.data.repository.oauth.OAuthRepository
 import com.project.skypass.data.repository.oauth.OAuthRepositoryImpl
 import com.project.skypass.data.repository.pref.PrefRepository
@@ -85,6 +89,7 @@ import com.project.skypass.presentation.flight.detail.FlightDetailViewModel
 import com.project.skypass.presentation.flight.result.FlightResultViewModel
 import com.project.skypass.presentation.history.HistoryViewModel
 import com.project.skypass.presentation.home.calendar.CalendarHomeViewModel
+import com.project.skypass.presentation.notification.NotificationViewModel
 import com.project.skypass.presentation.profile.ProfileViewModelExample
 import com.project.skypass.utils.SharedPreferenceUtils
 import org.koin.android.ext.koin.androidContext
@@ -166,6 +171,9 @@ object AppModule {
         single<SeatsDataSource> {
             SeatsDataSourceImpl(get())
         }
+        single<NotificationDataSource> {
+            NotificationDataSourceImpl(get())
+        }
     }
 
     private val repositoryModule = module {
@@ -208,6 +216,9 @@ object AppModule {
         single<SeatsRepository> {
             SeatsRepositoryImpl(get())
         }
+        single<NotificationRepository> {
+            NotificationRepositoryImpl(get())
+        }
     }
 
     private val viewModelModule = module {
@@ -240,6 +251,7 @@ object AppModule {
         viewModelOf(::CalendarHomeViewModel)
         viewModelOf(::CalendarHomeViewModel)
         viewModelOf(::CheckoutSeatViewModel)
+        viewModelOf(::NotificationViewModel)
     }
 
     val module = listOf<Module>(

@@ -141,20 +141,6 @@
                         app:layout_constraintStart_toEndOf="@+id/iv_title_from"
                         app:layout_constraintTop_toTopOf="@+id/iv_title_from" />
 
-                    <!--<TextView
-                        android:id="@+id/tv_from_trip"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginVertical="8dp"
-                        android:text="Jakarta (CGK)"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:layout_marginStart="16dp"
-                        app:layout_constraintBottom_toBottomOf="@+id/tv_title_from"
-                        app:layout_constraintEnd_toStartOf="@+id/iv_switch_trip"
-                        app:layout_constraintStart_toEndOf="@+id/tv_title_from"
-                        app:layout_constraintTop_toTopOf="@+id/tv_title_from" />-->
-
                     <EditText
                         android:id="@+id/et_from_trip"
                         android:layout_width="0dp"
@@ -213,19 +199,6 @@
                         app:layout_constraintBottom_toBottomOf="@+id/iv_title_to"
                         app:layout_constraintStart_toEndOf="@+id/iv_title_to"
                         app:layout_constraintTop_toTopOf="@+id/iv_title_to" />
-
-                    <!--<TextView
-                        android:id="@+id/tv_to_trip"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginVertical="8dp"
-                        android:text="Jakarta (HLM)"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="@+id/tv_title_to"
-                        app:layout_constraintEnd_toStartOf="@+id/iv_switch_trip"
-                        app:layout_constraintStart_toStartOf="@+id/tv_from_trip"
-                        app:layout_constraintTop_toTopOf="@+id/tv_title_to" />-->
 
                     <EditText
                         android:id="@+id/et_to_trip"
@@ -460,30 +433,6 @@
                             app:layout_constraintStart_toStartOf="@+id/et_passengers"
                             app:layout_constraintTop_toTopOf="parent" />
 
-                        <!--<TextView
-                            android:id="@+id/tv_passengers"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
-                            android:layout_marginEnd="8dp"
-                            android:text="Masukkan jumlah penumpang"
-                            android:textStyle="italic"
-                            app:layout_constraintBottom_toBottomOf="@+id/iv_passengers"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toEndOf="@+id/iv_passengers"
-                            app:layout_constraintTop_toTopOf="@+id/iv_passengers" />
-
-                        <View
-                            android:id="@+id/line_passengers"
-                            android:layout_width="0dp"
-                            android:layout_height="1dp"
-                            android:layout_marginTop="12dp"
-                            android:layout_marginEnd="8dp"
-                            android:background="?attr/colorOutline"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="@+id/tv_passengers"
-                            app:layout_constraintTop_toBottomOf="@id/tv_passengers" />-->
-
                         <EditText
                             android:id="@+id/et_passengers"
                             android:layout_width="0dp"
@@ -532,30 +481,6 @@
                             app:layout_constraintBottom_toTopOf="@+id/et_seat_class"
                             app:layout_constraintStart_toStartOf="@+id/et_seat_class"
                             app:layout_constraintTop_toTopOf="parent" />
-
-                        <!--<TextView
-                            android:id="@+id/tv_seat_class"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
-                            android:layout_marginEnd="8dp"
-                            android:text="Pilih kelas penerbangan"
-                            android:textStyle="italic"
-                            app:layout_constraintBottom_toBottomOf="@+id/iv_seat_class"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toEndOf="@+id/iv_seat_class"
-                            app:layout_constraintTop_toTopOf="@+id/iv_seat_class" />
-
-                        <View
-                            android:id="@+id/line_seat_class"
-                            android:layout_width="0dp"
-                            android:layout_height="1dp"
-                            android:layout_marginTop="12dp"
-                            android:layout_marginEnd="8dp"
-                            android:background="?attr/colorOutline"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="@+id/tv_seat_class"
-                            app:layout_constraintTop_toBottomOf="@id/tv_seat_class" />-->
 
                         <EditText
                             android:id="@+id/et_seat_class"
