@@ -12,6 +12,7 @@ import com.project.skypass.R
 import com.project.skypass.data.model.Notification
 import com.project.skypass.databinding.ActivityCheckoutDataOrdersBinding
 import com.project.skypass.databinding.ActivityDetailNotificationBinding
+import com.project.skypass.utils.convertDateNotification
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DetailNotificationActivity : AppCompatActivity() {
@@ -43,11 +44,9 @@ class DetailNotificationActivity : AppCompatActivity() {
     }
 
     private fun setProfileData(item: Notification) {
-        binding.tvTitleNotification.text = item.title
-        binding.tvDateNotification.text = item.date
-        binding.tvTypeNotification.text = item.category
-        binding.tvDetailItemNotification.text = item.body
-
+        binding.tvDateNotification.text = convertDateNotification(item.createdAt)
+        binding.tvTypeNotification.text = item.notificationType
+        binding.tvDetailItemNotification.text = item.message
     }
     private fun setClickListeners() {
         binding.ivBtnBack.setOnClickListener {

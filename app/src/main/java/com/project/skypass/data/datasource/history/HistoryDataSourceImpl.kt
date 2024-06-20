@@ -3,7 +3,7 @@ package com.project.skypass.data.datasource.history
 import com.project.skypass.data.model.History
 
 class HistoryDataSourceImpl : HistoryDataSource {
-    override fun getHistory(): List<History> {
+    /*override fun getHistory(): List<History> {
         return listOf(
             History(
                 bookingId = "453653657",
@@ -102,5 +102,5 @@ class HistoryDataSourceImpl : HistoryDataSource {
                 status = "Issued"
             )
         )
-    }
+    }*/
 }
