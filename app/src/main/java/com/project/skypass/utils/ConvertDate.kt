@@ -20,6 +20,20 @@ fun convertDateFormat(inputDate: String): String {
         inputDate
     }
 }
+fun convertDateNotification(apiString: String): String{
+
+    val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
+    val outputFormat = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
+
+    return try {
+        val parsedDate = inputFormat.parse(apiString)
+        parsedDate?.let {
+            outputFormat.format(parsedDate)
+        }?: apiString
+    } catch (e: Exception) {
+        apiString
+    }
+}
 
 fun convertFlightDetail(inputDate: String): String {
     /*val inputFormat = SimpleDateFormat("dd-MM-yyyy", Locale("id", "ID"))

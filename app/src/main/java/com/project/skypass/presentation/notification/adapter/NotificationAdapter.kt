@@ -5,8 +5,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.project.skypass.R
 import com.project.skypass.data.model.Notification
 import com.project.skypass.databinding.ItemNotificationBinding
+import com.project.skypass.utils.convertDateNotification
 
 class NotificationAdapter(
     private val listener: OnItemCLickedListener<Notification>,
@@ -64,9 +66,12 @@ class NotificationAdapter(
     ) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Notification) {
-            binding.tvTitleItemNotification.text = item.title
-            binding.tvDateItemNotification.text = item.date
-            binding.tvDetailItemNotification.text = item.body
+            binding.tvTitleItemNotification.text = item.notificationType
+            binding.tvDateItemNotification.text = convertDateNotification(item.createdAt)
+            binding.tvDetailItemNotification.text = item.message
+            if (item.isRead) {
+                binding.cardItemNotification.setBackgroundResource(R.color.color_item_read_notification)
+            }
             itemView.setOnClickListener {
                 listener.onItemClicked(item)
             }

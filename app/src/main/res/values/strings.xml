@@ -232,5 +232,6 @@
     <string name="btn_detail_checkoutBack">Pilih Seat Arrival</string>
     <string name="text_empty_seat_class">Kelas seat tidak tersedia</string>
     <string name="text_error_seat_checkout">Terdapat Kesalahan dalam memuat data</string>
+    <string name="text_empty_notification">Notification masih Kosong</string>
 
 </resources>
