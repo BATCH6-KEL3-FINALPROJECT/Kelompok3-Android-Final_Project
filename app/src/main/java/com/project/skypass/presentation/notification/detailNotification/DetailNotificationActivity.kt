@@ -12,9 +12,13 @@ import com.project.skypass.R
 import com.project.skypass.data.model.Notification
 import com.project.skypass.databinding.ActivityCheckoutDataOrdersBinding
 import com.project.skypass.databinding.ActivityDetailNotificationBinding
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DetailNotificationActivity : AppCompatActivity() {
+
     private val binding by lazy { ActivityDetailNotificationBinding.inflate(layoutInflater) }
+
+    private val viewModel: DetailNotificationViewModel by viewModel()
 
     companion object {
         const val EXTRAS_ITEM = "EXTRAS_ITEM"

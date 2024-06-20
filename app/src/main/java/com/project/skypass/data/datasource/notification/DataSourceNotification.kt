@@ -1,7 +1,6 @@
 package com.project.skypass.data.datasource.notification
 
-import com.project.skypass.data.model.Notification
-
+/*
 interface DataSourceNotification {
     fun getNotificationItem(): List<Notification>
 }
@@ -32,4 +31,4 @@ class DataSourceNotificationImpl: DataSourceNotification {
             ),
         )
     }
-}
+}*/

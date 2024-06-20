@@ -3,7 +3,6 @@ package com.project.skypass.data.repository.flight
 import com.project.skypass.data.datasource.flight.FlightDataSource
 import com.project.skypass.data.mapper.toFlightData
 import com.project.skypass.data.model.Flight
-import com.project.skypass.data.repository.flight.FlightRepository
 import com.project.skypass.utils.ResultWrapper
 import com.project.skypass.utils.proceedFlow
 import kotlinx.coroutines.flow.Flow
