@@ -1,6 +1,5 @@
 package com.project.skypass.data.datasource.auth
 
-import com.project.skypass.data.model.Response
 import com.project.skypass.data.source.network.model.login.LoginRequestResponse
 import com.project.skypass.data.source.network.model.login.LoginResponse
 import com.project.skypass.data.source.network.model.otp.ResendOtpRequestResponse

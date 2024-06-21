@@ -9,6 +9,7 @@ import android.provider.MediaStore
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import coil.load
+import com.project.skypass.core.BaseActivity
 import com.project.skypass.databinding.ActivityChangeProfileBinding
 import com.project.skypass.utils.ImagePath
 import com.project.skypass.utils.ImagePath.getRealPathFromURI
@@ -16,7 +17,7 @@ import com.project.skypass.utils.proceedWhen
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.File
 
-class ChangeProfileActivity : AppCompatActivity() {
+class ChangeProfileActivity : BaseActivity() {
 
     private lateinit var binding: ActivityChangeProfileBinding
     private val changeProfileViewModel: ChangeProfileViewModelExample by viewModel()
@@ -57,6 +58,9 @@ class ChangeProfileActivity : AppCompatActivity() {
                         },
                         doOnError = {
                             Toast.makeText(this, "Failed to update profile", Toast.LENGTH_SHORT).show()
+                            it.exception?.let { exception ->
+                                handleTokenExpired(exception)
+                            }
                         }
                     )
                 }

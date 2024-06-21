@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import coil.load
+import com.project.skypass.R
 import com.project.skypass.core.BaseActivity
 import com.project.skypass.databinding.FragmentProfileBinding
 import com.project.skypass.presentation.profile.ProfileViewModelExample
@@ -66,11 +67,23 @@ class ProfileFragment : Fragment() {
                     binding.tvNameProfile.text = it.payload?.name
                     binding.tvEmailProfile.text = it.payload?.email
                     binding.tvNumberPhoneProfile.text = it.payload?.phoneNumber
-                    binding.ivProfile.load(it.payload?.photoUrl)
+                    binding.ivProfile.load(it.payload?.photoUrl) {
+                        fallback(R.drawable.iv_profile)
+                    }
+                    if (it.payload?.isVerified == true) {
+                        binding.ivVerifyStatus.setImageResource(R.drawable.ic_verified_user)
+                    } else {
+                        binding.ivVerifyStatus.setImageResource(R.drawable.ic_not_verified)
+                    }
                 },
                 doOnLoading = {
                 },
                 doOnError = {
+                    it.exception?.let { e ->
+                        if (activity is BaseActivity) {
+                            (activity as BaseActivity).handleTokenExpired(e)
+                        }
+                    }
                 }
             )
         }

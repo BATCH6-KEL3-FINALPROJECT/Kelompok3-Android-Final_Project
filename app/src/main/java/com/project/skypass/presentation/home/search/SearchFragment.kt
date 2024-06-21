@@ -55,7 +55,7 @@ class SearchFragment : BottomSheetDialogFragment() {
     }
 
     private fun searchDestination() {
-        binding.svCity.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+        /*binding.svCity.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
                 Toast.makeText(requireContext(), query, Toast.LENGTH_SHORT).show()
                 viewModel.search(query).observe(viewLifecycleOwner) { results ->
@@ -84,6 +84,35 @@ class SearchFragment : BottomSheetDialogFragment() {
                 return false
             }
 
+        })*/
+
+        binding.svCity.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                viewModel.search(newText).observe(viewLifecycleOwner) { results ->
+                    results.proceedWhen(
+                        doOnSuccess = {
+                            binding.rvSearchResult.isVisible = true
+                            binding.tvEmptySearchResult.isVisible = false
+                            it.payload?.let {
+                                bindDataToAdapter(it)
+                            }
+                        },
+                        doOnLoading = {
+                            binding.rvSearchResult.isVisible = false
+                            binding.tvEmptySearchResult.isVisible = false
+                        },
+                        doOnError = {
+                            binding.rvSearchResult.isVisible = false
+                            binding.tvEmptySearchResult.isVisible = true
+                        }
+                    )
+                }
+                return true
+            }
         })
     }
 
