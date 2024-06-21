@@ -31,6 +31,7 @@
         android:layout_height="100dp"
         android:layout_margin="16dp"
         android:src="@drawable/iv_profile"
+        android:scaleType="fitXY"
         app:layout_constraintTop_toBottomOf="@+id/tv_account"
         app:layout_constraintStart_toStartOf="parent"
         app:shapeAppearanceOverlay="@style/Circular"/>

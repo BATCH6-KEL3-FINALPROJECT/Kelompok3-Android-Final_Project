@@ -44,7 +44,7 @@ class UserRepositoryImpl (private val dataSource: UserDataSource) : UserReposito
         val phoneNumberPart = phoneNumber.toRequestBody("text/plain".toMediaTypeOrNull())
         val picturePart = photo?.let {
             val requestFile = it.asRequestBody("image/jpeg".toMediaTypeOrNull())
-            MultipartBody.Part.createFormData("picture", it.name, requestFile)
+            MultipartBody.Part.createFormData("images", it.name, requestFile)
         }
         return proceedFlow {
             dataSource.editUser(tokenPart, id, namePart, emailPart, phoneNumberPart, picturePart)

@@ -1,8 +1,6 @@
 package com.project.skypass.presentation.profile.changeprofile
 
-import android.net.Uri
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import com.project.skypass.data.model.User
@@ -18,10 +16,6 @@ class ChangeProfileViewModelExample(
     private val prefRepository: PrefRepository,
     private val userRepository: UserRepository
 ) : ViewModel() {
-
-    private val _profilePhotoUri = MutableLiveData<Uri>()
-    val profilePhotoUri: LiveData<Uri> get() = _profilePhotoUri
-
     fun editUserData(
         token: String,
         id: String,
@@ -43,9 +37,5 @@ class ChangeProfileViewModelExample(
 
     fun showDataUser(id: String): LiveData<ResultWrapper<User>> {
         return userRepository.getUser(id).asLiveData(Dispatchers.IO)
-    }
-
-    fun setProfilePhoto(uri: Uri) {
-        _profilePhotoUri.value = uri
     }
 }
