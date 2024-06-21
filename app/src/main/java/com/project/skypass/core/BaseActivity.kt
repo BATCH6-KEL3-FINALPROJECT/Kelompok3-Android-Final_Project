@@ -22,28 +22,6 @@ open class BaseActivity : AppCompatActivity() {
         navigateToLogin()
     }
 
-    fun handleTokenExpired(e: Exception) {
-        if (e is UnauthorizedException) {
-            doError()
-            handleUnAuthorize()
-        }
-    }
-
-    private fun doError() {
-        val dialogBinding = LayoutStateErrorBinding.inflate(layoutInflater)
-        val dialog = Dialog(this).apply {
-            setCancelable(true)
-            setContentView(dialogBinding.root)
-            show()
-            window?.setBackgroundDrawableResource(android.R.color.transparent)
-        }
-
-        CoroutineScope(Dispatchers.Main).launch {
-            delay(5000)
-            dialog.dismiss()
-        }
-    }
-
     private fun navigateToLogin() {
         val intent = Intent(this, LoginActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK

@@ -17,7 +17,7 @@ import com.project.skypass.utils.proceedWhen
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.File
 
-class ChangeProfileActivity : BaseActivity() {
+class ChangeProfileActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityChangeProfileBinding
     private val changeProfileViewModel: ChangeProfileViewModelExample by viewModel()
@@ -58,9 +58,6 @@ class ChangeProfileActivity : BaseActivity() {
                         },
                         doOnError = {
                             Toast.makeText(this, "Failed to update profile", Toast.LENGTH_SHORT).show()
-                            it.exception?.let { exception ->
-                                handleTokenExpired(exception)
-                            }
                         }
                     )
                 }
