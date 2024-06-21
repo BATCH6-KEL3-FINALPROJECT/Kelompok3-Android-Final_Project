@@ -2,20 +2,28 @@ package com.project.skypass.presentation.profile.changeprofile
 
 import android.app.Activity
 import android.content.Intent
+import android.database.Cursor
+import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import coil.load
+import com.project.skypass.core.BaseActivity
 import com.project.skypass.databinding.ActivityChangeProfileBinding
+import com.project.skypass.utils.ImagePath
+import com.project.skypass.utils.ImagePath.getRealPathFromURI
 import com.project.skypass.utils.proceedWhen
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.io.File
 
 class ChangeProfileActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityChangeProfileBinding
     private val changeProfileViewModel: ChangeProfileViewModelExample by viewModel()
+    private val PICK_IMAGE_REQUEST = 1
+    private var selectedImageUri: Uri? = null
+    private var selectedImageFile: File? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,11 +34,11 @@ class ChangeProfileActivity : AppCompatActivity() {
             onBackPressed()
         }
 
-        displayProfileData()
-
-        binding.ivEditPhoto.setOnClickListener {
-            openGalleryForImage()
+        binding.ivProfile.setOnClickListener {
+            openGallery()
         }
+
+        displayProfileData()
 
         binding.btnEdit.setOnClickListener {
             val token = changeProfileViewModel.getToken()
@@ -38,25 +46,37 @@ class ChangeProfileActivity : AppCompatActivity() {
             val name = binding.etName.text.toString()
             val email = binding.etEmail.text.toString()
             val phoneNumber = binding.etNumberPhone.text.toString()
-            val photo = changeProfileViewModel.profilePhotoUri.value
 
-            changeProfileViewModel.editUserData(token, userId, name, email, phoneNumber).observe(this) { result ->
-                result.proceedWhen(
-                    doOnSuccess = {
-                        Toast.makeText(this, "Profile updated", Toast.LENGTH_SHORT).show()
+            changeProfileViewModel.editUserData(token, userId, name, email, phoneNumber, selectedImageFile)
+                .observe(this) { result ->
+                    result.proceedWhen(
+                        doOnSuccess = {
+                            Toast.makeText(this, "Profile updated", Toast.LENGTH_SHORT).show()
+                            finish()
+                        },
+                        doOnLoading = {
+                        },
+                        doOnError = {
+                            Toast.makeText(this, "Failed to update profile", Toast.LENGTH_SHORT).show()
+                        }
+                    )
+                }
+        }
+    }
 
-                        // Set result to indicate profile update success
-                        setResult(Activity.RESULT_OK)
+    private fun openGallery() {
+        val intent = Intent(Intent.ACTION_PICK)
+        intent.type = "image/*"
+        startActivityForResult(intent, PICK_IMAGE_REQUEST)
+    }
 
-                        // Finish activity to return to the previous screen
-                        finish()
-                    },
-                    doOnLoading = {
-                    },
-                    doOnError = {
-                        Toast.makeText(this, "Failed to update profile", Toast.LENGTH_SHORT).show()
-                    }
-                )
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null && data.data != null) {
+            selectedImageUri = data.data
+            binding.ivProfile.load(selectedImageUri)
+            selectedImageUri?.let {
+                selectedImageFile = File(getRealPathFromURI(this, it))
             }
         }
     }
@@ -74,25 +94,10 @@ class ChangeProfileActivity : AppCompatActivity() {
                     }
                 },
                 doOnLoading = {
-
                 },
                 doOnError = {
                 }
             )
         }
-    }
-
-    private val galleryLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-        if (result.resultCode == RESULT_OK) {
-            result.data?.data?.let { uri ->
-                binding.ivProfile.setImageURI(uri)
-                changeProfileViewModel.setProfilePhoto(uri)
-            }
-        }
-    }
-
-    private fun openGalleryForImage() {
-        val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-        galleryLauncher.launch(intent)
     }
 }
