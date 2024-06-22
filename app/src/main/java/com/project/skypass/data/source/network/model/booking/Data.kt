@@ -5,9 +5,9 @@ import com.google.gson.annotations.SerializedName
 
 data class Data(
     @SerializedName("flightData")
-    var flightData: List<FlightData>?,
+    var flightData: List<FlightData?>?,
     @SerializedName("newBooking")
-    var newBooking: List<NewBooking>?,
+    var newBooking: List<NewBooking?>?,
     @SerializedName("totalPrice")
     var totalPrice: Int?
 )

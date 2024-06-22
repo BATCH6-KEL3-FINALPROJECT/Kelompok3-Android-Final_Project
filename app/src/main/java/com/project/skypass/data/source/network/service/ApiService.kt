@@ -2,6 +2,9 @@ package com.project.skypass.data.source.network.service
 
 import com.project.skypass.BuildConfig
 import com.project.skypass.data.model.Response
+import com.project.skypass.data.source.network.model.booking.GetBookingResponse
+import com.project.skypass.data.source.network.model.checkout.request.CheckoutRequestResponse
+import com.project.skypass.data.source.network.model.checkout.response.CheckoutResponse
 import com.project.skypass.data.source.network.model.flight.detailflight.DetailFlightResponse
 import com.project.skypass.data.source.network.model.flight.flightdata.GetAllFlightResponse
 import com.project.skypass.data.source.network.model.history.allhistory.AllHistoryResponse
@@ -15,6 +18,7 @@ import com.project.skypass.data.source.network.model.otp.ResendOtpRequestRespons
 import com.project.skypass.data.source.network.model.otp.ResendOtpResponse
 import com.project.skypass.data.source.network.model.otp.VerifyRequestResponse
 import com.project.skypass.data.source.network.model.otp.VerifyResponse
+import com.project.skypass.data.source.network.model.payment.PaymentResponse
 import com.project.skypass.data.source.network.model.register.RegisterRequestResponse
 import com.project.skypass.data.source.network.model.register.RegisterResponse
 import com.project.skypass.data.source.network.model.resetpassword.ResetPasswordRequestResponse
@@ -152,6 +156,24 @@ interface ApiService {
         @Header("Authorization") token: String,
         @Path("id") id: String
     ): DetailHistoryResponse
+
+    @POST("transaction/booking")
+    suspend fun bookTicket(
+        @Header("Authorization") token: String,
+        @Body bookingRequest: CheckoutRequestResponse
+    ): CheckoutResponse
+
+    @GET("transaction/booking/{id}")
+    suspend fun getBooking(
+        @Header("Authorization") token: String,
+        @Path("id") id: String
+    ): GetBookingResponse
+
+    @POST("transaction/payment/{id}")
+    suspend fun createPayment(
+        @Header("Authorization") token: String,
+        @Path("id") id: String
+    ): PaymentResponse
 
     companion object {
         @JvmStatic

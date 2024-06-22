@@ -37,7 +37,7 @@ data class FlightData(
     @SerializedName("flight_status")
     var flightStatus: String?,
     @SerializedName("is_promo")
-    var isPromo: Boolean?,
+    var isPromo: Any?,
     @SerializedName("plane_type")
     var planeType: String?,
     @SerializedName("seats_available")

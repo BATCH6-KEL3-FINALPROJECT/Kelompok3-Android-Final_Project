@@ -26,5 +26,8 @@ data class History(
     val arrivalAirportId: String,
     val departingAirport: String,
     val arrivingAirport: String,
+    val airlineName: String?,
+    val airlineCode: String?,
+    val country: String?,
     val ticketIdentity: List<TicketHistory>?
 )

@@ -10,6 +10,8 @@ data class DetailHistoryItemResponse(
     var bookingDate: String?,
     @SerializedName("booking_id")
     var bookingId: String?,
+    @SerializedName("createdAt")
+    var createdAt: String?,
     @SerializedName("Flight")
     var flight: Flight?,
     @SerializedName("flight_id")

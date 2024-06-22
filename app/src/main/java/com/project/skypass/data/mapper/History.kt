@@ -30,7 +30,10 @@ fun AllHistoryItemResponse?.toHistory() =
         arrivalAirportId = this?.flight?.arrivalAirportId.orEmpty(),
         departingAirport = this?.flight?.departingAirport?.city.orEmpty(),
         arrivingAirport = this?.flight?.arrivingAirport?.city.orEmpty(),
-        ticketIdentity = null
+        ticketIdentity = null,
+        airlineName = null,
+        airlineCode = null,
+        country = null
     )
 
 fun DetailHistoryItemResponse?.toDetailHistory() =
@@ -57,6 +60,9 @@ fun DetailHistoryItemResponse?.toDetailHistory() =
         arrivalAirportId = this?.flight?.arrivalAirportId.orEmpty(),
         departingAirport = this?.flight?.departingAirport?.city.orEmpty(),
         arrivingAirport = this?.flight?.arrivingAirport?.city.orEmpty(),
+        airlineName = this?.flight?.airline?.airlineName.orEmpty(),
+        airlineCode = this?.flight?.airline?.airlineCode.orEmpty(),
+        country = this?.flight?.airline?.country.orEmpty(),
         ticketIdentity = this?.tickets?.toHistoryTicketIdentity()
     )
 
@@ -65,7 +71,8 @@ fun Ticket?.toHistoryTicket() =
         passengerFirstName = this?.passenger?.firstName.orEmpty(),
         passengerLastName = this?.passenger?.lastName.orEmpty(),
         seatClass = this?.seat?.seatClass.orEmpty(),
-        seatNumber = this?.seatNumber.orEmpty()
+        seatNumber = this?.seatNumber.orEmpty(),
+        passengerId = this?.passenger?.passengerId.orEmpty()
     )
 
 fun Collection<AllHistoryItemResponse>?.toAllHistory() = this?.map { it.toHistory() } ?: listOf()

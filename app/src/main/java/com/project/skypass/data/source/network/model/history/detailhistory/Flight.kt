@@ -4,6 +4,8 @@ package com.project.skypass.data.source.network.model.history.detailhistory
 import com.google.gson.annotations.SerializedName
 
 data class Flight(
+    @SerializedName("Airline")
+    var airline: Airline?,
     @SerializedName("arrival_airport")
     var arrivalAirport: String?,
     @SerializedName("arrival_airport_id")
@@ -24,6 +26,10 @@ data class Flight(
     var departureDate: String?,
     @SerializedName("departure_time")
     var departureTime: String?,
+    @SerializedName("flight_code")
+    var flightCode: String?,
+    @SerializedName("flight_description")
+    var flightDescription: FlightDescription?,
     @SerializedName("flight_duration")
     var flightDuration: Int?,
     @SerializedName("flight_id")
