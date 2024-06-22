@@ -1,3 +1,4 @@
+
 package com.project.skypass.data.model
 
 import android.os.Parcelable
