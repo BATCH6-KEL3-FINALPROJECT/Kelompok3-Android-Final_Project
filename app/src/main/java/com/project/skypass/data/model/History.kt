@@ -1,7 +1,9 @@
 package com.project.skypass.data.model
 
+import android.os.Parcelable
 import java.util.UUID
 
+@Parcelize
 data class History(
     var id: String = UUID.randomUUID().toString(),
     val bookingId: String,
@@ -30,4 +32,4 @@ data class History(
     val airlineCode: String?,
     val country: String?,
     val ticketIdentity: List<TicketHistory>?
-)
+): Parcelable

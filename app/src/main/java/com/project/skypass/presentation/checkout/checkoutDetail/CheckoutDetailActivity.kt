@@ -85,7 +85,6 @@ class CheckoutDetailActivity : AppCompatActivity() {
 
     private fun setProfileData(item: OrderUser, passengerData: OrderPassengers) {
         binding.apply {
-
             if (item.isRoundTrip == false && item.supportRoundTrip == false && item.seatsAvailableRoundTrip != null) {
                 tvTotalPrice.text =
                     (item.priceTotal?.plus(item.priceTotalRoundTrip!!)).toIndonesianFormat()

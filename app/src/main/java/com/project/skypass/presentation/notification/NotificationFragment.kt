@@ -83,7 +83,7 @@ class NotificationFragment : Fragment() {
                     binding.layoutContentState.pbLoadingEmptyState.isVisible = false
                     /*it.exception?.let { e ->
                         if (activity is BaseActivity) {
-                            (activity as BaseActivity).handleTokenExpired(e)
+//                            (activity as BaseActivity).handleTokenExpired(e)
                         }
                     }*/
                 }
