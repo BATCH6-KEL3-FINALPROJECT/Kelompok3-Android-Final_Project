@@ -4,9 +4,11 @@ import android.content.Intent
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
+import com.project.skypass.data.model.Response
 import com.project.skypass.data.repository.auth.AuthRepository
 import com.project.skypass.data.repository.oauth.OAuthRepository
 import com.project.skypass.data.repository.pref.PrefRepository
+import com.project.skypass.data.source.network.model.login.LoginItemResponse
 import com.project.skypass.data.source.network.model.login.LoginResponse
 import com.project.skypass.utils.ResultWrapper
 import kotlinx.coroutines.Dispatchers
@@ -19,7 +21,7 @@ class LoginViewModel(
     fun doLogin(
         email: String,
         password: String
-    ): LiveData<ResultWrapper<LoginResponse>> {
+    ): LiveData<ResultWrapper<Response<LoginItemResponse>>> {
         return authRepository.doLogin(email, password).asLiveData(Dispatchers.IO)
     }
 

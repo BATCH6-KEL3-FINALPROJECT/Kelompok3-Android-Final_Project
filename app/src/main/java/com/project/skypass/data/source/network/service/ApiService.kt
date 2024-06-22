@@ -1,8 +1,12 @@
 package com.project.skypass.data.source.network.service
 
 import com.project.skypass.BuildConfig
+import com.project.skypass.data.model.Response
 import com.project.skypass.data.source.network.model.flight.detailflight.DetailFlightResponse
 import com.project.skypass.data.source.network.model.flight.flightdata.GetAllFlightResponse
+import com.project.skypass.data.source.network.model.history.allhistory.AllHistoryResponse
+import com.project.skypass.data.source.network.model.history.detailhistory.DetailHistoryResponse
+import com.project.skypass.data.source.network.model.login.LoginItemResponse
 import com.project.skypass.data.source.network.model.login.LoginRequestResponse
 import com.project.skypass.data.source.network.model.login.LoginResponse
 import com.project.skypass.data.source.network.model.notification.all.NotificationResponse
@@ -55,7 +59,7 @@ interface ApiService {
     @POST("auth/login")
     suspend fun doLogin(
         @Body loginRequest: LoginRequestResponse
-    ): LoginResponse
+    ): Response<LoginItemResponse>
 
     @POST("auth/resend-otp")
     suspend fun doResendOtp(
@@ -142,13 +146,13 @@ interface ApiService {
     @GET("booking/history")
     suspend fun getAllHistory(
         @Header("Authorization") token: String
-    )
+    ): AllHistoryResponse
 
     @GET("booking/history/{id}")
     suspend fun getDetailHistory(
         @Header("Authorization") token: String,
         @Path("id") id: String
-    )
+    ): DetailHistoryResponse
 
     companion object {
         @JvmStatic
@@ -160,7 +164,7 @@ interface ApiService {
                     .connectTimeout(100, TimeUnit.SECONDS)
                     .readTimeout(100, TimeUnit.SECONDS)
                     .addInterceptor(loggingInterceptor)
-                    .addInterceptor(ErrorInterceptor())
+                    //.addInterceptor(ErrorInterceptor())
                     .build()
             val retrofit =
                 Retrofit.Builder()

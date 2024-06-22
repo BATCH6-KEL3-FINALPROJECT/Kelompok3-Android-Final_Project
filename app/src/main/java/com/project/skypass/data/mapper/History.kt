@@ -30,6 +30,7 @@ fun AllHistoryItemResponse?.toHistory() =
         arrivalAirportId = this?.flight?.arrivalAirportId.orEmpty(),
         departingAirport = this?.flight?.departingAirport?.city.orEmpty(),
         arrivingAirport = this?.flight?.arrivingAirport?.city.orEmpty(),
+        ticketIdentity = null
     )
 
 fun DetailHistoryItemResponse?.toDetailHistory() =
@@ -56,6 +57,7 @@ fun DetailHistoryItemResponse?.toDetailHistory() =
         arrivalAirportId = this?.flight?.arrivalAirportId.orEmpty(),
         departingAirport = this?.flight?.departingAirport?.city.orEmpty(),
         arrivingAirport = this?.flight?.arrivingAirport?.city.orEmpty(),
+        ticketIdentity = this?.tickets?.toHistoryTicketIdentity()
     )
 
 fun Ticket?.toHistoryTicket() =
