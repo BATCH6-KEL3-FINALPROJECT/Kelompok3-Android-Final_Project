@@ -1,5 +1,7 @@
 package com.project.skypass.data.model
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 import java.util.UUID
 
 @Parcelize
@@ -14,7 +16,7 @@ data class History(
     val isRoundTrip: Boolean,
     val noOfTickets: Int,
     val status: String,
-    val totalPrice: Int,
+    val totalPrice: String,
     val flightDuration: Int,
     val flightStatus: String,
     val terminal: Boolean,
@@ -28,8 +30,8 @@ data class History(
     val arrivalAirportId: String,
     val departingAirport: String,
     val arrivingAirport: String,
-    val airlineName: String?,
-    val airlineCode: String?,
-    val country: String?,
-    val ticketIdentity: List<TicketHistory>?
-): Parcelable
+    val airlineName: String,
+    val airlineCode: String,
+    val country: String,
+    val ticketIdentity: List<TicketHistory>?,
+) : Parcelable

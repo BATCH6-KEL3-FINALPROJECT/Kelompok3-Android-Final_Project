@@ -36,13 +36,13 @@ class HistoryTicketItem(private val item: History) : BindableItem<ItemTicketHist
         viewBinding.tvStatusData.text = item.status
         viewBinding.tvOrderDateData.text = convertDateTextApi(item.bookingDate)
         viewBinding.tvCityNameDestinationAlias.text = item.arrivingAirport
-        viewBinding.tvCityDepartureAlias.text = item.departingAirport
+        viewBinding.tvCityDepartureAlias.text = item.country
         viewBinding.tvTimeDeparture.text = item.departureTime
         viewBinding.tvDateDeparture.text = convertDateText(item.departureDate)
         viewBinding.tvTimeArrival.text = item.arrivalTime
         viewBinding.tvDateArrival.text = convertDateText(item.arrivalDate)
         viewBinding.tvIdBackingCode.text = item.bookingCode
-        viewBinding.tvPrice.text = item.totalPrice.toIndonesianFormat()
+        viewBinding.tvPrice.text = item.totalPrice
         setStatus(item.status, viewBinding)
         convertMinutesData(item, viewBinding)
         viewBinding.root.setOnClickListener {
@@ -94,7 +94,10 @@ class HistoryTicketItem(private val item: History) : BindableItem<ItemTicketHist
                 arrivalAirportId = item.arrivalAirportId,
                 departingAirport = item.departingAirport,
                 arrivingAirport = item.arrivingAirport,
-                ticketIdentity = item.ticketIdentity
+                ticketIdentity = item.ticketIdentity,
+                airlineName = item.airlineName,
+                airlineCode = item.airlineCode,
+                country = item.country
             )
         )
     }
@@ -112,5 +115,3 @@ class HistoryTicketItem(private val item: History) : BindableItem<ItemTicketHist
         }
     }
 }
-
-

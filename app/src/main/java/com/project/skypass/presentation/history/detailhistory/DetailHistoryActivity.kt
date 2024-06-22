@@ -12,15 +12,20 @@ import com.project.skypass.data.model.TicketHistory
 import com.project.skypass.databinding.ActivityDetailHistoryBinding
 import com.project.skypass.databinding.ActivityFlightDetailBinding
 import com.project.skypass.presentation.flight.detail.adapter.OnItemClickedListener
+import com.project.skypass.presentation.history.HistoryViewModel
 import com.project.skypass.presentation.history.detailhistory.adapter.DetailHistoryAdapter
 import com.project.skypass.presentation.history.detailhistory.adapter.OnItemDetailClickedListener
+import com.project.skypass.utils.proceedWhen
 import com.project.skypass.utils.toIndonesianFormat
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DetailHistoryActivity : AppCompatActivity() {
     private val binding: ActivityDetailHistoryBinding by lazy {
         ActivityDetailHistoryBinding.inflate(layoutInflater)
     }
     private lateinit var detailHistoryAdapter: DetailHistoryAdapter
+
+    private val viewModel: DetailHistoryViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,8 +57,26 @@ class DetailHistoryActivity : AppCompatActivity() {
     private fun getArgumentData() {
 
         intent.extras?.getParcelable<History>(EXTRA_USER_HISTORY)?.let {
+            setDetailHistoryById(it.bookingId)
             setProfileData(it)
-            it.ticketIdentity?.let { it1 -> detailHistoryAdapter.submitData(it1) }
+        }
+    }
+
+    private fun setDetailHistoryById(id: String){
+        viewModel.getDetailHistory(viewModel.getToken(), id).observe(this){
+            it.proceedWhen(
+                doOnSuccess = { result ->
+                    result.payload?.let {
+                        Toast.makeText(this, it.bookingDate, Toast.LENGTH_SHORT).show()
+                        detailHistoryAdapter.submitData(it.ticketIdentity ?: listOf())
+                    }
+                },
+                doOnError = {
+                    Toast.makeText(this, "error", Toast.LENGTH_SHORT).show()
+                }, doOnEmpty = {
+                    Toast.makeText(this, "error", Toast.LENGTH_SHORT).show()
+                }
+            )
         }
     }
 
@@ -67,11 +90,13 @@ class DetailHistoryActivity : AppCompatActivity() {
             tvAirportDeparture.text = item.departureAirport
             tvCityDeparture.text = item.departingAirport
             tvTimeArrival.text = item.arrivalTime
+            tvFlightCode.text = item.airlineCode
+            tvAirline.text = item.airlineName
             tvSeatClass.text = item.ticketIdentity?.get(0)?.seatClass
             tvDateArrival.text = item.arrivalDate
             tvAirportArrival.text = item.arrivalAirport
             tvCityArrival.text = item.arrivingAirport
-            tvTotalHarga.text = item.totalPrice.toIndonesianFormat()
+            tvTotalHarga.text = item.totalPrice
             tvTotal.text = "${item.noOfTickets} Penumpang"
         }
         setStatus(item.status)

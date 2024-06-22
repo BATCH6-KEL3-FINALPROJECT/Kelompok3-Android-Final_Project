@@ -70,6 +70,7 @@ class HistoryFragment : Fragment() {
                 },
                 doOnEmpty = {
                     binding.layoutContentState.root.isVisible = true
+                    binding.layoutContentState.textError.isVisible = true
                     binding.layoutContentState.textError.text =
                         getString(R.string.text_empty_seat_class)
                     binding.layoutContentState.pbLoadingEmptyState.isVisible = false
@@ -79,6 +80,7 @@ class HistoryFragment : Fragment() {
                     binding.layoutContentState.textError.isVisible = false
                     binding.layoutContentState.pbLoadingEmptyState.isVisible = true
                 }, doOnError = {
+                    binding.layoutContentState.textError.isVisible = true
                     binding.layoutContentState.root.isVisible = true
                     binding.layoutContentState.textError.text =
                         getString(R.string.unknown_error)
@@ -93,7 +95,6 @@ class HistoryFragment : Fragment() {
         binding.ivSearchHistory.setOnClickListener {
             val searchFragment = SearchHistoryFragment()
             searchFragment.show(childFragmentManager, searchFragment.tag)
-
         }
         binding.llFilterContainer.setOnClickListener {
             val calendarFragment = CalendarHistoryFragment()
