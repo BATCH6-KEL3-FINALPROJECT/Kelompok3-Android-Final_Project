@@ -1,5 +1,7 @@
 package com.project.skypass.data.datasource.auth
 
+import com.project.skypass.data.model.Response
+import com.project.skypass.data.source.network.model.login.LoginItemResponse
 import com.project.skypass.data.source.network.model.login.LoginRequestResponse
 import com.project.skypass.data.source.network.model.login.LoginResponse
 import com.project.skypass.data.source.network.model.otp.ResendOtpRequestResponse
@@ -21,7 +23,7 @@ class AuthDataStoreImpl(private val service: ApiService): AuthDataStore {
         return service.doVerify(payload)
     }
 
-    override suspend fun doLogin(payload: LoginRequestResponse): LoginResponse {
+    override suspend fun doLogin(payload: LoginRequestResponse): Response<LoginItemResponse> {
         return service.doLogin(payload)
     }
 

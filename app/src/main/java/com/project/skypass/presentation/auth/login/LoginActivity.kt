@@ -18,6 +18,9 @@ import com.project.skypass.presentation.auth.login.LoginViewModel.Companion.RC_S
 import com.project.skypass.presentation.auth.register.RegisterActivity
 import com.project.skypass.presentation.auth.resetpassword.ResetPasswordActivity
 import com.project.skypass.presentation.main.MainActivity
+import com.project.skypass.utils.ApiErrorException
+import com.project.skypass.utils.NoInternetException
+import com.project.skypass.utils.UnauthorizedException
 import com.project.skypass.utils.decodeJWT
 import com.project.skypass.utils.proceedWhen
 import io.github.muddz.styleabletoast.StyleableToast
@@ -121,7 +124,7 @@ class LoginActivity : AppCompatActivity() {
                     binding.btnLogin.isEnabled = false
                 },
                 doOnError = {error ->
-                    dialog?.dismiss()
+                    /*dialog?.dismiss()
                     when (error.exception?.message) {
                         getString(R.string.email_not_found_exception) -> {
                             StyleableToast.makeText(this,
@@ -141,11 +144,21 @@ class LoginActivity : AppCompatActivity() {
                         }
                         else -> {
                             doError()
-                            /*StyleableToast.makeText(this,
-                                getString(R.string.unknown_error), R.style.ToastError).show()*/
+                            *//*StyleableToast.makeText(this,
+                                getString(R.string.unknown_error), R.style.ToastError).show()*//*
                             binding.etEmail.setBackgroundResource(R.drawable.bg_selector_input)
                             binding.etPassword.setBackgroundResource(R.drawable.bg_selector_input)
                         }
+                    }*/
+                    dialog?.dismiss()
+                    if (error.exception is ApiErrorException) {
+                        val errorMessage = error.exception.errorResponse
+                        StyleableToast.makeText(this, errorMessage.message, R.style.ToastError).show()
+                    } else if (error.exception is NoInternetException) {
+
+                    } else if (error.exception is UnauthorizedException) {
+                        val errorMessage = error.exception.errorUnauthorizedResponse
+                        StyleableToast.makeText(this, errorMessage.message, R.style.ToastError).show()
                     }
                     binding.pbLogin.isVisible = false
                     binding.btnLogin.isEnabled = true

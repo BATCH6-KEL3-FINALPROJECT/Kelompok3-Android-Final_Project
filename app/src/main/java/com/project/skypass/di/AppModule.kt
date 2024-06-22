@@ -88,6 +88,7 @@ import com.project.skypass.presentation.profile.settingaccount.SettingsAccountVi
 import com.project.skypass.presentation.flight.detail.FlightDetailViewModel
 import com.project.skypass.presentation.flight.result.FlightResultViewModel
 import com.project.skypass.presentation.history.HistoryViewModel
+import com.project.skypass.presentation.history.detailhistory.DetailHistoryViewModel
 import com.project.skypass.presentation.home.calendar.CalendarHomeViewModel
 import com.project.skypass.presentation.notification.NotificationViewModel
 import com.project.skypass.presentation.profile.ProfileViewModelExample
@@ -163,7 +164,7 @@ object AppModule {
             OrderHistoryDataSourceImpl(get())
         }
         single<HistoryDataSource> {
-            HistoryDataSourceImpl()
+            HistoryDataSourceImpl(get())
         }
         single<SeatDataSource> {
             SeatDataSource(get(), get(), get())
@@ -248,6 +249,7 @@ object AppModule {
         viewModelOf(::ChangeProfileViewModelExample)
         viewModelOf(::ProfileViewModelExample)
         viewModelOf(::HistoryViewModel)
+        viewModelOf(::DetailHistoryViewModel)
         viewModelOf(::CalendarHomeViewModel)
         viewModelOf(::CalendarHomeViewModel)
         viewModelOf(::CheckoutSeatViewModel)

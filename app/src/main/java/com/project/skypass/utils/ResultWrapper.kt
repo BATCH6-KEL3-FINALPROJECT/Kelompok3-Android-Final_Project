@@ -1,12 +1,12 @@
 package com.project.skypass.utils
 
 import com.google.gson.Gson
+import com.project.skypass.data.model.Response
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.onStart
 import retrofit2.HttpException
-import retrofit2.Response
 import java.io.IOException
 import java.lang.Exception
 import java.net.HttpURLConnection
@@ -96,7 +96,7 @@ fun <T> proceedFlow(block: suspend () -> T): Flow<ResultWrapper<T>> {
             },
         )
     }.catch { e ->
-        emit(ResultWrapper.Error(exception = Exception(e)))
+        emit(ResultWrapper.Error(exception = e.parseException()))
     }.onStart {
         emit(ResultWrapper.Loading())
     }
@@ -110,7 +110,9 @@ fun Throwable?.parseException(): Exception {
         is HttpException -> {
             try {
                 if (this.code() == HttpURLConnection.HTTP_BAD_REQUEST) {
-                    return UnauthorizedException()
+                    val errorResponseBody = this.response()?.errorBody()?.string()
+                    val errorBody = Gson().fromJson(errorResponseBody, Response::class.java)
+                    return UnauthorizedException(errorBody)
                 } else {
                     val errorResponseBody = this.response()?.errorBody()?.string()
                     val errorBody = Gson().fromJson(errorResponseBody, Response::class.java)
@@ -125,6 +127,6 @@ fun Throwable?.parseException(): Exception {
     }
 }
 
-class UnauthorizedException() : Exception()
+class UnauthorizedException(val errorUnauthorizedResponse: Response<*>) : Exception()
 class NoInternetException() : Exception()
 class ApiErrorException(val errorResponse: Response<*>) : Exception()

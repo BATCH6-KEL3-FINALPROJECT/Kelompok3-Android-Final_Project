@@ -1,5 +1,7 @@
 package com.project.skypass.data.datasource.auth
 
+import com.project.skypass.data.model.Response
+import com.project.skypass.data.source.network.model.login.LoginItemResponse
 import com.project.skypass.data.source.network.model.login.LoginRequestResponse
 import com.project.skypass.data.source.network.model.login.LoginResponse
 import com.project.skypass.data.source.network.model.otp.ResendOtpRequestResponse
@@ -14,7 +16,7 @@ import com.project.skypass.data.source.network.model.resetpassword.ResetPassword
 interface AuthDataStore {
     suspend fun doRegister(payload: RegisterRequestResponse): RegisterResponse
     suspend fun doVerify(payload: VerifyRequestResponse): VerifyResponse
-    suspend fun doLogin(payload: LoginRequestResponse): LoginResponse
+    suspend fun doLogin(payload: LoginRequestResponse): Response<LoginItemResponse>
     suspend fun doResendOtp(payload: ResendOtpRequestResponse): ResendOtpResponse
     suspend fun doResetPassword(payload: ResetPasswordRequestResponse): ResetPasswordResponse
 }

@@ -1,5 +1,7 @@
 package com.project.skypass.data.repository.auth
 
+import com.project.skypass.data.model.Response
+import com.project.skypass.data.source.network.model.login.LoginItemResponse
 import com.project.skypass.data.source.network.model.login.LoginResponse
 import com.project.skypass.data.source.network.model.register.RegisterResponse
 import com.project.skypass.utils.ResultWrapper
@@ -10,7 +12,7 @@ interface AuthRepository {
     fun doLogin(
         email: String,
         password: String
-    ): Flow<ResultWrapper<LoginResponse>>
+    ): Flow<ResultWrapper<Response<LoginItemResponse>>>
 
     fun doRegister(
         name: String,

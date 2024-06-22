@@ -79,11 +79,11 @@ class ProfileFragment : Fragment() {
                 doOnLoading = {
                 },
                 doOnError = {
-                    it.exception?.let { e ->
+                    /*it.exception?.let { e ->
                         if (activity is BaseActivity) {
                             (activity as BaseActivity).handleTokenExpired(e)
                         }
-                    }
+                    }*/
                 }
             )
         }

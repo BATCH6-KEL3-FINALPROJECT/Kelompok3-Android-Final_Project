@@ -1,4 +1,4 @@
-package com.project.skypass.presentation.history
+package com.project.skypass.presentation.history.detailhistory
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
@@ -9,16 +9,16 @@ import com.project.skypass.data.repository.pref.PrefRepository
 import com.project.skypass.utils.ResultWrapper
 import kotlinx.coroutines.Dispatchers
 
-class HistoryViewModel(
+class DetailHistoryViewModel(
     private val prefRepository: PrefRepository,
-    private val historyRepository: HistoryRepository
+    private val detailHistoryRepository: HistoryRepository
 ): ViewModel() {
 
     fun getToken(): String {
         return prefRepository.getToken()
     }
 
-    fun getAllHistory(token: String): LiveData<ResultWrapper<List<History>>> {
-        return historyRepository.getHistory(token).asLiveData(Dispatchers.IO)
+    fun getDetailHistory(token: String, idDetail: String): LiveData<ResultWrapper<History>> {
+        return detailHistoryRepository.getDetailHistory(token, idDetail).asLiveData(Dispatchers.IO)
     }
 }
