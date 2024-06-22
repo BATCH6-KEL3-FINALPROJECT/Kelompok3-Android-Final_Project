@@ -11,7 +11,6 @@ import com.project.skypass.data.source.network.model.history.allhistory.AllHisto
 import com.project.skypass.data.source.network.model.history.detailhistory.DetailHistoryResponse
 import com.project.skypass.data.source.network.model.login.LoginItemResponse
 import com.project.skypass.data.source.network.model.login.LoginRequestResponse
-import com.project.skypass.data.source.network.model.login.LoginResponse
 import com.project.skypass.data.source.network.model.notification.all.NotificationResponse
 import com.project.skypass.data.source.network.model.notification.detail.DetailNotificationResponse
 import com.project.skypass.data.source.network.model.otp.ResendOtpRequestResponse
@@ -24,12 +23,15 @@ import com.project.skypass.data.source.network.model.register.RegisterResponse
 import com.project.skypass.data.source.network.model.resetpassword.ResetPasswordRequestResponse
 import com.project.skypass.data.source.network.model.resetpassword.ResetPasswordResponse
 import com.project.skypass.data.source.network.model.search.SearchResponse
+import com.project.skypass.data.source.network.model.search.deletehistory.DeleteHistorySearchResponse
+import com.project.skypass.data.source.network.model.search.gethistory.GetHistoryResponse
+import com.project.skypass.data.source.network.model.search.posthistory.PostHistoryRespomse
+import com.project.skypass.data.source.network.model.search.posthistory.request.HistoryRequestResponse
 import com.project.skypass.data.source.network.model.seat.SeatResponse
 import com.project.skypass.data.source.network.model.user.deleteuser.DeleteUserResponse
 import com.project.skypass.data.source.network.model.ticket.TicketResponse
 import com.project.skypass.data.source.network.model.user.detailuser.UserResponse
 import com.project.skypass.data.source.network.model.user.edituser.EditUserResponse
-import com.project.skypass.utils.ErrorInterceptor
 import okhttp3.MultipartBody
 import okhttp3.OkHttpClient
 import okhttp3.RequestBody
@@ -174,6 +176,23 @@ interface ApiService {
         @Header("Authorization") token: String,
         @Path("id") id: String
     ): PaymentResponse
+
+    @DELETE("history/delete/{id}")
+    suspend fun deleteHistorySearchHome(
+        @Header("Authorization") token: String,
+        @Path("id") id: String
+    ): DeleteHistorySearchResponse
+
+    @GET("history/")
+    suspend fun getAllHistorySearchHome(
+        @Header("Authorization") token: String
+    ): GetHistoryResponse
+
+    @POST("history/create")
+    suspend fun createHistorySearchHome(
+        @Header("Authorization") token: String,
+        @Body historyRequest: HistoryRequestResponse
+    ): PostHistoryRespomse
 
     companion object {
         @JvmStatic

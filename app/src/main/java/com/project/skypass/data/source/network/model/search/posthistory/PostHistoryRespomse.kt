@@ -1,9 +1,9 @@
-package com.project.skypass.data.source.network.model.booking
+package com.project.skypass.data.source.network.model.search.posthistory
 
 
 import com.google.gson.annotations.SerializedName
 
-data class GetBookingResponse(
+data class PostHistoryRespomse(
     @SerializedName("code")
     var code: Int?,
     @SerializedName("data")
