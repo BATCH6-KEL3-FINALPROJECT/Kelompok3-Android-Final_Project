@@ -3,7 +3,7 @@ package com.project.skypass.data.source.network.model.search.gethistory
 
 import com.google.gson.annotations.SerializedName
 
-data class History(
+data class GetHistoryItemResponse(
     @SerializedName("createdAt")
     var createdAt: String?,
     @SerializedName("history")

@@ -24,6 +24,7 @@ import com.project.skypass.data.source.network.model.resetpassword.ResetPassword
 import com.project.skypass.data.source.network.model.resetpassword.ResetPasswordResponse
 import com.project.skypass.data.source.network.model.search.SearchResponse
 import com.project.skypass.data.source.network.model.search.deletehistory.DeleteHistorySearchResponse
+import com.project.skypass.data.source.network.model.search.gethistory.GetHistoryItemResponse
 import com.project.skypass.data.source.network.model.search.gethistory.GetHistoryResponse
 import com.project.skypass.data.source.network.model.search.posthistory.PostHistoryRespomse
 import com.project.skypass.data.source.network.model.search.posthistory.request.HistoryRequestResponse
@@ -160,7 +161,7 @@ interface ApiService {
     ): DetailHistoryResponse
 
     @POST("transaction/booking")
-    suspend fun bookTicket(
+    suspend fun bookingTicket(
         @Header("Authorization") token: String,
         @Body bookingRequest: CheckoutRequestResponse
     ): CheckoutResponse
@@ -186,7 +187,7 @@ interface ApiService {
     @GET("history/")
     suspend fun getAllHistorySearchHome(
         @Header("Authorization") token: String
-    ): GetHistoryResponse
+    ): Response<GetHistoryItemResponse>
 
     @POST("history/create")
     suspend fun createHistorySearchHome(

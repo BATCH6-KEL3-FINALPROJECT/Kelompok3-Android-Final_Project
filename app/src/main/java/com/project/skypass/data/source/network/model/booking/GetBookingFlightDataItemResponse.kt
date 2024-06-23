@@ -3,7 +3,7 @@ package com.project.skypass.data.source.network.model.booking
 
 import com.google.gson.annotations.SerializedName
 
-data class FlightData(
+data class GetBookingFlightDataItemResponse(
     @SerializedName("Airline")
     var airline: Airline?,
     @SerializedName("airline_id")
@@ -37,7 +37,7 @@ data class FlightData(
     @SerializedName("flight_status")
     var flightStatus: String?,
     @SerializedName("is_promo")
-    var isPromo: Any?,
+    var isPromo: Boolean?,
     @SerializedName("plane_type")
     var planeType: String?,
     @SerializedName("seats_available")

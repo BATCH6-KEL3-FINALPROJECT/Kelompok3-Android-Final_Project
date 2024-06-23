@@ -5,5 +5,5 @@ import com.google.gson.annotations.SerializedName
 
 data class Data(
     @SerializedName("history")
-    var history: List<History?>?
+    var history: List<GetHistoryItemResponse>?
 )

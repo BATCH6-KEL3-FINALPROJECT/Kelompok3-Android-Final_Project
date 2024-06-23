@@ -7,7 +7,7 @@ data class PaymentResponse(
     @SerializedName("code")
     var code: Int?,
     @SerializedName("data")
-    var `data`: Data?,
+    var data: PaymentItemResponse?,
     @SerializedName("is_success")
     var isSuccess: Boolean?,
     @SerializedName("message")
