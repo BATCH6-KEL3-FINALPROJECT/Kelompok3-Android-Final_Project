@@ -3,7 +3,7 @@ package com.project.skypass.data.source.network.model.checkout.request
 
 import com.google.gson.annotations.SerializedName
 
-data class PassengersData(
+data class PassengerData(
     @SerializedName("date_of_birth")
     var dateOfBirth: String?,
     @SerializedName("departureSeats")

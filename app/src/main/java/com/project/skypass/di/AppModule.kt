@@ -7,6 +7,8 @@ import com.project.skypass.BuildConfig
 import com.project.skypass.core.BaseViewModel
 import com.project.skypass.data.datasource.auth.AuthDataStore
 import com.project.skypass.data.datasource.auth.AuthDataStoreImpl
+import com.project.skypass.data.datasource.checkout.CheckoutDataSource
+import com.project.skypass.data.datasource.checkout.CheckoutDataSourceImpl
 import com.project.skypass.data.datasource.flight.FlightDataSource
 import com.project.skypass.data.datasource.flight.FlightDataSourceImpl
 import com.project.skypass.data.datasource.history.HistoryDataSource
@@ -36,6 +38,8 @@ import com.project.skypass.data.repository.OrderHistory.OrderHistoryRepository
 import com.project.skypass.data.repository.OrderHistory.OrderHistoryRepositoryImpl
 import com.project.skypass.data.repository.auth.AuthRepository
 import com.project.skypass.data.repository.auth.AuthRepositoryImpl
+import com.project.skypass.data.repository.checkout.CheckoutRepository
+import com.project.skypass.data.repository.checkout.CheckoutRepositoryImpl
 import com.project.skypass.data.repository.flight.FlightRepository
 import com.project.skypass.data.repository.flight.FlightRepositoryImpl
 import com.project.skypass.data.repository.favoritedestination.FavoriteDestinationRepository
@@ -175,6 +179,9 @@ object AppModule {
         single<NotificationDataSource> {
             NotificationDataSourceImpl(get())
         }
+        single<CheckoutDataSource> {
+            CheckoutDataSourceImpl(get())
+        }
     }
 
     private val repositoryModule = module {
@@ -219,6 +226,9 @@ object AppModule {
         }
         single<NotificationRepository> {
             NotificationRepositoryImpl(get())
+        }
+        single<CheckoutRepository> {
+            CheckoutRepositoryImpl(get())
         }
     }
 

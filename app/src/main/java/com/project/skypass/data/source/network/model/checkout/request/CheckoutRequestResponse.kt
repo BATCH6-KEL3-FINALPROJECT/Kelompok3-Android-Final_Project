@@ -11,7 +11,7 @@ data class CheckoutRequestResponse(
     @SerializedName("noOfPassenger")
     var noOfPassenger: Int?,
     @SerializedName("passengersData")
-    var passengersData: List<PassengersData>?,
+    var passengersData: List<PassengerData>?,
     @SerializedName("returnFlightId")
     var returnFlightId: String?,
     @SerializedName("totalAmount")
