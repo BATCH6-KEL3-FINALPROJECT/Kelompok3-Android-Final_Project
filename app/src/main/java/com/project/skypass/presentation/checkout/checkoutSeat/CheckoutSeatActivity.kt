@@ -48,38 +48,6 @@ class CheckoutSeatActivity : AppCompatActivity() {
 
     }
 
-    private fun setupTitle(limit: Int) {
-        var currentCharCode = 'A'.code
-        var count = 0
-        for (i in 1..100) {
-            title.add(
-                "/"
-            )
-            seats.append("/")
-            for (j in 1..7) {
-                var data = j
-                if (j == 4) {
-                    title.add("")
-                    seats.append("_")
-                } else {
-                    if (j > 3) {
-                        data = j - 1
-                    }
-                    seats.append("A")
-                    title.add("${currentCharCode.toChar()}$data")
-                    count += 1
-                }
-                if (count == limit) {
-                    break
-                }
-            }
-            if (count == limit) {
-                break
-            }
-            currentCharCode++
-        }
-    }
-
 
     private fun setupSeatBookView(item: OrderUser) {
         val seatBookView: SeatBookView = binding.layoutSeat

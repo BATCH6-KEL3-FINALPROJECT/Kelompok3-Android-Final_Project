@@ -18,7 +18,7 @@ class HistoryViewModel(
         return prefRepository.getToken()
     }
 
-    fun getAllHistory(token: String): LiveData<ResultWrapper<List<History>>> {
-        return historyRepository.getHistory(token).asLiveData(Dispatchers.IO)
-    }
+    fun getAllHistory(token: String) = historyRepository.getHistory(token).asLiveData(Dispatchers.IO)
+
+
 }

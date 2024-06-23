@@ -1,6 +1,5 @@
 package com.project.skypass.data.model
 
-import android.os.Parcelable
 import java.util.UUID
 
 @Parcelize
@@ -11,10 +10,11 @@ data class History(
     val flightId: String,
     val paymentId: String,
     val bookingDate: String,
+    val bookingCode: String,
     val isRoundTrip: Boolean,
     val noOfTickets: Int,
     val status: String,
-    val totalPrice: String,
+    val totalPrice: Int,
     val flightDuration: Int,
     val flightStatus: String,
     val terminal: Boolean,

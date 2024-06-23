@@ -139,23 +139,7 @@ class FlightDetailActivity : AppCompatActivity() {
 
     private fun saveToOrderHistory(item: OrderUser) {
         flightDetailViewModel.saveToOrderHistory(item).observe(this) {
-            it.proceedWhen(
-                doOnSuccess = {
-                    Toast.makeText(
-                        this,
-                        getString(R.string.text_Save_to_history_success),
-                        Toast.LENGTH_SHORT,
-                    ).show()
-                },
-                doOnError = {
-                    Toast.makeText(this,
-                        getString(R.string.text_Save_to_history_failed), Toast.LENGTH_SHORT)
-                        .show()
-                },
-                doOnLoading = {
-
-                },
-            )
+            it.proceedWhen()
         }
     }
 

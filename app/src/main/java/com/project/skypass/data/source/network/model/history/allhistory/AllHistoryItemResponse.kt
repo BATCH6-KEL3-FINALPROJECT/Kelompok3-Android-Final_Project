@@ -25,7 +25,7 @@ data class AllHistoryItemResponse(
     @SerializedName("Tickets")
     var tickets: List<Ticket>?,
     @SerializedName("total_price")
-    var totalPrice: String?,
+    var totalPrice: Int?,
     @SerializedName("user_id")
     var userId: String?
 )
