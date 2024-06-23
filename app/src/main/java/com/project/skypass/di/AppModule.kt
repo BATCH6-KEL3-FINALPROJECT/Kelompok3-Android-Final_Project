@@ -27,8 +27,8 @@ import com.project.skypass.data.datasource.preference.PrefDataSource
 import com.project.skypass.data.datasource.preference.PrefDataSourceImpl
 import com.project.skypass.data.datasource.profile.ProfileDataSource
 import com.project.skypass.data.datasource.profile.ProfileDummyDataSource
-import com.project.skypass.data.datasource.search.SearchDataSource
-import com.project.skypass.data.datasource.search.SearchDataSourceImpl
+import com.project.skypass.data.datasource.home.search.SearchDataSource
+import com.project.skypass.data.datasource.home.search.SearchDataSourceImpl
 import com.project.skypass.data.datasource.seat.SeatDataSource
 import com.project.skypass.data.datasource.seat.SeatsDataSource
 import com.project.skypass.data.datasource.seat.SeatsDataSourceImpl
