@@ -1,6 +1,6 @@
 package com.project.skypass.data.datasource.checkout
 
-import com.project.skypass.data.source.network.model.booking.GetBookingResponse
+import com.project.skypass.data.source.network.model.booking.GetBookingDataResponse
 import com.project.skypass.data.source.network.model.checkout.request.CheckoutRequestResponse
 import com.project.skypass.data.source.network.model.checkout.response.CheckoutResponse
 import com.project.skypass.data.source.network.model.payment.PaymentResponse
@@ -14,7 +14,7 @@ class CheckoutDataSourceImpl(private val service: ApiService): CheckoutDataSourc
         return service.bookingTicket(token, bookingPayload)
     }
 
-    override suspend fun getBookingData(token: String, bookingId: String): GetBookingResponse {
+    override suspend fun getBookingData(token: String, bookingId: String): GetBookingDataResponse {
         return service.getBooking(token, bookingId)
     }
 
