@@ -159,7 +159,8 @@ class CheckoutDataPassengerActivity : AppCompatActivity() {
             dateOfBirth = "",
             email = "",
             phoneNumber = "",
-            validUntil = ""
+            validUntil = "",
+            passengerType = ""
         )
     }
 }

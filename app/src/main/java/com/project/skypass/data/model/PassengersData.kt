@@ -15,6 +15,7 @@ data class PassengersData(
     var phoneNumber: String,
     var nationality: String,
     var passportNo: String,
+    val passengerType: String?,
     var issuingCountry: String,
     var validUntil: String,
     var seatsDepartureId: String? = null,

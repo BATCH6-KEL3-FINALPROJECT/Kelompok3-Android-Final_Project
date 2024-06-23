@@ -2,30 +2,37 @@ package com.project.skypass.data.source.network.service
 
 import com.project.skypass.BuildConfig
 import com.project.skypass.data.model.Response
+import com.project.skypass.data.source.network.model.booking.GetBookingResponse
+import com.project.skypass.data.source.network.model.checkout.request.CheckoutRequestResponse
+import com.project.skypass.data.source.network.model.checkout.response.CheckoutResponse
 import com.project.skypass.data.source.network.model.flight.detailflight.DetailFlightResponse
 import com.project.skypass.data.source.network.model.flight.flightdata.GetAllFlightResponse
 import com.project.skypass.data.source.network.model.history.allhistory.AllHistoryResponse
 import com.project.skypass.data.source.network.model.history.detailhistory.DetailHistoryResponse
 import com.project.skypass.data.source.network.model.login.LoginItemResponse
 import com.project.skypass.data.source.network.model.login.LoginRequestResponse
-import com.project.skypass.data.source.network.model.login.LoginResponse
 import com.project.skypass.data.source.network.model.notification.all.NotificationResponse
 import com.project.skypass.data.source.network.model.notification.detail.DetailNotificationResponse
 import com.project.skypass.data.source.network.model.otp.ResendOtpRequestResponse
 import com.project.skypass.data.source.network.model.otp.ResendOtpResponse
 import com.project.skypass.data.source.network.model.otp.VerifyRequestResponse
 import com.project.skypass.data.source.network.model.otp.VerifyResponse
+import com.project.skypass.data.source.network.model.payment.PaymentResponse
 import com.project.skypass.data.source.network.model.register.RegisterRequestResponse
 import com.project.skypass.data.source.network.model.register.RegisterResponse
 import com.project.skypass.data.source.network.model.resetpassword.ResetPasswordRequestResponse
 import com.project.skypass.data.source.network.model.resetpassword.ResetPasswordResponse
 import com.project.skypass.data.source.network.model.search.SearchResponse
+import com.project.skypass.data.source.network.model.search.deletehistory.DeleteHistorySearchResponse
+import com.project.skypass.data.source.network.model.search.gethistory.GetHistoryItemResponse
+import com.project.skypass.data.source.network.model.search.gethistory.GetHistoryResponse
+import com.project.skypass.data.source.network.model.search.posthistory.PostHistoryRespomse
+import com.project.skypass.data.source.network.model.search.posthistory.request.HistoryRequestResponse
 import com.project.skypass.data.source.network.model.seat.SeatResponse
 import com.project.skypass.data.source.network.model.user.deleteuser.DeleteUserResponse
 import com.project.skypass.data.source.network.model.ticket.TicketResponse
 import com.project.skypass.data.source.network.model.user.detailuser.UserResponse
 import com.project.skypass.data.source.network.model.user.edituser.EditUserResponse
-import com.project.skypass.utils.ErrorInterceptor
 import okhttp3.MultipartBody
 import okhttp3.OkHttpClient
 import okhttp3.RequestBody
@@ -117,7 +124,6 @@ interface ApiService {
     @GET("airport/")
     suspend fun searchDestination(
         @Query("search") search: String? = null,
-    //): Response<List<SearchItemResponse>?>
     ): SearchResponse
 
     @GET("seat/")
@@ -153,6 +159,41 @@ interface ApiService {
         @Header("Authorization") token: String,
         @Path("id") id: String
     ): DetailHistoryResponse
+
+    @POST("transaction/booking")
+    suspend fun bookingTicket(
+        @Header("Authorization") token: String,
+        @Body bookingRequest: CheckoutRequestResponse
+    ): CheckoutResponse
+
+    @GET("transaction/booking/{id}")
+    suspend fun getBooking(
+        @Header("Authorization") token: String,
+        @Path("id") id: String
+    ): GetBookingResponse
+
+    @POST("transaction/payment/{id}")
+    suspend fun createPayment(
+        @Header("Authorization") token: String,
+        @Path("id") id: String
+    ): PaymentResponse
+
+    @DELETE("history/delete/{id}")
+    suspend fun deleteHistorySearchHome(
+        @Header("Authorization") token: String,
+        @Path("id") id: String
+    ): DeleteHistorySearchResponse
+
+    @GET("history/")
+    suspend fun getAllHistorySearchHome(
+        @Header("Authorization") token: String
+    ): Response<GetHistoryItemResponse>
+
+    @POST("history/create")
+    suspend fun createHistorySearchHome(
+        @Header("Authorization") token: String,
+        @Body historyRequest: HistoryRequestResponse
+    ): PostHistoryRespomse
 
     companion object {
         @JvmStatic

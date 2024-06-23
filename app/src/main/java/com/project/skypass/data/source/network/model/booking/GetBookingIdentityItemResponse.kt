@@ -1,19 +1,21 @@
-package com.project.skypass.data.source.network.model.history.detailhistory
+package com.project.skypass.data.source.network.model.booking
 
 
 import com.google.gson.annotations.SerializedName
 
-data class DetailHistoryItemResponse(
+data class GetBookingIdentityItemResponse(
+    @SerializedName("adult")
+    var adult: Int?,
     @SerializedName("booking_code")
     var bookingCode: String?,
     @SerializedName("booking_date")
     var bookingDate: String?,
     @SerializedName("booking_id")
     var bookingId: String?,
+    @SerializedName("child")
+    var child: Int?,
     @SerializedName("createdAt")
     var createdAt: String?,
-    @SerializedName("Flight")
-    var flight: Flight?,
     @SerializedName("flight_id")
     var flightId: String?,
     @SerializedName("is_round_trip")
@@ -24,10 +26,10 @@ data class DetailHistoryItemResponse(
     var paymentId: String?,
     @SerializedName("status")
     var status: String?,
-    @SerializedName("Tickets")
-    var tickets: List<Ticket>?,
     @SerializedName("total_price")
     var totalPrice: String?,
+    @SerializedName("updatedAt")
+    var updatedAt: String?,
     @SerializedName("user_id")
     var userId: String?
 )

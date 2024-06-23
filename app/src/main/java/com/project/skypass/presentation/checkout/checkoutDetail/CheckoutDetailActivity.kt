@@ -75,6 +75,7 @@ class CheckoutDetailActivity : AppCompatActivity() {
                     validUntil = it.validUntil,
                     seatsDepartureId = passengerData.seatIdDeparture?.get(index),
                     seatsArrivalId = passengerData.seatIdArrival?.get(index),
+                    passengerType = null
                 )
             },
             noOfPassenger = totalPassengers
