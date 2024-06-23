@@ -2,7 +2,7 @@ package com.project.skypass.data.source.network.service
 
 import com.project.skypass.BuildConfig
 import com.project.skypass.data.model.Response
-import com.project.skypass.data.source.network.model.booking.GetBookingResponse
+import com.project.skypass.data.source.network.model.booking.GetBookingDataResponse
 import com.project.skypass.data.source.network.model.checkout.request.CheckoutRequestResponse
 import com.project.skypass.data.source.network.model.checkout.response.CheckoutResponse
 import com.project.skypass.data.source.network.model.flight.detailflight.DetailFlightResponse
@@ -170,7 +170,7 @@ interface ApiService {
     suspend fun getBooking(
         @Header("Authorization") token: String,
         @Path("id") id: String
-    ): GetBookingResponse
+    ): GetBookingDataResponse
 
     @POST("transaction/payment/{id}")
     suspend fun createPayment(
@@ -187,7 +187,7 @@ interface ApiService {
     @GET("history/")
     suspend fun getAllHistorySearchHome(
         @Header("Authorization") token: String
-    ): Response<GetHistoryItemResponse>
+    ): Response<List<GetHistoryItemResponse>?>
 
     @POST("history/create")
     suspend fun createHistorySearchHome(
