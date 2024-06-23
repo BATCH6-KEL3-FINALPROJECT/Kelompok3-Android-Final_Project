@@ -2,7 +2,7 @@ package com.project.skypass.data.model
 
 import java.util.UUID
 
-data class BookingDataPassengers(
+data class Booking(
     var id: String = UUID.randomUUID().toString(),
     val bookingId: String,
     val bookingCode: String,
@@ -16,31 +16,23 @@ data class BookingDataPassengers(
     val totalPrice: String,
     val createdAt: String,
     val updatedAt: String,
-    val adult: Int,
-    val child: Int,
-)
-
-data class FlightDataBooking(
-    val flightId: String,
+    val adultPrice: Int,
+    val seatClass: String,
+    val totalAdult: Int,
+    val totalChild: Int,
+    val totalBaby: Int,
+    val airlineId: String,
     val flightDuration: Int,
-    val flightDescription: String?,
-    val flightStatus: String,
     val flightCode: String,
-    val planeType: String,
-    val seatsAvailable: Int,
-    val terminalDeparture: String,
-    val terminalArrival: String,
-    val isPromo: Boolean?,
+    val isPromo: Boolean,
+    val departureDate: String,
+    val arrivalDate: String,
+    val departureTime: String,
+    val arrivalTime: String,
     val departureAirport: String,
     val arrivalAirport: String,
-    val departureDate: String,
-    val departureTime: String,
-    val arrivalDate: String,
-    val arrivalTime: String,
+    val departureCity: String?,
+    val arrivalCity: String?,
     val departureAirportId: String,
     val arrivalAirportId: String,
-    val airlineId: String,
-    val airlineName: String,
-    val airlineCode: String,
-    val country: String
 )

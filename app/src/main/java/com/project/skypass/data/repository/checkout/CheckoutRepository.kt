@@ -1,5 +1,6 @@
 package com.project.skypass.data.repository.checkout
 
+import com.project.skypass.data.model.Booking
 import com.project.skypass.data.model.PassengersData
 import com.project.skypass.data.model.Payment
 import com.project.skypass.utils.ResultWrapper
@@ -19,7 +20,7 @@ interface CheckoutRepository {
         passenger: List<PassengersData>
     ): Flow<ResultWrapper<Boolean>>
 
-    /*fun getBookingData(token: String, bookingId: String): Flow<ResultWrapper<Booking>>*/
+    fun getBookingData(token: String, bookingId: String): Flow<ResultWrapper<List<Booking>>>
 
     fun createPayment(token: String, paymentId: String): Flow<ResultWrapper<Payment>>
 }

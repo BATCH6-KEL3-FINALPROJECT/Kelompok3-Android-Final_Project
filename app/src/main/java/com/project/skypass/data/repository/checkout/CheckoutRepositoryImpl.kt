@@ -1,7 +1,9 @@
 package com.project.skypass.data.repository.checkout
 
 import com.project.skypass.data.datasource.checkout.CheckoutDataSource
+import com.project.skypass.data.mapper.getListBookingData
 import com.project.skypass.data.mapper.toPayment
+import com.project.skypass.data.model.Booking
 import com.project.skypass.data.model.PassengersData
 import com.project.skypass.data.model.Payment
 import com.project.skypass.data.source.network.model.checkout.request.BuyerData
@@ -55,17 +57,22 @@ class CheckoutRepositoryImpl(private val dataSource: CheckoutDataSource): Checko
                 returnFlightId = returnFlightId,
                 totalAmount = totalAmount
             )
-            dataSource.createBooking(token = token, request).isSuccess ?: false
+            val tokenBearer = "Bearer $token"
+            dataSource.createBooking(token = tokenBearer, request).isSuccess ?: false
         }
     }
 
-    /*override fun getBookingData(token: String, bookingId: String): Flow<ResultWrapper<Booking>> {
-        TODO("Not yet implemented")
-    }*/
+    override fun getBookingData(token: String, bookingId: String): Flow<ResultWrapper<List<Booking>>> {
+        return proceedFlow {
+            val tokenBearer = "Bearer $token"
+            dataSource.getBookingData(tokenBearer, bookingId).data?.bookingData.getListBookingData()
+        }
+    }
 
     override fun createPayment(token: String, paymentId: String): Flow<ResultWrapper<Payment>> {
         return proceedFlow {
-            dataSource.createPayment(token, paymentId).data.toPayment()
+            val tokenBearer = "Bearer $token"
+            dataSource.createPayment(tokenBearer, paymentId).data.toPayment()
         }
     }
 }
