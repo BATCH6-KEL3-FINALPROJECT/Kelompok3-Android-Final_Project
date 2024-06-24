@@ -243,5 +243,9 @@
     <string name="text_explore_more">Explore More</string>
     <string name="text_fill_form">Silahkan isi semua form</string>
     <string name="text_not_login">Anda belum login!</string>
+    <string name="text_class_title">Class:</string>
+    <string name="text_total_payment">TOTAL</string>
+    <string name="text_list_passengers">Daftar Passengers</string>
+    <string name="text_title">Title</string>
 
 </resources>

@@ -66,9 +66,11 @@ class CheckoutSeatActivity : AppCompatActivity() {
                     selectedIdList: List<Int>,
                     view: View,
                 ) {
+                    getSeatTitle = emptyList()
+                    getSeatId = emptyList()
                     getSeatId = getSelectedSeatId(selectedIdList, listSeatId!!)
                     getSeatTitle = getSelectedTitle(selectedIdList, listTitle!!)
-                    Toast.makeText(this@CheckoutSeatActivity, "$getSeatId", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@CheckoutSeatActivity, "$getSeatTitle", Toast.LENGTH_SHORT).show()
                 }
 
                 override fun onBookedSeatClick(view: View) {
@@ -82,11 +84,7 @@ class CheckoutSeatActivity : AppCompatActivity() {
         seatBookView.setSeatLongClickListener(
             object : SeatLongClickListener {
                 override fun onAvailableSeatLongClick(view: View) {
-                    Toast.makeText(
-                        this@CheckoutSeatActivity,
-                        "seat ${item.airlineName}",
-                        Toast.LENGTH_SHORT
-                    ).show()
+
                 }
 
                 override fun onBookedSeatLongClick(view: View) {
@@ -226,7 +224,7 @@ class CheckoutSeatActivity : AppCompatActivity() {
                         familyName = passengerData.familyName,
                         noTelephone = passengerData.noTelephone,
                         passengers = passengerData.passengers, // need edit
-                        seatOrderDeparture = passengerData.seatIdDeparture,
+                        seatOrderDeparture = passengerData.seatOrderDeparture,
                         seatOrderArrival = getSeatTitle,
                         seatIdDeparture = passengerData.seatIdDeparture,
                         seatIdArrival = getSeatId

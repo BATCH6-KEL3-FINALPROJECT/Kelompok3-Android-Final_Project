@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import com.project.skypass.R
@@ -14,8 +13,8 @@ import com.project.skypass.data.model.OrderUser
 import com.project.skypass.data.model.PassengersData
 import com.project.skypass.databinding.ActivityCheckoutDetailBinding
 import com.project.skypass.presentation.checkout.checkoutDataPassenger.CheckoutDataPassengerActivity
+import com.project.skypass.presentation.checkout.checkoutPayment.CheckoutPaymentActivity
 import com.project.skypass.presentation.checkout.checkoutSeat.CheckoutSeatActivity
-import com.project.skypass.presentation.main.MainActivity
 import com.project.skypass.utils.toIndonesianFormat
 
 class CheckoutDetailActivity : AppCompatActivity() {
@@ -47,21 +46,26 @@ class CheckoutDetailActivity : AppCompatActivity() {
 
             intent.extras?.getParcelable<OrderPassengers>(CheckoutDataPassengerActivity.EXTRA_USER_ORDER)
                 ?.let { orderPassenger ->
-                    sendOrderData(it,orderPassenger)
+
                     setProfileData(it, orderPassenger)
                     val toCheckout = sendToPayment(it, orderPassenger)
-                    Log.d("checkSeatInPassengersData", "Passengers Data: ${toCheckout.passengersData}")
+                    sendOrderData(it, toCheckout, orderPassenger)
+                    Log.d(
+                        "checkSeatInPassengersData",
+                        "Passengers Data: ${toCheckout.passengersData}"
+                    )
                 }
-
         }
     }
-    private fun sendToPayment(item: OrderUser, passengerData: OrderPassengers):CheckoutPayment {
-        val totalPassengers = item.passengersBaby!! + item.passengersAdult!! + item.passengersChild!!
+
+    private fun sendToPayment(item: OrderUser, passengerData: OrderPassengers): CheckoutPayment {
+        val totalPassengers =
+            item.passengersBaby!! + item.passengersAdult!! + item.passengersChild!!
         val payment = CheckoutPayment(
             totalAmount = priceTotal!!,
             departureFlightId = item.flightId!!,
             returnFlightId = item.flightIdRoundTrip!!,
-            passengersData = passengerData.passengers!!.mapIndexed {index, it ->
+            passengersData = passengerData.passengers!!.mapIndexed { index, it ->
                 PassengersData(
                     title = it.title,
                     firstName = it.firstName,
@@ -131,9 +135,10 @@ class CheckoutDetailActivity : AppCompatActivity() {
                 rvTicketDetail.tvInfoDetail.text = item.flightDescription
                 rvTicketDetail.tvFlightCode.text = item.flightCode
                 rvTicketDetail.tvSeatChose.text = passengerData.seatOrderDeparture.toString()
-                if (item.seatsAvailableRoundTrip != null){
+
+                if (item.seatsAvailableRoundTrip != null) {
                     btnSubmit.text = getString(R.string.btn_detail_checkoutBack)
-                }else{
+                } else {
                     btnSubmit.text = getString(R.string.text_button_detail_checkout)
                 }
 
@@ -158,16 +163,15 @@ class CheckoutDetailActivity : AppCompatActivity() {
         }
     }
 
-    private fun sendOrderData(item: OrderUser, passengerData: OrderPassengers) {
+    private fun sendOrderData(item: OrderUser, passengerData: CheckoutPayment, orderPassenger: OrderPassengers) {
 
         binding.btnSubmit.setOnClickListener {
             if (item.supportRoundTrip == false) {
-                MainActivity.sendDataOrder(
+                CheckoutPaymentActivity.sendDataOrder(
                     this,
-                    item,
+                    item, passengerData
                 )
             } else {
-
                 CheckoutSeatActivity.sendDataOrder(
                     this,
                     OrderUser(
@@ -240,7 +244,7 @@ class CheckoutDetailActivity : AppCompatActivity() {
                         seatsAvailableRoundTrip = item.seatsAvailableRoundTrip,
                         terminalRoundTrip = item.terminalRoundTrip
                     ),
-                    passengerData
+                    orderPassenger
                 )
             }
         }

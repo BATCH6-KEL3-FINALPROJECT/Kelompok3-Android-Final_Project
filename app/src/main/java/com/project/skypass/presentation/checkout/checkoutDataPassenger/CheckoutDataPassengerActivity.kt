@@ -58,13 +58,11 @@ class CheckoutDataPassengerActivity : AppCompatActivity() {
         val section = getListData().map {
             val section = Section()
             section.setHeader(HeaderItem(it.name) { data ->
-                Toast.makeText(this, "Header Clicked : $data", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "$data", Toast.LENGTH_SHORT).show()
             })
             val dataSection = it.data.map {
                 DataItem(it!!) { passenger ->
                     dataPassengersOrder.add(passenger)
-                    Toast.makeText(this, "Item Clicked : $dataPassengersOrder", Toast.LENGTH_SHORT)
-                        .show()
                 }
             }
             section.addAll(dataSection)

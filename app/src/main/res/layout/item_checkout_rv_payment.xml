@@ -1,0 +1,25 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingVertical="8dp">
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_weight="1"
+        android:textColor="?attr/colorPrimary"
+        android:textStyle="bold"
+        android:text="Nama Pengunjung"
+        />
+
+    <TextView
+        android:id="@+id/tvPassenger_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ID: 19267523"
+        android:textStyle="bold"
+        android:textSize="14sp"
+        />
+</LinearLayout>
