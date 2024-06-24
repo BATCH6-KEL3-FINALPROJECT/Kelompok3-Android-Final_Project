@@ -18,7 +18,7 @@ class HistoryRepositoryImpl(private val historyDataSource: HistoryDataSource): H
     override fun getDetailHistory(token: String, id: String): Flow<ResultWrapper<History>> {
         return proceedFlow {
             val tokenBearer = "Bearer $token"
-            historyDataSource.getDetailHistory(tokenBearer, id).data?.booking.toDetailHistory()
+            historyDataSource.getDetailHistory(tokenBearer, id).data.toDetailHistory()
         }
     }
 
