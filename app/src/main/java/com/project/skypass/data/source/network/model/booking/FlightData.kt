@@ -16,8 +16,12 @@ data class FlightData(
     var arrivalDate: String?,
     @SerializedName("arrival_time")
     var arrivalTime: String?,
+    @SerializedName("arrivingAirport")
+    var arrivingAirport: ArrivingAirport?,
     @SerializedName("createdAt")
     var createdAt: String?,
+    @SerializedName("departingAirport")
+    var departingAirport: DepartingAirport?,
     @SerializedName("departure_airport")
     var departureAirport: String?,
     @SerializedName("departure_airport_id")
