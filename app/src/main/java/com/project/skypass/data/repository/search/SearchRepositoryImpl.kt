@@ -20,7 +20,7 @@ class SearchRepositoryImpl(private val dataSource: SearchDataSource): SearchRepo
     override fun getAllHistorySearchHome(token: String): Flow<ResultWrapper<List<SearchHistoryHome>>> {
         return proceedFlow {
             val tokenBearer = "Bearer $token"
-            dataSource.getAllHistorySearch(tokenBearer).data.toSearchHomeListHistory()
+            dataSource.getAllHistorySearch(tokenBearer).data?.history.toSearchHomeListHistory()
         }
     }
 

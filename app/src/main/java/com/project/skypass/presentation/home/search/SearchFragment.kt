@@ -1,6 +1,7 @@
 package com.project.skypass.presentation.home.search
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +10,9 @@ import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.android.material.chip.Chip
 import com.project.skypass.data.model.Search
+import com.project.skypass.data.model.SearchHistoryHome
 import com.project.skypass.databinding.FragmentSearchBinding
 import com.project.skypass.presentation.customview.DataSelection
 import com.project.skypass.presentation.home.search.adapter.SearchAdapter
@@ -21,7 +24,6 @@ class SearchFragment : BottomSheetDialogFragment() {
     private lateinit var binding: FragmentSearchBinding
     private val searchAdapter by lazy {
         SearchAdapter {selectedTrip ->
-            // Handle item click
             if (tag == "fromTrip") {
                 tripSelection?.onTripSelected(tag ?: "", selectedTrip)
             } else if (tag == "toTrip") {
@@ -45,6 +47,7 @@ class SearchFragment : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
         searchDestination()
+        setupSearchHistory()
     }
 
     private fun setupRecyclerView() {
@@ -54,38 +57,45 @@ class SearchFragment : BottomSheetDialogFragment() {
         }
     }
 
-    private fun searchDestination() {
-        /*binding.svCity.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String): Boolean {
-                Toast.makeText(requireContext(), query, Toast.LENGTH_SHORT).show()
-                viewModel.search(query).observe(viewLifecycleOwner) { results ->
-                    results.proceedWhen(
-                        doOnSuccess = {
-                            binding.rvSearchResult.isVisible = true
-                            binding.tvEmptySearchResult.isVisible = false
-                            it.payload?.let {
-                                bindDataToAdapter(it)
-                            }
-                        },
-                        doOnLoading = {
-                            binding.rvSearchResult.isVisible = false
-                            binding.tvEmptySearchResult.isVisible = false
-                        },
-                        doOnError = {
-                            binding.rvSearchResult.isVisible = false
-                            binding.tvEmptySearchResult.isVisible = true
-                        }
-                    )
+    private fun setupSearchHistory() {
+        val token = viewModel.getToken()
+        viewModel.getHistorySearch(token).observe(viewLifecycleOwner) { result ->
+            result.proceedWhen(
+                doOnSuccess = { data ->
+                    binding.rvSearchNow.isVisible = true
+                    binding.tvEmptySearchResult.isVisible = false
+                    data.payload?.let {
+                        bindHistoryToChipGroup(it)
+                    }
+                },
+                doOnLoading = {
+                    // Handle loading state if necessary
+                },
+                doOnError = {
+                    Toast.makeText(requireContext(), "Error", Toast.LENGTH_SHORT).show()
                 }
-                return true
+            )
+        }
+    }
+
+    private fun bindHistoryToChipGroup(historyList: List<SearchHistoryHome>) {
+        binding.rvSearchNow.removeAllViews()
+        for (history in historyList) {
+            val chip = Chip(requireContext()).apply {
+                text = history.history
+                isClickable = true
+                isCheckable = true
+                setOnCheckedChangeListener { _, isChecked ->
+                    // Handle chip checked state if necessary
+                }
             }
+            binding.rvSearchNow.addView(chip)
+        }
+        binding.rvSearchNow.childCount
+    }
 
-            override fun onQueryTextChange(newText: String?): Boolean {
-                return false
-            }
 
-        })*/
-
+    private fun searchDestination() {
         binding.svCity.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return false
