@@ -39,7 +39,7 @@ class SearchRepositoryImpl(private val dataSource: SearchDataSource): SearchRepo
         }
     }
 
-    override fun deleteHistorySearchHome(token: String, id: String): Flow<ResultWrapper<Boolean>> {
+    override fun deleteHistorySearchHome(token: String, id: Int): Flow<ResultWrapper<Boolean>> {
         return proceedFlow {
             val tokenBearer = "Bearer $token"
             dataSource.deleteHistorySearch(tokenBearer, id).isSuccess ?: false

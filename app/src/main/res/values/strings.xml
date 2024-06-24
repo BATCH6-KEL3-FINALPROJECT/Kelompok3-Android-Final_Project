@@ -177,7 +177,7 @@
     <string name="adult">Dewasa</string>
     <string name="search_title">Pilih Kota Tujuan</string>
     <string name="search_hint">Pilih kota tujuan</string>
-    <string name="history_search_title">Pencarian terkini</string>
+    <string name="history_search_title">Pencarian terakhir</string>
     <string name="delete">Hapus</string>
     <string name="no_history_search">Tidak ada histori pencarian</string>
     <string name="search_result">Hasil pencarian</string>

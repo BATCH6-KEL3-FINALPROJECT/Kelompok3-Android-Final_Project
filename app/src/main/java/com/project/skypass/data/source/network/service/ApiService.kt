@@ -182,7 +182,7 @@ interface ApiService {
     @DELETE("history/delete/{id}")
     suspend fun deleteHistorySearchHome(
         @Header("Authorization") token: String,
-        @Path("id") id: String
+        @Path("id") id: Int
     ): DeleteHistorySearchResponse
 
     @GET("history/")
@@ -206,7 +206,7 @@ interface ApiService {
                     .connectTimeout(100, TimeUnit.SECONDS)
                     .readTimeout(100, TimeUnit.SECONDS)
                     .addInterceptor(loggingInterceptor)
-                    .addInterceptor(ErrorInterceptor())
+                    //.addInterceptor(ErrorInterceptor())
                     .build()
             val retrofit =
                 Retrofit.Builder()

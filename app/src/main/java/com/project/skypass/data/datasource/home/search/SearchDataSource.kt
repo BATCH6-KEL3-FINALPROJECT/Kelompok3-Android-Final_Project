@@ -12,5 +12,5 @@ interface SearchDataSource {
     suspend fun getSearchResults(query: String?): SearchResponse
     suspend fun getAllHistorySearch(token: String): GetHistoryResponse
     suspend fun createHistorySearch(token: String, payload: HistoryRequestResponse): PostHistoryRespomse
-    suspend fun deleteHistorySearch(token: String, id: String): DeleteHistorySearchResponse
+    suspend fun deleteHistorySearch(token: String, id: Int): DeleteHistorySearchResponse
 }

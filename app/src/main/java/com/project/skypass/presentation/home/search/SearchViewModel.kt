@@ -21,10 +21,10 @@ class SearchViewModel(
     fun getHistorySearch(token: String): LiveData<ResultWrapper<List<SearchHistoryHome>>> {
         return repository.getAllHistorySearchHome(token).asLiveData(Dispatchers.IO)
     }
-    fun insertHistorySearch(token: String, history: String): Flow<ResultWrapper<Boolean>> {
-        return repository.createHistorySearchHome(token, history)
+    fun insertHistorySearch(token: String, history: String): LiveData<ResultWrapper<Boolean>> {
+        return repository.createHistorySearchHome(token, history).asLiveData(Dispatchers.IO)
     }
-    fun deleteHistorySearch(token: String, id: String): Flow<ResultWrapper<Boolean>> {
-        return repository.deleteHistorySearchHome(token, id)
+    fun deleteHistorySearch(token: String, id: Int): LiveData<ResultWrapper<Boolean>> {
+        return repository.deleteHistorySearchHome(token, id).asLiveData(Dispatchers.IO)
     }
 }

@@ -27,7 +27,7 @@ class SearchDataSourceImpl(private val service: ApiService): SearchDataSource {
 
     override suspend fun deleteHistorySearch(
         token: String,
-        id: String
+        id: Int
     ): DeleteHistorySearchResponse {
         return service.deleteHistorySearchHome(token, id)
     }

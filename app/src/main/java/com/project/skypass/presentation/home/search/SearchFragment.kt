@@ -8,9 +8,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
+import androidx.core.view.marginBottom
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.chip.Chip
+import com.project.skypass.R
 import com.project.skypass.data.model.Search
 import com.project.skypass.data.model.SearchHistoryHome
 import com.project.skypass.databinding.FragmentSearchBinding
@@ -29,6 +31,7 @@ class SearchFragment : BottomSheetDialogFragment() {
             } else if (tag == "toTrip") {
                 tripSelection?.onTripSelected(tag ?: "", selectedTrip)
             }
+            insertHistory(selectedTrip.city)
             dismiss()
         }
     }
@@ -46,8 +49,31 @@ class SearchFragment : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
+        showDataSuggestionSearch()
         searchDestination()
         setupSearchHistory()
+    }
+
+    private fun showDataSuggestionSearch(){
+        viewModel.search().observe(viewLifecycleOwner) { results ->
+            results.proceedWhen(
+                doOnSuccess = {
+                    binding.rvSearchResult.isVisible = true
+                    binding.tvEmptySearchResult.isVisible = false
+                    it.payload?.let {
+                        bindDataToAdapter(it)
+                    }
+                },
+                doOnLoading = {
+                    binding.rvSearchResult.isVisible = false
+                    binding.tvEmptySearchResult.isVisible = false
+                },
+                doOnError = {
+                    binding.rvSearchResult.isVisible = false
+                    binding.tvEmptySearchResult.isVisible = true
+                }
+            )
+        }
     }
 
     private fun setupRecyclerView() {
@@ -85,8 +111,31 @@ class SearchFragment : BottomSheetDialogFragment() {
                 text = history.history
                 isClickable = true
                 isCheckable = true
+                chipStrokeWidth = 0.0f
+                isCloseIconVisible = true
+                chipCornerRadius = 36f
                 setOnCheckedChangeListener { _, isChecked ->
-                    // Handle chip checked state if necessary
+                    if (isChecked) {
+                        binding.svCity.setQuery(history.history, false)
+                    }
+                }
+                setOnCloseIconClickListener {
+                    viewModel.deleteHistorySearch(
+                        viewModel.getToken(),
+                        history.idHistory
+                    ).observe(viewLifecycleOwner){result ->
+                        result.proceedWhen(
+                            doOnSuccess = {
+                                binding.rvSearchNow.removeView(this)
+                            },
+                            doOnLoading = {
+
+                            },
+                            doOnError = {
+
+                            }
+                        )
+                    }
                 }
             }
             binding.rvSearchNow.addView(chip)
@@ -128,6 +177,24 @@ class SearchFragment : BottomSheetDialogFragment() {
 
     private fun bindDataToAdapter(data: List<Search>) {
         searchAdapter.submitData(data)
+    }
+
+    private fun insertHistory(city: String) {
+        val token = viewModel.getToken()
+        viewModel.insertHistorySearch(token, city).observe(viewLifecycleOwner) { result ->
+            result.proceedWhen(
+                doOnSuccess = {
+                    setupSearchHistory() // Refresh the search history chips
+                    Toast.makeText(requireContext(), "Added to history", Toast.LENGTH_SHORT).show()
+                },
+                doOnLoading = {
+                    // Optionally show a loading indicator
+                },
+                doOnError = {
+                    Toast.makeText(requireContext(), "Failed to add to history", Toast.LENGTH_SHORT).show()
+                }
+            )
+        }
     }
 
 }
