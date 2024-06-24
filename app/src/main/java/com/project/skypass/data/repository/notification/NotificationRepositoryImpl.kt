@@ -11,7 +11,8 @@ import kotlinx.coroutines.flow.Flow
 class NotificationRepositoryImpl(private val dataSource: NotificationDataSource): NotificationRepository {
     override fun getNotifications(token: String): Flow<ResultWrapper<List<Notification>>> {
         return proceedFlow {
-            dataSource.getNotifications(token).data?.notification.toNotificationItems()
+            val tokenBearer = "Bearer $token"
+            dataSource.getNotifications(tokenBearer).data?.notification.toNotificationItems()
         }
     }
 
@@ -20,8 +21,11 @@ class NotificationRepositoryImpl(private val dataSource: NotificationDataSource)
         id: String
     ): Flow<ResultWrapper<Notification>> {
         return proceedFlow {
-            dataSource.getDetailNotification(token, id).data?.notification.toDetailNotification()
+            val tokenBearer = "Bearer $token"
+            dataSource.getDetailNotification(
+                tokenBearer,
+                id
+            ).data?.notification.toDetailNotification()
         }
     }
-
 }

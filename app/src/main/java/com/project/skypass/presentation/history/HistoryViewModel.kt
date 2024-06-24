@@ -20,5 +20,4 @@ class HistoryViewModel(
 
     fun getAllHistory(token: String) = historyRepository.getHistory(token).asLiveData(Dispatchers.IO)
 
-
 }

@@ -52,7 +52,7 @@ class DetailHistoryAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: TicketHistory) {
             binding.tvNamePassengers.text = "${item.passengerFirstName}" + "  ${item.passengerLastName}"
-            binding.idPassengers.text = item.seatClass
+            binding.idPassengers.text = item.passengerId
 
             itemView.setOnClickListener {
                 listener.onItemClicked(item)

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.project.skypass.R
@@ -67,6 +68,7 @@ class NotificationFragment : Fragment() {
                         }
                 },
                 doOnEmpty = {
+                    binding.layoutContentState.textError.isVisible = true
                     binding.layoutContentState.root.isVisible = true
                     binding.layoutContentState.textError.text =
                         getString(R.string.text_empty_notification)
@@ -77,20 +79,16 @@ class NotificationFragment : Fragment() {
                     binding.layoutContentState.textError.isVisible = false
                     binding.layoutContentState.pbLoadingEmptyState.isVisible = true
                 }, doOnError = {
+                    binding.layoutContentState.textError.isVisible = true
+                    Toast.makeText(requireContext(), "error broo", Toast.LENGTH_SHORT).show()
                     binding.layoutContentState.root.isVisible = true
                     binding.layoutContentState.textError.text =
                         getString(R.string.text_error_seat_checkout)
                     binding.layoutContentState.pbLoadingEmptyState.isVisible = false
-                    /*it.exception?.let { e ->
-                        if (activity is BaseActivity) {
-//                            (activity as BaseActivity).handleTokenExpired(e)
-                        }
-                    }*/
                 }
             )
         }
     }
-
 
     private fun navigateToDetail(item: Notification) {
         DetailNotificationActivity.startActivity(
