@@ -6,12 +6,18 @@ import com.google.gson.annotations.SerializedName
 data class GetBookingDataItemResponse(
     @SerializedName("adultPrice")
     var adultPrice: Int?,
+    @SerializedName("adultTotalPrice")
+    var adultTotalPrice: Int?,
+    @SerializedName("babyTotalPrice")
+    var babyTotalPrice: Int?,
     @SerializedName("booking_code")
     var bookingCode: String?,
     @SerializedName("booking_date")
     var bookingDate: String?,
     @SerializedName("booking_id")
     var bookingId: String?,
+    @SerializedName("childTotalPrice")
+    var childTotalPrice: Int?,
     @SerializedName("createdAt")
     var createdAt: String?,
     @SerializedName("flightData")

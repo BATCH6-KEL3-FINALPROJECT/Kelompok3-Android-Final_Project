@@ -32,8 +32,8 @@ fun GetBookingDataItemResponse?.getBookingData() =
             arrivalTime = this?.flightData?.arrivalTime.orEmpty(),
             departureAirport = this?.flightData?.departureAirport.orEmpty(),
             arrivalAirport = this?.flightData?.arrivalAirport.orEmpty(),
-            departureCity = null,
-            arrivalCity = null,
+            departureCity = this?.flightData?.departingAirport?.city.orEmpty(),
+            arrivalCity = this?.flightData?.arrivingAirport?.city.orEmpty(),
             departureAirportId = this?.flightData?.departureAirportId.orEmpty(),
             arrivalAirportId = this?.flightData?.arrivalAirportId.orEmpty(),
     )

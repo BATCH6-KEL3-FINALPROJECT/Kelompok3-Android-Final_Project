@@ -25,7 +25,6 @@ import com.project.skypass.data.source.network.model.resetpassword.ResetPassword
 import com.project.skypass.data.source.network.model.search.SearchResponse
 import com.project.skypass.data.source.network.model.search.deletehistory.DeleteHistorySearchResponse
 import com.project.skypass.data.source.network.model.search.gethistory.GetHistoryItemResponse
-import com.project.skypass.data.source.network.model.search.gethistory.GetHistoryResponse
 import com.project.skypass.data.source.network.model.search.posthistory.PostHistoryRespomse
 import com.project.skypass.data.source.network.model.search.posthistory.request.HistoryRequestResponse
 import com.project.skypass.data.source.network.model.seat.SeatResponse
