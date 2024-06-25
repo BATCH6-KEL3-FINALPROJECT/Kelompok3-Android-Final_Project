@@ -4,9 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
+import com.project.skypass.data.model.BannerHome
 import com.project.skypass.data.model.OrderUser
 import com.project.skypass.data.model.User
 import com.project.skypass.data.repository.OrderHistory.OrderHistoryRepository
+import com.project.skypass.data.repository.bannerHome.BannerHomeRepository
 import com.project.skypass.data.repository.favoritedestination.FavoriteDestinationRepository
 import com.project.skypass.data.repository.pref.PrefRepository
 import com.project.skypass.data.repository.user.UserRepository
@@ -19,7 +21,11 @@ class HomeViewModel(
     private val favoriteRepository: FavoriteDestinationRepository,
     private val orderHistoryRepository: OrderHistoryRepository,
     private val prefRepository: PrefRepository,
+    private val bannerHome: BannerHomeRepository,
     private val userRepository: UserRepository,): ViewModel() {
+
+
+    fun getBannerHome() = bannerHome.getBannerData()
     fun getFavoriteDestination() = favoriteRepository.getFavoriteDestination()
     fun getAllOrderHistory() = orderHistoryRepository.getUserOrderHistoryData().asLiveData(Dispatchers.IO)
     fun deleteAllOrderHistory() = orderHistoryRepository.deleteAllOrderHistory().asLiveData(Dispatchers.IO)

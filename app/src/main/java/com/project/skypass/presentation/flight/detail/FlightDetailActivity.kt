@@ -5,18 +5,13 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
-import com.kizitonwose.calendar.core.CalendarDay
 import com.kizitonwose.calendar.core.WeekDay
 import com.kizitonwose.calendar.core.atStartOfMonth
 import com.kizitonwose.calendar.core.firstDayOfWeekFromLocale
-import com.kizitonwose.calendar.view.MonthDayBinder
 import com.kizitonwose.calendar.view.ViewContainer
 import com.kizitonwose.calendar.view.WeekDayBinder
-import com.project.skypass.R
 import com.project.skypass.data.model.Flight
 import com.project.skypass.data.model.OrderUser
 import com.project.skypass.databinding.ActivityFlightDetailBinding
@@ -25,12 +20,12 @@ import com.project.skypass.presentation.flight.detail.adapter.FlightDetailAdapte
 import com.project.skypass.presentation.flight.detail.adapter.OnItemClickedListener
 import com.project.skypass.presentation.flight.filter.FilterFragment
 import com.project.skypass.presentation.flight.result.FlightResultActivity
+import com.project.skypass.utils.convertFlightDetail
 import com.project.skypass.utils.convertMinutesToHours
 import com.project.skypass.utils.displayText
 import com.project.skypass.utils.getWeekPageTitle
 import com.project.skypass.utils.proceedWhen
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.YearMonth
 import java.time.format.DateTimeFormatter
@@ -47,19 +42,19 @@ class FlightDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        setupAdapter()
         getArgumentData()
-        selectedDate()
         setClickListeners()
-        observeFlightData()
     }
 
     private fun selectedDate() {
         val date = flightDetailViewModel.date
         selectedDate = date?.let { LocalDate.parse(it) }
         selectedDate?.let {
+            flightDetailViewModel.setDepartureDate = it.toString()
             flightDetailViewModel.setSelectedDate(it)
             setupCalendarView(it)
+            setupAdapter()
+            observeFlightData()
         }
     }
 
@@ -77,8 +72,8 @@ class FlightDetailActivity : AppCompatActivity() {
     }
 
     private fun onItemClick(flight: Flight) {
-        intent.extras?.getParcelable<OrderUser>(EXTRA_FLIGHT)?. let {
-            sendOrderData(it,flight)
+        intent.extras?.getParcelable<OrderUser>(EXTRA_FLIGHT)?.let {
+            sendOrderData(it, flight)
         }
     }
 
@@ -101,11 +96,13 @@ class FlightDetailActivity : AppCompatActivity() {
             init {
                 view.setOnClickListener {
                     if (this@FlightDetailActivity.selectedDate != day.date) {
-                        val oldDate = this@FlightDetailActivity.selectedDate
                         this@FlightDetailActivity.selectedDate = day.date
+                        val oldDate = this@FlightDetailActivity.selectedDate
+                        flightDetailViewModel.setDepartureDate = day.date.toString()
                         flightDetailViewModel.setSelectedDate(day.date)
                         binding.cvCalender.notifyDateChanged(day.date)
                         oldDate?.let { binding.cvCalender.notifyDateChanged(it) }
+                        selectedDate()
                     }
                 }
             }
@@ -176,36 +173,21 @@ class FlightDetailActivity : AppCompatActivity() {
         }
     }
 
-    companion object {
-        const val EXTRA_FLIGHT = "extra_flight"
-        fun startActivity(
-            context: Context,
-            orderData: OrderUser,
-        ) {
-            val intent = Intent(context, FlightDetailActivity::class.java)
-            intent.putExtra(EXTRA_FLIGHT, orderData)
-            context.startActivity((intent))
-        }
-    }
 
     private fun getArgumentData() {
-        intent.extras?.getParcelable<OrderUser>(EXTRA_FLIGHT)?. let {
+        intent.extras?.getParcelable<OrderUser>(EXTRA_FLIGHT)?.let {
             flightDetailViewModel.getHomeData(it)
+            saveToOrderHistory(it)
             setProfileData(it)
-            if (it.isRoundTrip == true && it.supportRoundTrip == true) {
-                saveToOrderHistory(it)
-            }else if (it.supportRoundTrip == false) {
-                saveToOrderHistory(it)
-            }
+            selectedDate()
         }
     }
 
     @SuppressLint("SetTextI18n")
-    private fun setProfileData(item: OrderUser){
+    private fun setProfileData(item: OrderUser) {
         binding.tvTypeFlight.text = item.seatClass
-        binding.tvPassenger.text = item.passengersTotal
+        binding.tvPassenger.text = "${item.passengersTotal} Penumpang"
         binding.tvDestination.text = "${item.departureCity} > ${item.arrivalCity}"
-
     }
 
     private fun sendOrderData(item: OrderUser, itemFlight: Flight) {
@@ -239,7 +221,11 @@ class FlightDetailActivity : AppCompatActivity() {
                 flightCode = itemFlight.flightCode,
                 flightDescription = itemFlight.flightDescription,
                 flightDuration = itemFlight.flightDuration,
-                flightDurationFormat =  itemFlight.flightDuration?.let { duration -> val (_, _) = convertMinutesToHours(duration)}.toString(),
+                flightDurationFormat = itemFlight.flightDuration?.let { duration ->
+                    val (_, _) = convertMinutesToHours(
+                        duration
+                    )
+                }.toString(),
                 flightId = itemFlight.flightId,
                 flightStatus = itemFlight.flightStatus,
                 flightSeat = itemFlight.seatClass,
@@ -283,5 +269,18 @@ class FlightDetailActivity : AppCompatActivity() {
             )
         )
     }
+
+    companion object {
+        const val EXTRA_FLIGHT = "extra_flight"
+        fun startActivity(
+            context: Context,
+            orderData: OrderUser,
+        ) {
+            val intent = Intent(context, FlightDetailActivity::class.java)
+            intent.putExtra(EXTRA_FLIGHT, orderData)
+            context.startActivity((intent))
+        }
+    }
+
 
 }
