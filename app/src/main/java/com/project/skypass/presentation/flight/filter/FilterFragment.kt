@@ -24,8 +24,8 @@ class FilterFragment : BottomSheetDialogFragment() {
     }
 
     private fun setOnClickListeners() {
-//        binding.ivClose.setOnClickListener {
-//            dismiss()
-//        }
+        binding.ivClose.setOnClickListener {
+            dismiss()
+        }
     }
 }

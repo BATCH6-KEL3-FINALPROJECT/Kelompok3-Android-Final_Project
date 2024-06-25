@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import coil.load
+import coil.size.Scale
 import com.project.skypass.R
 import com.project.skypass.data.model.DateCalendar
 import com.project.skypass.data.model.Destination
@@ -14,18 +16,19 @@ import com.project.skypass.data.model.OrderUser
 import com.project.skypass.data.model.Search
 import com.project.skypass.data.model.SeatClass
 import com.project.skypass.databinding.FragmentHomeBinding
-import com.project.skypass.presentation.home.calendar.CalendarFragment
 import com.project.skypass.presentation.customview.DataSelection
 import com.project.skypass.presentation.flight.detail.FlightDetailActivity
 import com.project.skypass.presentation.home.adapter.FavoriteDestinationAdapter
 import com.project.skypass.presentation.home.adapter.OrderHistoryAdapter
-import com.project.skypass.presentation.home.adapter.OrderHistoryItemListener
+import com.project.skypass.presentation.home.calendar.CalendarFragment
 import com.project.skypass.presentation.home.flightclass.FlightClassFragment
 import com.project.skypass.presentation.home.passengers.PassengersFragment
 import com.project.skypass.presentation.home.search.SearchFragment
+import com.project.skypass.presentation.main.MainActivity
 import com.project.skypass.utils.convertDateFormat
 import com.project.skypass.utils.orderDate
 import com.project.skypass.utils.proceedWhen
+import io.github.muddz.styleabletoast.StyleableToast
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeFragment : Fragment(), DataSelection {
@@ -64,6 +67,14 @@ class HomeFragment : Fragment(), DataSelection {
         observeDataOrderHistory()
         clickItemOrderHistory()
         bindSeatClass(viewModel.getFavoriteDestination())
+        displayProfileData()
+        setOnClickedListener()
+    }
+
+    private fun setOnClickedListener() {
+        binding.ivPhotoUser.setOnClickListener {
+            navigationToProfile()
+        }
     }
 
     private fun bindSeatClass(favDestination: List<Destination>) {
@@ -75,10 +86,40 @@ class HomeFragment : Fragment(), DataSelection {
 
     private fun sendData() {
         binding.btnSearchFlight.setOnClickListener {
-            moveToFlight()
+            if (checkAllForm()){
+                moveToFlight()
+            }else{
+                StyleableToast.makeText(requireContext(), "Silahkan isi semua form", R.style.ToastError).show()
+            }
+
         }
     }
 
+    private fun displayProfileData() {
+        val userId = viewModel.getUserId()
+        viewModel.showDataUser(userId).observe(viewLifecycleOwner) { result ->
+            result.proceedWhen(
+                doOnSuccess = {
+                    binding.tvNameUser.text = "Hi, " + it.payload?.name
+                    binding.ivPhotoUser.load(it.payload?.photoUrl) {
+                        fallback(R.drawable.iv_profile)
+                        crossfade(true)
+                        scale(Scale.FILL)
+                    }
+                },
+                doOnLoading = {
+                },
+                doOnError = {
+                }
+
+            )
+        }
+    }
+
+    private fun navigationToProfile() {
+        if (requireActivity() !is MainActivity) return
+        (requireActivity() as MainActivity).navigateToProfile()
+    }
 
 
     private fun moveToFlight() {
@@ -99,8 +140,6 @@ class HomeFragment : Fragment(), DataSelection {
                 isRoundTrip = binding.rbRoundTrip.isChecked,
                 supportRoundTrip = binding.rbRoundTrip.isChecked,
                 orderDate = orderDate(),
-
-
 
                 // Flight Data (One Way)
                 airlineCode = "",
@@ -255,7 +294,13 @@ class HomeFragment : Fragment(), DataSelection {
         }
     }
 
-    override fun onPassengerSelected(tag: String, passenger: String, adult: Int, child: Int, baby: Int) {
+    override fun onPassengerSelected(
+        tag: String,
+        passenger: String,
+        adult: Int,
+        child: Int,
+        baby: Int
+    ) {
         when (tag) {
             "passengers" -> {
                 binding.etPassengers.setText(getString(R.string.passengers_qyt_value, passenger))
@@ -290,22 +335,46 @@ class HomeFragment : Fragment(), DataSelection {
     private fun observeDataOrderHistory() {
         viewModel.getAllOrderHistory().observe(viewLifecycleOwner) {
             it.proceedWhen(doOnSuccess = {
+                binding.ivEmptyHistory.isVisible = false
                 binding.rvLastSearch.isVisible = true
                 binding.tvLastSearchNotFound.isVisible = false
-                it.payload?.let { (item,data) ->
-                    orderHistoryAdapter.submitData(item,data)
+                it.payload?.let { (item, data) ->
+                    orderHistoryAdapter.submitData(item, data)
                 }
             }, doOnLoading = {
-                binding.rvLastSearch.isVisible = true
+                binding.ivEmptyHistory.isVisible = false
+                binding.rvLastSearch.isVisible = false
                 binding.tvLastSearchNotFound.isVisible = true
+                binding.tvLastSearchNotFound.text = getString(R.string.loading)
+
             }, doOnError = { err ->
+                binding.ivEmptyHistory.isVisible = false
                 binding.rvLastSearch.isVisible = false
                 binding.tvLastSearchNotFound.text = err.exception?.message.orEmpty()
             }, doOnEmpty = {
+                binding.ivEmptyHistory.isVisible = true
                 binding.rvLastSearch.isVisible = false
-                binding.tvLastSearchNotFound.isVisible = true
+                binding.tvLastSearchNotFound.isVisible = false
+                binding.ivEmptyHistory.load("https://github.com/riansyah251641/food_app_asset/blob/main/banner/empty_history_search.png?raw=true") {
+                    crossfade(true)
+                }
             })
         }
+    }
+
+    private fun checkAllForm(): Boolean {
+        var check = true
+        if (
+            binding.etFromTrip.text.toString().isEmpty() &&
+            binding.etToTrip.text.toString().isEmpty() &&
+            binding.etSeatClass.text.toString().isEmpty() &&
+            binding.etDeparture.text.toString().isEmpty() &&
+            binding.etReturn.text.toString().isEmpty() &&
+            binding.etPassengers.text.toString().isEmpty()
+        ) {
+            check = false
+        }
+        return check
     }
 
     private fun clickItemOrderHistory() {
@@ -313,10 +382,10 @@ class HomeFragment : Fragment(), DataSelection {
         binding.rvLastSearch.adapter = orderHistoryAdapter
     }
 
-    private fun deleteAllOrderHistory(){
+    private fun deleteAllOrderHistory() {
         viewModel.deleteAllOrderHistory().observe(viewLifecycleOwner) {
             it.proceedWhen(doOnSuccess = {
-                Toast.makeText(requireContext(), "Menghapus Riwayat Pemesanan", Toast.LENGTH_SHORT).show()
+                StyleableToast.makeText(requireContext(), "Menghapus Riwayat Pemesanan", R.style.ToastSuccess).show()
             }, doOnLoading = {
 
             }, doOnError = { err ->

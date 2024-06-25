@@ -27,11 +27,7 @@ class MainActivity : BaseActivity() {
         setContentView(binding.root)
         setBottomNav()
 
-//        val fragment = intent.getStringExtra("fragment")
-//        if (fragment == "profile") {
-//            val navController = findNavController(R.id.nav_host_fragment_activity_main)
-//            navController.navigate(R.id.menu_tab_profile)
-//        }
+
     }
 
     private fun setBottomNav() {
@@ -88,6 +84,12 @@ class MainActivity : BaseActivity() {
             intent.putExtra(EXTRA_FLIGHT, orderUser)
             context.startActivity(intent)
         }
+    }
+
+    fun navigateToProfile() {
+        val navController = findNavController(R.id.nav_host_fragment_activity_main)
+        binding.navBottomView.selectedItemId = R.id.menu_tab_profile
+        navController.navigate(R.id.menu_tab_profile)
     }
 
     private fun showLoginBottomSheet() {
