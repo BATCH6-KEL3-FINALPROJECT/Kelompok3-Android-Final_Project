@@ -14,36 +14,78 @@
         <View
             android:id="@+id/view_header_home"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:background="@drawable/bg_header_home"
+            android:layout_height="60dp"
+            android:background="?attr/colorPrimary"
             android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/iv_icon_header_home"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/logo_skypass"
-            android:layout_marginTop="16dp"
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/iv_photo_user"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/ic_profile"
+            android:scaleType="fitXY"
             android:background="@drawable/bg_filter"
+            android:layout_marginTop="12dp"
+            app:shapeAppearanceOverlay="@style/Circular"
             android:layout_marginStart="16dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <LinearLayout
+            android:id="@+id/ll_banner_home"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorPrimary"
+            android:paddingBottom="16dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view_header_home">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/text_title_home_banner"
+                android:paddingBottom="8dp"
+                android:textStyle="bold"
+                android:textSize="24sp"
+                android:textColor="?attr/colorOnPrimary"
+                android:layout_marginHorizontal="16dp" />
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/vp_banner_home"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:layout_height="170dp" />
+
+        <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
+            android:id="@+id/di_promotion_page_indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-12dp"
+            app:dotsColor="?attr/colorPrimaryContainer"
+            android:layout_gravity="center"
+            app:dotsSize="6dp"
+            app:progressMode="true"
+            app:selectedDotColor="?attr/colorPrimary" />
+        </LinearLayout>
 
         <TextView
-            android:id="@+id/tv_title_icon_home"
+            android:id="@+id/tv_name_user"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/skypass"
             android:textColor="#FFFFFF"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:textStyle="bold"
             android:layout_marginStart="16dp"
-            app:layout_constraintBottom_toBottomOf="@+id/iv_icon_header_home"
-            app:layout_constraintStart_toEndOf="@+id/iv_icon_header_home"
-            app:layout_constraintTop_toTopOf="@+id/iv_icon_header_home" />
+            app:layout_constraintBottom_toBottomOf="@+id/iv_photo_user"
+            app:layout_constraintStart_toEndOf="@+id/iv_photo_user"
+            app:layout_constraintTop_toTopOf="@+id/iv_photo_user" />
 
         <View
             android:id="@+id/iv_bg_home"
@@ -52,19 +94,19 @@
             android:background="@drawable/bg_gradient_purple_white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view_header_home" />
+            app:layout_constraintTop_toBottomOf="@+id/ll_banner_home" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/card_trip_all"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="-64dp"
+            android:layout_marginTop="14dp"
             app:cardCornerRadius="10dp"
             app:cardElevation="0dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view_header_home">
+            app:layout_constraintTop_toBottomOf="@+id/ll_banner_home">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -550,8 +592,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layout_last_search"
             android:layout_width="match_parent"
-
-            android:layout_height="100dp"
+            android:layout_height="120dp"
             android:layout_marginTop="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -577,12 +618,23 @@
                 android:layout_height="match_parent"
                 android:text="@string/history_search_empty"
                 android:textStyle="italic"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iv_empty_history"
                 android:gravity="center|center"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent" />
+
+            <ImageView
+                android:id="@+id/iv_empty_history"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="parent"
+                android:visibility="visible"
+                />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -615,6 +667,7 @@
                 android:id="@+id/rv_favorite_destination"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:orientation="vertical"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:layout_constraintBottom_toBottomOf="parent"

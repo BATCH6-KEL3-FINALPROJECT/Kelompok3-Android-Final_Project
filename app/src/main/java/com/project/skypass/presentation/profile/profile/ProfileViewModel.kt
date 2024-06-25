@@ -9,5 +9,4 @@ import com.project.skypass.data.repository.profile.ProfileRepository
 
 class ProfileViewModel(private val repository: ProfileRepository, ) : ViewModel() {
     fun getProfile() = repository.getProfile()
-
 }
