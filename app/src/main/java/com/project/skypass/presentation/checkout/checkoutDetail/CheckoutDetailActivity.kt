@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import com.project.skypass.R
@@ -13,12 +14,14 @@ import com.project.skypass.data.model.OrderUser
 import com.project.skypass.data.model.PassengersData
 import com.project.skypass.databinding.ActivityCheckoutDetailBinding
 import com.project.skypass.presentation.checkout.checkoutDataPassenger.CheckoutDataPassengerActivity
-import com.project.skypass.presentation.checkout.checkoutPayment.CheckoutPaymentActivity
 import com.project.skypass.presentation.checkout.checkoutSeat.CheckoutSeatActivity
+import com.project.skypass.utils.proceedWhen
 import com.project.skypass.utils.toIndonesianFormat
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class CheckoutDetailActivity : AppCompatActivity() {
     private val binding by lazy { ActivityCheckoutDetailBinding.inflate(layoutInflater) }
+    private val viewModel: CheckoutDetailViewModel by viewModel()
 
     var priceTotal: Int? = null
     var priceAdult: Int? = null
@@ -37,16 +40,11 @@ class CheckoutDetailActivity : AppCompatActivity() {
         }
     }
 
-    private fun observeResult() {
-//        observe view model
-    }
-
     private fun getArgumentData() {
         intent.extras?.getParcelable<OrderUser>(EXTRA_FLIGHT)?.let {
 
             intent.extras?.getParcelable<OrderPassengers>(CheckoutDataPassengerActivity.EXTRA_USER_ORDER)
                 ?.let { orderPassenger ->
-
                     setProfileData(it, orderPassenger)
                     val toCheckout = sendToPayment(it, orderPassenger)
                     sendOrderData(it, toCheckout, orderPassenger)
@@ -163,13 +161,57 @@ class CheckoutDetailActivity : AppCompatActivity() {
         }
     }
 
-    private fun sendOrderData(item: OrderUser, passengerData: CheckoutPayment, orderPassenger: OrderPassengers) {
+    private fun observeResult(
+        totalAmount: Int,
+        departureFlightId: String,
+        returnFlightId: String?,
+        fullName: String? = null,
+        familyName: String? = null,
+        email: String? = null,
+        phone: String? = null,
+        passenger: List<PassengersData>
+    ) {
+        viewModel.createBooking(
+            viewModel.getToken(),
+            totalAmount,
+            departureFlightId,
+            returnFlightId,
+            fullName,
+            familyName,
+            email,
+            phone,
+            passenger
+        ).observe(this){
+            it.proceedWhen(
+                doOnSuccess = {
+                    Toast.makeText(this, "Berhasil kirim data", Toast.LENGTH_SHORT).show()
+                },
+                doOnLoading = {
 
+                },
+                doOnError = {
+
+                }
+            )
+        }
+    }
+
+    private fun sendOrderData(item: OrderUser, passengerData: CheckoutPayment, orderPassenger: OrderPassengers) {
         binding.btnSubmit.setOnClickListener {
             if (item.supportRoundTrip == false) {
-                CheckoutPaymentActivity.sendDataOrder(
+                /*CheckoutPaymentActivity.sendDataOrder(
                     this,
                     item, passengerData
+                )*/
+                observeResult(
+                    passengerData.totalAmount,
+                    passengerData.departureFlightId,
+                    passengerData.returnFlightId,
+                    orderPassenger.name,
+                    orderPassenger.familyName,
+                    orderPassenger.email,
+                    orderPassenger.noTelephone,
+                    passengerData.passengersData!!
                 )
             } else {
                 CheckoutSeatActivity.sendDataOrder(

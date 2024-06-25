@@ -125,7 +125,73 @@ class CheckoutSeatActivity : AppCompatActivity() {
     private fun getArgumentData() {
         intent.extras?.getParcelable<OrderUser>(CheckoutSeatActivity.EXTRA_FLIGHT)?.let {
 
-            viewModel.getSeats(it.seatClass!!, it.flightId!!, 200).observe(this) {data ->
+            if(it.supportRoundTrip == true){
+                viewModel.getSeats(it.seatClass!!, it.flightId!!, 200).observe(this) {data ->
+                    data.proceedWhen(
+                        doOnSuccess = { result ->
+                            binding.layoutContentState.root.isVisible = false
+                            result.payload?.let { (seat, seatId, title) ->
+                                listSeat = seat
+                                listTitle = title
+                                listSeatId = seatId
+                                observeResult()
+                                setClickListeners()
+                                setupSeatBookView(it)
+                            }
+                        },
+                        doOnEmpty = {
+                            binding.layoutContentState.root.isVisible = true
+                            binding.layoutContentState.textError.text =
+                                getString(R.string.text_empty_seat_class)
+                            binding.layoutContentState.pbLoadingEmptyState.isVisible = false
+                        },
+                        doOnLoading = {
+                            binding.layoutContentState.root.isVisible = true
+                            binding.layoutContentState.textError.isVisible = false
+                            binding.layoutContentState.pbLoadingEmptyState.isVisible = true
+                        }, doOnError = {
+                            binding.layoutContentState.root.isVisible = true
+                            binding.layoutContentState.textError.text =
+                                getString(R.string.text_error_seat_checkout)
+                            binding.layoutContentState.pbLoadingEmptyState.isVisible = false
+                        }
+                    )
+                }
+            } else {
+                viewModel.getSeats(it.seatClass!!, it.flightIdRoundTrip!!, 200).observe(this) {data ->
+                    data.proceedWhen(
+                        doOnSuccess = { result ->
+                            binding.layoutContentState.root.isVisible = false
+                            result.payload?.let { (seat, seatId, title) ->
+                                listSeat = seat
+                                listTitle = title
+                                listSeatId = seatId
+                                observeResult()
+                                setClickListeners()
+                                setupSeatBookView(it)
+                            }
+                        },
+                        doOnEmpty = {
+                            binding.layoutContentState.root.isVisible = true
+                            binding.layoutContentState.textError.text =
+                                getString(R.string.text_empty_seat_class)
+                            binding.layoutContentState.pbLoadingEmptyState.isVisible = false
+                        },
+                        doOnLoading = {
+                            binding.layoutContentState.root.isVisible = true
+                            binding.layoutContentState.textError.isVisible = false
+                            binding.layoutContentState.pbLoadingEmptyState.isVisible = true
+                        }, doOnError = {
+                            binding.layoutContentState.root.isVisible = true
+                            binding.layoutContentState.textError.text =
+                                getString(R.string.text_error_seat_checkout)
+                            binding.layoutContentState.pbLoadingEmptyState.isVisible = false
+                        }
+                    )
+                }
+            }
+
+            /*viewModel.getSeats(it.seatClass!!, it.flightId!!, 200).observe(this) {data ->
                 data.proceedWhen(
                     doOnSuccess = { result ->
                         binding.layoutContentState.root.isVisible = false
@@ -155,9 +221,7 @@ class CheckoutSeatActivity : AppCompatActivity() {
                         binding.layoutContentState.pbLoadingEmptyState.isVisible = false
                     }
                 )
-            }
-
-
+            }*/
 
             intent.extras?.getParcelable<OrderPassengers>(CheckoutDataPassengerActivity.EXTRA_USER_ORDER)
                 ?.let { orderPassenger ->

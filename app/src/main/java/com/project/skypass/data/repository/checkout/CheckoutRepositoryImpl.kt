@@ -10,6 +10,7 @@ import com.project.skypass.data.source.network.model.checkout.request.BuyerData
 import com.project.skypass.data.source.network.model.checkout.request.CheckoutRequestResponse
 import com.project.skypass.data.source.network.model.checkout.request.PassengerData
 import com.project.skypass.utils.ResultWrapper
+import com.project.skypass.utils.convertFlightDetail
 import com.project.skypass.utils.proceedFlow
 import kotlinx.coroutines.flow.Flow
 
@@ -19,10 +20,10 @@ class CheckoutRepositoryImpl(private val dataSource: CheckoutDataSource): Checko
         totalAmount: Int,
         departureFlightId: String,
         returnFlightId: String?,
-        fullName: String,
-        familyName: String,
-        email: String,
-        phone: String,
+        fullName: String?,
+        familyName: String?,
+        email: String?,
+        phone: String?,
         passenger: List<PassengersData>
     ): Flow<ResultWrapper<Boolean>> {
         return proceedFlow {
@@ -39,11 +40,11 @@ class CheckoutRepositoryImpl(private val dataSource: CheckoutDataSource): Checko
                 passengersData =
                     passenger.map {
                         PassengerData(
-                            dateOfBirth = it.dateOfBirth,
+                            dateOfBirth = convertFlightDetail(it.dateOfBirth),
                             departureSeats = it.seatsDepartureId,
                             email = it.email,
                             firstName = it.firstName,
-                            issuingCountry = it.issuingCountry,
+                            issuingCountry = convertFlightDetail(it.issuingCountry),
                             lastName = it.lastName,
                             nationality = it.nationality,
                             passengerType = it.passengerType,
@@ -51,7 +52,7 @@ class CheckoutRepositoryImpl(private val dataSource: CheckoutDataSource): Checko
                             phoneNumber = it.phoneNumber,
                             returnSeats = it.seatsArrivalId,
                             title = it.title,
-                            validUntil = it.validUntil
+                            validUntil = convertFlightDetail(it.validUntil)
                         )
                     },
                 returnFlightId = returnFlightId,

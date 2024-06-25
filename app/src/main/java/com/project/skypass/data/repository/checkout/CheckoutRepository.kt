@@ -13,10 +13,10 @@ interface CheckoutRepository {
         totalAmount: Int,
         departureFlightId: String,
         returnFlightId: String?,
-        fullName: String,
-        familyName: String,
-        email: String,
-        phone: String,
+        fullName: String?,
+        familyName: String?,
+        email: String?,
+        phone: String?,
         passenger: List<PassengersData>
     ): Flow<ResultWrapper<Boolean>>
 

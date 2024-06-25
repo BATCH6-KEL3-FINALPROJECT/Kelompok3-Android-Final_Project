@@ -3,29 +3,14 @@ package com.project.skypass.presentation.checkout.checkoutPayment
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
-import com.project.skypass.R
 import com.project.skypass.data.model.CheckoutPayment
-import com.project.skypass.data.model.Flight
-import com.project.skypass.data.model.OrderPassengers
 import com.project.skypass.data.model.OrderUser
 import com.project.skypass.data.model.PassengersData
-import com.project.skypass.databinding.ActivityCheckoutDetailBinding
 import com.project.skypass.databinding.ActivityCheckoutPaymentBinding
-import com.project.skypass.presentation.checkout.checkoutDataPassenger.CheckoutDataPassengerActivity
-import com.project.skypass.presentation.checkout.checkoutDetail.CheckoutDetailActivity
-import com.project.skypass.presentation.checkout.checkoutDetail.CheckoutDetailActivity.Companion
 import com.project.skypass.presentation.checkout.checkoutPayment.adapter.CheckoutPaymentAdapter
 import com.project.skypass.presentation.checkout.checkoutPayment.adapter.OnItemClickedPaymentListener
-import com.project.skypass.presentation.checkout.checkoutSeat.CheckoutSeatActivity
-import com.project.skypass.presentation.flight.detail.adapter.FlightDetailAdapter
-import com.project.skypass.presentation.flight.detail.adapter.OnItemClickedListener
-import com.project.skypass.presentation.home.HomeFragment
 import com.project.skypass.presentation.main.MainActivity
 import com.project.skypass.utils.convertMinutesToHours
 import com.project.skypass.utils.toIndonesianFormat
@@ -71,7 +56,6 @@ class CheckoutPaymentActivity : AppCompatActivity() {
         }
     }
     private fun setProfileData(item: OrderUser, passengerData: CheckoutPayment){
-
         binding.apply {
             inTicket.tvClass.text = item.seatClass
             inTicket.tvTotalPrice.text = item.paymentPrice.toIndonesianFormat()
