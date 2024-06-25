@@ -2,8 +2,13 @@ package com.project.skypass.data.source.network.model.history.allhistory
 
 
 import com.google.gson.annotations.SerializedName
+import com.project.skypass.data.source.network.model.history.detailhistory.Airline
+import com.project.skypass.data.source.network.model.history.detailhistory.FlightDescription
 
 data class Flight(
+
+    @SerializedName("Airline")
+    var airline: Airline?,
     @SerializedName("arrival_airport")
     var arrivalAirport: String?,
     @SerializedName("arrival_airport_id")
@@ -13,9 +18,9 @@ data class Flight(
     @SerializedName("arrival_time")
     var arrivalTime: String?,
     @SerializedName("arrivingAirport")
-    var arrivingAirport: ArrivingAirport?,
+    var arrivingAirport: com.project.skypass.data.source.network.model.history.detailhistory.ArrivingAirport?,
     @SerializedName("departingAirport")
-    var departingAirport: DepartingAirport?,
+    var departingAirport: com.project.skypass.data.source.network.model.history.detailhistory.DepartingAirport?,
     @SerializedName("departure_airport")
     var departureAirport: String?,
     @SerializedName("departure_airport_id")
@@ -24,6 +29,10 @@ data class Flight(
     var departureDate: String?,
     @SerializedName("departure_time")
     var departureTime: String?,
+    @SerializedName("flight_code")
+    var flightCode: String?,
+    @SerializedName("flight_description")
+    var flightDescription: FlightDescription?,
     @SerializedName("flight_duration")
     var flightDuration: Int?,
     @SerializedName("flight_id")

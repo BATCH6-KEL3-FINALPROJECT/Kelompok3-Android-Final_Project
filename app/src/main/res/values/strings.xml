@@ -89,7 +89,7 @@
     <string name="text_total_harga">IDR 1.200.000/pax</string>
     <string name="text_button">Lanjut Pembayaran</string>
     <string name="text_harga_tax">IDR 0</string>
-    <string name="text_class">Class :</string>
+    <string name="text_class">Tanggal: </string>
     <string name="text_business">Business</string>
     <string name="text_jkt">JKT</string>
     <string name="text_jakarta">Jakarta</string>
@@ -233,5 +233,9 @@
     <string name="text_empty_seat_class">Kelas seat tidak tersedia</string>
     <string name="text_error_seat_checkout">Terdapat Kesalahan dalam memuat data</string>
     <string name="text_empty_notification">Notification masih Kosong</string>
+    <string name="text_mr_harry_potter">Mr. Harry Potter</string>
+    <string name="text_passengers_info">Informasi Penumpang:</string>
+    <string name="text_cetak_tiket_pesawat">Cetak Tiket Pesawat</string>
+    <string name="text_pesan_lagi">Pesan Lagi</string>
 
 </resources>

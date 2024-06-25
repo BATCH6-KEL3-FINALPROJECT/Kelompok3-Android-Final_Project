@@ -13,6 +13,7 @@ fun AllHistoryItemResponse?.toHistory() =
         flightId = this?.flightId.orEmpty(),
         paymentId = this?.paymentId.orEmpty(),
         bookingDate = this?.bookingDate.orEmpty(),
+        bookingCode = this?.bookingCode.orEmpty(),
         isRoundTrip = this?.isRoundTrip ?: false,
         noOfTickets = this?.noOfTicket ?: 0,
         totalPrice = this?.totalPrice.orEmpty(),
@@ -31,9 +32,9 @@ fun AllHistoryItemResponse?.toHistory() =
         departingAirport = this?.flight?.departingAirport?.city.orEmpty(),
         arrivingAirport = this?.flight?.arrivingAirport?.city.orEmpty(),
         ticketIdentity = null,
-        airlineName = null,
-        airlineCode = null,
-        country = null
+        airlineName = this?.flight?.airline?.airlineName.orEmpty(),
+        airlineCode = this?.flight?.airline?.airlineCode.orEmpty(),
+        country = this?.flight?.airline?.country.orEmpty(),
     )
 
 fun DetailHistoryItemResponse?.toDetailHistory() =
@@ -63,6 +64,7 @@ fun DetailHistoryItemResponse?.toDetailHistory() =
         airlineName = this?.flight?.airline?.airlineName.orEmpty(),
         airlineCode = this?.flight?.airline?.airlineCode.orEmpty(),
         country = this?.flight?.airline?.country.orEmpty(),
+        bookingCode = this?.bookingCode.orEmpty(),
         ticketIdentity = this?.tickets?.toHistoryTicketIdentity()
     )
 

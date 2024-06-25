@@ -7,7 +7,7 @@ data class DetailHistoryResponse(
     @SerializedName("code")
     var code: Int?,
     @SerializedName("data")
-    var data: Data?,
+    var data: DetailHistoryItemResponse?,
     @SerializedName("is_success")
     var isSuccess: Boolean?
 )

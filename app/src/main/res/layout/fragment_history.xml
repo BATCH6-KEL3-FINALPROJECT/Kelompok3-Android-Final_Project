@@ -16,7 +16,7 @@
         android:textStyle="bold"
         android:textColor="@color/black"
         android:layout_marginHorizontal="28dp"
-        android:layout_marginVertical="16dp"
+        android:layout_marginVertical="24dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
 
@@ -26,7 +26,7 @@
         android:layout_height="wrap_content"
         android:src="@drawable/ic_search_history"
         android:layout_marginHorizontal="28dp"
-        android:layout_marginVertical="16dp"
+        android:layout_marginVertical="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -37,10 +37,11 @@
         android:background="@drawable/bg_filter"
         android:orientation="horizontal"
         android:padding="8dp"
-        android:layout_marginHorizontal="28dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginVertical="16dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_search_history">
+        app:layout_constraintEnd_toStartOf="@+id/iv_search_history"
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/iv_filter"
@@ -71,47 +72,28 @@
         android:focusable="true"
         android:orientation="horizontal"
         android:layout_marginTop="16dp"
+        android:paddingBottom="130dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/ll_filter_container"
         tools:listitem="@layout/item_ticket_history_order" />
 
-    <ImageView
-        android:id="@+id/iv_riwayat_kosong"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/image_pesawat_history_order"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
     <TextView
-        android:id="@+id/tv_riwayat_kosong"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/text_oops_riwayat_pesanan_kosong"
-        android:textColor="@color/purple"
-        android:textStyle="bold"
-        android:textSize="18sp"
-        android:layout_marginTop="12dp"
-        app:layout_constraintTop_toBottomOf="@id/iv_riwayat_kosong"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/tv_riwayat_kosong_2"/>
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:minHeight="100dp"
+        app:layout_constraintTop_toBottomOf="@+id/rv_ticket_history_order"/>
 
-    <TextView
-        android:id="@+id/tv_riwayat_kosong_2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/text_anda_belum_melakukan_pemesanan"
-        android:textColor="@color/black"
+    <include
+        android:id="@+id/layout_content_state"
+        layout="@layout/layout_content_state"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_marginTop="8dp"
-        android:textStyle="bold"
-        android:textSize="18sp"
-        app:layout_constraintTop_toBottomOf="@id/tv_riwayat_kosong"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        android:orientation="vertical"
+        android:visibility="gone"
+        />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

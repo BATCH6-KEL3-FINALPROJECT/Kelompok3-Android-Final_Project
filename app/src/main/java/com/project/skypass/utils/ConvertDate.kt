@@ -3,6 +3,7 @@ package com.project.skypass.utils
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import java.util.TimeZone
 
 fun convertDateFormat(inputDate: String): String {
     /*val inputFormat = SimpleDateFormat("dd MMMM yyyy", Locale("en", "US"))
@@ -34,6 +35,52 @@ fun convertDateNotification(apiString: String): String{
         apiString
     }
 }
+
+fun convertDateMouth(apiString: String): String{
+
+    val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
+    val outputFormat = SimpleDateFormat("MMMM yyyy", Locale.getDefault())
+
+    return try {
+        val parsedDate = inputFormat.parse(apiString)
+        parsedDate?.let {
+            outputFormat.format(parsedDate)
+        }?: apiString
+    } catch (e: Exception) {
+        apiString
+    }
+}
+
+fun convertDateText(apiString: String): String{
+
+    val inputFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+    val outputFormat = SimpleDateFormat("dd MMMM yyyy", Locale.getDefault())
+
+    return try {
+        val parsedDate = inputFormat.parse(apiString)
+        parsedDate?.let {
+            outputFormat.format(parsedDate)
+        }?: apiString
+    } catch (e: Exception) {
+        apiString
+    }
+}
+
+fun convertDateTextApi(apiString: String): String{
+
+    val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
+    val outputFormat = SimpleDateFormat("dd MMMM yyyy", Locale.getDefault())
+
+    return try {
+        val parsedDate = inputFormat.parse(apiString)
+        parsedDate?.let {
+            outputFormat.format(parsedDate)
+        }?: apiString
+    } catch (e: Exception) {
+        apiString
+    }
+}
+
 
 fun convertFlightDetail(inputDate: String): String {
     /*val inputFormat = SimpleDateFormat("dd-MM-yyyy", Locale("id", "ID"))
