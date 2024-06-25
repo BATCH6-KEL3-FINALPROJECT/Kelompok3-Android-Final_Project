@@ -50,8 +50,8 @@ class SearchFragment : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
         showDataSuggestionSearch()
-        searchDestination()
         setupSearchHistory()
+        searchDestination()
     }
 
     private fun showDataSuggestionSearch(){
@@ -151,24 +151,32 @@ class SearchFragment : BottomSheetDialogFragment() {
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                viewModel.search(newText).observe(viewLifecycleOwner) { results ->
-                    results.proceedWhen(
-                        doOnSuccess = {
-                            binding.rvSearchResult.isVisible = true
-                            binding.tvEmptySearchResult.isVisible = false
-                            it.payload?.let {
-                                bindDataToAdapter(it)
+                if (newText.isNullOrEmpty()) {
+                    showDataSuggestionSearch()
+                    binding.rvSearchResult.isVisible = true
+                    binding.rvSearchNow.isVisible = true
+                    binding.tvEmptySearchResult.isVisible = false
+                } else {
+                    viewModel.search(newText).observe(viewLifecycleOwner) { results ->
+                        results.proceedWhen(
+                            doOnSuccess = {
+                                binding.rvSearchResult.isVisible = true
+                                binding.rvSearchNow.isVisible = false
+                                binding.tvEmptySearchResult.isVisible = false
+                                it.payload?.let {
+                                    bindDataToAdapter(it)
+                                }
+                            },
+                            doOnLoading = {
+                                binding.rvSearchResult.isVisible = false
+                                binding.tvEmptySearchResult.isVisible = false
+                            },
+                            doOnError = {
+                                binding.rvSearchResult.isVisible = false
+                                binding.tvEmptySearchResult.isVisible = true
                             }
-                        },
-                        doOnLoading = {
-                            binding.rvSearchResult.isVisible = false
-                            binding.tvEmptySearchResult.isVisible = false
-                        },
-                        doOnError = {
-                            binding.rvSearchResult.isVisible = false
-                            binding.tvEmptySearchResult.isVisible = true
-                        }
-                    )
+                        )
+                    }
                 }
                 return true
             }
@@ -184,7 +192,7 @@ class SearchFragment : BottomSheetDialogFragment() {
         viewModel.insertHistorySearch(token, city).observe(viewLifecycleOwner) { result ->
             result.proceedWhen(
                 doOnSuccess = {
-                    setupSearchHistory() // Refresh the search history chips
+                    setupSearchHistory()
                     Toast.makeText(requireContext(), "Added to history", Toast.LENGTH_SHORT).show()
                 },
                 doOnLoading = {
