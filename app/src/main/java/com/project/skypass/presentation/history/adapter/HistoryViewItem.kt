@@ -37,7 +37,7 @@ class HistoryTicketItem(private val item: History) : BindableItem<ItemTicketHist
         viewBinding.tvStatusData.text = item.status
         viewBinding.tvOrderDateData.text = convertDateTextApi(item.bookingDate)
         viewBinding.tvCityNameDestinationAlias.text = item.arrivingAirport
-        viewBinding.tvCityDepartureAlias.text = item.country
+        viewBinding.tvCityDepartureAlias.text = item.departingAirport
         viewBinding.tvTimeDeparture.text = item.departureTime
         viewBinding.tvDateDeparture.text = convertDateText(item.departureDate)
         viewBinding.tvTimeArrival.text = item.arrivalTime
