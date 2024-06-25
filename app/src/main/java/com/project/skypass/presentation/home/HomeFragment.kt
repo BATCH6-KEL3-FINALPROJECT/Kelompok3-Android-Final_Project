@@ -20,6 +20,7 @@ import com.project.skypass.presentation.customview.DataSelection
 import com.project.skypass.presentation.flight.detail.FlightDetailActivity
 import com.project.skypass.presentation.home.adapter.FavoriteDestinationAdapter
 import com.project.skypass.presentation.home.adapter.OrderHistoryAdapter
+import com.project.skypass.presentation.home.adapter.PromotionAdapter
 import com.project.skypass.presentation.home.calendar.CalendarFragment
 import com.project.skypass.presentation.home.flightclass.FlightClassFragment
 import com.project.skypass.presentation.home.passengers.PassengersFragment
@@ -68,6 +69,7 @@ class HomeFragment : Fragment(), DataSelection {
         clickItemOrderHistory()
         bindSeatClass(viewModel.getFavoriteDestination())
         displayProfileData()
+        promotionViewPager()
         setOnClickedListener()
     }
 
@@ -115,6 +117,19 @@ class HomeFragment : Fragment(), DataSelection {
             )
         }
     }
+
+    private fun promotionViewPager() {
+        val vpPromotion = binding.vpBannerHome
+        val _adapter = PromotionAdapter()
+        val pageIndicator = binding.diPromotionPageIndicator
+
+        _adapter.submitList(viewModel.getBannerHome())
+        vpPromotion.apply {
+            adapter = _adapter
+        }
+        pageIndicator.attachTo(vpPromotion)
+    }
+
 
     private fun navigationToProfile() {
         if (requireActivity() !is MainActivity) return

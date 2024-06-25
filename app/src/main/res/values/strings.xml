@@ -238,5 +238,8 @@
     <string name="text_cetak_tiket_pesawat">Cetak Tiket Pesawat</string>
     <string name="text_pesan_lagi">Pesan Lagi</string>
     <string name="loading">Loading...</string>
+    <string name="text_explore">explore More</string>
+    <string name="text_title_home_banner">Pilih Destinasi Kesukaanmu!</string>
+    <string name="text_explore_more">Explore More</string>
 
 </resources>
