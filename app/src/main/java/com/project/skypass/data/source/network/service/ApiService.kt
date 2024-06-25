@@ -25,6 +25,7 @@ import com.project.skypass.data.source.network.model.resetpassword.ResetPassword
 import com.project.skypass.data.source.network.model.search.SearchResponse
 import com.project.skypass.data.source.network.model.search.deletehistory.DeleteHistorySearchResponse
 import com.project.skypass.data.source.network.model.search.gethistory.GetHistoryItemResponse
+import com.project.skypass.data.source.network.model.search.gethistory.GetHistoryResponse
 import com.project.skypass.data.source.network.model.search.posthistory.PostHistoryRespomse
 import com.project.skypass.data.source.network.model.search.posthistory.request.HistoryRequestResponse
 import com.project.skypass.data.source.network.model.seat.SeatResponse
@@ -32,6 +33,7 @@ import com.project.skypass.data.source.network.model.user.deleteuser.DeleteUserR
 import com.project.skypass.data.source.network.model.ticket.TicketResponse
 import com.project.skypass.data.source.network.model.user.detailuser.UserResponse
 import com.project.skypass.data.source.network.model.user.edituser.EditUserResponse
+import com.project.skypass.utils.ErrorInterceptor
 import okhttp3.MultipartBody
 import okhttp3.OkHttpClient
 import okhttp3.RequestBody
@@ -180,13 +182,13 @@ interface ApiService {
     @DELETE("history/delete/{id}")
     suspend fun deleteHistorySearchHome(
         @Header("Authorization") token: String,
-        @Path("id") id: String
+        @Path("id") id: Int
     ): DeleteHistorySearchResponse
 
     @GET("history/")
     suspend fun getAllHistorySearchHome(
         @Header("Authorization") token: String
-    ): Response<List<GetHistoryItemResponse>?>
+    ): GetHistoryResponse
 
     @POST("history/create")
     suspend fun createHistorySearchHome(

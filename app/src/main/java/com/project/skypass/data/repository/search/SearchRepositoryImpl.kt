@@ -20,7 +20,7 @@ class SearchRepositoryImpl(private val dataSource: SearchDataSource): SearchRepo
     override fun getAllHistorySearchHome(token: String): Flow<ResultWrapper<List<SearchHistoryHome>>> {
         return proceedFlow {
             val tokenBearer = "Bearer $token"
-            dataSource.getAllHistorySearch(tokenBearer).data.toSearchHomeListHistory()
+            dataSource.getAllHistorySearch(tokenBearer).data?.history.toSearchHomeListHistory()
         }
     }
 
@@ -39,7 +39,7 @@ class SearchRepositoryImpl(private val dataSource: SearchDataSource): SearchRepo
         }
     }
 
-    override fun deleteHistorySearchHome(token: String, id: String): Flow<ResultWrapper<Boolean>> {
+    override fun deleteHistorySearchHome(token: String, id: Int): Flow<ResultWrapper<Boolean>> {
         return proceedFlow {
             val tokenBearer = "Bearer $token"
             dataSource.deleteHistorySearch(tokenBearer, id).isSuccess ?: false
