@@ -3,14 +3,19 @@ package com.project.skypass.presentation.home.adapter
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.project.skypass.R
 import com.project.skypass.data.model.Destination
+import com.project.skypass.data.model.OrderUser
 import com.project.skypass.databinding.ItemDestinationFavoriteBinding
+import com.project.skypass.presentation.flight.detail.FlightDetailActivity
+import com.project.skypass.utils.convertDateFormat
 import com.project.skypass.utils.formatDatesDestinationFavorite
+import com.project.skypass.utils.orderDate
 import com.project.skypass.utils.toIndonesianFormat
 import com.project.skypass.utils.toIndonesianFormatDouble
 
@@ -55,19 +60,99 @@ class FavoriteDestinationAdapter(private val itemClick: (Destination) -> Unit): 
         private val binding: ItemDestinationFavoriteBinding,
         val itemClick: (Destination) -> Unit
     ): RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: Destination) {
-            with(item) {
-                binding.ivDestinationFavorite.load(item.imageUrl){
+        fun bind(data: Destination) {
+            with(data) {
+                binding.ivDestinationFavorite.load(data.imageUrl){
                     crossfade(true)
                 }
-                binding.tvTitleDestinationFavorite.text = itemView.context.getString(R.string.from_to, item.from, item.to)
-                binding.tvAirline.text = item.airline
-                //binding.tvDatePromotion.text = "${item.departureDate} - ${item.returnDate}"
-                binding.tvPromotion.text = item.discount
-                binding.tvDatePromotion.text = formatDatesDestinationFavorite(item.departureDate, item.returnDate)
-                binding.tvPrice.text = itemView.context.getString(R.string.idr_rp_fav_des, item.price.toIndonesianFormatDouble())
-                itemView.setOnClickListener { itemClick(this) }
+                binding.tvTitleDestinationFavorite.text = itemView.context.getString(R.string.from_to, data.from, data.to)
+                binding.tvPassengers.text = "${data.passengers} Penumpang"
+                binding.tvPromotion.text = data.discount
+                binding.tvDatePromotion.text = formatDatesDestinationFavorite(data.departureDate,data.returnDate!!)
+                binding.tvPrice.text = itemView.context.getString(R.string.idr_rp_fav_des, data.price.toIndonesianFormatDouble())
+                itemView.setOnClickListener {
+                    sendToFlight(data)
+                }
             }
         }
+
+        private fun sendToFlight(data: Destination){
+            FlightDetailActivity.startActivity(
+                binding.root.context,
+                OrderUser(
+                    // Home Data
+                    id = (0..5000).random(),
+                    arrivalCity = data.to,
+                    arrivalDate = data.returnDate,
+                    seatClass = data.seatClass,
+                    departureCity = data.from,
+                    departureDate = data.departureDate,
+                    passengersTotal = data.passengers.toString(),
+                    passengersAdult = data.passengers,
+                    passengersBaby = 0,
+                    passengersChild = 0,
+                    isRoundTrip = data.isRoundTrip,
+                    supportRoundTrip = data.isRoundTrip,
+                    orderDate = orderDate(),
+
+                    // Flight Data (One Way)
+                    airlineCode = "",
+                    airlineName = "",
+                    arrivalAirportName = "",
+                    arrivalIATACode = "",
+                    arrivalTime = "",
+                    departureAirportName = "",
+                    departureIATACode = "",
+                    departureTime = "",
+                    flightCode = "",
+                    flightDescription = "",
+                    flightDuration = null,
+                    flightDurationFormat = "",
+                    flightId = "",
+                    flightStatus = "",
+                    flightSeat = "",
+                    flightArrivalDate = "",
+                    flightDepartureDate = "",
+                    planeType = "",
+                    priceAdult = 0,
+                    priceBaby = 0,
+                    priceChild = 0,
+                    priceTotal = 0,
+                    paymentPrice = null,
+                    seatsAvailable = null,
+                    terminal = "",
+
+                    // Flight Data (Round Trip)
+                    airlineCodeRoundTrip = "",
+                    airlineNameRoundTrip = "",
+                    arrivalAirportNameRoundTrip = "",
+                    arrivalIATACodeRoundTrip = "",
+                    arrivalTimeRoundTrip = "",
+                    departureAirportNameRoundTrip = "",
+                    departureIATACodeRoundTrip = "",
+                    departureTimeRoundTrip = "",
+                    flightCodeRoundTrip = "",
+                    flightDescriptionRoundTrip = "",
+                    flightDurationRoundTrip = null,
+                    flightDurationFormatRoundTrip = "",
+                    flightIdRoundTrip = "",
+                    flightStatusRoundTrip = "",
+                    flightSeatRoundTrip = "",
+                    flightArrivalDateRoundTrip = "",
+                    flightDepartureDateRoundTrip = "",
+                    planeTypeRoundTrip = "",
+                    priceAdultRoundTrip = null,
+                    priceBabyRoundTrip = null,
+                    priceChildRoundTrip = null,
+                    priceTotalRoundTrip = 0,
+                    paymentPriceRoundTrip = null,
+                    seatsAvailableRoundTrip = null,
+                    terminalRoundTrip = ""
+                ),
+            )
+        }
+
     }
+
+
 }

@@ -6,6 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_marginHorizontal="8dp"
     android:layout_marginBottom="8dp"
+
     app:cardCornerRadius="8dp"
     app:cardElevation="2dp">
 
@@ -52,15 +53,15 @@
             app:layout_constraintTop_toBottomOf="@+id/iv_destination_favorite" />
 
         <TextView
-            android:id="@+id/tv_airline"
+            android:id="@+id/tv_passengers"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="8dp"
             android:layout_marginTop="4dp"
-            android:text="AirAsia"
-            android:textSize="12sp"
+            tools:text="1 Penumpang"
             android:textColor="?attr/colorPrimary"
-            android:textStyle="bold"
+            android:textSize="11sp"
+            android:textStyle="normal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_title_destination_favorite" />
@@ -70,26 +71,26 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="20 - 30 Maret 2024"
-            android:textSize="10sp"
+            android:textSize="11sp"
             android:layout_marginHorizontal="8dp"
             android:layout_marginTop="4dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_airline" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_passengers" />
 
         <TextView
             android:id="@+id/tv_price"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="IDR.5000.000,00"
-            android:textColor="?attr/colorFailed"
-            android:textSize="10sp"
+            android:textColor="?attr/colorPrimary"
+            android:textSize="12sp"
             android:textStyle="bold"
             android:layout_marginTop="4dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginBottom="8dp"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_date_promotion"
             />

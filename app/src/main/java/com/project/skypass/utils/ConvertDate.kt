@@ -126,16 +126,16 @@ fun orderDate(): String {
 
 
 fun formatDatesDestinationFavorite(departureDate: String, returnDate: String): String {
-    val inputFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+    val inputFormat = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
     val outputFormat = SimpleDateFormat("dd", Locale.getDefault())
     val monthYearFormat = SimpleDateFormat("MMMM yyyy", Locale.getDefault())
 
     val departureDateParsed = inputFormat.parse(departureDate)
     val returnDateParsed = inputFormat.parse(returnDate)
 
-    val departureDay = outputFormat.format(departureDateParsed)
-    val returnDay = outputFormat.format(returnDateParsed)
-    val monthYear = monthYearFormat.format(returnDateParsed)
+    val departureDay = departureDateParsed?.let { outputFormat.format(it) }
+    val returnDay = returnDateParsed?.let { outputFormat.format(it) }
+    val monthYear = returnDateParsed?.let { monthYearFormat.format(it) }
 
     return "$departureDay - $returnDay $monthYear"
 }
