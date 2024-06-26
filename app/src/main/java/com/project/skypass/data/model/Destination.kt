@@ -7,15 +7,19 @@ import java.util.UUID
 @Parcelize
 data class Destination(
     var id: String = UUID.randomUUID().toString(),
-    val isRoundTrip: Boolean,
-    val from: String,
-    val to: String,
+    val airline: String,
+    val continent: String,
     val departureDate: String,
-    val returnDate: String,
-    val passengers: Int,
-    val seatClass: String,
     val discount: String,
-    val price: Double,
+    val from: String,
     val imageUrl: String,
-    val airline: String
+    val isRoundTrip: Boolean,
+    val passengersAdult: Int,
+    val passengersBaby: Int,
+    val passengersChild: Int,
+    val passengersTotal: Int,
+    val price: Int,
+    val returnDate: String,
+    val seatClass: String,
+    val to: String
 ): Parcelable

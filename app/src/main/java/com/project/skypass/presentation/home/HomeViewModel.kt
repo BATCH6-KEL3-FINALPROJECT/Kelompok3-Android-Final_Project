@@ -26,7 +26,7 @@ class HomeViewModel(
 
 
     fun getBannerHome() = bannerHome.getBannerData()
-    fun getFavoriteDestination() = favoriteRepository.getFavoriteDestination()
+    fun getFavoriteDestination() = favoriteRepository.getFavoriteDestination().asLiveData(Dispatchers.IO)
     fun getAllOrderHistory() = orderHistoryRepository.getUserOrderHistoryData().asLiveData(Dispatchers.IO)
     fun deleteAllOrderHistory() = orderHistoryRepository.deleteAllOrderHistory().asLiveData(Dispatchers.IO)
 

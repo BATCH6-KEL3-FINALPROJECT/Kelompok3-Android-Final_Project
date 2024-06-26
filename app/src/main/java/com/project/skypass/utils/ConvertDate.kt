@@ -21,6 +21,22 @@ fun convertDateFormat(inputDate: String): String {
         inputDate
     }
 }
+
+fun convertDestinationFavorite(inputDate: String): String {
+    val defaultLocale = Locale.getDefault()
+    val inputFormat = SimpleDateFormat("yyyy-MM-dd", defaultLocale)
+    val outputFormat = SimpleDateFormat("dd-MM-yyyy", defaultLocale)
+
+    return try {
+        val date = inputFormat.parse(inputDate)
+        date?.let {
+            outputFormat.format(it)
+        } ?: inputDate
+    } catch (e: Exception) {
+        inputDate
+    }
+}
+
 fun convertDateNotification(apiString: String): String{
 
     val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
@@ -126,7 +142,7 @@ fun orderDate(): String {
 
 
 fun formatDatesDestinationFavorite(departureDate: String, returnDate: String): String {
-    val inputFormat = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
+    val inputFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
     val outputFormat = SimpleDateFormat("dd", Locale.getDefault())
     val monthYearFormat = SimpleDateFormat("MMMM yyyy", Locale.getDefault())
 

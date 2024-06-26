@@ -20,6 +20,7 @@ import com.project.skypass.presentation.flight.detail.adapter.FlightDetailAdapte
 import com.project.skypass.presentation.flight.detail.adapter.OnItemClickedListener
 import com.project.skypass.presentation.flight.filter.FilterFragment
 import com.project.skypass.presentation.flight.result.FlightResultActivity
+import com.project.skypass.utils.convertDateCalendar
 import com.project.skypass.utils.convertFlightDetail
 import com.project.skypass.utils.convertMinutesToHours
 import com.project.skypass.utils.displayText
@@ -179,6 +180,7 @@ class FlightDetailActivity : AppCompatActivity() {
             flightDetailViewModel.getHomeData(it)
             saveToOrderHistory(it)
             setProfileData(it)
+            //selectedDate = LocalDate.parse(convertFlightDetail(it.departureDate!!))
             selectedDate()
         }
     }
@@ -281,6 +283,5 @@ class FlightDetailActivity : AppCompatActivity() {
             context.startActivity((intent))
         }
     }
-
 
 }

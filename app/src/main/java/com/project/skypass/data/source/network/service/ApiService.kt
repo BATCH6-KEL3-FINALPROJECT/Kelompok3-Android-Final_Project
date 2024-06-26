@@ -5,6 +5,8 @@ import com.project.skypass.data.model.Response
 import com.project.skypass.data.source.network.model.booking.GetBookingDataResponse
 import com.project.skypass.data.source.network.model.checkout.request.CheckoutRequestResponse
 import com.project.skypass.data.source.network.model.checkout.response.CheckoutResponse
+import com.project.skypass.data.source.network.model.destinationfavorite.DestinationFavoriteItemResponse
+import com.project.skypass.data.source.network.model.destinationfavorite.DestinationFavoriteResponse
 import com.project.skypass.data.source.network.model.flight.detailflight.DetailFlightResponse
 import com.project.skypass.data.source.network.model.flight.flightdata.GetAllFlightResponse
 import com.project.skypass.data.source.network.model.history.allhistory.AllHistoryResponse
@@ -207,7 +209,9 @@ interface ApiService {
     ): PostHistoryRespomse
 
     @GET("flight/favorites")
-    suspend fun getDestinationFavorite()
+    suspend fun getDestinationFavorite(): DestinationFavoriteResponse
+
+
 
     companion object {
         @JvmStatic
