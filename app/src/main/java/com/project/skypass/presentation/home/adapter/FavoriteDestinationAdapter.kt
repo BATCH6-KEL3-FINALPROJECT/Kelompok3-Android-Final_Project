@@ -14,6 +14,7 @@ import com.project.skypass.data.model.OrderUser
 import com.project.skypass.databinding.ItemDestinationFavoriteBinding
 import com.project.skypass.presentation.flight.detail.FlightDetailActivity
 import com.project.skypass.utils.convertDateFormat
+import com.project.skypass.utils.convertDestinationFavorite
 import com.project.skypass.utils.formatDatesDestinationFavorite
 import com.project.skypass.utils.orderDate
 import com.project.skypass.utils.toIndonesianFormat
@@ -66,10 +67,11 @@ class FavoriteDestinationAdapter(private val itemClick: (Destination) -> Unit): 
                     crossfade(true)
                 }
                 binding.tvTitleDestinationFavorite.text = itemView.context.getString(R.string.from_to, data.from, data.to)
-                binding.tvPassengers.text = "${data.passengers} Penumpang"
+                binding.tvPassengers.text = "${data.passengersTotal} Penumpang"
                 binding.tvPromotion.text = data.discount
-                binding.tvDatePromotion.text = formatDatesDestinationFavorite(data.departureDate,data.returnDate!!)
-                binding.tvPrice.text = itemView.context.getString(R.string.idr_rp_fav_des, data.price.toIndonesianFormatDouble())
+                binding.tvDatePromotion.text = formatDatesDestinationFavorite(data.departureDate,data.returnDate)
+                binding.tvPrice.text = itemView.context.getString(R.string.idr_rp_fav_des, data.price.toDouble().toIndonesianFormatDouble())
+
                 itemView.setOnClickListener {
                     sendToFlight(data)
                 }
@@ -86,11 +88,11 @@ class FavoriteDestinationAdapter(private val itemClick: (Destination) -> Unit): 
                     arrivalDate = data.returnDate,
                     seatClass = data.seatClass,
                     departureCity = data.from,
-                    departureDate = data.departureDate,
-                    passengersTotal = data.passengers.toString(),
-                    passengersAdult = data.passengers,
-                    passengersBaby = 0,
-                    passengersChild = 0,
+                    departureDate = convertDestinationFavorite(data.departureDate),
+                    passengersTotal = data.passengersTotal.toString(),
+                    passengersAdult = data.passengersAdult,
+                    passengersBaby = data.passengersBaby,
+                    passengersChild = data.passengersChild,
                     isRoundTrip = data.isRoundTrip,
                     supportRoundTrip = data.isRoundTrip,
                     orderDate = orderDate(),

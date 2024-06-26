@@ -166,7 +166,7 @@ object AppModule {
             SearchDataSourceImpl(get())
         }
         single<FavoriteDestinationDataSource>{
-            FavoriteDestinationDataSourceImpl()
+            FavoriteDestinationDataSourceImpl(get())
         }
         single<BannerDummyDataSource>{
             BannerDummyDataSourceImpl()

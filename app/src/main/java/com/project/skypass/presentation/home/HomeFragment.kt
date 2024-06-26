@@ -70,10 +70,25 @@ class HomeFragment : Fragment(), DataSelection {
         sendData()
         observeDataOrderHistory()
         clickItemOrderHistory()
-        bindSeatClass(viewModel.getFavoriteDestination())
+        displayFavoriteDestination()
         displayProfileData()
         promotionViewPager()
         setOnClickedListener()
+    }
+
+    private fun displayFavoriteDestination() {
+        viewModel.getFavoriteDestination().observe(viewLifecycleOwner){
+            it.proceedWhen(
+                doOnSuccess = { success ->
+                    bindSeatClass(success.payload.orEmpty())
+                }, doOnLoading = {
+
+                },
+                doOnError = {
+
+                }
+            )
+        }
     }
 
     private fun setOnClickedListener() {
