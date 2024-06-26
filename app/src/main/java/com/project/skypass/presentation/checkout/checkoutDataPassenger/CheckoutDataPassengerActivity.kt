@@ -84,17 +84,17 @@ class CheckoutDataPassengerActivity : AppCompatActivity() {
         val result = mutableListOf<SectionPassengerCheckout>()
         for (i in 1..getPassengersAdult as Int) {
             result.add(
-                SectionPassengerCheckout("Data Passenger Adult $i", listOf(passenger)),
+                SectionPassengerCheckout("Data Passenger adult $i", listOf(passenger)),
             )
         }
         for (i in 1..getPassengersChild as Int) {
             result.add(
-                SectionPassengerCheckout("Data Passenger Child $i", listOf(passenger)),
+                SectionPassengerCheckout("Data Passenger child $i", listOf(passenger)),
             )
         }
         for (i in 1..getPassengersBaby as Int) {
             result.add(
-                SectionPassengerCheckout("Data Passenger Baby $i", listOf(passenger)),
+                SectionPassengerCheckout("Data Passenger baby $i", listOf(passenger)),
             )
         }
         return result
