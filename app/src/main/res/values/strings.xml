@@ -247,5 +247,6 @@
     <string name="text_total_payment">TOTAL</string>
     <string name="text_list_passengers">Daftar Passengers</string>
     <string name="text_title">Title</string>
+    <string name="title_appbar_midtrans">Pembayaran</string>
 
 </resources>

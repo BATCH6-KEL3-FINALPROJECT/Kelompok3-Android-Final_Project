@@ -10,6 +10,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import com.project.skypass.presentation.checkout.checkoutPayment.adapter.CheckoutPaymentAdapter
 import com.project.skypass.presentation.checkout.checkoutPayment.adapter.OnItemClickedPaymentListener
 import com.project.skypass.presentation.checkout.checkoutPayment.adapter.PaymentAdapter
+import com.project.skypass.presentation.checkout.checkoutmidtrans.CheckoutMidtransActivity
 import com.project.skypass.utils.proceedWhen
 
 class CheckoutPaymentActivity : AppCompatActivity() {
@@ -85,8 +86,30 @@ class CheckoutPaymentActivity : AppCompatActivity() {
         }
 
         binding.btnSubmit.setOnClickListener {
+            viewModel.createPayment(
+                viewModel.getToken(),
+                intent.getStringExtra(EXTRA_FLIGHT)!!
+            ).observe(this){
+                it.proceedWhen(
+                    doOnSuccess = { success ->
+                        navigateToMidtrans(success.payload?.urlMidtrans!!)
+                    },
+                    doOnLoading = {
 
+                    },
+                    doOnError = {
+
+                    }
+                )
+            }
         }
+    }
+
+    private fun navigateToMidtrans(paymentId: String) {
+        startActivity(
+            Intent(this, CheckoutMidtransActivity::class.java)
+                .putExtra(CheckoutMidtransActivity.EXTRA_MIDTRANS, paymentId)
+        )
     }
 
 
