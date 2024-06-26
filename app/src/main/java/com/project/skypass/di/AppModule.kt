@@ -106,6 +106,7 @@ import com.project.skypass.presentation.flight.result.FlightResultViewModel
 import com.project.skypass.presentation.history.HistoryViewModel
 import com.project.skypass.presentation.history.detailhistory.DetailHistoryViewModel
 import com.project.skypass.presentation.history.filter.search.SearchHistoryViewModel
+import com.project.skypass.presentation.history.filter.date.CalendarHistoryViewModel
 import com.project.skypass.presentation.home.calendar.CalendarHomeViewModel
 import com.project.skypass.presentation.notification.NotificationViewModel
 import com.project.skypass.presentation.notification.detailNotification.DetailNotificationViewModel
@@ -296,6 +297,7 @@ object AppModule {
         viewModelOf(::CheckoutPaymentViewModel)
         viewModelOf(::CheckoutMidtransViewModel)
         viewModelOf(::FilterViewModel)
+        viewModelOf(::CalendarHistoryViewModel)
     }
 
     val module = listOf<Module>(
