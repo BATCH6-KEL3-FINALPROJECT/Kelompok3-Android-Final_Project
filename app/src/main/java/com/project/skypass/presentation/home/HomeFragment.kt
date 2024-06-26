@@ -1,5 +1,6 @@
 package com.project.skypass.presentation.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -26,6 +27,8 @@ import com.project.skypass.presentation.home.flightclass.FlightClassFragment
 import com.project.skypass.presentation.home.passengers.PassengersFragment
 import com.project.skypass.presentation.home.search.SearchFragment
 import com.project.skypass.presentation.main.MainActivity
+import com.project.skypass.presentation.profile.changeprofile.ChangeProfileActivity
+import com.project.skypass.presentation.profile.settingaccount.SettingsAccountActivity
 import com.project.skypass.utils.convertDateFormat
 import com.project.skypass.utils.orderDate
 import com.project.skypass.utils.proceedWhen
@@ -75,7 +78,21 @@ class HomeFragment : Fragment(), DataSelection {
 
     private fun setOnClickedListener() {
         binding.ivPhotoUser.setOnClickListener {
-            navigationToProfile()
+            if (viewModel.isLogin()){
+                navigationToProfile()
+            }else{
+                StyleableToast.makeText(requireContext(),
+                    getString(R.string.text_not_login), R.style.ToastError).show()
+            }
+        }
+
+        binding.ivSetting.setOnClickListener {
+            if (viewModel.isLogin()){
+                navigateToSetting()
+            }else{
+                StyleableToast.makeText(requireContext(),
+                    getString(R.string.text_not_login), R.style.ToastError).show()
+            }
         }
     }
 
@@ -91,30 +108,33 @@ class HomeFragment : Fragment(), DataSelection {
             if (checkAllForm()){
                 moveToFlight()
             }else{
-                StyleableToast.makeText(requireContext(), "Silahkan isi semua form", R.style.ToastError).show()
+                StyleableToast.makeText(requireContext(),
+                    getString(R.string.text_fill_form), R.style.ToastError).show()
             }
 
         }
     }
 
     private fun displayProfileData() {
-        val userId = viewModel.getUserId()
-        viewModel.showDataUser(userId).observe(viewLifecycleOwner) { result ->
-            result.proceedWhen(
-                doOnSuccess = {
-                    binding.tvNameUser.text = "Hi, " + it.payload?.name
-                    binding.ivPhotoUser.load(it.payload?.photoUrl) {
-                        fallback(R.drawable.iv_profile)
-                        crossfade(true)
-                        scale(Scale.FILL)
+        if (viewModel.isLogin()) {
+            val userId = viewModel.getUserId()
+            viewModel.showDataUser(userId).observe(viewLifecycleOwner) { result ->
+                result.proceedWhen(
+                    doOnSuccess = {
+                        binding.tvNameUser.text = "Hi, " + it.payload?.name
+                        binding.ivPhotoUser.load(it.payload?.photoUrl) {
+                            fallback(R.drawable.iv_profile)
+                            crossfade(true)
+                            scale(Scale.FILL)
+                        }
+                    },
+                    doOnLoading = {
+                    },
+                    doOnError = {
                     }
-                },
-                doOnLoading = {
-                },
-                doOnError = {
-                }
 
-            )
+                )
+            }
         }
     }
 
@@ -132,8 +152,13 @@ class HomeFragment : Fragment(), DataSelection {
 
 
     private fun navigationToProfile() {
-        if (requireActivity() !is MainActivity) return
-        (requireActivity() as MainActivity).navigateToProfile()
+        val intent = Intent(activity, ChangeProfileActivity::class.java)
+        startActivity(intent)
+    }
+
+    private fun navigateToSetting(){
+        val intent = Intent(activity, SettingsAccountActivity::class.java)
+        startActivity(intent)
     }
 
 
