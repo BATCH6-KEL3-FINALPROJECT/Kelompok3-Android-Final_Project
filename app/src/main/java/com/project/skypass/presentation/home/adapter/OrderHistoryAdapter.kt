@@ -74,7 +74,7 @@ class CartViewHolder(
             tvDeparture.text = item.departureCity
             tvArrival.text = item.arrivalCity
             tvDateOrder.text = item.orderDate
-            tvContentDatePassengerClass.text = item.passengersTotal + " - "+ item.seatClass
+            tvContentDatePassengerClass.text = item.passengersTotal + "Penumpang - "+ item.seatClass
         }
     }
 

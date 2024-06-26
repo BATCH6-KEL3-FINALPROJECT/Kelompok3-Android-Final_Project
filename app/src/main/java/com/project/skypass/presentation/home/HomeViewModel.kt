@@ -37,4 +37,8 @@ class HomeViewModel(
     fun showDataUser(id: String): LiveData<ResultWrapper<User>> {
         return userRepository.getUser(id).asLiveData(Dispatchers.IO)
     }
+
+    fun isLogin(): Boolean {
+        return prefRepository.isLogin()
+    }
 }
