@@ -69,6 +69,9 @@ class NotificationAdapter(
             binding.tvTitleItemNotification.text = item.notificationType
             binding.tvDateItemNotification.text = convertDateNotification(item.createdAt)
             binding.tvDetailItemNotification.text = item.message
+            if (item.notificationType == "promo"){
+                binding.ivIconNotification.setImageResource(R.drawable.ic_promo)
+            }
             if (item.isRead) {
                 binding.cardItemNotification.setBackgroundResource(R.color.color_item_read_notification)
             }
