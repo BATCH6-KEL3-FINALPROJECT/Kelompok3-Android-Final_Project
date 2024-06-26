@@ -11,15 +11,6 @@
         android:layout_weight="1"
         android:textColor="?attr/colorPrimary"
         android:textStyle="bold"
-        android:text="Nama Pengunjung"
-        />
+        android:text="Nama Pengunjung" />
 
-    <TextView
-        android:id="@+id/tvPassenger_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="ID: 19267523"
-        android:textStyle="bold"
-        android:textSize="14sp"
-        />
 </LinearLayout>

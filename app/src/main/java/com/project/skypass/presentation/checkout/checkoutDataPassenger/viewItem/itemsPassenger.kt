@@ -47,7 +47,7 @@ class DataItem(private var data: PassengersData, private val onItemClick: (item:
                 email = CheckoutDataPassengerActivity.DataHolder.emailOrder.toString(),
                 phoneNumber = viewBinding.etNoPhone.text.toString(),
                 validUntil = viewBinding.etLastDateKTP.text.toString(),
-                passengerType = null
+                passengerType = data.passengerType
             )
             if (passengersData.isValid()) {
                 viewBinding.btnSubmit.isVisible = false

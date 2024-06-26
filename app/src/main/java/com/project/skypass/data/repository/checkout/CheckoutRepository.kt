@@ -3,6 +3,7 @@ package com.project.skypass.data.repository.checkout
 import com.project.skypass.data.model.Booking
 import com.project.skypass.data.model.PassengersData
 import com.project.skypass.data.model.Payment
+import com.project.skypass.data.source.network.model.checkout.response.CheckoutResponse
 import com.project.skypass.utils.ResultWrapper
 import kotlinx.coroutines.flow.Flow
 
@@ -18,7 +19,7 @@ interface CheckoutRepository {
         email: String?,
         phone: String?,
         passenger: List<PassengersData>
-    ): Flow<ResultWrapper<Boolean>>
+    ): Flow<ResultWrapper<CheckoutResponse>>
 
     fun getBookingData(token: String, bookingId: String): Flow<ResultWrapper<List<Booking>>>
 

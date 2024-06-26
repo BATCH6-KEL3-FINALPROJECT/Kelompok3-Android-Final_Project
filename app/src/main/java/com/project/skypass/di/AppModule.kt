@@ -84,6 +84,7 @@ import com.project.skypass.presentation.checkout.checkoutDataOrder.CheckoutDataO
 import com.project.skypass.presentation.auth.resetpassword.ResetPasswordViewModel
 import com.project.skypass.presentation.auth.verification.VerificationViewModel
 import com.project.skypass.presentation.checkout.checkoutDetail.CheckoutDetailViewModel
+import com.project.skypass.presentation.checkout.checkoutPayment.CheckoutPaymentViewModel
 import com.project.skypass.presentation.checkout.checkoutSeat.CheckoutSeatViewModel
 import com.project.skypass.presentation.home.HomeViewModel
 import com.project.skypass.presentation.profile.changeprofile.ChangeProfileViewModel
@@ -276,6 +277,7 @@ object AppModule {
         viewModelOf(::CheckoutSeatViewModel)
         viewModelOf(::NotificationViewModel)
         viewModelOf(::CheckoutDetailViewModel)
+        viewModelOf(::CheckoutPaymentViewModel)
     }
 
     val module = listOf<Module>(

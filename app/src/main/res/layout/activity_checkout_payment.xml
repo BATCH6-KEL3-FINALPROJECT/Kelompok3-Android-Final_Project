@@ -55,7 +55,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <include
+            <!--<include
                 android:id="@+id/in_ticket"
                 layout="@layout/item_checkout_payment_ticket"
                 android:layout_width="0dp"
@@ -79,46 +79,52 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/in_ticket"
-                app:layout_goneMarginStart="16dp" />
+                app:layout_goneMarginStart="16dp" />-->
 
-            <LinearLayout
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_data_payment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginHorizontal="16dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 android:orientation="vertical"
-                android:paddingTop="10dp"
-                android:paddingBottom="150dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                tools:ignore="ObsoleteLayoutParam"/>
+                tools:listitem="@layout/item_checkout_payment_ticket"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/label_passenger"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
                 android:text="@string/text_list_passengers"
                 android:textColor="@color/black"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                app:layout_constraintTop_toBottomOf="@+id/in_ticket"
-                android:paddingTop="250dp"
-                 />
+                android:layout_marginTop="16dp"
+                android:layout_marginHorizontal="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rv_data_payment" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_passenger"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-               app:layout_constraintTop_toBottomOf="@+id/label_passenger"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:orientation="vertical"
+                android:layout_marginTop="4dp"
+                android:layout_marginHorizontal="16dp"
+                app:layout_constraintTop_toBottomOf="@+id/label_passenger"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginBottom="150dp"
                 android:paddingBottom="150dp"
                 tools:listitem="@layout/item_checkout_rv_payment" />
 
-
         </androidx.constraintlayout.widget.ConstraintLayout>
+
     </androidx.core.widget.NestedScrollView>
 
     <Button

@@ -14,6 +14,7 @@ import com.project.skypass.data.model.OrderUser
 import com.project.skypass.data.model.PassengersData
 import com.project.skypass.databinding.ActivityCheckoutDetailBinding
 import com.project.skypass.presentation.checkout.checkoutDataPassenger.CheckoutDataPassengerActivity
+import com.project.skypass.presentation.checkout.checkoutPayment.CheckoutPaymentActivity
 import com.project.skypass.presentation.checkout.checkoutSeat.CheckoutSeatActivity
 import com.project.skypass.utils.proceedWhen
 import com.project.skypass.utils.toIndonesianFormat
@@ -77,7 +78,7 @@ class CheckoutDetailActivity : AppCompatActivity() {
                     validUntil = it.validUntil,
                     seatsDepartureId = passengerData.seatIdDeparture?.get(index),
                     seatsArrivalId = passengerData.seatIdArrival?.get(index),
-                    passengerType = null
+                    passengerType = it.passengerType
                 )
             },
             noOfPassenger = totalPassengers
@@ -183,8 +184,13 @@ class CheckoutDetailActivity : AppCompatActivity() {
             passenger
         ).observe(this){
             it.proceedWhen(
-                doOnSuccess = {
+                doOnSuccess = { success ->
                     Toast.makeText(this, "Berhasil kirim data", Toast.LENGTH_SHORT).show()
+                    CheckoutPaymentActivity.sendDataOrder(
+                        this,
+                        it.payload?.data?.bookingResult?.paymentId!!,
+                        passenger
+                    )
                 },
                 doOnLoading = {
 

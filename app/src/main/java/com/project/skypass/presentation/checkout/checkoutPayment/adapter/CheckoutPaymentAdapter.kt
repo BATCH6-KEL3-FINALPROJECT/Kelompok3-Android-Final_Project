@@ -12,7 +12,63 @@ import com.project.skypass.databinding.ItemCheckoutRvPaymentBinding
 import com.project.skypass.databinding.ItemFlightTicketBinding
 import com.project.skypass.utils.toIndonesianFormat
 
+class CheckoutPaymentAdapter(
+    private val listener: OnItemClickedPaymentListener<PassengersData>
+): RecyclerView.Adapter<CheckoutPaymentAdapter.PaymentCheckoutViewHolder>() {
 
+    private val data = mutableListOf<PassengersData>()
+
+    fun submitData(items: List<PassengersData>) {
+        data.clear()
+        data.addAll(items)
+        notifyDataSetChanged()
+    }
+
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): CheckoutPaymentAdapter.PaymentCheckoutViewHolder {
+        return PaymentCheckoutViewHolder(
+            ItemCheckoutRvPaymentBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            ),
+            listener
+        )
+    }
+
+    override fun onBindViewHolder(
+        holder: PaymentCheckoutViewHolder,
+        position: Int
+    ) {
+        holder.bind(data[position])
+    }
+
+    override fun getItemCount(): Int {
+        return data.size
+    }
+
+    class PaymentCheckoutViewHolder(
+        private val binding: ItemCheckoutRvPaymentBinding,
+        private val listener: OnItemClickedPaymentListener<PassengersData>
+    ): RecyclerView.ViewHolder(binding.root){
+        fun bind(item: PassengersData){
+            binding.tvName.text = " ${item.title} ${item.firstName} ${item.lastName}"
+
+            itemView.setOnClickListener {
+                listener.onItemClicked(item)
+            }
+        }
+    }
+
+}
+
+interface OnItemClickedPaymentListener<T> {
+    fun onItemClicked(item: T)
+}
+
+/*
 class CheckoutPaymentAdapter(
     private val listener: OnItemClickedPaymentListener<PassengersData>
 ) :
@@ -59,9 +115,7 @@ class CheckoutPaymentAdapter(
     class PaymentCheckoutViewHolder(
         private val binding: ItemCheckoutRvPaymentBinding,
         private val listener: OnItemClickedPaymentListener<PassengersData>,
-
-        ) :
-        RecyclerView.ViewHolder(binding.root) {
+    ): RecyclerView.ViewHolder(binding.root) {
         fun bind(item: PassengersData) {
             binding.tvName.text = " ${item.title} ${item.firstName} ${item.lastName}"
 
@@ -76,3 +130,4 @@ class CheckoutPaymentAdapter(
 interface OnItemClickedPaymentListener<T> {
     fun onItemClicked(item: T)
 }
+*/
