@@ -101,7 +101,7 @@
         android:id="@+id/cl_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/colorSecondary"
+        android:background="?attr/colorTertiary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/cv_flight_app_bar">
@@ -202,6 +202,8 @@
             android:id="@+id/rv_ticket"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+           android:paddingTop="10dp"
+            android:paddingBottom="250dp"
             android:orientation="vertical"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"

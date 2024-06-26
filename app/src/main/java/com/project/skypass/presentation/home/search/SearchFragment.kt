@@ -106,7 +106,8 @@ class SearchFragment : BottomSheetDialogFragment() {
 
     private fun bindHistoryToChipGroup(historyList: List<SearchHistoryHome>) {
         binding.rvSearchNow.removeAllViews()
-        for (history in historyList) {
+        for (i in historyList.size - 1 downTo 0) {
+            val history = historyList[i]
             val chip = Chip(requireContext()).apply {
                 text = history.history
                 isClickable = true

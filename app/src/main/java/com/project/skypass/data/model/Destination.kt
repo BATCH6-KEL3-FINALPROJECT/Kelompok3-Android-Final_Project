@@ -12,7 +12,7 @@ data class Destination(
     val to: String,
     val departureDate: String,
     val returnDate: String,
-    val passengers: String,
+    val passengers: Int,
     val seatClass: String,
     val discount: String,
     val price: Double,

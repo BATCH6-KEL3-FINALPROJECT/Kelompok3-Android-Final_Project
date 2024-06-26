@@ -13,6 +13,8 @@ import com.project.skypass.data.datasource.flight.FlightDataSource
 import com.project.skypass.data.datasource.flight.FlightDataSourceImpl
 import com.project.skypass.data.datasource.history.HistoryDataSource
 import com.project.skypass.data.datasource.history.HistoryDataSourceImpl
+import com.project.skypass.data.datasource.home.banner.BannerDummyDataSource
+import com.project.skypass.data.datasource.home.banner.BannerDummyDataSourceImpl
 import com.project.skypass.data.datasource.home.favdestination.FavoriteDestinationDataSource
 import com.project.skypass.data.datasource.home.favdestination.FavoriteDestinationDataSourceImpl
 import com.project.skypass.data.datasource.home.orderHistory.OrderHistoryDataSource
@@ -38,6 +40,8 @@ import com.project.skypass.data.repository.OrderHistory.OrderHistoryRepository
 import com.project.skypass.data.repository.OrderHistory.OrderHistoryRepositoryImpl
 import com.project.skypass.data.repository.auth.AuthRepository
 import com.project.skypass.data.repository.auth.AuthRepositoryImpl
+import com.project.skypass.data.repository.bannerHome.BannerHomeRepository
+import com.project.skypass.data.repository.bannerHome.BannerHomeRepositoryImpl
 import com.project.skypass.data.repository.checkout.CheckoutRepository
 import com.project.skypass.data.repository.checkout.CheckoutRepositoryImpl
 import com.project.skypass.data.repository.flight.FlightRepository
@@ -95,7 +99,7 @@ import com.project.skypass.presentation.history.HistoryViewModel
 import com.project.skypass.presentation.history.detailhistory.DetailHistoryViewModel
 import com.project.skypass.presentation.home.calendar.CalendarHomeViewModel
 import com.project.skypass.presentation.notification.NotificationViewModel
-import com.project.skypass.presentation.profile.ProfileViewModelExample
+import com.project.skypass.presentation.profile.profile.ProfileViewModelExample
 import com.project.skypass.utils.SharedPreferenceUtils
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -161,6 +165,9 @@ object AppModule {
         single<FavoriteDestinationDataSource>{
             FavoriteDestinationDataSourceImpl()
         }
+        single<BannerDummyDataSource>{
+            BannerDummyDataSourceImpl()
+        }
         single<FlightDataSource> {
             FlightDataSourceImpl(get())
         }
@@ -205,6 +212,9 @@ object AppModule {
         }
         single<FavoriteDestinationRepository>{
             FavoriteDestinationRepositoryImpl(get())
+        }
+        single<BannerHomeRepository> {
+            BannerHomeRepositoryImpl(get())
         }
         single<ProfileRepository> {
             ProfileRepositoryImpl(get())

@@ -37,6 +37,10 @@ class FlightResultActivity : AppCompatActivity() {
     private fun bindFlightData(flight: OrderUser) {
         flight.let { item ->
 
+            val infoDetail = item.flightDescription?.replace(",", "\n")
+            val infoDetailRoundTrip = item.flightDescriptionRoundTrip?.replace(",", "\n")
+
+
             binding.tvTotalPrice.text = item.priceTotal.toIndonesianFormat()
             binding.rvTicketDetail.tvAirportDeparture.text = item.departureAirportName
             binding.rvTicketDetail.tvAirportArrival.text = item.arrivalAirportName
@@ -47,7 +51,7 @@ class FlightResultActivity : AppCompatActivity() {
             binding.rvTicketDetail.tvDateArrival.text = item.flightArrivalDate
             binding.rvTicketDetail.tvTimeDeparture.text = item.departureTime
             binding.rvTicketDetail.tvTimeArrival.text = item.arrivalTime
-            binding.rvTicketDetail.tvInfoDetail.text = item.flightDescription
+            binding.rvTicketDetail.tvInfoDetail.text = infoDetail
             binding.rvTicketDetail.tvFlightCode.text = item.flightCode
 
 
@@ -78,7 +82,7 @@ class FlightResultActivity : AppCompatActivity() {
                 binding.rvTicketDetailRound.tvDateArrival.text = item.flightArrivalDate
                 binding.rvTicketDetailRound.tvTimeDeparture.text = item.departureTime
                 binding.rvTicketDetailRound.tvTimeArrival.text = item.arrivalTime
-                binding.rvTicketDetailRound.tvInfoDetail.text = item.flightDescription
+                binding.rvTicketDetailRound.tvInfoDetail.text = infoDetailRoundTrip
                 binding.rvTicketDetailRound.tvFlightCode.text = item.flightCode
                 binding.rvTicketDetailRound.root.isVisible = true
             }else{
@@ -96,15 +100,19 @@ class FlightResultActivity : AppCompatActivity() {
 
     private fun sendOrderData(item: OrderUser) {
 
+        val infoDetail = item.flightDescription?.replace(", ", "\n")
+        val infoDetailRoundTrip = item.flightDescriptionRoundTrip?.replace(", ", "\n")
+
             binding.btnSelectFlight.setOnClickListener {
                 if (!viewModel.isLogin()){
                     val loginBottomSheetFragment = LoginBottomSheetFragment()
                     loginBottomSheetFragment.show(supportFragmentManager, loginBottomSheetFragment.tag)
                 } else {
+                    val updatedItem = item.copy(flightDescription = infoDetail, flightDescriptionRoundTrip = infoDetailRoundTrip)
                     if (item.isRoundTrip == false) {
                         CheckoutDataOrdersActivity.sendDataOrder(
                             this,
-                            item,
+                            updatedItem,
                         )
                     }else{
                         FlightDetailActivity.startActivity(
@@ -137,7 +145,7 @@ class FlightResultActivity : AppCompatActivity() {
                                 departureIATACode = item.departureIATACodeRoundTrip,
                                 departureTime = item.departureTimeRoundTrip,
                                 flightCode = item.flightCodeRoundTrip,
-                                flightDescription = item.flightDescriptionRoundTrip,
+                                flightDescription = infoDetailRoundTrip,
                                 flightDuration = item.flightDurationRoundTrip,
                                 flightDurationFormat = item.flightDurationFormatRoundTrip,
                                 flightId = item.flightIdRoundTrip,
@@ -164,7 +172,7 @@ class FlightResultActivity : AppCompatActivity() {
                                 departureIATACodeRoundTrip = item.departureIATACode,
                                 departureTimeRoundTrip = item.departureTime,
                                 flightCodeRoundTrip = item.flightCode,
-                                flightDescriptionRoundTrip = item.flightDescription,
+                                flightDescriptionRoundTrip = infoDetail,
                                 flightDurationRoundTrip = item.flightDuration,
                                 flightDurationFormatRoundTrip = item.flightDurationFormat,
                                 flightIdRoundTrip = item.flightId,

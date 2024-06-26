@@ -206,6 +206,9 @@ interface ApiService {
         @Body historyRequest: HistoryRequestResponse
     ): PostHistoryRespomse
 
+    @GET("flight/favorites")
+    suspend fun getDestinationFavorite()
+
     companion object {
         @JvmStatic
         operator fun invoke(): ApiService {

@@ -200,7 +200,7 @@
     <string name="text_title_doalog_calender">Atur Tanggal</string>
     <string name="text_button_spalshscreen">Next</string>
     <string name="from_to">%1$s - %2$s</string>
-    <string name="idr_rp_fav_des">IDR Rp.%1$s</string>
+    <string name="idr_rp_fav_des">IDR %1$s</string>
     <string name="text_toolbar_notification">Detail Information</string>
     <string name="text_detail_penerbangan">Detail Penerbangan</string>
     <string name="textConnect">-</string>
@@ -237,5 +237,11 @@
     <string name="text_passengers_info">Informasi Penumpang:</string>
     <string name="text_cetak_tiket_pesawat">Cetak Tiket Pesawat</string>
     <string name="text_pesan_lagi">Pesan Lagi</string>
+    <string name="loading">Loading...</string>
+    <string name="text_explore">explore More</string>
+    <string name="text_title_home_banner">Temukan Tujuan Penerbanganmu!</string>
+    <string name="text_explore_more">Explore More</string>
+    <string name="text_fill_form">Silahkan isi semua form</string>
+    <string name="text_not_login">Anda belum login!</string>
 
 </resources>
