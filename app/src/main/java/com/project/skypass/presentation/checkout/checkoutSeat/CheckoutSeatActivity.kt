@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import com.project.skypass.R
@@ -17,13 +16,14 @@ import com.project.skypass.utils.proceedWhen
 import dev.jahidhasanco.seatbookview.SeatBookView
 import dev.jahidhasanco.seatbookview.SeatClickListener
 import dev.jahidhasanco.seatbookview.SeatLongClickListener
+import io.github.muddz.styleabletoast.StyleableToast
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class CheckoutSeatActivity : AppCompatActivity() {
 
     private val binding by lazy { ActivityCheckoutSeatBinding.inflate(layoutInflater) }
     private val title = mutableListOf<String>()
-    var listSeat:String = ""
+    var listSeat: String = ""
     var listTitle: List<String>? = null
     var listSeatId: List<String>? = null
     private val seats = StringBuilder()
@@ -66,9 +66,15 @@ class CheckoutSeatActivity : AppCompatActivity() {
                     selectedIdList: List<Int>,
                     view: View,
                 ) {
+                    getSeatTitle = emptyList()
+                    getSeatId = emptyList()
                     getSeatId = getSelectedSeatId(selectedIdList, listSeatId!!)
                     getSeatTitle = getSelectedTitle(selectedIdList, listTitle!!)
-                    Toast.makeText(this@CheckoutSeatActivity, "$getSeatId", Toast.LENGTH_SHORT).show()
+                    StyleableToast.makeText(
+                        this@CheckoutSeatActivity,
+                        "$getSeatTitle",
+                        R.style.ToastSuccess
+                    ).show()
                 }
 
                 override fun onBookedSeatClick(view: View) {
@@ -82,11 +88,7 @@ class CheckoutSeatActivity : AppCompatActivity() {
         seatBookView.setSeatLongClickListener(
             object : SeatLongClickListener {
                 override fun onAvailableSeatLongClick(view: View) {
-                    Toast.makeText(
-                        this@CheckoutSeatActivity,
-                        "seat ${item.airlineName}",
-                        Toast.LENGTH_SHORT
-                    ).show()
+
                 }
 
                 override fun onBookedSeatLongClick(view: View) {
@@ -109,6 +111,7 @@ class CheckoutSeatActivity : AppCompatActivity() {
         }
         return selectedSeatId
     }
+
     private fun getSelectedTitle(selectedIdList: List<Int>, titleSeat: List<String>): List<String> {
         val selectedSeatTitle = mutableListOf<String>()
         for (index in selectedIdList) {
@@ -127,44 +130,77 @@ class CheckoutSeatActivity : AppCompatActivity() {
     private fun getArgumentData() {
         intent.extras?.getParcelable<OrderUser>(CheckoutSeatActivity.EXTRA_FLIGHT)?.let {
 
-            viewModel.getSeats(it.seatClass!!, it.flightId!!, 200).observe(this) {data ->
-                data.proceedWhen(
-                    doOnSuccess = { result ->
-                        binding.layoutContentState.root.isVisible = false
-                        result.payload?.let { (seat, seatId, title) ->
-                            listSeat = seat
-                            listTitle = title
-                            listSeatId = seatId
-                            observeResult()
-                            setClickListeners()
-                            setupSeatBookView(it)
+            if (it.supportRoundTrip == true) {
+                viewModel.getSeats(it.seatClass!!, it.flightId!!, 200).observe(this) { data ->
+                    data.proceedWhen(
+                        doOnSuccess = { result ->
+                            binding.layoutContentState.root.isVisible = false
+                            result.payload?.let { (seat, seatId, title) ->
+                                listSeat = seat
+                                listTitle = title
+                                listSeatId = seatId
+                                observeResult()
+                                setClickListeners()
+                                setupSeatBookView(it)
+                            }
+                        },
+                        doOnEmpty = {
+                            binding.layoutContentState.root.isVisible = true
+                            binding.layoutContentState.textError.text =
+                                getString(R.string.text_empty_seat_class)
+                            binding.layoutContentState.pbLoadingEmptyState.isVisible = false
+                        },
+                        doOnLoading = {
+                            binding.layoutContentState.root.isVisible = true
+                            binding.layoutContentState.textError.isVisible = false
+                            binding.layoutContentState.pbLoadingEmptyState.isVisible = true
+                        }, doOnError = {
+                            binding.layoutContentState.root.isVisible = true
+                            binding.layoutContentState.textError.text =
+                                getString(R.string.text_error_seat_checkout)
+                            binding.layoutContentState.pbLoadingEmptyState.isVisible = false
                         }
-                    },
-                    doOnEmpty = {
-                        binding.layoutContentState.root.isVisible = true
-                        binding.layoutContentState.textError.text =
-                            getString(R.string.text_empty_seat_class)
-                        binding.layoutContentState.pbLoadingEmptyState.isVisible = false
-                    },
-                    doOnLoading = {
-                        binding.layoutContentState.root.isVisible = true
-                        binding.layoutContentState.textError.isVisible = false
-                        binding.layoutContentState.pbLoadingEmptyState.isVisible = true
-                    }, doOnError = {
-                        binding.layoutContentState.root.isVisible = true
-                        binding.layoutContentState.textError.text =
-                            getString(R.string.text_error_seat_checkout)
-                        binding.layoutContentState.pbLoadingEmptyState.isVisible = false
+                    )
+                }
+            } else {
+                viewModel.getSeats(it.seatClass!!, it.flightIdRoundTrip!!, 200)
+                    .observe(this) { data ->
+                        data.proceedWhen(
+                            doOnSuccess = { result ->
+                                binding.layoutContentState.root.isVisible = false
+                                result.payload?.let { (seat, seatId, title) ->
+                                    listSeat = seat
+                                    listTitle = title
+                                    listSeatId = seatId
+                                    observeResult()
+                                    setClickListeners()
+                                    setupSeatBookView(it)
+                                }
+                            },
+                            doOnEmpty = {
+                                binding.layoutContentState.root.isVisible = true
+                                binding.layoutContentState.textError.text =
+                                    getString(R.string.text_empty_seat_class)
+                                binding.layoutContentState.pbLoadingEmptyState.isVisible = false
+                            },
+                            doOnLoading = {
+                                binding.layoutContentState.root.isVisible = true
+                                binding.layoutContentState.textError.isVisible = false
+                                binding.layoutContentState.pbLoadingEmptyState.isVisible = true
+                            }, doOnError = {
+                                binding.layoutContentState.root.isVisible = true
+                                binding.layoutContentState.textError.text =
+                                    getString(R.string.text_error_seat_checkout)
+                                binding.layoutContentState.pbLoadingEmptyState.isVisible = false
+                            }
+                        )
                     }
-                )
             }
-
-
 
             intent.extras?.getParcelable<OrderPassengers>(CheckoutDataPassengerActivity.EXTRA_USER_ORDER)
                 ?.let { orderPassenger ->
                     sendOrderData(it, orderPassenger)
-                    setProfileData(it,orderPassenger)
+                    setProfileData(it, orderPassenger)
                 }
         }
     }
@@ -172,8 +208,9 @@ class CheckoutSeatActivity : AppCompatActivity() {
     private fun setProfileData(item: OrderUser, passengerData: OrderPassengers) {
         binding.apply {
             if (item.seatsAvailableRoundTrip != null && item.supportRoundTrip == false) {
-                binding.tvHeader.text = "Kursi Tersedia " + item.seatsAvailableRoundTrip + " Arrival"
-            }else{
+                binding.tvHeader.text =
+                    "Kursi Tersedia " + item.seatsAvailableRoundTrip + " Arrival"
+            } else {
                 binding.tvHeader.text = "Kursi Tersedia " + item.seatsAvailable + " Departure"
             }
         }
@@ -183,7 +220,7 @@ class CheckoutSeatActivity : AppCompatActivity() {
 
     private fun sendOrderData(item: OrderUser, passengerData: OrderPassengers) {
         binding.btnSubmit.setOnClickListener {
-            if (item.supportRoundTrip == true ) {
+            if (item.supportRoundTrip == true) {
                 CheckoutDetailActivity.sendDataOrder(
                     this,
                     item,
@@ -199,7 +236,7 @@ class CheckoutSeatActivity : AppCompatActivity() {
                         seatIdArrival = passengerData.seatIdArrival
                     )
                 )
-            }else if(item.isRoundTrip == false && item.supportRoundTrip == false && item.seatsAvailableRoundTrip == null){
+            } else if (item.isRoundTrip == false && item.supportRoundTrip == false && item.seatsAvailableRoundTrip == null) {
                 CheckoutDetailActivity.sendDataOrder(
                     this,
                     item,
@@ -215,8 +252,7 @@ class CheckoutSeatActivity : AppCompatActivity() {
                         seatIdArrival = passengerData.seatIdArrival
                     )
                 )
-            }
-            else {
+            } else {
                 CheckoutDetailActivity.sendDataOrder(
                     this,
                     item,
@@ -226,7 +262,7 @@ class CheckoutSeatActivity : AppCompatActivity() {
                         familyName = passengerData.familyName,
                         noTelephone = passengerData.noTelephone,
                         passengers = passengerData.passengers, // need edit
-                        seatOrderDeparture = passengerData.seatIdDeparture,
+                        seatOrderDeparture = passengerData.seatOrderDeparture,
                         seatOrderArrival = getSeatTitle,
                         seatIdDeparture = passengerData.seatIdDeparture,
                         seatIdArrival = getSeatId

@@ -3,10 +3,9 @@ package com.project.skypass.presentation.checkout.checkoutDataPassenger
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.project.skypass.R
 import com.project.skypass.data.model.OrderPassengers
 import com.project.skypass.data.model.OrderUser
 import com.project.skypass.data.model.PassengersData
@@ -17,6 +16,7 @@ import com.project.skypass.presentation.checkout.checkoutDataPassenger.viewItem.
 import com.project.skypass.presentation.checkout.checkoutSeat.CheckoutSeatActivity
 import com.xwray.groupie.GroupieAdapter
 import com.xwray.groupie.Section
+import io.github.muddz.styleabletoast.StyleableToast
 
 class CheckoutDataPassengerActivity : AppCompatActivity() {
     private val binding by lazy { ActivityCheckoutDataPassengerBinding.inflate(layoutInflater) }
@@ -56,18 +56,23 @@ class CheckoutDataPassengerActivity : AppCompatActivity() {
         }
 
         val section = getListData().map {
+            var oneClick = false
             val section = Section()
             section.setHeader(HeaderItem(it.name) { data ->
-                Toast.makeText(this, "Header Clicked : $data", Toast.LENGTH_SHORT).show()
-            })
-            val dataSection = it.data.map {
-                DataItem(it!!) { passenger ->
-                    dataPassengersOrder.add(passenger)
-                    Toast.makeText(this, "Item Clicked : $dataPassengersOrder", Toast.LENGTH_SHORT)
-                        .show()
+                if (!oneClick) {
+                    oneClick = true
+                    StyleableToast.makeText(this, data, R.style.ToastSuccess).show()
+                    val getPassengerTypeData = data.split(" ")[2]
+                    val dataSection = it.data.map {
+                        DataItem(it!!) { passenger ->
+                            val updatedItem = passenger.copy(passengerType = getPassengerTypeData)
+                            dataPassengersOrder.add(updatedItem)
+                        }
+                    }
+                    section.addAll(dataSection)
                 }
-            }
-            section.addAll(dataSection)
+            })
+
             section
         }
         adapter.addAll(section)
@@ -79,17 +84,17 @@ class CheckoutDataPassengerActivity : AppCompatActivity() {
         val result = mutableListOf<SectionPassengerCheckout>()
         for (i in 1..getPassengersAdult as Int) {
             result.add(
-                SectionPassengerCheckout("Data Passenger Adult $i", listOf(passenger)),
+                SectionPassengerCheckout("Data Passenger adult $i", listOf(passenger)),
             )
         }
         for (i in 1..getPassengersChild as Int) {
             result.add(
-                SectionPassengerCheckout("Data Passenger Child $i", listOf(passenger)),
+                SectionPassengerCheckout("Data Passenger child $i", listOf(passenger)),
             )
         }
         for (i in 1..getPassengersBaby as Int) {
             result.add(
-                SectionPassengerCheckout("Data Passenger Baby $i", listOf(passenger)),
+                SectionPassengerCheckout("Data Passenger baby $i", listOf(passenger)),
             )
         }
         return result
@@ -107,21 +112,27 @@ class CheckoutDataPassengerActivity : AppCompatActivity() {
 
     private fun sendOrderData(item: OrderUser, passengerData: OrderPassengers) {
         binding.btnSubmit.setOnClickListener {
-            CheckoutSeatActivity.sendDataOrder(
-                this,
-                item,
-                OrderPassengers(
-                    name = passengerData.name,
-                    email = passengerData.email,
-                    familyName = passengerData.familyName,
-                    noTelephone = passengerData.noTelephone,
-                    passengers = dataPassengersOrder,
-                    seatOrderDeparture = passengerData.seatOrderDeparture,
-                    seatOrderArrival = passengerData.seatOrderArrival,
-                    seatIdArrival = passengerData.seatIdArrival,
-                    seatIdDeparture = passengerData.seatIdDeparture
+            val totalPassengers =
+                item.passengersBaby!! + item.passengersAdult!! + item.passengersChild!!
+            if (totalPassengers == (dataPassengersOrder.size)) {
+                CheckoutSeatActivity.sendDataOrder(
+                    this,
+                    item,
+                    OrderPassengers(
+                        name = passengerData.name,
+                        email = passengerData.email,
+                        familyName = passengerData.familyName,
+                        noTelephone = passengerData.noTelephone,
+                        passengers = dataPassengersOrder,
+                        seatOrderDeparture = passengerData.seatOrderDeparture,
+                        seatOrderArrival = passengerData.seatOrderArrival,
+                        seatIdArrival = passengerData.seatIdArrival,
+                        seatIdDeparture = passengerData.seatIdDeparture
+                    )
                 )
-            )
+            }else{
+                StyleableToast.makeText(this, "Terdapat Data Yang Belum Diisi", R.style.ToastError).show()
+            }
         }
     }
 

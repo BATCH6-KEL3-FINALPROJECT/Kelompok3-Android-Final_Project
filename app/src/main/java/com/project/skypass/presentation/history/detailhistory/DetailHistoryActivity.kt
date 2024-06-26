@@ -44,6 +44,7 @@ class DetailHistoryActivity : AppCompatActivity() {
     private fun onItemClick(item: TicketHistory) {
 
     }
+
     private fun setAdapter(){
         val itemClickListener = object : OnItemDetailClickedListener<TicketHistory> {
             override fun onItemClicked(item: TicketHistory) {

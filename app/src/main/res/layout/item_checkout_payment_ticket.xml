@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center|top"
+    android:layout_marginHorizontal="16dp"
+    android:layout_marginVertical="8dp">
+
+    <com.vipulasri.ticketview.TicketView
+        android:id="@+id/ticketView"
+        android:layout_width="match_parent"
+        android:layout_height="210dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:ticketBackgroundColor="@color/colorTicketBackground"
+        app:ticketBorderColor="#D0D0D0"
+        app:ticketBorderWidth="2dp"
+        app:ticketCornerRadius="16dp"
+        app:ticketCornerType="rounded"
+        app:ticketDividerColor="#D0D0D0"
+        app:ticketDividerType="dash"
+        app:ticketElevation="2dp"
+        app:ticketOrientation="horizontal"
+        app:ticketScallopPositionPercent="70"
+        app:ticketScallopRadius="10dp"
+        app:ticketShowBorder="true"
+        app:ticketShowDivider="true" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingHorizontal="16dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/ticketView">
+
+        <LinearLayout
+            android:id="@+id/tv_title_passenger"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pasengers :" />
+
+            <TextView
+                android:id="@+id/tv_passangers_list"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:text="2 adult, 2 baby"
+                android:textColor="?attr/colorPrimary"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_city_name_alias"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Dari"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title_passenger" />
+
+        <TextView
+            android:id="@+id/tv_city_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="Jakarta"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_city_name_alias" />
+
+        <TextView
+            android:id="@+id/tv_design_dot"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="8dp"
+            android:drawablePadding="8dp"
+            android:maxLines="1"
+            android:text="- - - - - - - - - - - - - - - - - - -"
+            android:textAlignment="center"
+            app:drawableEndCompat="@drawable/ic_dot"
+            app:drawableStartCompat="@drawable/ic_dot"
+            app:drawableTint="?attr/colorOnSurface"
+            app:layout_constraintBottom_toBottomOf="@id/tv_city_name_alias"
+            app:layout_constraintEnd_toStartOf="@+id/tv_city_name_destination_alias"
+            app:layout_constraintStart_toEndOf="@id/tv_city_name_alias"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title_passenger" />
+
+        <TextView
+            android:id="@+id/tv_city_name_destination_alias"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="Ke"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title_passenger" />
+
+        <TextView
+            android:id="@+id/tv_city_name_destination"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Malang"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="@id/tv_city_name_destination_alias"
+            app:layout_constraintTop_toBottomOf="@id/tv_city_name_alias" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:rotation="90"
+            android:src="@drawable/ic_flight"
+            app:layout_constraintBottom_toBottomOf="@id/tv_design_dot"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_design_dot"
+            app:tint="@color/md_theme_primary" />
+
+        <TextView
+            android:id="@+id/tv_length_of_journey"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1:35 Jam"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_design_dot" />
+
+        <TextView
+            android:id="@+id/tv_time_departure"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="08:00 AM"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_city_name" />
+
+        <TextView
+            android:id="@+id/tv_date_departure"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="24 Mei 2024"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_time_departure" />
+
+        <TextView
+            android:id="@+id/tv_time_arrival"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="09:35 AM"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_city_name_destination" />
+
+        <TextView
+            android:id="@+id/tv_date_arrival"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="24 Mei 2024"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_time_arrival" />
+
+        <TextView
+            android:id="@+id/tv_booking_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="18dp"
+            android:drawablePadding="8dp"
+            android:text="@string/text_booking_code_user"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_date_departure" />
+
+        <TextView
+            android:id="@+id/tv_id_backing_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
+            android:drawablePadding="8dp"
+            android:text="@string/text_code_booking_user"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_booking_code" />
+
+        <TextView
+            android:id="@+id/tv_class_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="18dp"
+            android:drawablePadding="8dp"
+            android:text="@string/text_class_title"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/tv_booking_code"
+            app:layout_constraintTop_toBottomOf="@id/tv_date_departure"
+            app:layout_goneMarginStart="16dp" />
+
+        <TextView
+            android:id="@+id/tv_class"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
+            android:drawablePadding="8dp"
+            android:text="@string/text_code_booking_user"
+            android:textSize="14sp"
+            app:layout_constraintStart_toEndOf="@id/tv_booking_code"
+            app:layout_constraintTop_toBottomOf="@id/tv_booking_code" />
+
+        <TextView
+            android:id="@+id/tv_total_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="18dp"
+            android:drawablePadding="8dp"
+            android:text="@string/text_total_payment"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/tv_date_arrival"
+            app:layout_constraintTop_toBottomOf="@id/tv_date_departure"
+            app:layout_goneMarginStart="16dp" />
+
+        <TextView
+            android:id="@+id/tv_total_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
+            android:drawablePadding="8dp"
+            android:text="@string/text_code_booking_user"
+            android:textColor="?attr/colorPrimary"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@id/tv_total_label"
+            app:layout_constraintTop_toBottomOf="@id/tv_booking_code" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
