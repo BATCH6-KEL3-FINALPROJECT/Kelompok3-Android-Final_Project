@@ -1,20 +1,14 @@
 package com.project.skypass.presentation.flight.detail
 
-import android.os.Bundle
-import android.service.autofill.UserData
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
-import androidx.lifecycle.liveData
-import com.project.skypass.data.model.Flight
 import com.project.skypass.data.model.OrderUser
 import com.project.skypass.data.repository.OrderHistory.OrderHistoryRepository
 import com.project.skypass.data.repository.flight.FlightRepository
-import com.project.skypass.presentation.flight.result.FlightResultActivity
 import com.project.skypass.utils.ResultWrapper
 import com.project.skypass.utils.convertFlightDetail
 import kotlinx.coroutines.Dispatchers
-import java.lang.IllegalStateException
 import java.time.LocalDate
 
 class FlightDetailViewModel(
@@ -30,8 +24,8 @@ class FlightDetailViewModel(
     private var setSeatClass:String? = null
     private var setDepartureDate:String? = null
     private var setPassenger:String? = null
-
     private var selectedDate: LocalDate? = null
+
     val date: String?
         get() = setDepartureDate
 
@@ -52,12 +46,7 @@ class FlightDetailViewModel(
         arrivalCity = setArrivalCity,
         null,
         null,
-        null,
-        null,
-        null,
         seatClass = setSeatClass,
-        null,
-        null,
         1,
         10,
         departureDate = setDepartureDate

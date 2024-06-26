@@ -1,6 +1,5 @@
 package com.project.skypass.data.repository.user
 
-import android.net.Uri
 import com.project.skypass.data.datasource.user.UserDataSource
 import com.project.skypass.data.mapper.toUser
 import com.project.skypass.data.model.User
@@ -15,7 +14,7 @@ import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
 
-class UserRepositoryImpl (private val dataSource: UserDataSource) : UserRepository {
+class UserRepositoryImpl(private val dataSource: UserDataSource) : UserRepository {
     override fun isUsingDarkMode(): Boolean {
         return dataSource.isUsingDarkMode()
     }

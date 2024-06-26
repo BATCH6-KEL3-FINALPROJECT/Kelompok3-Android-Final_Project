@@ -58,6 +58,8 @@ class AuthRepositoryImpl(private val dataStore: AuthDataStore): AuthRepository {
                         phone_number = phoneNumber
                     )
                 )
+            } catch (e: ErrorInterceptor.NoInternetException) {
+                throw Exception("No internet connection")
             } catch (e: ErrorInterceptor.HttpException) {
                 throw Exception(e.message)
             }

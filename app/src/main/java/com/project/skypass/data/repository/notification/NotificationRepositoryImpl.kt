@@ -3,6 +3,7 @@ package com.project.skypass.data.repository.notification
 import com.project.skypass.data.datasource.notification.NotificationDataSource
 import com.project.skypass.data.mapper.toDetailNotification
 import com.project.skypass.data.mapper.toNotificationItems
+import com.project.skypass.data.mapper.toUpdateNotification
 import com.project.skypass.data.model.Notification
 import com.project.skypass.utils.ResultWrapper
 import com.project.skypass.utils.proceedFlow
@@ -26,6 +27,16 @@ class NotificationRepositoryImpl(private val dataSource: NotificationDataSource)
                 tokenBearer,
                 id
             ).data?.notification.toDetailNotification()
+        }
+    }
+
+    override fun updateNotification(token: String, id: String): Flow<ResultWrapper<Notification>> {
+        return proceedFlow {
+            val tokenBearer = "Bearer $token"
+            dataSource.updateNotification(
+                tokenBearer,
+                id
+            ).data?.notification.toUpdateNotification()
         }
     }
 }

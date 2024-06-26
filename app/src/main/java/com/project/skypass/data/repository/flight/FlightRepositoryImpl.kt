@@ -11,14 +11,9 @@ class FlightRepositoryImpl(private val dataSource: FlightDataSource) : FlightRep
     override fun getFlights(
         departureCity: String?,
         arrivalCity: String?,
-        departureTime: String?,
-        arrivalTime: String?,
-        flightDuration: String?,
         seatsAvailable: String?,
         flightStatus: String?,
         seatClass: String?,
-        departureContinent: String?,
-        arrivalContinent: String?,
         page: Int?,
         limit: Int?,
         departureDate: String?
@@ -27,14 +22,9 @@ class FlightRepositoryImpl(private val dataSource: FlightDataSource) : FlightRep
             dataSource.getFlightData(
                 departureCity.orEmpty(),
                 arrivalCity.orEmpty(),
-                departureTime.orEmpty(),
-                arrivalTime.orEmpty(),
-                flightDuration.orEmpty(),
                 seatsAvailable.orEmpty(),
                 flightStatus.orEmpty(),
                 seatClass.orEmpty(),
-                departureContinent.orEmpty(),
-                arrivalContinent.orEmpty(),
                 page.hashCode(),
                 limit.hashCode(),
                 departureDate.orEmpty()

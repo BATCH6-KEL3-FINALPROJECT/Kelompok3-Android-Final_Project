@@ -9,10 +9,12 @@ import com.project.skypass.data.source.network.model.flight.detailflight.DetailF
 import com.project.skypass.data.source.network.model.flight.flightdata.GetAllFlightResponse
 import com.project.skypass.data.source.network.model.history.allhistory.AllHistoryResponse
 import com.project.skypass.data.source.network.model.history.detailhistory.DetailHistoryResponse
+import com.project.skypass.data.source.network.model.history.userhistory.UserHistoryResponse
 import com.project.skypass.data.source.network.model.login.LoginItemResponse
 import com.project.skypass.data.source.network.model.login.LoginRequestResponse
 import com.project.skypass.data.source.network.model.notification.all.NotificationResponse
 import com.project.skypass.data.source.network.model.notification.detail.DetailNotificationResponse
+import com.project.skypass.data.source.network.model.notification.update.UpdateNotificationResponse
 import com.project.skypass.data.source.network.model.otp.ResendOtpRequestResponse
 import com.project.skypass.data.source.network.model.otp.ResendOtpResponse
 import com.project.skypass.data.source.network.model.otp.VerifyRequestResponse
@@ -83,14 +85,9 @@ interface ApiService {
     suspend fun getFlightData(
         @Query("departure_city") departureCity: String? = null,
         @Query("arrival_city") arrivalCity: String? = null,
-        @Query("departure_time") departureTime: String? = null,
-        @Query("arrival_time") arrivalTime: String? = null,
-        @Query("flight_duration") flightDuration: String? = null,
         @Query("seats_available") seatsAvailable: String? = null,
         @Query("flight_status") flightStatus: String? = null,
         @Query("seat_class") seatClass: String? = null,
-        @Query("departure_continent") departureContinent: String? = null,
-        @Query("arrival_continent") arrivalContinent: String? = null,
         @Query("page") page: Int? = null,
         @Query("limit") limit: Int? = null,
         @Query("departure_date") departureDate: String? = null,
@@ -150,10 +147,23 @@ interface ApiService {
         @Path("id") id: String
     ): DetailNotificationResponse
 
+    @PATCH("notification/{id}")
+    suspend fun updateNotification(
+        @Header("Authorization") token: String,
+        @Path("id") id: String
+    ): UpdateNotificationResponse
+
     @GET("booking/history")
     suspend fun getAllHistory(
         @Header("Authorization") token: String
     ): AllHistoryResponse
+
+    @GET("booking/history/{id}")
+    suspend fun getBookingHistory(
+        @Header("Authorization") token: String,
+        @Path("id") id: String,
+        @Part("search") search: String?
+    ): UserHistoryResponse
 
     @GET("booking/history/{id}")
     suspend fun getDetailHistory(

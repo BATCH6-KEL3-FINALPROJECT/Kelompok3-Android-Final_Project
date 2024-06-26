@@ -1,8 +1,8 @@
-package com.project.skypass.data.source.network.model.notification.all
+package com.project.skypass.data.source.network.model.notification.update
 
 import com.google.gson.annotations.SerializedName
 
-data class NotificationItemResponse(
+data class UpdateNotificationItemResponse(
     @SerializedName("booking_id")
     var bookingId: String?,
     @SerializedName("createdAt")
