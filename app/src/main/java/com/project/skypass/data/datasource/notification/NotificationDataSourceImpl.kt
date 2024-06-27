@@ -14,7 +14,7 @@ class NotificationDataSourceImpl(private val service: ApiService): NotificationD
         return service.getDetailNotification(token, id)
     }
 
-    override suspend fun updateNotification(token: String, id: String): UpdateNotificationResponse {
-        return service.updateNotification(token, id)
+    override suspend fun updateNotification(id: String): UpdateNotificationResponse {
+        return service.updateNotification(id)
     }
 }

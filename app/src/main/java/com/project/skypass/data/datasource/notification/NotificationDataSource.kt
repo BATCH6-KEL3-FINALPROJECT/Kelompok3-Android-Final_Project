@@ -7,5 +7,5 @@ import com.project.skypass.data.source.network.model.notification.update.UpdateN
 interface NotificationDataSource {
     suspend fun getNotifications(token: String): NotificationResponse
     suspend fun getDetailNotification(token: String, id: String): DetailNotificationResponse
-    suspend fun updateNotification(token: String, id: String): UpdateNotificationResponse
+    suspend fun updateNotification(id: String): UpdateNotificationResponse
 }

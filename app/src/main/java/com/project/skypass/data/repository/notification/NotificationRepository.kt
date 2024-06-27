@@ -9,5 +9,5 @@ import kotlinx.coroutines.flow.Flow
 interface NotificationRepository {
     fun getNotifications(token: String): Flow<ResultWrapper<List<Notification>>>
     fun getDetailNotification(token: String, id: String): Flow<ResultWrapper<Notification>>
-    fun updateNotification(token: String, id: String): Flow<ResultWrapper<Notification>>
+    fun updateNotification(id: String): Flow<ResultWrapper<Notification>>
 }
