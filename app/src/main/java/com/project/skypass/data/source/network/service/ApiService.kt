@@ -94,6 +94,8 @@ interface ApiService {
         @Query("page") page: Int? = null,
         @Query("limit") limit: Int? = null,
         @Query("departure_date") departureDate: String? = null,
+        @Query("departure_time") departureTime: String? = null,
+        @Query("price") price: String? = null
     ): GetAllFlightResponse
 
     @GET("flight/{id}")
@@ -170,9 +172,9 @@ interface ApiService {
     suspend fun getBookingHistory(
         @Header("Authorization") token: String,
         @Path("id") id: String,
-        @Part("search") search: String?,
-        @Part("date") date: String?,
-        @Part("until") until: String?
+        @Part("search") search: String? = null,
+        @Part("date") date: String? = null,
+        @Part("until") until: String? = null
     ): UserHistoryResponse
 
     //need expired token handler

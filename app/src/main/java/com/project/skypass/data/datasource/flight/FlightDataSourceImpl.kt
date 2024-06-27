@@ -12,7 +12,9 @@ class FlightDataSourceImpl(private val service: ApiService) : FlightDataSource {
         seatClass: String,
         page: Int,
         limit: Int,
-        departureDate: String
+        departureDate: String,
+        departureTime: String,
+        price: String
     ): GetAllFlightResponse {
         return service.getFlightData(
             departureCity,
@@ -22,7 +24,9 @@ class FlightDataSourceImpl(private val service: ApiService) : FlightDataSource {
             seatClass,
             page,
             limit,
-            departureDate
+            departureDate,
+            departureTime,
+            price
         )
     }
 }
