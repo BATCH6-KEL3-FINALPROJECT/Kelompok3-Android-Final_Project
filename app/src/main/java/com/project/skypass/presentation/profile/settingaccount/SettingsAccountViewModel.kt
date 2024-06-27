@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
+import com.project.skypass.data.model.User
 import com.project.skypass.data.repository.OrderHistory.OrderHistoryRepository
 import com.project.skypass.data.repository.pref.PrefRepository
 import com.project.skypass.data.repository.user.UserRepository
@@ -39,4 +40,9 @@ class SettingsAccountViewModel(
     fun deleteUser(id: String): LiveData<ResultWrapper<DeleteUserResponse>> {
         return userRepository.deleteUser(id).asLiveData(Dispatchers.IO)
     }
+    fun getUser(id: String): LiveData<ResultWrapper<User>> {
+        return userRepository.getUser(id).asLiveData(Dispatchers.IO)
+    }
 }
+
+
