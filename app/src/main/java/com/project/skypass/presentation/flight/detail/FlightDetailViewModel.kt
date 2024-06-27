@@ -57,7 +57,9 @@ class FlightDetailViewModel(
         seatClass = setSeatClass,
         1,
         10,
-        departureDate = date
+        departureDate = date,
+        null,
+        null
     ).asLiveData(Dispatchers.IO)
 
     fun setSelectedDate(date: LocalDate) {

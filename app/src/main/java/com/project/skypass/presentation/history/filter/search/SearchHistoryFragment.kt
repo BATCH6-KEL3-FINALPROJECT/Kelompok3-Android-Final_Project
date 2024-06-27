@@ -53,7 +53,7 @@ class SearchHistoryFragment : BottomSheetDialogFragment() {
     }
 
     private fun showDataSuggestionSearch() {
-        viewModel.getBookingHistory(token = viewModel.getToken(), search = "")
+        viewModel.getBookingHistory(viewModel.getToken(), "", null, null)
             ?.observe(viewLifecycleOwner) { results ->
                 results.proceedWhen(
                     doOnSuccess = {
@@ -97,7 +97,7 @@ class SearchHistoryFragment : BottomSheetDialogFragment() {
                     binding.rvSearchResult.isVisible = true
                     binding.tvEmptySearchResult.isVisible = false
                 } else {
-                    viewModel.getBookingHistory(token = viewModel.getToken(), search = newText)
+                    viewModel.getBookingHistory(viewModel.getToken(), newText, null, null)
                         ?.observe(viewLifecycleOwner) { results ->
                             results.proceedWhen(
                                 doOnSuccess = { it ->
@@ -124,7 +124,7 @@ class SearchHistoryFragment : BottomSheetDialogFragment() {
     }
 
     private fun handleSearchItemSelected(selectedBookingCode: String) {
-        viewModel.getBookingHistory(token = viewModel.getToken(), search = selectedBookingCode)
+        viewModel.getBookingHistory(token = viewModel.getToken(), search = selectedBookingCode, null, null)
             ?.observe(viewLifecycleOwner) { results ->
                 results.proceedWhen(
                     doOnSuccess = {
@@ -147,7 +147,7 @@ class SearchHistoryFragment : BottomSheetDialogFragment() {
     }
 
     private fun performSearch(query: String) {
-        viewModel.getBookingHistory(token = viewModel.getToken(), search = query)
+        viewModel.getBookingHistory(token = viewModel.getToken(), search = query, null, null)
             ?.observe(viewLifecycleOwner) { results ->
                 results.proceedWhen(
                     doOnSuccess = { it ->

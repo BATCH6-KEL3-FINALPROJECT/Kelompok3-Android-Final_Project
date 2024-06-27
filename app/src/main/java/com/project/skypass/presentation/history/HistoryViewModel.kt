@@ -18,6 +18,6 @@ class HistoryViewModel(
     fun getAllHistory(token: String) =
         historyRepository.getHistory(token).asLiveData(Dispatchers.IO)
 
-    fun getBookingHistory(token: String, search: String?) =
-        search?.let { historyRepository.getBookingHistory(token, it).asLiveData(Dispatchers.IO) }
+    fun getBookingHistory(token: String, search: String?, date: String?, until: String?) =
+        search?.let { historyRepository.getBookingHistory(token, it, null, null).asLiveData(Dispatchers.IO) }
 }

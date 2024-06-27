@@ -171,9 +171,9 @@ interface ApiService {
     @GET("booking/history")
     suspend fun getBookingHistory(
         @Header("Authorization") token: String,
-        @Part("search") search: String? = null,
-        @Part("date") date: String? = null,
-        @Part("until") until: String? = null
+        @Query("search") search: String? = null,
+        @Query("date") date: String? = null,
+        @Query("until") until: String? = null
     ): UserHistoryResponse
 
     //need expired token handler

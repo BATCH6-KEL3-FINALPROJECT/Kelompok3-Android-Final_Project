@@ -108,7 +108,7 @@ class HistoryFragment : Fragment(), OnSearchItemSelectedListener {
     }
 
     override fun onSearchItemSelected(searchQuery: String) {
-        viewModel.getBookingHistory(viewModel.getToken(), searchQuery)?.observe(viewLifecycleOwner) { result ->
+        viewModel.getBookingHistory(viewModel.getToken(), searchQuery, null, null)?.observe(viewLifecycleOwner) { result ->
             result.proceedWhen(
                 doOnSuccess = { response ->
                     binding.layoutContentState.root.isVisible = false
