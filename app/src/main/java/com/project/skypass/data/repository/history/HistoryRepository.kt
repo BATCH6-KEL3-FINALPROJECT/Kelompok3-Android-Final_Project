@@ -8,6 +8,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface HistoryRepository {
     fun getHistory(token: String): Flow<ResultWrapper<List<History>>>
-    fun getBookingHistory(token: String, id: String, search: String): Flow<ResultWrapper<List<History>>>
+    fun getBookingHistory(token: String, id: String, search: String?, date: String?, until: String?): Flow<ResultWrapper<List<History>>>
     fun getDetailHistory(token: String, id: String): Flow<ResultWrapper<History>>
 }

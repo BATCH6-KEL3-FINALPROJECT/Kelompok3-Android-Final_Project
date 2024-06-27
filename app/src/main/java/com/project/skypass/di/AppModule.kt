@@ -34,6 +34,8 @@ import com.project.skypass.data.datasource.home.search.SearchDataSourceImpl
 import com.project.skypass.data.datasource.seat.SeatDataSource
 import com.project.skypass.data.datasource.seat.SeatsDataSource
 import com.project.skypass.data.datasource.seat.SeatsDataSourceImpl
+import com.project.skypass.data.datasource.ticket.PrintTicketDataSource
+import com.project.skypass.data.datasource.ticket.PrintTicketDataSourceImpl
 import com.project.skypass.data.datasource.user.UserDataSource
 import com.project.skypass.data.datasource.user.UserDataSourceImpl
 import com.project.skypass.data.repository.OrderHistory.OrderHistoryRepository
@@ -66,6 +68,8 @@ import com.project.skypass.data.repository.seat.SeatRepository
 import com.project.skypass.data.repository.seat.SeatRepositoryImpl
 import com.project.skypass.data.repository.seat.SeatsRepository
 import com.project.skypass.data.repository.seat.SeatsRepositoryImpl
+import com.project.skypass.data.repository.ticket.PrintTicketRepository
+import com.project.skypass.data.repository.ticket.PrintTicketRepositoryImpl
 import com.project.skypass.data.repository.user.UserRepository
 import com.project.skypass.data.repository.user.UserRepositoryImpl
 import com.project.skypass.data.source.local.database.AppDatabase
@@ -192,6 +196,9 @@ object AppModule {
         single<CheckoutDataSource> {
             CheckoutDataSourceImpl(get())
         }
+        single<PrintTicketDataSource> {
+            PrintTicketDataSourceImpl(get())
+        }
     }
 
     private val repositoryModule = module {
@@ -242,6 +249,9 @@ object AppModule {
         }
         single<CheckoutRepository> {
             CheckoutRepositoryImpl(get())
+        }
+        single<PrintTicketRepository> {
+            PrintTicketRepositoryImpl(get())
         }
     }
 
