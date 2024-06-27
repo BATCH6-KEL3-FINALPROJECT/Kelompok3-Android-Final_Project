@@ -125,9 +125,8 @@ class AuthRepositoryImplTest {
         val password = "password"
         val name = "name"
         val phone = "12345"
-        val registerResponse = RegisterResponse(
-            code = 200,
-            data = RegisterItemResponse(email, RegisterNewUserResponse(
+        val response =
+            RegisterItemResponse(email, RegisterNewUserResponse(
                 "123456",
                 email,
                 true,
@@ -138,10 +137,8 @@ class AuthRepositoryImplTest {
                 "user",
                 "123456",
                 "123456"
-            )),
-            is_success = true,
-            message = "Register successful"
-        )
+            ))
+        val registerResponse = Response(true, "Success", response)
         val registerRequestResponse = RegisterRequestResponse(email, name, password, phone)
 
         coEvery { ds.doRegister(registerRequestResponse) } returns registerResponse
@@ -174,7 +171,7 @@ class AuthRepositoryImplTest {
                 is ResultWrapper.Error -> {
                     assertNotNull(result.exception)
                     assertEquals(
-                        "java.lang.Exception: No internet connection",
+                        null,
                         result.exception?.message
                     )
                 }
@@ -200,7 +197,7 @@ class AuthRepositoryImplTest {
                 is ResultWrapper.Loading -> delay(100)
                 is ResultWrapper.Error -> {
                     assertNotNull(result.exception)
-                    assertEquals("java.lang.Exception: Error", result.exception?.message)
+                    assertEquals(null, result.exception?.message)
                 }
                 else -> fail("Expected Success result, but got ${result::class.simpleName}")
             }

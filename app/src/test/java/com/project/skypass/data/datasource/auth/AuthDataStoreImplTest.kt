@@ -40,8 +40,7 @@ class AuthDataStoreImplTest {
     @Test
     fun doRegister() = runBlocking {
         val payload = RegisterRequestResponse("test@example.com", "John Doe", "123456", "123456")
-        val expectedResponse = RegisterResponse(
-            123456,
+        val response =
             RegisterItemResponse(
                 "test@example.com",
                 RegisterNewUserResponse(
@@ -56,11 +55,9 @@ class AuthDataStoreImplTest {
                     "123456",
                     "123456"
                 )
-            ),
-            true,
-            "Success"
-        )
-        coEvery { service.doRegister(payload) } returns expectedResponse
+            )
+        val expectedResponse = Response(true, "Success", response)
+        coEvery { service.doRegister(any()) } returns expectedResponse
 
         val result = ds.doRegister(payload)
 

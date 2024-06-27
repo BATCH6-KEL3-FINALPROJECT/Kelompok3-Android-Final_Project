@@ -42,6 +42,8 @@ class FlightRepositoryImplTest {
         val page = 1
         val limit = 10
         val departureDate = "2023-03-01"
+        val price = 100
+        val departureTime = "10:00"
 
         val flights = listOf(
             GetAllFlightItemResponse(
@@ -93,7 +95,9 @@ class FlightRepositoryImplTest {
             seatClass,
             page.hashCode(),
             limit.hashCode(),
-            departureDate
+            departureDate,
+            price.toString(),
+            departureTime
         ) } returns expectedResponse
 
         val flow = repo.getFlights(
@@ -104,7 +108,9 @@ class FlightRepositoryImplTest {
             seatClass,
             page,
             limit,
-            departureDate
+            departureDate,
+            price.toString(),
+            departureTime
         )
         flow.collect { result ->
             when (result) {
@@ -129,7 +135,9 @@ class FlightRepositoryImplTest {
             seatClass,
             page.hashCode(),
             limit.hashCode(),
-            departureDate
+            departureDate,
+            price.toString(),
+            departureTime
         ) }
     }
 }

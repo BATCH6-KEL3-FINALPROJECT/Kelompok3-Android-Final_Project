@@ -38,6 +38,8 @@ class FlightDataSourceImplTest {
         val page = 1
         val limit = 10
         val departureDate = "2023-06-19"
+        val departureTime = "10:00"
+        val price = "100"
 
         val flights = listOf(
             GetAllFlightItemResponse(
@@ -90,7 +92,9 @@ class FlightDataSourceImplTest {
                 seatClass,
                 page,
                 limit,
-                departureDate
+                departureDate,
+                departureTime,
+                price
             )
         } returns expectedResponse
 
@@ -102,7 +106,9 @@ class FlightDataSourceImplTest {
             seatClass,
             page,
             limit,
-            departureDate
+            departureDate,
+            departureTime,
+            price
         )
 
         assertEquals(expectedResponse, result)
@@ -115,7 +121,9 @@ class FlightDataSourceImplTest {
                 seatClass,
                 page,
                 limit,
-                departureDate
+                departureDate,
+                departureTime,
+                price
             )
         }
     }
