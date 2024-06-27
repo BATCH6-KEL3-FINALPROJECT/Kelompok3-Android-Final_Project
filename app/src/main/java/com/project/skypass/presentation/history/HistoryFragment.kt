@@ -1,5 +1,7 @@
 package com.project.skypass.presentation.history
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +11,8 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.project.skypass.R
+import com.project.skypass.data.model.History
+import com.project.skypass.data.model.Search
 import com.project.skypass.databinding.FragmentHistoryBinding
 import com.project.skypass.presentation.history.adapter.HistoryMonthItem
 import com.project.skypass.presentation.history.adapter.HistoryTicketItem
@@ -21,7 +25,7 @@ import com.xwray.groupie.GroupieViewHolder
 import com.xwray.groupie.viewbinding.BindableItem
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class HistoryFragment : Fragment() {
+class HistoryFragment : Fragment(), OnSearchItemSelectedListener {
 
     private lateinit var binding: FragmentHistoryBinding
     private val viewModel: HistoryViewModel by viewModel()
@@ -94,7 +98,8 @@ class HistoryFragment : Fragment() {
     private fun clickListener() {
         binding.ivSearchHistory.setOnClickListener {
             val searchFragment = SearchHistoryFragment()
-            searchFragment.show(childFragmentManager, searchFragment.tag)
+            searchFragment.setTargetFragment(this, 0)
+            searchFragment.show(parentFragmentManager, searchFragment.tag)
         }
         binding.llFilterContainer.setOnClickListener {
             val calendarFragment = CalendarHistoryFragment()
@@ -102,4 +107,38 @@ class HistoryFragment : Fragment() {
         }
     }
 
+    override fun onSearchItemSelected(searchQuery: String) {
+        viewModel.getBookingHistory(viewModel.getToken(), searchQuery)?.observe(viewLifecycleOwner) { result ->
+            result.proceedWhen(
+                doOnSuccess = { response ->
+                    binding.layoutContentState.root.isVisible = false
+                    response.payload?.let { data ->
+                        val items = mutableListOf<BindableItem<*>>()
+
+                        val groupedData = data.groupBy { convertDateMouth(it.bookingDate) }
+
+                        groupedData.forEach { (month, historyList) ->
+                            items.add(HistoryMonthItem(month))
+                            historyList.forEach { history ->
+                                items.add(HistoryTicketItem(history))
+                            }
+                        }
+                        adapter.update(items)
+                    }
+                },
+            )
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 0 && resultCode == Activity.RESULT_OK) {
+            val searchQuery = data?.getStringExtra("searchQuery")
+            searchQuery?.let { onSearchItemSelected(it) }
+        }
+    }
+}
+
+interface OnSearchItemSelectedListener {
+    fun onSearchItemSelected(searchQuery: String)
 }

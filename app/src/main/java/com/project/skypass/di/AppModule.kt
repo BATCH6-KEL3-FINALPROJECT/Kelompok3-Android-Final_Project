@@ -100,6 +100,7 @@ import com.project.skypass.presentation.flight.detail.FlightDetailViewModel
 import com.project.skypass.presentation.flight.result.FlightResultViewModel
 import com.project.skypass.presentation.history.HistoryViewModel
 import com.project.skypass.presentation.history.detailhistory.DetailHistoryViewModel
+import com.project.skypass.presentation.history.filter.search.SearchHistoryViewModel
 import com.project.skypass.presentation.home.calendar.CalendarHomeViewModel
 import com.project.skypass.presentation.notification.NotificationViewModel
 import com.project.skypass.presentation.profile.profile.ProfileViewModelExample
@@ -272,6 +273,7 @@ object AppModule {
         viewModelOf(::ChangeProfileViewModelExample)
         viewModelOf(::ProfileViewModelExample)
         viewModelOf(::HistoryViewModel)
+        viewModelOf(::SearchHistoryViewModel)
         viewModelOf(::DetailHistoryViewModel)
         viewModelOf(::CalendarHomeViewModel)
         viewModelOf(::CalendarHomeViewModel)

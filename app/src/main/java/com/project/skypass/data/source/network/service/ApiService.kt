@@ -151,7 +151,6 @@ interface ApiService {
 
     @PATCH("notification/{id}")
     suspend fun updateNotification(
-        @Header("Authorization") token: String,
         @Path("id") id: String
     ): UpdateNotificationResponse
 
@@ -160,11 +159,10 @@ interface ApiService {
         @Header("Authorization") token: String
     ): AllHistoryResponse
 
-    @GET("booking/history/{id}")
+    @GET("booking/history")
     suspend fun getBookingHistory(
         @Header("Authorization") token: String,
-        @Path("id") id: String,
-        @Part("search") search: String?
+        @Query("search") search: String?
     ): UserHistoryResponse
 
     @GET("booking/history/{id}")

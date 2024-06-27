@@ -19,12 +19,11 @@ class HistoryRepositoryImpl(private val historyDataSource: HistoryDataSource): H
 
     override fun getBookingHistory(
         token: String,
-        id: String,
         search: String
     ): Flow<ResultWrapper<List<History>>> {
         return proceedFlow {
             val tokenBearer = "Bearer $token"
-            historyDataSource.getBookingHistory(tokenBearer, id, search).data.toBookingHistory()
+            historyDataSource.getBookingHistory(tokenBearer, search).data.toBookingHistory()
         }
     }
 

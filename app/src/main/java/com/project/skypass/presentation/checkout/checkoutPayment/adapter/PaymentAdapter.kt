@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.project.skypass.data.model.Booking
 import com.project.skypass.databinding.ItemCheckoutPaymentTicketBinding
 import com.project.skypass.presentation.checkout.checkoutPayment.adapter.PaymentAdapter.PaymentViewHolder
+import com.project.skypass.utils.toIndonesianFormat
 
 class PaymentAdapter(
 
@@ -50,7 +51,7 @@ class PaymentAdapter(
             binding.tvDateArrival.text = item.arrivalDate
             binding.tvIdBackingCode.text = item.bookingCode
             binding.tvClass.text = item.seatClass
-            binding.tvTotalPrice.text = item.totalPrice
+            binding.tvTotalPrice.text = item.totalPrice.toIndonesianFormat()
         }
     }
 }
