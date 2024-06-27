@@ -43,7 +43,7 @@ class HistoryTicketItem(private val item: History) : BindableItem<ItemTicketHist
         viewBinding.tvTimeArrival.text = item.arrivalTime
         viewBinding.tvDateArrival.text = convertDateText(item.arrivalDate)
         viewBinding.tvIdBackingCode.text = item.bookingCode
-        viewBinding.tvPrice.text = item.totalPrice
+        viewBinding.tvPrice.text = item.totalPrice.toIndonesianFormat()
         setStatus(item.status, viewBinding)
         convertMinutesData(item, viewBinding)
         viewBinding.root.setOnClickListener {

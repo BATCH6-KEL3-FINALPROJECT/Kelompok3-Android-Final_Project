@@ -2,7 +2,6 @@ package com.project.skypass.data.mapper
 
 import com.project.skypass.data.model.Search
 import com.project.skypass.data.model.SearchHistoryHome
-import com.project.skypass.data.source.network.model.search.SearchDataItemResponse
 import com.project.skypass.data.source.network.model.search.SearchItemResponse
 import com.project.skypass.data.source.network.model.search.gethistory.GetHistoryItemResponse
 
@@ -26,5 +25,6 @@ fun GetHistoryItemResponse?.toSearchHomeHistory() =
         updatedAt = this?.updatedAt.orEmpty(),
     )
 
-fun Collection<SearchItemResponse>?.toSearchDestination() = this?.map { it.toSearch() }  ?: listOf()
-fun Collection<GetHistoryItemResponse>?.toSearchHomeListHistory() = this?.map { it.toSearchHomeHistory() }  ?: listOf()
+fun Collection<SearchItemResponse>?.toSearchDestination() = this?.map { it.toSearch() } ?: listOf()
+fun Collection<GetHistoryItemResponse>?.toSearchHomeListHistory() =
+    this?.map { it.toSearchHomeHistory() } ?: listOf()

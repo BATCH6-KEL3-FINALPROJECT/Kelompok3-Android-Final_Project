@@ -19,4 +19,7 @@ class NotificationViewModel(
     }
     fun getNotification(token: String) = notificationRepository.getNotifications(token).asLiveData(Dispatchers.IO)
 
+    fun updateNotification(id: String): LiveData<ResultWrapper<Notification>> {
+        return notificationRepository.updateNotification(id).asLiveData(Dispatchers.IO)
+    }
 }

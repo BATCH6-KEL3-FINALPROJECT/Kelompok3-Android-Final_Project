@@ -1,6 +1,5 @@
 package com.project.skypass.presentation.notification
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +10,6 @@ import androidx.fragment.app.Fragment
 import com.project.skypass.R
 import com.project.skypass.core.BaseActivity
 import com.project.skypass.data.model.Notification
-import com.project.skypass.databinding.FragmentHomeBinding
 import com.project.skypass.databinding.FragmentNotificationBinding
 import com.project.skypass.presentation.notification.adapter.NotificationAdapter
 import com.project.skypass.presentation.notification.adapter.OnItemCLickedListener
@@ -39,17 +37,10 @@ class NotificationFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         // bindItemNotification()
         bindNotificationList()
-        clickListener()
     }
-
-    private fun clickListener() {
-
-    }
-
 
     private fun bindNotificationList() {
-
-        viewModel.getNotification(viewModel.getToken()).observe(viewLifecycleOwner) {data ->
+        viewModel.getNotification(viewModel.getToken()).observe(viewLifecycleOwner) { data ->
             data.proceedWhen(
                 doOnSuccess = {
                     binding.layoutContentState.root.isVisible = false
@@ -58,14 +49,14 @@ class NotificationFragment : Fragment() {
                             listener =
                             object : OnItemCLickedListener<Notification> {
                                 override fun onItemClicked(item: Notification) {
-                                    navigateToDetail(item)
+                                    updateAndNavigateToDetail(item)
                                 }
                             },
                         )
                     binding.rvNotification.adapter = this@NotificationFragment.notificationAdapter
                     it.payload?.let { data ->
-                    notificationAdapter?.submitData(data)
-                        }
+                        notificationAdapter?.submitData(data)
+                    }
                 },
                 doOnEmpty = {
                     binding.layoutContentState.textError.isVisible = true
@@ -95,6 +86,26 @@ class NotificationFragment : Fragment() {
         }
     }
 
+    private fun updateAndNavigateToDetail(item: Notification) {
+        item.notificationId.let {
+            viewModel.updateNotification(
+                it
+            ).observe(viewLifecycleOwner) { result ->
+                result.proceedWhen(
+                    doOnSuccess = {
+                        navigateToDetail(item)
+                    },
+                    doOnError = {
+                        Toast.makeText(
+                            requireContext(),
+                            "Failed to update notification",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                )
+            }
+        }
+    }
 
     private fun navigateToDetail(item: Notification) {
         DetailNotificationActivity.startActivity(

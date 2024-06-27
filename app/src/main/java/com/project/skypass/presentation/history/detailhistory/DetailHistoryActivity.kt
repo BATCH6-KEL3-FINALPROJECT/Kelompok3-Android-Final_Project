@@ -97,7 +97,7 @@ class DetailHistoryActivity : AppCompatActivity() {
             tvDateArrival.text = item.arrivalDate
             tvAirportArrival.text = item.arrivalAirport
             tvCityArrival.text = item.arrivingAirport
-            tvTotalHarga.text = item.totalPrice
+            tvTotalHarga.text = item.totalPrice.toIndonesianFormat()
             tvTotal.text = "${item.noOfTickets} Penumpang"
         }
         setStatus(item.status)

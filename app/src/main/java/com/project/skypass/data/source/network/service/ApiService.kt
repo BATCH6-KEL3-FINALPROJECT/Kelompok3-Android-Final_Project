@@ -5,6 +5,7 @@ import com.project.skypass.data.model.Response
 import com.project.skypass.data.source.network.model.booking.GetBookingDataResponse
 import com.project.skypass.data.source.network.model.checkout.request.CheckoutRequestResponse
 import com.project.skypass.data.source.network.model.checkout.response.CheckoutResponse
+import com.project.skypass.data.source.network.model.destinationfavorite.DestinationFavoriteItemResponse
 import com.project.skypass.data.source.network.model.destinationfavorite.DestinationFavoriteResponse
 import com.project.skypass.data.source.network.model.flight.detailflight.DetailFlightResponse
 import com.project.skypass.data.source.network.model.flight.flightdata.GetAllFlightResponse
@@ -157,7 +158,6 @@ interface ApiService {
 
     @PATCH("notification/{id}")
     suspend fun updateNotification(
-        @Header("Authorization") token: String,
         @Path("id") id: String
     ): UpdateNotificationResponse
 
@@ -168,13 +168,12 @@ interface ApiService {
     ): AllHistoryResponse
 
     //need expired token handler
-    @GET("booking/history/{id}")
+    @GET("booking/history")
     suspend fun getBookingHistory(
         @Header("Authorization") token: String,
-        @Path("id") id: String,
-        @Part("search") search: String? = null,
-        @Part("date") date: String? = null,
-        @Part("until") until: String? = null
+        @Query("search") search: String? = null,
+        @Query("date") date: String? = null,
+        @Query("until") until: String? = null
     ): UserHistoryResponse
 
     //need expired token handler

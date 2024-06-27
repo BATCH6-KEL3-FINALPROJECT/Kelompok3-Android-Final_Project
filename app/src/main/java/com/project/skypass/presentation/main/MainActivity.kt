@@ -13,10 +13,12 @@ import com.project.skypass.R
 import com.project.skypass.core.BaseActivity
 import com.project.skypass.data.model.OrderUser
 import com.project.skypass.databinding.ActivityMainBinding
+import com.project.skypass.presentation.history.HistoryFragment
+import com.project.skypass.presentation.history.OnSearchItemSelectedListener
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 @Suppress("DEPRECATION")
-class MainActivity : BaseActivity() {
+class MainActivity : BaseActivity(), OnSearchItemSelectedListener {
 
     private val viewModel: MainViewModel by viewModel()
 
@@ -28,6 +30,13 @@ class MainActivity : BaseActivity() {
         setBottomNav()
 
 
+    }
+
+    override fun onSearchItemSelected(searchQuery: String) {
+        val fragment = supportFragmentManager.findFragmentById(R.id.menu_tab_history)
+        if (fragment is HistoryFragment) {
+            fragment.onSearchItemSelected(searchQuery)
+        }
     }
 
     private fun setBottomNav() {
