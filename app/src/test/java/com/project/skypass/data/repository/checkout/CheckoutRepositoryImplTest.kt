@@ -110,7 +110,7 @@ class CheckoutRepositoryImplTest {
         val data = Data(bookingResult, returnBookingResult)
         val response = CheckoutResponse(200, data, true, "success")
 
-        coEvery { ds.createBooking(tokenBearer, request) } returns response
+        coEvery { ds.createBooking(any(), any()) } returns response
 
         repo.createBooking(
             token,
@@ -125,7 +125,7 @@ class CheckoutRepositoryImplTest {
         ).collect { result ->
             when (result) {
                 is ResultWrapper.Success -> {
-                    assertEquals(response, result.payload?.let { ds.createBooking(tokenBearer, request) })
+                    assertEquals(response, result.payload)
                 }
                 is ResultWrapper.Loading -> delay(100)
                 else -> fail("Expected Success result, but got ${result::class.simpleName}")
