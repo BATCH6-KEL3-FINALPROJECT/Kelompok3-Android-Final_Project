@@ -13,6 +13,8 @@ interface FlightRepository {
         seatClass: String?,
         page: Int?,
         limit: Int?,
-        departureDate: String?
+        departureDate: String?,
+        departureTime: String?,
+        price: String?
     ): Flow<ResultWrapper<List<Flight>>>
 }

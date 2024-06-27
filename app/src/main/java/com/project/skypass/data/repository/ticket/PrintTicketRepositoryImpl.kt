@@ -12,9 +12,10 @@ class PrintTicketRepositoryImpl(private val dataSource: PrintTicketDataSource): 
         id: String,
         email: String
     ): Flow<ResultWrapper<Boolean>> {
+        val bearerToken = "Bearer $token"
         return proceedFlow {
             dataSource.getTicket(
-                token = token,
+                token = bearerToken,
                 id = id,
                 email = PrintTicketRequestResponse(
                     email = email

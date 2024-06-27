@@ -16,7 +16,9 @@ class FlightRepositoryImpl(private val dataSource: FlightDataSource) : FlightRep
         seatClass: String?,
         page: Int?,
         limit: Int?,
-        departureDate: String?
+        departureDate: String?,
+        departureTime: String?,
+        price: String?
     ): Flow<ResultWrapper<List<Flight>>> {
         return proceedFlow {
             dataSource.getFlightData(
@@ -27,7 +29,9 @@ class FlightRepositoryImpl(private val dataSource: FlightDataSource) : FlightRep
                 seatClass.orEmpty(),
                 page.hashCode(),
                 limit.hashCode(),
-                departureDate.orEmpty()
+                departureDate.orEmpty(),
+                departureTime.orEmpty(),
+                price.orEmpty()
             ).data?.flights.toFlightData()
         }
     }
