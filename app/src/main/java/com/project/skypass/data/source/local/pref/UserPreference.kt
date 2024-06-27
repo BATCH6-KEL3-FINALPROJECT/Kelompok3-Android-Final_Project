@@ -13,6 +13,9 @@ interface UserPreference {
     fun getUserID(): String
     fun setUserID(userID: String)
 
+    fun getEmailUser(): String
+    fun setEmailUser(emailUser: String)
+
     fun isUsingDarkMode() : Boolean
 
     fun setUsingDarkMode(isUsingDarkMode : Boolean)

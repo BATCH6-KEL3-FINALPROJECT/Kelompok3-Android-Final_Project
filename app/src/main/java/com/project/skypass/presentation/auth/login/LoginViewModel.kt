@@ -37,6 +37,10 @@ class LoginViewModel(
         return prefRepository.setUserID(userID)
     }
 
+    fun setEmail(email: String) {
+        return prefRepository.setEmail(email)
+    }
+
     /*fun doLoginOAuth(): LiveData<ResultWrapper<Boolean>> {
         return oAuthRepository.signIn().asLiveData(Dispatchers.IO)
     }*/

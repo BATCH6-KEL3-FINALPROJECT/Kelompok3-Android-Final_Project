@@ -13,6 +13,9 @@ import com.project.skypass.R
 import com.project.skypass.databinding.ActivityRegisterBinding
 import com.project.skypass.presentation.auth.login.LoginActivity
 import com.project.skypass.presentation.auth.verification.VerificationActivity
+import com.project.skypass.utils.ApiErrorException
+import com.project.skypass.utils.NoInternetException
+import com.project.skypass.utils.UnauthorizedException
 import com.project.skypass.utils.highLightWord
 import com.project.skypass.utils.proceedWhen
 import io.github.muddz.styleabletoast.StyleableToast
@@ -110,7 +113,7 @@ class RegisterActivity : AppCompatActivity() {
                     }
                 },
                 doOnError = { error ->
-                    when (error.exception?.message) {
+                    /*when (error.exception?.message) {
                         getString(R.string.email_registered_exception) -> {
                             StyleableToast.makeText(
                                 this,
@@ -142,11 +145,21 @@ class RegisterActivity : AppCompatActivity() {
                             binding.etEmail.setBackgroundResource(R.drawable.bg_selector_input)
                             binding.etPassword.setBackgroundResource(R.drawable.bg_selector_input)
                         }
+                    }*/
+                    if (error.exception is ApiErrorException) {
+                        val errorMessage = error.exception.errorResponse
+                        StyleableToast.makeText(this, errorMessage.message, R.style.ToastError).show()
+                    } else if (error.exception is NoInternetException) {
+                        StyleableToast.makeText(this, getString(R.string.no_internet_connection), R.style.ToastError).show()
+                    } else if (error.exception is UnauthorizedException) {
+                        val errorMessage = error.exception.errorUnauthorizedResponse
+                        StyleableToast.makeText(this, errorMessage.message, R.style.ToastError).show()
                     }
                     binding.pbLoading.isVisible = false
                 },
                 doOnLoading = {
                     binding.pbLoading.isVisible = true
+                    binding.btnRegister.isEnabled = false
                 },
             )
         }

@@ -10,6 +10,9 @@ interface PrefRepository {
     fun getToken(): String
     fun setToken(token: String)
 
+    fun getEmail(): String
+    fun setEmail(email: String)
+
     fun clearAll()
 
     fun getUserID(): String

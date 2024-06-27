@@ -12,9 +12,11 @@ class HistoryDataSourceImpl(private val service: ApiService) : HistoryDataSource
 
     override suspend fun getBookingHistory(
         token: String,
-        search: String
+        search: String?,
+        date: String?,
+        until: String?
     ): UserHistoryResponse {
-        return service.getBookingHistory(token, search)
+        return service.getBookingHistory(token, search, date, until)
     }
 
     override suspend fun getDetailHistory(token: String, id: String): DetailHistoryResponse {

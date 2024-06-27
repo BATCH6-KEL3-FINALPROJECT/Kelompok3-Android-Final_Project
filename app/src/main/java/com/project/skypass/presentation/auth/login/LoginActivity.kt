@@ -60,28 +60,6 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun loginWithGoogle() {
-        /*viewModel.doLoginOAuth().observe(this) {result ->
-            result.proceedWhen(
-                doOnSuccess = {
-                    StyleableToast.makeText(
-                        this,
-                        getString(R.string.login_success), R.style.ToastSuccess
-                    ).show()
-                },
-                doOnLoading = {
-                    binding.pbLogin.isVisible = true
-                    binding.btnLogin.isEnabled = false
-                },
-                doOnError = {
-                    StyleableToast.makeText(
-                        this,
-                        "Error : ${it.exception?.message}",
-                        R.style.ToastError
-                    ).show()
-                }
-            )
-        }*/
-
         val signInIntent = viewModel.getSignInIntent()
         startActivityForResult(signInIntent, RC_SIGN_IN)
     }
@@ -105,21 +83,22 @@ class LoginActivity : AppCompatActivity() {
         viewModel.doLogin(email, password).observe(this){result ->
             result.proceedWhen(
                 doOnSuccess = {
-                    dialog?.dismiss()
-                    doSuccess()
+                    //dialog?.dismiss()
+                    //doSuccess()
                     binding.pbLogin.isVisible = false
                     binding.btnLogin.isEnabled = true
-                    /*StyleableToast.makeText(this,
-                        getString(R.string.login_success), R.style.ToastSuccess).show()*/
+                    StyleableToast.makeText(this,
+                        getString(R.string.login_success), R.style.ToastSuccess).show()
                     setLoginPref(it.payload?.data?.token.toString())
+                    viewModel.setEmail(email)
                     lifecycleScope.launch {
                         delay(2000)
                         navigateToMain()
                     }
                 },
                 doOnLoading = {
-                    dialog?.dismiss()
-                    doLoading()
+                    //dialog?.dismiss()
+                    //doLoading()
                     binding.pbLogin.isVisible = true
                     binding.btnLogin.isEnabled = false
                 },
@@ -155,7 +134,7 @@ class LoginActivity : AppCompatActivity() {
                         val errorMessage = error.exception.errorResponse
                         StyleableToast.makeText(this, errorMessage.message, R.style.ToastError).show()
                     } else if (error.exception is NoInternetException) {
-
+                        StyleableToast.makeText(this, getString(R.string.no_internet_connection), R.style.ToastError).show()
                     } else if (error.exception is UnauthorizedException) {
                         val errorMessage = error.exception.errorUnauthorizedResponse
                         StyleableToast.makeText(this, errorMessage.message, R.style.ToastError).show()

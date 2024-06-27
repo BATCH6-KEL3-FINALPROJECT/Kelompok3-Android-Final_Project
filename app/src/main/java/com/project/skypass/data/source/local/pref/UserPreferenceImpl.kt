@@ -15,7 +15,7 @@ class UserPreferenceImpl(private val pref: SharedPreferences): UserPreference {
 
     override fun setToken(token: String) {
         pref[KEY_TOKEN] = token
-        Log.e(TAG, "Saving value user pref $token")
+        Log.e(TAG, "Saving token user pref $token")
     }
 
     override fun getUserID(): String {
@@ -24,7 +24,16 @@ class UserPreferenceImpl(private val pref: SharedPreferences): UserPreference {
 
     override fun setUserID(userID: String) {
         pref[KEY_USER_ID] = userID
-        Log.e(TAG, "Saving value user pref $userID")
+        Log.e(TAG, "Saving id user pref $userID")
+    }
+
+    override fun getEmailUser(): String {
+        return pref.getString(KEY_EMAIL_USER, "").toString()
+    }
+
+    override fun setEmailUser(emailUser: String) {
+        pref[KEY_EMAIL_USER] = emailUser
+        Log.e(TAG, "Saving email user pref $emailUser")
     }
 
     override fun isFirstRun(): Boolean {
@@ -33,13 +42,14 @@ class UserPreferenceImpl(private val pref: SharedPreferences): UserPreference {
 
     override fun setLogin(isLogin: Boolean) {
         pref[KEY_IS_LOGIN] = isLogin
-        Log.e(TAG, "Saving value user pref $isLogin")
+        Log.e(TAG, "Saving value user pref is login $isLogin")
     }
 
     override fun setFirstRun(isFirstRun: Boolean) {
         pref[KEY_IS_FIRST_RUN] = isFirstRun
-        Log.e(TAG, "Saving value user pref $isFirstRun")
+        Log.e(TAG, "Saving value user pref is first run $isFirstRun")
     }
+
     override fun isUsingDarkMode(): Boolean = pref.getBoolean(KEY_IS_USING_DARK_MODE, false)
 
     override fun setUsingDarkMode(isUsingDarkMode: Boolean) {
@@ -50,6 +60,7 @@ class UserPreferenceImpl(private val pref: SharedPreferences): UserPreference {
         pref.edit().remove(KEY_TOKEN).apply()
         pref.edit().remove(KEY_IS_LOGIN).apply()
         pref.edit().remove(KEY_USER_ID).apply()
+        pref.edit().remove(KEY_EMAIL_USER).apply()
     }
 
     companion object {
@@ -60,5 +71,6 @@ class UserPreferenceImpl(private val pref: SharedPreferences): UserPreference {
         const val KEY_TOKEN = "KEY_TOKEN"
         const val KEY_IS_USING_DARK_MODE = "KEY_IS_USING_DARK_MODE"
         const val KEY_USER_ID = "KEY_USER_ID"
+        const val KEY_EMAIL_USER = "KEY_EMAIL_USER"
     }
 }

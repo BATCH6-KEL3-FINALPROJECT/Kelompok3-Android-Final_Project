@@ -11,6 +11,8 @@ interface FlightDataSource {
         seatClass: String,
         page: Int,
         limit: Int,
-        departureDate: String
+        departureDate: String,
+        departureTime: String,
+        price: String
     ): GetAllFlightResponse
 }

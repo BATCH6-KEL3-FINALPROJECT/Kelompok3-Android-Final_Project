@@ -34,6 +34,15 @@ class PrefDataSourceImpl(private val userPreference: UserPreference): PrefDataSo
     override fun setToken(token: String) {
         return userPreference.setToken(token)
     }
+
+    override fun getEmail(): String {
+        return userPreference.getEmailUser()
+    }
+
+    override fun setEmail(email: String) {
+        return userPreference.setEmailUser(email)
+    }
+
     override fun clearAll() {
         userPreference.clearAll()
     }

@@ -22,22 +22,22 @@ import com.project.skypass.data.source.network.model.otp.ResendOtpResponse
 import com.project.skypass.data.source.network.model.otp.VerifyRequestResponse
 import com.project.skypass.data.source.network.model.otp.VerifyResponse
 import com.project.skypass.data.source.network.model.payment.PaymentResponse
+import com.project.skypass.data.source.network.model.register.RegisterItemResponse
 import com.project.skypass.data.source.network.model.register.RegisterRequestResponse
-import com.project.skypass.data.source.network.model.register.RegisterResponse
 import com.project.skypass.data.source.network.model.resetpassword.ResetPasswordRequestResponse
 import com.project.skypass.data.source.network.model.resetpassword.ResetPasswordResponse
 import com.project.skypass.data.source.network.model.search.SearchResponse
 import com.project.skypass.data.source.network.model.search.deletehistory.DeleteHistorySearchResponse
-import com.project.skypass.data.source.network.model.search.gethistory.GetHistoryItemResponse
 import com.project.skypass.data.source.network.model.search.gethistory.GetHistoryResponse
 import com.project.skypass.data.source.network.model.search.posthistory.PostHistoryRespomse
 import com.project.skypass.data.source.network.model.search.posthistory.request.HistoryRequestResponse
 import com.project.skypass.data.source.network.model.seat.SeatResponse
 import com.project.skypass.data.source.network.model.user.deleteuser.DeleteUserResponse
 import com.project.skypass.data.source.network.model.ticket.TicketResponse
+import com.project.skypass.data.source.network.model.ticket.print.PrintTicketRequestResponse
+import com.project.skypass.data.source.network.model.ticket.print.PrintTicketResponse
 import com.project.skypass.data.source.network.model.user.detailuser.UserResponse
 import com.project.skypass.data.source.network.model.user.edituser.EditUserResponse
-import com.project.skypass.utils.ErrorInterceptor
 import okhttp3.MultipartBody
 import okhttp3.OkHttpClient
 import okhttp3.RequestBody
@@ -58,16 +58,18 @@ import java.util.concurrent.TimeUnit
 
 interface ApiService {
 
+    //need expired token handler (DONE)
     @POST("auth/register")
     suspend fun doRegister(
         @Body registerRequest: RegisterRequestResponse
-    ): RegisterResponse
+    ): Response<RegisterItemResponse>
 
     @POST("auth/verify")
     suspend fun doVerify(
         @Body verifyRequest: VerifyRequestResponse
     ): VerifyResponse
 
+    //need expired token handler (DONE)
     @POST("auth/login")
     suspend fun doLogin(
         @Body loginRequest: LoginRequestResponse
@@ -93,6 +95,8 @@ interface ApiService {
         @Query("page") page: Int? = null,
         @Query("limit") limit: Int? = null,
         @Query("departure_date") departureDate: String? = null,
+        @Query("departure_time") departureTime: String? = null,
+        @Query("price") price: String? = null
     ): GetAllFlightResponse
 
     @GET("flight/{id}")
@@ -105,6 +109,7 @@ interface ApiService {
         @Path("id") id: String
     ): UserResponse
 
+    //need expired token handler
     @Multipart
     @PATCH("user/{id}")
     suspend fun updateUserData(
@@ -138,11 +143,13 @@ interface ApiService {
         @Path("id") id: String
     ): TicketResponse
 
+    //need expired token handler
     @GET("notification")
     suspend fun getAllNotification(
         @Header("Authorization") token: String,
     ): NotificationResponse
 
+    //need expired token handler
     @GET("notification/{id}")
     suspend fun getDetailNotification(
         @Header("Authorization") token: String,
@@ -154,52 +161,63 @@ interface ApiService {
         @Path("id") id: String
     ): UpdateNotificationResponse
 
+    //need expired token handler
     @GET("booking/history")
     suspend fun getAllHistory(
         @Header("Authorization") token: String
     ): AllHistoryResponse
 
+    //need expired token handler
     @GET("booking/history")
     suspend fun getBookingHistory(
         @Header("Authorization") token: String,
-        @Query("search") search: String?
+        @Part("search") search: String? = null,
+        @Part("date") date: String? = null,
+        @Part("until") until: String? = null
     ): UserHistoryResponse
 
+    //need expired token handler
     @GET("booking/history/{id}")
     suspend fun getDetailHistory(
         @Header("Authorization") token: String,
         @Path("id") id: String
     ): DetailHistoryResponse
 
+    //need expired token handler
     @POST("transaction/booking")
     suspend fun bookingTicket(
         @Header("Authorization") token: String,
         @Body bookingRequest: CheckoutRequestResponse
     ): CheckoutResponse
 
+    //need expired token handler
     @GET("transaction/booking/{id}")
     suspend fun getBooking(
         @Header("Authorization") token: String,
         @Path("id") id: String
     ): GetBookingDataResponse
 
+    //need expired token handler
     @POST("transaction/payment/{id}")
     suspend fun createPayment(
         @Header("Authorization") token: String,
         @Path("id") id: String
     ): PaymentResponse
 
+    //need expired token handler
     @DELETE("history/delete/{id}")
     suspend fun deleteHistorySearchHome(
         @Header("Authorization") token: String,
         @Path("id") id: Int
     ): DeleteHistorySearchResponse
 
+    //need expired token handler
     @GET("history/")
     suspend fun getAllHistorySearchHome(
         @Header("Authorization") token: String
     ): GetHistoryResponse
 
+    //need expired token handler
     @POST("history/create")
     suspend fun createHistorySearchHome(
         @Header("Authorization") token: String,
@@ -209,7 +227,12 @@ interface ApiService {
     @GET("flight/favorites")
     suspend fun getDestinationFavorite(): DestinationFavoriteResponse
 
-
+    @POST("ticket/generate/{id}")
+    suspend fun generateTicketToEmail(
+        @Header("Authorization") token: String,
+        @Path("id") id: String,
+        @Body ticketRequest: PrintTicketRequestResponse
+    ): PrintTicketResponse
 
     companion object {
         @JvmStatic
