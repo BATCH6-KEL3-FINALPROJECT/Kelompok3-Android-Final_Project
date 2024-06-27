@@ -63,24 +63,22 @@ class ProfileFragment : Fragment() {
         profileViewModel.showDataUser(userId).observe(viewLifecycleOwner) { result ->
             result.proceedWhen(
                 doOnSuccess = {
-                    binding.tvNameProfile.text = it.payload?.name
-                    binding.tvEmailProfile.text = it.payload?.email
-                    binding.tvNumberPhoneProfile.text = it.payload?.phoneNumber
-                    binding.ivProfile.load(it.payload?.photoUrl) {
+                    val user = it.payload
+                    binding.tvNameProfile.text = user?.name
+                    binding.tvEmailProfile.text = user?.email
+                    binding.tvNumberPhoneProfile.text = user?.phoneNumber
+                    binding.ivProfile.load(user?.photoUrl) {
                         fallback(R.drawable.iv_profile)
                     }
-                    if (it.payload?.isVerified == true) {
-                        binding.ivVerifyStatus.setImageResource(R.drawable.ic_verified_user)
-                    } else {
-                        binding.ivVerifyStatus.setImageResource(R.drawable.ic_not_verified)
-                    }
+                    updateVerificationStatus(user?.isVerified == true)
                 },
                 doOnLoading = {
+                    // Handle loading state if necessary
                 },
                 doOnError = {
                     /*it.exception?.let { e ->
                         if (activity is BaseActivity) {
-                            (activity as BaseActivity).handleTokenExpired(e)
+                            // Handle token expiration or other errors if necessary
                         }
                     }*/
                 }
@@ -88,10 +86,19 @@ class ProfileFragment : Fragment() {
         }
     }
 
+    private fun updateVerificationStatus(isVerified: Boolean) {
+        val verificationIconRes = if (isVerified) {
+            R.drawable.ic_verified_user
+        } else {
+            R.drawable.ic_not_verified
+        }
+        binding.ivVerifyStatus.setImageResource(verificationIconRes)
+    }
+
     private fun showLogoutDialog() {
         val builder = AlertDialog.Builder(requireContext())
-        builder.setTitle("Logout")
-        builder.setMessage("Apakah kamu yakin ingin keluar?")
+        builder.setTitle(getString(R.string.title_logout))
+        builder.setMessage(getString(R.string.text_apakah_kamu_yakin_ingin_keluar))
         builder.setPositiveButton("Yes") { dialog, _ ->
             logout()
             deleteOrderHistoryUser()
@@ -106,8 +113,10 @@ class ProfileFragment : Fragment() {
     private fun deleteOrderHistoryUser() {
         profileViewModel.deleteOrderHistoryUser().observe(viewLifecycleOwner) {
             it.proceedWhen(doOnSuccess = {
-                Toast.makeText(requireContext(), "Menghapus Riwayat Pemesanan", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(),
+                    getString(R.string.text_hapus_riwayat_pemesanan), Toast.LENGTH_SHORT).show()
             }, doOnLoading = {
+                // Handle loading state if necessary
             }, doOnError = { err ->
                 Toast.makeText(requireContext(), "error", Toast.LENGTH_SHORT).show()
             })

@@ -2,14 +2,10 @@ package com.project.skypass.presentation.profile.settingaccount
 
 import android.app.AlertDialog
 import android.app.Dialog
-import android.app.ProgressDialog
 import android.os.Bundle
-import android.view.ViewGroup
-import android.view.Window
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import com.project.skypass.R
 import com.project.skypass.core.BaseActivity
@@ -18,7 +14,6 @@ import com.project.skypass.databinding.LayoutStateErrorBinding
 import com.project.skypass.databinding.LayoutStateLoadingBinding
 import com.project.skypass.databinding.LayoutStateSuccessBinding
 import com.project.skypass.utils.proceedWhen
-import io.github.muddz.styleabletoast.StyleableToast
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -45,6 +40,39 @@ class SettingsAccountActivity : BaseActivity() {
         }
 
         setSwitchListener()
+        displayVerificationStatus()
+    }
+
+    private fun displayVerificationStatus() {
+        val userId = settingsAccountViewModel.getIdUser()
+        settingsAccountViewModel.getUser(userId).observe(this) { result ->
+            result.proceedWhen(
+                doOnSuccess = {
+                    updateVerificationStatus(it.payload?.isVerified == true)
+                },
+                doOnLoading = {
+                },
+                doOnError = {
+                }
+            )
+        }
+    }
+
+    private fun updateVerificationStatus(isVerified: Boolean) {
+        val statusTextRes = if (isVerified) {
+            getString(R.string.text_terverifikasi)
+        } else {
+            getString(R.string.text_belum_terverifikasi)
+        }
+        val statusTextColorRes = if (isVerified) {
+            R.color.colorSuccess
+        } else {
+            R.color.colorFailed
+        }
+        binding.tvStatusAccount.apply {
+            text = statusTextRes
+            setTextColor(ContextCompat.getColor(context, statusTextColorRes))
+        }
     }
 
     private fun applyUiMode(isUsingDarkMode: Boolean) {
@@ -72,13 +100,13 @@ class SettingsAccountActivity : BaseActivity() {
 
     private fun dialogDeleteAccount() {
         val builder = AlertDialog.Builder(this)
-        builder.setTitle("Hapus Akun")
-        builder.setMessage("Apakah kamu yakin ingin hapus akun?")
-        builder.setPositiveButton("Yes") { dialog, _ ->
+        builder.setTitle(getString(R.string.text_hapus_akun_profile))
+        builder.setMessage(getString(R.string.text_dialog_hapus_akun))
+        builder.setPositiveButton(getString(R.string.text_yes)) { dialog, _ ->
             deleteAccount()
             dialog.dismiss()
         }
-        builder.setNegativeButton("Cancel") { dialog, _ ->
+        builder.setNegativeButton(getString(R.string.text_cancel)) { dialog, _ ->
             dialog.dismiss()
         }
         builder.create().show()
@@ -86,13 +114,18 @@ class SettingsAccountActivity : BaseActivity() {
 
     private fun deleteOrderHistoryUser() {
         settingsAccountViewModel.deleteOrderHistoryUser().observe(this) {
-            it.proceedWhen(doOnSuccess = {
-                Toast.makeText(this, "Menghapus Riwayat Pemesanan", Toast.LENGTH_SHORT).show()
-            }, doOnLoading = {
-
-            }, doOnError = { err ->
-                Toast.makeText(this, "error", Toast.LENGTH_SHORT).show()
-            })
+            it.proceedWhen(
+                doOnSuccess = {
+                    Toast.makeText(this,
+                        getString(R.string.text_menghapus_riwayat_pemesanan), Toast.LENGTH_SHORT).show()
+                },
+                doOnLoading = {
+                    // Handle loading state if necessary
+                },
+                doOnError = { err ->
+                    Toast.makeText(this, getString(R.string.text_error), Toast.LENGTH_SHORT).show()
+                }
+            )
         }
     }
 

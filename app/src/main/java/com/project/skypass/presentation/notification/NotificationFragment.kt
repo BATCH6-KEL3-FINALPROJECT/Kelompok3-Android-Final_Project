@@ -44,7 +44,6 @@ class NotificationFragment : Fragment() {
 
     private fun clickListener() {
 
-
     }
 
 
@@ -86,10 +85,16 @@ class NotificationFragment : Fragment() {
                     binding.layoutContentState.textError.text =
                         getString(R.string.text_error_seat_checkout)
                     binding.layoutContentState.pbLoadingEmptyState.isVisible = false
+                    it.exception?.let { e ->
+                        if (activity is BaseActivity) {
+//                            (activity as BaseActivity).handleTokenExpired(e)
+                        }
+                    }
                 }
             )
         }
     }
+
 
     private fun navigateToDetail(item: Notification) {
         DetailNotificationActivity.startActivity(
