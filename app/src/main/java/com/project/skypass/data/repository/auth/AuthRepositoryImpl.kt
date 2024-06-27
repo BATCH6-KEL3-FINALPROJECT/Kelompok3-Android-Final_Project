@@ -7,6 +7,7 @@ import com.project.skypass.data.source.network.model.login.LoginRequestResponse
 import com.project.skypass.data.source.network.model.login.LoginResponse
 import com.project.skypass.data.source.network.model.otp.ResendOtpRequestResponse
 import com.project.skypass.data.source.network.model.otp.VerifyRequestResponse
+import com.project.skypass.data.source.network.model.register.RegisterItemResponse
 import com.project.skypass.data.source.network.model.register.RegisterRequestResponse
 import com.project.skypass.data.source.network.model.register.RegisterResponse
 import com.project.skypass.data.source.network.model.resetpassword.ResetPasswordRequestResponse
@@ -47,9 +48,9 @@ class AuthRepositoryImpl(private val dataStore: AuthDataStore): AuthRepository {
         email: String,
         phoneNumber: String,
         password: String
-    ): Flow<ResultWrapper<RegisterResponse>> {
+    ): Flow<ResultWrapper<Response<RegisterItemResponse>>> {
         return proceedFlow {
-            try {
+            //try {
                 dataStore.doRegister(
                     RegisterRequestResponse(
                         email = email,
@@ -58,11 +59,11 @@ class AuthRepositoryImpl(private val dataStore: AuthDataStore): AuthRepository {
                         phone_number = phoneNumber
                     )
                 )
-            } catch (e: ErrorInterceptor.NoInternetException) {
+            /*} catch (e: ErrorInterceptor.NoInternetException) {
                 throw Exception("No internet connection")
             } catch (e: ErrorInterceptor.HttpException) {
                 throw Exception(e.message)
-            }
+            }*/
         }
     }
 

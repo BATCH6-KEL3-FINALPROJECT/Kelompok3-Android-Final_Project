@@ -27,6 +27,15 @@ class PrefRepositoryImpl(private val dataSource: PrefDataSource): PrefRepository
     override fun setToken(token: String) {
         return dataSource.setToken(token)
     }
+
+    override fun getEmail(): String {
+        return dataSource.getEmail()
+    }
+
+    override fun setEmail(email: String) {
+        return dataSource.setEmail(email)
+    }
+
     override fun clearAll(){
         dataSource.clearAll()
     }

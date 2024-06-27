@@ -3,6 +3,7 @@ package com.project.skypass.data.repository.auth
 import com.project.skypass.data.model.Response
 import com.project.skypass.data.source.network.model.login.LoginItemResponse
 import com.project.skypass.data.source.network.model.login.LoginResponse
+import com.project.skypass.data.source.network.model.register.RegisterItemResponse
 import com.project.skypass.data.source.network.model.register.RegisterResponse
 import com.project.skypass.utils.ResultWrapper
 import kotlinx.coroutines.flow.Flow
@@ -19,7 +20,7 @@ interface AuthRepository {
         email: String,
         phoneNumber: String,
         password: String
-    ): Flow<ResultWrapper<RegisterResponse>>
+    ): Flow<ResultWrapper<Response<RegisterItemResponse>>>
 
     fun doVerify(
         email: String,
