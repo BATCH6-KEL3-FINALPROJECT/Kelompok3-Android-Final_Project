@@ -12,10 +12,12 @@ import com.kizitonwose.calendar.core.atStartOfMonth
 import com.kizitonwose.calendar.core.firstDayOfWeekFromLocale
 import com.kizitonwose.calendar.view.ViewContainer
 import com.kizitonwose.calendar.view.WeekDayBinder
+import com.project.skypass.data.model.FilterFlight
 import com.project.skypass.data.model.Flight
 import com.project.skypass.data.model.OrderUser
 import com.project.skypass.databinding.ActivityFlightDetailBinding
 import com.project.skypass.databinding.ItemDayBinding
+import com.project.skypass.presentation.customview.FilterFlightSelected
 import com.project.skypass.presentation.flight.detail.adapter.FlightDetailAdapter
 import com.project.skypass.presentation.flight.detail.adapter.OnItemClickedListener
 import com.project.skypass.presentation.flight.filter.FilterFragment
@@ -31,7 +33,7 @@ import java.time.LocalDate
 import java.time.YearMonth
 import java.time.format.DateTimeFormatter
 
-class FlightDetailActivity : AppCompatActivity() {
+class FlightDetailActivity : AppCompatActivity(), FilterFlightSelected {
     private val binding: ActivityFlightDetailBinding by lazy {
         ActivityFlightDetailBinding.inflate(layoutInflater)
     }
@@ -65,7 +67,8 @@ class FlightDetailActivity : AppCompatActivity() {
         }
         binding.cardFilter.setOnClickListener {
             val filterFragment = FilterFragment()
-            filterFragment.show(supportFragmentManager, filterFragment.tag)
+            filterFragment.filterFlight = this
+            filterFragment.show(supportFragmentManager, "filter")
         }
         flightDetailAdapter.setOnTicketClickListener {
 
@@ -281,6 +284,15 @@ class FlightDetailActivity : AppCompatActivity() {
             val intent = Intent(context, FlightDetailActivity::class.java)
             intent.putExtra(EXTRA_FLIGHT, orderData)
             context.startActivity((intent))
+        }
+    }
+
+    override fun onFilterSelected(tag: String, filter: FilterFlight) {
+        when (tag) {
+            "filter" -> {
+                flightDetailViewModel.applyFilter(filter)
+                observeFlightData()
+            }
         }
     }
 

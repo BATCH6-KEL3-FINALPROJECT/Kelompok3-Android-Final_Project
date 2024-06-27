@@ -2,6 +2,7 @@ package com.project.skypass.data.repository.flight
 
 import com.project.skypass.data.datasource.flight.FlightDataSource
 import com.project.skypass.data.mapper.toFlightData
+import com.project.skypass.data.model.FilterFlight
 import com.project.skypass.data.model.Flight
 import com.project.skypass.utils.ResultWrapper
 import com.project.skypass.utils.proceedFlow
@@ -34,5 +35,9 @@ class FlightRepositoryImpl(private val dataSource: FlightDataSource) : FlightRep
                 price.orEmpty()
             ).data?.flights.toFlightData()
         }
+    }
+
+    override fun filterFlights(): List<FilterFlight> {
+        return dataSource.filterFlightData()
     }
 }

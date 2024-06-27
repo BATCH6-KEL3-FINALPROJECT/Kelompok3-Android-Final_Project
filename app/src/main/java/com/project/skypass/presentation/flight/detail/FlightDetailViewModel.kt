@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.liveData
+import com.project.skypass.data.model.FilterFlight
 import com.project.skypass.data.model.Flight
 import com.project.skypass.data.model.OrderUser
 import com.project.skypass.data.repository.OrderHistory.OrderHistoryRepository
@@ -31,11 +32,20 @@ class FlightDetailViewModel(
     var setSeatClass:String? = null
     var setDepartureDate:String? = null
     var setPassenger:String? = null
+    var setPrice:String? = null
+    var setDepartureTime: String? = null
+    var filterCriteria: String? = null
 
     private var selectedDate: LocalDate? = null
 
     val date: String?
         get() = setDepartureDate
+
+    val time: String?
+        get() = setDepartureTime
+
+    val price: String?
+        get() = setPrice
 
     fun saveToOrderHistory(item: OrderUser): LiveData<ResultWrapper<Boolean>> {
            return orderHistoryRepository.createOrderHistoryDb(item).asLiveData(Dispatchers.IO)
@@ -58,8 +68,8 @@ class FlightDetailViewModel(
         1,
         10,
         departureDate = date,
-        null,
-        null
+        departureTime = time,
+        price = price
     ).asLiveData(Dispatchers.IO)
 
     fun setSelectedDate(date: LocalDate) {
@@ -68,6 +78,33 @@ class FlightDetailViewModel(
 
     fun getSelectedDate(): LocalDate? {
         return selectedDate
+    }
+
+    fun applyFilter(criteria: FilterFlight) {
+        filterCriteria = criteria.criteria
+        when (criteria.criteria) {
+            "Tercepat" -> {
+                val early = "early"
+                setDepartureTime = early
+                setPrice = null
+            }
+            "Terlama" -> {
+                val late = "late"
+                setDepartureTime = late
+                setPrice = null
+            }
+            "Termurah" -> {
+                val cheap = "lowest"
+                setDepartureTime = null
+                setPrice = cheap
+            }
+            "Termahal" -> {
+                val expensive = "highest"
+                setDepartureTime = null
+                setPrice = expensive
+            }
+        }
+        getFlightDetail()
     }
 
 }

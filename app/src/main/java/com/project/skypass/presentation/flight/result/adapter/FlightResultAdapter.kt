@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.project.skypass.data.model.Flight
 import com.project.skypass.databinding.ItemFlightTicketDetailBinding
 import com.project.skypass.presentation.flight.result.adapter.OnItemClickedListener
+import com.project.skypass.utils.capitalizeWords
 
 class FlightResultAdapter(
     private val listener: OnItemClickedListener<Flight>,
@@ -65,6 +66,7 @@ class FlightResultAdapter(
             binding.tvDateArrival.text = item.arrivalDate
             binding.tvTimeDeparture.text = item.departureTime
             binding.tvTimeArrival.text = item.arrivalTime
+            binding.tvSeatClass.text = item.seatClass?.capitalizeWords()
 
             itemView.setOnClickListener {
                 listener.onItemClicked(item)
