@@ -1,8 +1,10 @@
 package com.project.skypass.data.datasource.user
 
+import com.project.skypass.data.model.Response
 import com.project.skypass.data.source.local.pref.UserPreference
 import com.project.skypass.data.source.network.model.user.deleteuser.DeleteUserResponse
 import com.project.skypass.data.source.network.model.user.detailuser.UserResponse
+import com.project.skypass.data.source.network.model.user.edituser.Data
 import com.project.skypass.data.source.network.model.user.edituser.EditUserResponse
 import com.project.skypass.data.source.network.service.ApiService
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -35,7 +37,7 @@ class UserDataSourceImpl (
         email: RequestBody,
         phoneNumber: RequestBody,
         photo: MultipartBody.Part?
-    ): EditUserResponse {
+    ): Response<Data> {
         return apiService.updateUserData(
             token = token,
             id = id,

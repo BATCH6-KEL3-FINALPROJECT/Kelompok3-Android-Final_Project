@@ -1,7 +1,8 @@
 package com.project.skypass.data.repository.notification
 
 import com.project.skypass.data.datasource.notification.NotificationDataSource
-import com.project.skypass.data.source.network.model.notification.all.Data
+import com.project.skypass.data.model.Response
+import com.project.skypass.data.source.network.model.notification.all.DataNotification
 import com.project.skypass.data.source.network.model.notification.all.NotificationItemResponse
 import com.project.skypass.data.source.network.model.notification.all.NotificationResponse
 import com.project.skypass.data.source.network.model.notification.detail.DetailNotificationItemResponse
@@ -45,8 +46,8 @@ class NotificationRepositoryImplTest {
             updatedAt = "2022-01-01T00:00:00.000Z",
             userId = "user_id"
         )
-        val data = Data(listOf(notificationItemResponse))
-        val notificationResponse = NotificationResponse(200, data, true, "Success")
+        val data = DataNotification(listOf(notificationItemResponse))
+        val notificationResponse = Response(true, "Success", data)
         coEvery { ds.getNotifications("Bearer $token") } returns notificationResponse
 
         val result = repo.getNotifications(token)

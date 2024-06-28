@@ -1,5 +1,6 @@
 package com.project.skypass.data.datasource.user
 
+import com.project.skypass.data.model.Response
 import com.project.skypass.data.source.local.pref.UserPreference
 import com.project.skypass.data.source.network.model.user.deleteuser.DeleteUserResponse
 import com.project.skypass.data.source.network.model.user.detailuser.Data
@@ -115,12 +116,7 @@ class UserDataSourceImplTest {
             user_id = userId
         )
         val editUserData = com.project.skypass.data.source.network.model.user.edituser.Data(editUserItemResponse)
-        val editUserResponse = EditUserResponse(
-            code = 200,
-            data = editUserData,
-            is_success = true,
-            message = "User data updated successfully."
-        )
+        val editUserResponse = Response(true, "Success", editUserData)
         coEvery {
             service.updateUserData(
                 token = token,

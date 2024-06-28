@@ -7,7 +7,7 @@ data class NotificationResponse(
     @SerializedName("code")
     var code: Int?,
     @SerializedName("data")
-    var data: Data?,
+    var data: DataNotification?,
     @SerializedName("is_sucsess")
     var isSucsess: Boolean?,
     @SerializedName("message")

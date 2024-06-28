@@ -4,9 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import com.project.skypass.data.model.PassengersData
+import com.project.skypass.data.model.Response
 import com.project.skypass.data.repository.checkout.CheckoutRepository
 import com.project.skypass.data.repository.pref.PrefRepository
 import com.project.skypass.data.source.network.model.checkout.response.CheckoutResponse
+import com.project.skypass.data.source.network.model.checkout.response.DataCheckout
 import com.project.skypass.utils.ResultWrapper
 import kotlinx.coroutines.Dispatchers
 
@@ -29,7 +31,7 @@ class CheckoutDetailViewModel(
         email: String? = null,
         phone: String? = null,
         passenger: List<PassengersData>
-    ): LiveData<ResultWrapper<CheckoutResponse>> {
+    ): LiveData<ResultWrapper<Response<DataCheckout>>> {
         return checkoutRepository.createBooking(
             token,
             totalAmount,

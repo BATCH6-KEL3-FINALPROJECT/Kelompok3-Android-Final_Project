@@ -1,6 +1,7 @@
 package com.project.skypass.data.datasource.notification
 
-import com.project.skypass.data.source.network.model.notification.all.Data
+import com.project.skypass.data.model.Response
+import com.project.skypass.data.source.network.model.notification.all.DataNotification
 import com.project.skypass.data.source.network.model.notification.all.NotificationItemResponse
 import com.project.skypass.data.source.network.model.notification.all.NotificationResponse
 import com.project.skypass.data.source.network.model.notification.detail.DetailNotificationItemResponse
@@ -10,7 +11,6 @@ import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.impl.annotations.MockK
 import kotlinx.coroutines.runBlocking
-import org.junit.Assert.*
 
 import org.junit.Before
 import org.junit.Test
@@ -42,8 +42,8 @@ class NotificationDataSourceImplTest {
             updatedAt = "2022-01-01T00:00:00.000Z",
             userId = "user_id"
         )
-        val data = Data(listOf(notificationItemResponse))
-        val notificationResponse = NotificationResponse(200, data, true, "Success")
+        val data = DataNotification(listOf(notificationItemResponse))
+        val notificationResponse = Response(true, "Success", data)
         coEvery { service.getAllNotification(token) } returns notificationResponse
 
         val result = ds.getNotifications(token)

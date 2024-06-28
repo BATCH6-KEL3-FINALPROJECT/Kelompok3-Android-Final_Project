@@ -1,5 +1,6 @@
 package com.project.skypass.data.datasource.history
 
+import com.project.skypass.data.model.Response
 import com.project.skypass.data.source.network.model.history.allhistory.AllHistoryItemResponse
 import com.project.skypass.data.source.network.model.history.allhistory.AllHistoryResponse
 import com.project.skypass.data.source.network.model.history.allhistory.Flight
@@ -79,26 +80,23 @@ class HistoryDataSourceImplTest {
             ),
             airline = airline
         )
-        val allHistoryItemResponse = AllHistoryItemResponse(
-            bookingCode = "booking_code",
-            bookingDate = "2022-01-01",
-            bookingId = "booking_id",
-            flight = flight,
-            flightId = "flight_id",
-            isRoundTrip = true,
-            noOfTicket = 2,
-            paymentId = "payment_id",
-            status = "status",
-            tickets = listOf(ticket),
-            totalPrice = "100000",
-            userId = "user_id"
+        val allHistoryItemResponse: List<AllHistoryItemResponse>? = listOf(
+            AllHistoryItemResponse(
+                bookingCode = "booking_code",
+                bookingDate = "2022-01-01",
+                bookingId = "booking_id",
+                flight = flight,
+                flightId = "flight_id",
+                isRoundTrip = true,
+                noOfTicket = 2,
+                paymentId = "payment_id",
+                status = "status",
+                tickets = listOf(ticket),
+                totalPrice = "100000",
+                userId = "user_id"
+            )
         )
-        val allHistoryResponse = AllHistoryResponse(
-            200,
-            listOf(allHistoryItemResponse),
-            true,
-            "Success"
-        )
+        val allHistoryResponse: Response<List<AllHistoryItemResponse>?> = Response(true, "Success", allHistoryItemResponse)
         coEvery { service.getAllHistory(token) } returns allHistoryResponse
 
         val result = ds.getHistory(token)

@@ -1,12 +1,15 @@
 package com.project.skypass.data.datasource.history
 
+import com.project.skypass.data.model.Response
+import com.project.skypass.data.source.network.model.history.allhistory.AllHistoryItemResponse
 import com.project.skypass.data.source.network.model.history.allhistory.AllHistoryResponse
 import com.project.skypass.data.source.network.model.history.detailhistory.DetailHistoryResponse
+import com.project.skypass.data.source.network.model.history.userhistory.UserHistoryItemResponse
 import com.project.skypass.data.source.network.model.history.userhistory.UserHistoryResponse
 import com.project.skypass.data.source.network.service.ApiService
 
 class HistoryDataSourceImpl(private val service: ApiService) : HistoryDataSource {
-    override suspend fun getHistory(token: String): AllHistoryResponse {
+    override suspend fun getHistory(token: String): Response<List<AllHistoryItemResponse>?> {
         return service.getAllHistory(token)
     }
 
@@ -15,7 +18,7 @@ class HistoryDataSourceImpl(private val service: ApiService) : HistoryDataSource
         search: String?,
         date: String?,
         until: String?
-    ): UserHistoryResponse {
+    ): Response<List<UserHistoryItemResponse>?> {
         return service.getBookingHistory(token, search, date, until)
     }
 

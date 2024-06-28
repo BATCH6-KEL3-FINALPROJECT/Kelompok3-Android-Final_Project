@@ -1,8 +1,8 @@
 package com.project.skypass.data.repository.checkout
 
 import com.project.skypass.data.datasource.checkout.CheckoutDataSource
-import com.project.skypass.data.model.Booking
 import com.project.skypass.data.model.PassengersData
+import com.project.skypass.data.model.Response
 import com.project.skypass.data.source.network.model.booking.Airline
 import com.project.skypass.data.source.network.model.booking.ArrivingAirport
 import com.project.skypass.data.source.network.model.booking.DepartingAirport
@@ -16,7 +16,7 @@ import com.project.skypass.data.source.network.model.checkout.request.CheckoutRe
 import com.project.skypass.data.source.network.model.checkout.request.PassengerData
 import com.project.skypass.data.source.network.model.checkout.response.BookingResult
 import com.project.skypass.data.source.network.model.checkout.response.CheckoutResponse
-import com.project.skypass.data.source.network.model.checkout.response.Data
+import com.project.skypass.data.source.network.model.checkout.response.DataCheckout
 import com.project.skypass.data.source.network.model.checkout.response.ReturnBookingResult
 import com.project.skypass.data.source.network.model.payment.PaymentItemResponse
 import com.project.skypass.data.source.network.model.payment.PaymentResponse
@@ -26,7 +26,6 @@ import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.impl.annotations.MockK
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.*
 
@@ -107,8 +106,8 @@ class CheckoutRepositoryImplTest {
         val tokenBearer = "Bearer $token"
         val bookingResult = BookingResult("bookingCode", "bookingDate", "bookingId", "createdAt", "flightId", true, 1, "paymentId", "status", "totalPrice", "updatedAt", "userId")
         val returnBookingResult = ReturnBookingResult("bookingCode", "bookingDate", "bookingId", "createdAt", "flightId", true, 1, "paymentId", "status", "totalPrice", "updatedAt", "userId")
-        val data = Data(bookingResult, returnBookingResult)
-        val response = CheckoutResponse(200, data, true, "success")
+        val data = DataCheckout(bookingResult, returnBookingResult)
+        val response = Response(true, "success", data)
 
         coEvery { ds.createBooking(any(), any()) } returns response
 

@@ -4,16 +4,17 @@ import com.project.skypass.BuildConfig
 import com.project.skypass.data.model.Response
 import com.project.skypass.data.source.network.model.booking.GetBookingDataResponse
 import com.project.skypass.data.source.network.model.checkout.request.CheckoutRequestResponse
-import com.project.skypass.data.source.network.model.checkout.response.CheckoutResponse
-import com.project.skypass.data.source.network.model.destinationfavorite.DestinationFavoriteItemResponse
+import com.project.skypass.data.source.network.model.checkout.response.DataCheckout
 import com.project.skypass.data.source.network.model.destinationfavorite.DestinationFavoriteResponse
 import com.project.skypass.data.source.network.model.flight.detailflight.DetailFlightResponse
 import com.project.skypass.data.source.network.model.flight.flightdata.GetAllFlightResponse
+import com.project.skypass.data.source.network.model.history.allhistory.AllHistoryItemResponse
 import com.project.skypass.data.source.network.model.history.allhistory.AllHistoryResponse
 import com.project.skypass.data.source.network.model.history.detailhistory.DetailHistoryResponse
-import com.project.skypass.data.source.network.model.history.userhistory.UserHistoryResponse
+import com.project.skypass.data.source.network.model.history.userhistory.UserHistoryItemResponse
 import com.project.skypass.data.source.network.model.login.LoginItemResponse
 import com.project.skypass.data.source.network.model.login.LoginRequestResponse
+import com.project.skypass.data.source.network.model.notification.all.DataNotification
 import com.project.skypass.data.source.network.model.notification.all.NotificationResponse
 import com.project.skypass.data.source.network.model.notification.detail.DetailNotificationResponse
 import com.project.skypass.data.source.network.model.notification.update.UpdateNotificationResponse
@@ -32,12 +33,12 @@ import com.project.skypass.data.source.network.model.search.gethistory.GetHistor
 import com.project.skypass.data.source.network.model.search.posthistory.PostHistoryRespomse
 import com.project.skypass.data.source.network.model.search.posthistory.request.HistoryRequestResponse
 import com.project.skypass.data.source.network.model.seat.SeatResponse
-import com.project.skypass.data.source.network.model.user.deleteuser.DeleteUserResponse
 import com.project.skypass.data.source.network.model.ticket.TicketResponse
 import com.project.skypass.data.source.network.model.ticket.print.PrintTicketRequestResponse
 import com.project.skypass.data.source.network.model.ticket.print.PrintTicketResponse
+import com.project.skypass.data.source.network.model.user.deleteuser.DeleteUserResponse
 import com.project.skypass.data.source.network.model.user.detailuser.UserResponse
-import com.project.skypass.data.source.network.model.user.edituser.EditUserResponse
+import com.project.skypass.data.source.network.model.user.edituser.Data
 import okhttp3.MultipartBody
 import okhttp3.OkHttpClient
 import okhttp3.RequestBody
@@ -109,7 +110,7 @@ interface ApiService {
         @Path("id") id: String
     ): UserResponse
 
-    //need expired token handler
+    //need expired token handler (DONE)
     @Multipart
     @PATCH("user/{id}")
     suspend fun updateUserData(
@@ -119,7 +120,7 @@ interface ApiService {
         @Part("email") email: RequestBody,
         @Part("phone_number") phoneNumber: RequestBody,
         @Part image: MultipartBody.Part? = null
-    ): EditUserResponse
+    ): Response<Data>
 
     @DELETE("user/{id}")
     suspend fun deleteUser(
@@ -147,9 +148,8 @@ interface ApiService {
     @GET("notification")
     suspend fun getAllNotification(
         @Header("Authorization") token: String,
-    ): NotificationResponse
+    ): Response<DataNotification>
 
-    //need expired token handler
     @GET("notification/{id}")
     suspend fun getDetailNotification(
         @Header("Authorization") token: String,
@@ -161,34 +161,33 @@ interface ApiService {
         @Path("id") id: String
     ): UpdateNotificationResponse
 
-    //need expired token handler
+    //need expired token handler (DONE)
     @GET("booking/history")
     suspend fun getAllHistory(
         @Header("Authorization") token: String
-    ): AllHistoryResponse
+    ): Response<List<AllHistoryItemResponse>?>
 
-    //need expired token handler
+    //need expired token handler (DONE)
     @GET("booking/history")
     suspend fun getBookingHistory(
         @Header("Authorization") token: String,
         @Query("search") search: String? = null,
         @Query("date") date: String? = null,
         @Query("until") until: String? = null
-    ): UserHistoryResponse
+    ): Response<List<UserHistoryItemResponse>?>
 
-    //need expired token handler
     @GET("booking/history/{id}")
     suspend fun getDetailHistory(
         @Header("Authorization") token: String,
         @Path("id") id: String
     ): DetailHistoryResponse
 
-    //need expired token handler
+    //need expired token handler (DONE)
     @POST("transaction/booking")
     suspend fun bookingTicket(
         @Header("Authorization") token: String,
         @Body bookingRequest: CheckoutRequestResponse
-    ): CheckoutResponse
+    ): Response<DataCheckout>
 
     //need expired token handler
     @GET("transaction/booking/{id}")
@@ -204,20 +203,17 @@ interface ApiService {
         @Path("id") id: String
     ): PaymentResponse
 
-    //need expired token handler
     @DELETE("history/delete/{id}")
     suspend fun deleteHistorySearchHome(
         @Header("Authorization") token: String,
         @Path("id") id: Int
     ): DeleteHistorySearchResponse
 
-    //need expired token handler
     @GET("history/")
     suspend fun getAllHistorySearchHome(
         @Header("Authorization") token: String
     ): GetHistoryResponse
 
-    //need expired token handler
     @POST("history/create")
     suspend fun createHistorySearchHome(
         @Header("Authorization") token: String,
