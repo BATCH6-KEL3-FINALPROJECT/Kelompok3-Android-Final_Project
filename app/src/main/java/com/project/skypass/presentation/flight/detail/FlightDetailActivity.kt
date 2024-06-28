@@ -151,7 +151,9 @@ class FlightDetailActivity : AppCompatActivity(), FilterFlightSelected {
             it.proceedWhen(
                 doOnSuccess = {
                     binding.rvTicket.isVisible = true
-                    binding.pbLoading.isVisible = false
+                    //binding.pbLoading.isVisible = false
+                    binding.shimmerViewContainer.isVisible = false
+                    binding.shimmerViewContainer.stopShimmer()
                     binding.ivEmptyTicket.isVisible = false
                     binding.tvEmptyTicket.isVisible = false
                     binding.tvEmptyTicketSub.isVisible = false
@@ -162,14 +164,18 @@ class FlightDetailActivity : AppCompatActivity(), FilterFlightSelected {
                 },
                 doOnLoading = {
                     binding.rvTicket.isVisible = false
-                    binding.pbLoading.isVisible = true
+                    //binding.pbLoading.isVisible = true
+                    binding.shimmerViewContainer.isVisible = true
+                    binding.shimmerViewContainer.startShimmer()
                     binding.ivEmptyTicket.isVisible = false
                     binding.tvEmptyTicket.isVisible = false
                     binding.tvEmptyTicketSub.isVisible = false
                     binding.btnEditSearch.isVisible = false
                 },
                 doOnError = {
-                    binding.pbLoading.isVisible = false
+                    //binding.pbLoading.isVisible = false
+                    binding.shimmerViewContainer.isVisible = false
+                    binding.shimmerViewContainer.stopShimmer()
                     binding.ivEmptyTicket.isVisible = true
                     binding.tvEmptyTicket.isVisible = true
                     binding.tvEmptyTicketSub.isVisible = true

@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_gravity="center|top"
+    android:layout_marginHorizontal="16dp"
+    android:layout_marginBottom="8dp">
+
+    <com.vipulasri.ticketview.TicketView
+        android:layout_width="match_parent"
+        android:layout_height="190dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:ticketBackgroundColor="#DCDCDC"
+        app:ticketBorderColor="#D0D0D0"
+        app:ticketBorderWidth="2dp"
+        app:ticketCornerRadius="16dp"
+        app:ticketCornerType="rounded"
+        app:ticketDividerColor="#D0D0D0"
+        app:ticketDividerType="dash"
+        app:ticketElevation="2dp"
+        app:ticketOrientation="horizontal"
+        app:ticketScallopPositionPercent="70"
+        app:ticketScallopRadius="10dp"
+        app:ticketShowBorder="true"
+        app:ticketShowDivider="true"/>
+
+    <LinearLayout
+        android:id="@+id/ll_city_from"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/tv_city_name_alias"
+            android:layout_width="20dp"
+            android:layout_height="wrap_content"
+            android:background="#CCCBCB"
+            android:textAlignment="center"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_city_name"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:background="#CCCBCB"/>
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/iv_dot_from"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_dot"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/ll_city_from"
+        app:layout_constraintStart_toEndOf="@+id/ll_city_from"
+        app:layout_constraintTop_toTopOf="@+id/ll_city_from" />
+
+    <ImageView
+        android:id="@+id/iv_dash_line"
+        android:layout_width="0dp"
+        android:layout_height="5dp"
+        android:src="@drawable/bg_dash_line"
+        android:layout_marginHorizontal="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_dot_from"
+        app:layout_constraintEnd_toStartOf="@+id/iv_dot_to"
+        app:layout_constraintStart_toEndOf="@+id/iv_dot_from"
+        app:layout_constraintTop_toTopOf="@+id/iv_dot_from" />
+
+    <LinearLayout
+        android:id="@+id/ll_city_to"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/tv_city_name_destination_alias"
+            android:layout_width="20dp"
+            android:layout_height="wrap_content"
+            android:background="#CCCBCB"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_city_name_destination"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:background="#CCCBCB"/>
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/iv_dot_to"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_dot"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/ll_city_to"
+        app:layout_constraintEnd_toStartOf="@+id/ll_city_to"
+        app:layout_constraintTop_toTopOf="@+id/ll_city_to" />
+
+    <ImageView
+        android:id="@+id/iv_flight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:rotation="90"
+        android:src="@drawable/ic_flight"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_dash_line"
+        app:layout_constraintEnd_toEndOf="@+id/iv_dash_line"
+        app:layout_constraintStart_toStartOf="@+id/iv_dash_line"
+        app:layout_constraintTop_toTopOf="@+id/iv_dash_line"
+        app:tint="@color/md_theme_primary" />
+
+    <TextView
+        android:id="@+id/tv_length_of_journey"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:background="#CCCBCB"
+        android:textStyle="bold"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="@+id/iv_flight"
+        app:layout_constraintTop_toBottomOf="@+id/iv_dash_line"
+        app:layout_constraintStart_toStartOf="@+id/iv_flight"/>
+
+    <LinearLayout
+        android:id="@+id/ll_time_from"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_marginStart="16dp"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ll_city_from">
+
+        <TextView
+            android:id="@+id/tv_time_departure"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:background="#CCCBCB"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_date_departure"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:background="#CCCBCB" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_time_to"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="16dp"
+        android:orientation="vertical"
+        android:gravity="right"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ll_city_to">
+
+        <TextView
+            android:id="@+id/tv_time_arrival"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:background="#CCCBCB"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_date_arrival"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:background="#CCCBCB" />
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/iv_airline"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:background="#CCCBCB"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ll_time_from" />
+
+    <TextView
+        android:id="@+id/tv_airline"
+        android:layout_width="42dp"
+        android:layout_height="match_parent"
+        android:background="#CCCBCB"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_airline"
+        app:layout_constraintStart_toEndOf="@+id/iv_airline"
+        app:layout_constraintTop_toTopOf="@+id/iv_airline" />
+
+    <TextView
+        android:id="@+id/tv_price"
+        android:layout_width="80dp"
+        android:layout_height="match_parent"
+        android:layout_marginEnd="16dp"
+        android:background="#CCCBCB"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_airline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tv_airline" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
