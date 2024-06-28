@@ -47,6 +47,8 @@ class FlightDetailActivity : AppCompatActivity(), FilterFlightSelected {
         setContentView(binding.root)
         getArgumentData()
         setClickListeners()
+        setupAdapter()  // Move this to onCreate to initialize adapter once
+        observeFlightData()  // Move this to onCreate to start observing LiveData
     }
 
     private fun selectedDate() {
