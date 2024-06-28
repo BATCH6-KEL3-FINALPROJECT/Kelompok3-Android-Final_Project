@@ -16,16 +16,9 @@ class FlightDetailAdapter(
     private val data = mutableListOf<Flight>()
 
     fun submitData(items: List<Flight>) {
-        /*items.forEach { newItem ->
-            if (!data.contains(newItem)) {
-                data.clear()
-                data.add(newItem)
-                notifyDataSetChanged()
-            }
-        }*/
-        data.clear()  // Clear existing data
-        data.addAll(items)  // Add new items
-        notifyDataSetChanged()  // Notify adapter of data changes
+        data.clear()
+        data.addAll(items)
+        notifyDataSetChanged()
     }
 
     private var onTicketClickListener: ((Flight) -> Unit)? = null

@@ -12,97 +12,6 @@ import com.project.skypass.utils.convertFlightDetail
 import kotlinx.coroutines.Dispatchers
 import java.time.LocalDate
 
-/*class FlightDetailViewModel(
-    private val flightRepository: FlightRepository,
-    private val orderHistoryRepository: OrderHistoryRepository,
-) : ViewModel() {
-
-    private val _flightDetails = MutableLiveData<ResultWrapper<List<Flight>>>()
-    val flightDetails: LiveData<ResultWrapper<List<Flight>>> = _flightDetails
-
-    var setDepartureCity: String? = null
-    var setArrivalCity: String? = null
-    var setSeatClass: String? = null
-    var setDepartureDate: String? = null
-    var setPassenger: String? = null
-    var setPrice: String? = null
-    var setDepartureTime: String? = null
-    var filterCriteria: String? = null
-
-    private var selectedDate: LocalDate? = null
-
-    val date: String?
-        get() = setDepartureDate
-
-    val time: String?
-        get() = setDepartureTime
-
-    val price: String?
-        get() = setPrice
-
-    fun saveToOrderHistory(item: OrderUser): LiveData<ResultWrapper<Boolean>> {
-        return orderHistoryRepository.createOrderHistoryDb(item).asLiveData(Dispatchers.IO)
-    }
-
-    fun getHomeData(item: OrderUser) {
-        setDepartureCity = item.departureCity
-        setArrivalCity = item.arrivalCity
-        setSeatClass = item.seatClass
-        setDepartureDate = convertFlightDetail(item.departureDate.toString())
-        setPassenger = item.passengersTotal
-    }
-
-    fun getFlightDetail() {
-        viewModelScope.launch {
-            flightRepository.getFlights(
-                departureCity = setDepartureCity,
-                arrivalCity = setArrivalCity,
-                null,
-                null,
-                seatClass = setSeatClass,
-                1,
-                10,
-                departureDate = date,
-                departureTime = time,
-                price = price
-            ).collect { result ->
-                _flightDetails.postValue(result)
-            }
-        }
-    }
-
-    fun setSelectedDate(date: LocalDate) {
-        selectedDate = date
-    }
-
-    fun getSelectedDate(): LocalDate? {
-        return selectedDate
-    }
-
-    fun applyFilter(criteria: FilterFlight) {
-        filterCriteria = criteria.criteria
-        when (criteria.criteria) {
-            "Tercepat" -> {
-                setDepartureTime = "early"
-                setPrice = null
-            }
-            "Terlama" -> {
-                setDepartureTime = "late"
-                setPrice = null
-            }
-            "Termurah" -> {
-                setDepartureTime = null
-                setPrice = "lowest"
-            }
-            "Termahal" -> {
-                setDepartureTime = null
-                setPrice = "highest"
-            }
-        }
-        getFlightDetail()
-    }
-}*/
-
 class FlightDetailViewModel(
     private val flightRepository: FlightRepository,
     //private val extras: Bundle?,
@@ -167,24 +76,25 @@ class FlightDetailViewModel(
     fun applyFilter(criteria: FilterFlight) {
         filterCriteria = criteria.criteria
         when (criteria.criteria) {
+            "Tidak ada filter" -> {
+                setDepartureTime = null
+                setPrice = null
+            }
             "Tercepat" -> {
                 val early = "early"
                 setDepartureTime = early
                 setPrice = null
             }
-
             "Terlama" -> {
                 val late = "late"
                 setDepartureTime = late
                 setPrice = null
             }
-
             "Termurah" -> {
                 val cheap = "lowest"
                 setDepartureTime = null
                 setPrice = cheap
             }
-
             "Termahal" -> {
                 val expensive = "highest"
                 setDepartureTime = null

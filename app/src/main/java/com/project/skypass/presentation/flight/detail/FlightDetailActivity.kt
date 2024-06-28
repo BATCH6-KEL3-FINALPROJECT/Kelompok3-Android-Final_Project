@@ -47,8 +47,8 @@ class FlightDetailActivity : AppCompatActivity(), FilterFlightSelected {
         setContentView(binding.root)
         getArgumentData()
         setClickListeners()
-        setupAdapter()  // Move this to onCreate to initialize adapter once
-        observeFlightData()  // Move this to onCreate to start observing LiveData
+        setupAdapter()
+        observeFlightData()
     }
 
     private fun selectedDate() {
@@ -292,6 +292,7 @@ class FlightDetailActivity : AppCompatActivity(), FilterFlightSelected {
     override fun onFilterSelected(tag: String, filter: FilterFlight) {
         when (tag) {
             "filter" -> {
+                binding.tvFilterCondition.text = filter.criteria
                 flightDetailViewModel.applyFilter(filter)
                 observeFlightData()
             }

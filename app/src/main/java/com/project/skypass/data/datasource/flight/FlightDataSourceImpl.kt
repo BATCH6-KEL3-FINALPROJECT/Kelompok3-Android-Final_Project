@@ -33,6 +33,7 @@ class FlightDataSourceImpl(private val service: ApiService) : FlightDataSource {
 
     override fun filterFlightData(): List<FilterFlight> {
         return listOf(
+            FilterFlight(criteria = "Tidak ada filter"),
             FilterFlight(criteria = "Tercepat"),
             FilterFlight(criteria = "Terlama"),
             FilterFlight(criteria = "Termurah"),
