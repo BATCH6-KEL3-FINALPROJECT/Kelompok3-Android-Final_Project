@@ -149,6 +149,25 @@ class HistoryFragment : Fragment(), OnSearchItemSelectedListener {
                         adapter.update(items)
                     }
                 },
+                doOnError = { error ->
+                    if (error.exception is ApiErrorException) {
+                        val errorMessage = error.exception.errorResponse
+                        StyleableToast.makeText(requireContext(), errorMessage.message, R.style.ToastError).show()
+                    } else if (error.exception is NoInternetException) {
+                        StyleableToast.makeText(requireContext(), getString(R.string.no_internet_connection), R.style.ToastError).show()
+                    } else if (error.exception is UnauthorizedException) {
+                        val errorMessage = error.exception.errorUnauthorizedResponse
+                        StyleableToast.makeText(requireContext(), errorMessage.message, R.style.ToastError).show()
+                        lifecycleScope.launch {
+                            delay(2000)
+                            val activity = activity as? BaseActivity
+                            activity?.handleUnAuthorize()
+                        }
+                    } else {
+                        binding.layoutContentState.textError.text =
+                            getString(R.string.unknown_error)
+                    }
+                }
             )
         }
     }
