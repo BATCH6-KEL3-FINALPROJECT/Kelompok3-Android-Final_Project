@@ -9,8 +9,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.project.skypass.R
+import com.project.skypass.core.BaseActivity
 import com.project.skypass.data.model.History
 import com.project.skypass.data.model.Search
 import com.project.skypass.databinding.FragmentHistoryBinding
@@ -18,11 +20,17 @@ import com.project.skypass.presentation.history.adapter.HistoryMonthItem
 import com.project.skypass.presentation.history.adapter.HistoryTicketItem
 import com.project.skypass.presentation.history.filter.date.CalendarHistoryFragment
 import com.project.skypass.presentation.history.filter.search.SearchHistoryFragment
+import com.project.skypass.utils.ApiErrorException
+import com.project.skypass.utils.NoInternetException
+import com.project.skypass.utils.UnauthorizedException
 import com.project.skypass.utils.convertDateMouth
 import com.project.skypass.utils.proceedWhen
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import com.xwray.groupie.viewbinding.BindableItem
+import io.github.muddz.styleabletoast.StyleableToast
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HistoryFragment : Fragment(), OnSearchItemSelectedListener {
@@ -83,11 +91,26 @@ class HistoryFragment : Fragment(), OnSearchItemSelectedListener {
                     binding.layoutContentState.root.isVisible = true
                     binding.layoutContentState.textError.isVisible = false
                     binding.layoutContentState.pbLoadingEmptyState.isVisible = true
-                }, doOnError = {
+                }, doOnError = { error ->
                     binding.layoutContentState.textError.isVisible = true
                     binding.layoutContentState.root.isVisible = true
-                    binding.layoutContentState.textError.text =
-                        getString(R.string.unknown_error)
+                    if (error.exception is ApiErrorException) {
+                        val errorMessage = error.exception.errorResponse
+                        StyleableToast.makeText(requireContext(), errorMessage.message, R.style.ToastError).show()
+                    } else if (error.exception is NoInternetException) {
+                        StyleableToast.makeText(requireContext(), getString(R.string.no_internet_connection), R.style.ToastError).show()
+                    } else if (error.exception is UnauthorizedException) {
+                        val errorMessage = error.exception.errorUnauthorizedResponse
+                        StyleableToast.makeText(requireContext(), errorMessage.message, R.style.ToastError).show()
+                        lifecycleScope.launch {
+                            delay(2000)
+                            val activity = activity as? BaseActivity
+                            activity?.handleUnAuthorize()
+                        }
+                    } else {
+                        binding.layoutContentState.textError.text =
+                            getString(R.string.unknown_error)
+                    }
                     binding.layoutContentState.pbLoadingEmptyState.isVisible = false
                 }
 

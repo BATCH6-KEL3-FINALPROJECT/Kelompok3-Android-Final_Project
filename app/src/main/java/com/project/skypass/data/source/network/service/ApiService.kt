@@ -4,15 +4,13 @@ import com.project.skypass.BuildConfig
 import com.project.skypass.data.model.Response
 import com.project.skypass.data.source.network.model.booking.GetBookingDataResponse
 import com.project.skypass.data.source.network.model.checkout.request.CheckoutRequestResponse
-import com.project.skypass.data.source.network.model.checkout.response.CheckoutResponse
 import com.project.skypass.data.source.network.model.checkout.response.DataCheckout
-import com.project.skypass.data.source.network.model.destinationfavorite.DestinationFavoriteItemResponse
 import com.project.skypass.data.source.network.model.destinationfavorite.DestinationFavoriteResponse
 import com.project.skypass.data.source.network.model.flight.detailflight.DetailFlightResponse
 import com.project.skypass.data.source.network.model.flight.flightdata.GetAllFlightResponse
 import com.project.skypass.data.source.network.model.history.allhistory.AllHistoryResponse
 import com.project.skypass.data.source.network.model.history.detailhistory.DetailHistoryResponse
-import com.project.skypass.data.source.network.model.history.userhistory.UserHistoryResponse
+import com.project.skypass.data.source.network.model.history.userhistory.UserHistoryItemResponse
 import com.project.skypass.data.source.network.model.login.LoginItemResponse
 import com.project.skypass.data.source.network.model.login.LoginRequestResponse
 import com.project.skypass.data.source.network.model.notification.all.NotificationResponse
@@ -33,13 +31,12 @@ import com.project.skypass.data.source.network.model.search.gethistory.GetHistor
 import com.project.skypass.data.source.network.model.search.posthistory.PostHistoryRespomse
 import com.project.skypass.data.source.network.model.search.posthistory.request.HistoryRequestResponse
 import com.project.skypass.data.source.network.model.seat.SeatResponse
-import com.project.skypass.data.source.network.model.user.deleteuser.DeleteUserResponse
 import com.project.skypass.data.source.network.model.ticket.TicketResponse
 import com.project.skypass.data.source.network.model.ticket.print.PrintTicketRequestResponse
 import com.project.skypass.data.source.network.model.ticket.print.PrintTicketResponse
+import com.project.skypass.data.source.network.model.user.deleteuser.DeleteUserResponse
 import com.project.skypass.data.source.network.model.user.detailuser.UserResponse
 import com.project.skypass.data.source.network.model.user.edituser.Data
-import com.project.skypass.data.source.network.model.user.edituser.EditUserResponse
 import okhttp3.MultipartBody
 import okhttp3.OkHttpClient
 import okhttp3.RequestBody
@@ -175,7 +172,8 @@ interface ApiService {
         @Query("search") search: String? = null,
         @Query("date") date: String? = null,
         @Query("until") until: String? = null
-    ): UserHistoryResponse
+    //): UserHistoryResponse
+    ): Response<List<UserHistoryItemResponse>?>
 
     @GET("booking/history/{id}")
     suspend fun getDetailHistory(
@@ -183,12 +181,11 @@ interface ApiService {
         @Path("id") id: String
     ): DetailHistoryResponse
 
-    //need expired token handler
+    //need expired token handler (DONE)
     @POST("transaction/booking")
     suspend fun bookingTicket(
         @Header("Authorization") token: String,
         @Body bookingRequest: CheckoutRequestResponse
-    //): CheckoutResponse
     ): Response<DataCheckout>
 
     //need expired token handler
