@@ -14,6 +14,7 @@ import com.project.skypass.data.source.network.model.history.detailhistory.Detai
 import com.project.skypass.data.source.network.model.history.userhistory.UserHistoryItemResponse
 import com.project.skypass.data.source.network.model.login.LoginItemResponse
 import com.project.skypass.data.source.network.model.login.LoginRequestResponse
+import com.project.skypass.data.source.network.model.notification.all.DataNotification
 import com.project.skypass.data.source.network.model.notification.all.NotificationResponse
 import com.project.skypass.data.source.network.model.notification.detail.DetailNotificationResponse
 import com.project.skypass.data.source.network.model.notification.update.UpdateNotificationResponse
@@ -147,7 +148,7 @@ interface ApiService {
     @GET("notification")
     suspend fun getAllNotification(
         @Header("Authorization") token: String,
-    ): NotificationResponse
+    ): Response<DataNotification>
 
     @GET("notification/{id}")
     suspend fun getDetailNotification(
@@ -164,7 +165,6 @@ interface ApiService {
     @GET("booking/history")
     suspend fun getAllHistory(
         @Header("Authorization") token: String
-    //): AllHistoryResponse
     ): Response<List<AllHistoryItemResponse>?>
 
     //need expired token handler (DONE)

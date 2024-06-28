@@ -2,6 +2,7 @@ package com.project.skypass.data.repository.history
 
 import com.project.skypass.data.datasource.history.HistoryDataSource
 import com.project.skypass.data.model.History
+import com.project.skypass.data.model.Response
 import com.project.skypass.data.model.TicketHistory
 import com.project.skypass.data.source.network.model.history.allhistory.AllHistoryItemResponse
 import com.project.skypass.data.source.network.model.history.allhistory.AllHistoryResponse
@@ -97,8 +98,9 @@ class HistoryRepositoryImplTest {
                 passengerLastName = "Doe"
             )
         )
-        val allHistoryResponse = AllHistoryResponse(
-            200,
+        val allHistoryResponse: Response<List<AllHistoryItemResponse>?> = Response(
+            true,
+            "Success",
             listOf(
                 AllHistoryItemResponse(
                     bookingCode = "booking_code",
@@ -114,11 +116,9 @@ class HistoryRepositoryImplTest {
                     totalPrice = "100000",
                     userId = "user_id"
                 )
-            ),
-            true,
-            "Success"
+            )
         )
-        val history = listOf(
+        val history: List<History>? = listOf(
             History(
                 id = "id",
                 bookingCode = "booking_code",
@@ -157,7 +157,7 @@ class HistoryRepositoryImplTest {
         result.collect { resultWrapper ->
             when (resultWrapper) {
                 is ResultWrapper.Success -> assertEquals(
-                    history.map { it.copy(id = "id", ticketIdentity = ticketHistory) },
+                    history?.map { it.copy(id = "id", ticketIdentity = ticketHistory) },
                     resultWrapper.payload?.map { it.copy(id = "id", ticketIdentity = ticketHistory) })
 
                 is ResultWrapper.Loading -> delay(100)

@@ -139,7 +139,7 @@ class UserRepositoryImplTest {
             user_id = "userId"
         )
         val editUser = com.project.skypass.data.source.network.model.user.edituser.Data(editUserItemResponse)
-        val editUserResponse = EditUserResponse(200, editUser, true, "Success")
+        val editUserResponse = Response(true, "Success", editUser)
         coEvery {
             ds.editUser(
                 "Bearer $token",
