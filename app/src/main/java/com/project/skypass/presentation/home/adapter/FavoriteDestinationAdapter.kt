@@ -85,7 +85,7 @@ class FavoriteDestinationAdapter(private val itemClick: (Destination) -> Unit): 
                     // Home Data
                     id = (0..5000).random(),
                     arrivalCity = data.to,
-                    arrivalDate = data.returnDate,
+                    arrivalDate = convertDestinationFavorite(data.returnDate),
                     seatClass = data.seatClass,
                     departureCity = data.from,
                     departureDate = convertDestinationFavorite(data.departureDate),
