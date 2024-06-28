@@ -6,10 +6,12 @@ import com.project.skypass.data.mapper.toPayment
 import com.project.skypass.data.model.Booking
 import com.project.skypass.data.model.PassengersData
 import com.project.skypass.data.model.Payment
+import com.project.skypass.data.model.Response
 import com.project.skypass.data.source.network.model.checkout.request.BuyerData
 import com.project.skypass.data.source.network.model.checkout.request.CheckoutRequestResponse
 import com.project.skypass.data.source.network.model.checkout.request.PassengerData
 import com.project.skypass.data.source.network.model.checkout.response.CheckoutResponse
+import com.project.skypass.data.source.network.model.checkout.response.DataCheckout
 import com.project.skypass.utils.ResultWrapper
 import com.project.skypass.utils.convertFlightDetail
 import com.project.skypass.utils.proceedFlow
@@ -26,7 +28,7 @@ class CheckoutRepositoryImpl(private val dataSource: CheckoutDataSource): Checko
         email: String?,
         phone: String?,
         passenger: List<PassengersData>
-    ): Flow<ResultWrapper<CheckoutResponse>> {
+    ): Flow<ResultWrapper<Response<DataCheckout>>> {
         return proceedFlow {
             val buyerData = BuyerData(
                 email = email,

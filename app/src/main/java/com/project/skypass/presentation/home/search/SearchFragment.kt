@@ -95,10 +95,10 @@ class SearchFragment : BottomSheetDialogFragment() {
                     }
                 },
                 doOnLoading = {
-                    // Handle loading state if necessary
+
                 },
                 doOnError = {
-                    Toast.makeText(requireContext(), "Error", Toast.LENGTH_SHORT).show()
+
                 }
             )
         }

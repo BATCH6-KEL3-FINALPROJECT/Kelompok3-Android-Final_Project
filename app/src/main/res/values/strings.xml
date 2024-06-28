@@ -194,7 +194,7 @@
     <string name="passengers_qyt_value">%1$s penumpang</string>
     <string name="no_internet_connection_exception">java.lang.Exception: No internet connection</string>
     <string name="no_internet_connection">Tidak ada koneksi internet, silahkan coba lagi</string>
-    <string name="unknown_error">Error, silahkan coba lagi</string>
+    <string name="unknown_error">Terjadi kesalahan, silahkan coba lagi</string>
     <string name="text_title_dialog_class_flight">Kelas Penerbangan</string>
     <string name="text_title_doalog_passegers_home">Jumlah Penumpang</string>
     <string name="text_title_doalog_calender">Atur Tanggal</string>

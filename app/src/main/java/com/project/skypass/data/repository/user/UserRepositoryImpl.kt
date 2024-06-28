@@ -2,8 +2,10 @@ package com.project.skypass.data.repository.user
 
 import com.project.skypass.data.datasource.user.UserDataSource
 import com.project.skypass.data.mapper.toUser
+import com.project.skypass.data.model.Response
 import com.project.skypass.data.model.User
 import com.project.skypass.data.source.network.model.user.deleteuser.DeleteUserResponse
+import com.project.skypass.data.source.network.model.user.edituser.Data
 import com.project.skypass.data.source.network.model.user.edituser.EditUserResponse
 import com.project.skypass.utils.ResultWrapper
 import com.project.skypass.utils.proceedFlow
@@ -36,7 +38,7 @@ class UserRepositoryImpl(private val dataSource: UserDataSource) : UserRepositor
         email: String,
         phoneNumber: String,
         photo: File?
-    ): Flow<ResultWrapper<EditUserResponse>> {
+    ): Flow<ResultWrapper<Response<Data>>> {
         val tokenPart = "Bearer $token"
         val namePart = name.toRequestBody("text/plain".toMediaTypeOrNull())
         val emailPart = email.toRequestBody("text/plain".toMediaTypeOrNull())

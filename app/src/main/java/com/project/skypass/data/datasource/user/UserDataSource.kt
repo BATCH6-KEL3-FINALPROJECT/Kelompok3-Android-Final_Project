@@ -1,7 +1,9 @@
 package com.project.skypass.data.datasource.user
 
+import com.project.skypass.data.model.Response
 import com.project.skypass.data.source.network.model.user.deleteuser.DeleteUserResponse
 import com.project.skypass.data.source.network.model.user.detailuser.UserResponse
+import com.project.skypass.data.source.network.model.user.edituser.Data
 import com.project.skypass.data.source.network.model.user.edituser.EditUserResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -23,7 +25,7 @@ interface UserDataSource {
         email: RequestBody,
         phoneNumber: RequestBody,
         photo: MultipartBody.Part?
-    ): EditUserResponse
+    ): Response<Data>
 
     suspend fun deleteUser(id: String): DeleteUserResponse
 

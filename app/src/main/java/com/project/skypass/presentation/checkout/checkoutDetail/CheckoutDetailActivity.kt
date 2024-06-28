@@ -1,5 +1,6 @@
 package com.project.skypass.presentation.checkout.checkoutDetail
 
+import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -7,20 +8,31 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import androidx.lifecycle.lifecycleScope
 import com.project.skypass.R
+import com.project.skypass.core.BaseActivity
 import com.project.skypass.data.model.CheckoutPayment
 import com.project.skypass.data.model.OrderPassengers
 import com.project.skypass.data.model.OrderUser
 import com.project.skypass.data.model.PassengersData
 import com.project.skypass.databinding.ActivityCheckoutDetailBinding
+import com.project.skypass.databinding.LayoutStateErrorBinding
+import com.project.skypass.databinding.LayoutStateLoadingBinding
+import com.project.skypass.databinding.LayoutStateSuccessBinding
 import com.project.skypass.presentation.checkout.checkoutDataPassenger.CheckoutDataPassengerActivity
 import com.project.skypass.presentation.checkout.checkoutPayment.CheckoutPaymentActivity
 import com.project.skypass.presentation.checkout.checkoutSeat.CheckoutSeatActivity
+import com.project.skypass.utils.ApiErrorException
+import com.project.skypass.utils.NoInternetException
+import com.project.skypass.utils.UnauthorizedException
 import com.project.skypass.utils.proceedWhen
 import com.project.skypass.utils.toIndonesianFormat
+import io.github.muddz.styleabletoast.StyleableToast
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class CheckoutDetailActivity : AppCompatActivity() {
+class CheckoutDetailActivity : BaseActivity() {
     private val binding by lazy { ActivityCheckoutDetailBinding.inflate(layoutInflater) }
     private val viewModel: CheckoutDetailViewModel by viewModel()
 
@@ -28,6 +40,8 @@ class CheckoutDetailActivity : AppCompatActivity() {
     var priceAdult: Int? = null
     var priceChild: Int? = null
     var priceBaby: Int? = null
+
+    private var dialog: Dialog? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -185,7 +199,8 @@ class CheckoutDetailActivity : AppCompatActivity() {
         ).observe(this){
             it.proceedWhen(
                 doOnSuccess = { success ->
-                    Toast.makeText(this, "Berhasil kirim data", Toast.LENGTH_SHORT).show()
+                    dialog?.dismiss()
+                    doSuccess()
                     CheckoutPaymentActivity.sendDataOrder(
                         this,
                         it.payload?.data?.bookingResult?.paymentId!!,
@@ -193,12 +208,58 @@ class CheckoutDetailActivity : AppCompatActivity() {
                     )
                 },
                 doOnLoading = {
-
+                    dialog?.dismiss()
+                    doLoading()
                 },
                 doOnError = {
-
+                    dialog?.dismiss()
+                    if (it.exception is ApiErrorException) {
+                        val errorMessage = it.exception.errorResponse
+                        StyleableToast.makeText(this, errorMessage.message, Toast.LENGTH_SHORT).show()
+                    } else if (it.exception is NoInternetException) {
+                        StyleableToast.makeText(this, getString(R.string.no_internet_connection), Toast.LENGTH_SHORT).show()
+                    } else if (it.exception is UnauthorizedException) {
+                        val errorMessage = it.exception.errorUnauthorizedResponse
+                        StyleableToast.makeText(this, errorMessage.message, Toast.LENGTH_SHORT).show()
+                        lifecycleScope.launch {
+                            delay(2000)
+                            handleUnAuthorize()
+                        }
+                    } else {
+                        doError()
+                    }
                 }
             )
+        }
+    }
+
+    private fun doLoading(){
+        val dialogBinding = LayoutStateLoadingBinding.inflate(layoutInflater)
+        dialog = Dialog(this).apply {
+            setCancelable(true)
+            setContentView(dialogBinding.root)
+            show()
+            window?.setBackgroundDrawableResource(android.R.color.transparent)
+        }
+    }
+
+    private fun doSuccess(){
+        val dialogBinding = LayoutStateSuccessBinding.inflate(layoutInflater)
+        dialog = Dialog(this).apply {
+            setCancelable(true)
+            setContentView(dialogBinding.root)
+            show()
+            window?.setBackgroundDrawableResource(android.R.color.transparent)
+        }
+    }
+
+    private fun doError(){
+        val dialogBinding = LayoutStateErrorBinding.inflate(layoutInflater)
+        dialog = Dialog(this).apply {
+            setCancelable(true)
+            setContentView(dialogBinding.root)
+            show()
+            window?.setBackgroundDrawableResource(android.R.color.transparent)
         }
     }
 

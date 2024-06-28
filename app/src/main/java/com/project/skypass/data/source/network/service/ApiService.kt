@@ -5,6 +5,7 @@ import com.project.skypass.data.model.Response
 import com.project.skypass.data.source.network.model.booking.GetBookingDataResponse
 import com.project.skypass.data.source.network.model.checkout.request.CheckoutRequestResponse
 import com.project.skypass.data.source.network.model.checkout.response.CheckoutResponse
+import com.project.skypass.data.source.network.model.checkout.response.DataCheckout
 import com.project.skypass.data.source.network.model.destinationfavorite.DestinationFavoriteItemResponse
 import com.project.skypass.data.source.network.model.destinationfavorite.DestinationFavoriteResponse
 import com.project.skypass.data.source.network.model.flight.detailflight.DetailFlightResponse
@@ -37,6 +38,7 @@ import com.project.skypass.data.source.network.model.ticket.TicketResponse
 import com.project.skypass.data.source.network.model.ticket.print.PrintTicketRequestResponse
 import com.project.skypass.data.source.network.model.ticket.print.PrintTicketResponse
 import com.project.skypass.data.source.network.model.user.detailuser.UserResponse
+import com.project.skypass.data.source.network.model.user.edituser.Data
 import com.project.skypass.data.source.network.model.user.edituser.EditUserResponse
 import okhttp3.MultipartBody
 import okhttp3.OkHttpClient
@@ -109,7 +111,7 @@ interface ApiService {
         @Path("id") id: String
     ): UserResponse
 
-    //need expired token handler
+    //need expired token handler (DONE)
     @Multipart
     @PATCH("user/{id}")
     suspend fun updateUserData(
@@ -119,7 +121,7 @@ interface ApiService {
         @Part("email") email: RequestBody,
         @Part("phone_number") phoneNumber: RequestBody,
         @Part image: MultipartBody.Part? = null
-    ): EditUserResponse
+    ): Response<Data>
 
     @DELETE("user/{id}")
     suspend fun deleteUser(
@@ -149,7 +151,6 @@ interface ApiService {
         @Header("Authorization") token: String,
     ): NotificationResponse
 
-    //need expired token handler
     @GET("notification/{id}")
     suspend fun getDetailNotification(
         @Header("Authorization") token: String,
@@ -176,7 +177,6 @@ interface ApiService {
         @Query("until") until: String? = null
     ): UserHistoryResponse
 
-    //need expired token handler
     @GET("booking/history/{id}")
     suspend fun getDetailHistory(
         @Header("Authorization") token: String,
@@ -188,7 +188,8 @@ interface ApiService {
     suspend fun bookingTicket(
         @Header("Authorization") token: String,
         @Body bookingRequest: CheckoutRequestResponse
-    ): CheckoutResponse
+    //): CheckoutResponse
+    ): Response<DataCheckout>
 
     //need expired token handler
     @GET("transaction/booking/{id}")
@@ -204,20 +205,17 @@ interface ApiService {
         @Path("id") id: String
     ): PaymentResponse
 
-    //need expired token handler
     @DELETE("history/delete/{id}")
     suspend fun deleteHistorySearchHome(
         @Header("Authorization") token: String,
         @Path("id") id: Int
     ): DeleteHistorySearchResponse
 
-    //need expired token handler
     @GET("history/")
     suspend fun getAllHistorySearchHome(
         @Header("Authorization") token: String
     ): GetHistoryResponse
 
-    //need expired token handler
     @POST("history/create")
     suspend fun createHistorySearchHome(
         @Header("Authorization") token: String,
