@@ -1,5 +1,6 @@
 package com.project.skypass.data.datasource.flight
 
+import com.project.skypass.data.model.FilterFlight
 import com.project.skypass.data.source.network.model.flight.flightdata.GetAllFlightResponse
 
 interface FlightDataSource {
@@ -15,4 +16,6 @@ interface FlightDataSource {
         departureTime: String,
         price: String
     ): GetAllFlightResponse
+
+    fun filterFlightData(): List<FilterFlight>
 }

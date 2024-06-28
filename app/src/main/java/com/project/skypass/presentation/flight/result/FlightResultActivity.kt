@@ -1,5 +1,6 @@
 package com.project.skypass.presentation.flight.result
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -11,6 +12,7 @@ import com.project.skypass.databinding.ActivityFlightResultBinding
 import com.project.skypass.presentation.checkout.checkoutDataOrder.CheckoutDataOrdersActivity
 import com.project.skypass.presentation.flight.detail.FlightDetailActivity
 import com.project.skypass.presentation.main.LoginBottomSheetFragment
+import com.project.skypass.utils.capitalizeWords
 import com.project.skypass.utils.toIndonesianFormat
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -40,7 +42,6 @@ class FlightResultActivity : AppCompatActivity() {
             val infoDetail = item.flightDescription?.replace(",", "\n")
             val infoDetailRoundTrip = item.flightDescriptionRoundTrip?.replace(",", "\n")
 
-
             binding.tvTotalPrice.text = item.priceTotal.toIndonesianFormat()
             binding.rvTicketDetail.tvAirportDeparture.text = item.departureAirportName
             binding.rvTicketDetail.tvAirportArrival.text = item.arrivalAirportName
@@ -53,6 +54,7 @@ class FlightResultActivity : AppCompatActivity() {
             binding.rvTicketDetail.tvTimeArrival.text = item.arrivalTime
             binding.rvTicketDetail.tvInfoDetail.text = infoDetail
             binding.rvTicketDetail.tvFlightCode.text = item.flightCode
+            binding.rvTicketDetail.tvSeatClass.text = item.seatClass?.capitalizeWords()
 
 
             if (item.isRoundTrip == false && item.supportRoundTrip == true) {
@@ -71,6 +73,7 @@ class FlightResultActivity : AppCompatActivity() {
                 binding.rvTicketDetail.tvTimeArrival.text = item.arrivalTimeRoundTrip
                 binding.rvTicketDetail.tvInfoDetail.text = item.flightDescriptionRoundTrip
                 binding.rvTicketDetail.tvFlightCode.text = item.flightCodeRoundTrip
+                binding.rvTicketDetail.tvSeatClass.text = item.seatClass?.capitalizeWords()
 
                 binding.tvTitleFlightResult.text = getString(R.string.text_detail_penerbangan)
                 binding.rvTicketDetailRound.tvAirportDeparture.text = item.departureAirportName
@@ -84,6 +87,7 @@ class FlightResultActivity : AppCompatActivity() {
                 binding.rvTicketDetailRound.tvTimeArrival.text = item.arrivalTime
                 binding.rvTicketDetailRound.tvInfoDetail.text = infoDetailRoundTrip
                 binding.rvTicketDetailRound.tvFlightCode.text = item.flightCode
+                binding.rvTicketDetailRound.tvSeatClass.text = item.seatClass?.capitalizeWords()
                 binding.rvTicketDetailRound.root.isVisible = true
             }else{
                 binding.rvTicketDetailRound.root.isVisible = false
@@ -98,6 +102,7 @@ class FlightResultActivity : AppCompatActivity() {
         }
     }
 
+    @SuppressLint("SuspiciousIndentation")
     private fun sendOrderData(item: OrderUser) {
 
         val infoDetail = item.flightDescription?.replace(", ", "\n")
@@ -218,6 +223,5 @@ class FlightResultActivity : AppCompatActivity() {
             context.startActivity(intent)
         }
     }
-
 
 }

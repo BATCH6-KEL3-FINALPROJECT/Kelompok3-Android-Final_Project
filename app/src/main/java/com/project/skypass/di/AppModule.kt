@@ -101,6 +101,7 @@ import com.project.skypass.presentation.home.search.SearchViewModel
 import com.project.skypass.presentation.profile.changeprofile.ChangeProfileViewModelExample
 import com.project.skypass.presentation.profile.settingaccount.SettingsAccountViewModel
 import com.project.skypass.presentation.flight.detail.FlightDetailViewModel
+import com.project.skypass.presentation.flight.filter.FilterViewModel
 import com.project.skypass.presentation.flight.result.FlightResultViewModel
 import com.project.skypass.presentation.history.HistoryViewModel
 import com.project.skypass.presentation.history.detailhistory.DetailHistoryViewModel
@@ -292,6 +293,7 @@ object AppModule {
         viewModelOf(::CheckoutDetailViewModel)
         viewModelOf(::CheckoutPaymentViewModel)
         viewModelOf(::CheckoutMidtransViewModel)
+        viewModelOf(::FilterViewModel)
     }
 
     val module = listOf<Module>(

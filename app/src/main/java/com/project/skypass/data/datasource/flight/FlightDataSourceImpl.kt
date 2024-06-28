@@ -1,5 +1,6 @@
 package com.project.skypass.data.datasource.flight
 
+import com.project.skypass.data.model.FilterFlight
 import com.project.skypass.data.source.network.model.flight.flightdata.GetAllFlightResponse
 import com.project.skypass.data.source.network.service.ApiService
 
@@ -27,6 +28,16 @@ class FlightDataSourceImpl(private val service: ApiService) : FlightDataSource {
             departureDate,
             departureTime,
             price
+        )
+    }
+
+    override fun filterFlightData(): List<FilterFlight> {
+        return listOf(
+            FilterFlight(criteria = "Tidak ada filter"),
+            FilterFlight(criteria = "Tercepat"),
+            FilterFlight(criteria = "Terlama"),
+            FilterFlight(criteria = "Termurah"),
+            FilterFlight(criteria = "Termahal")
         )
     }
 }

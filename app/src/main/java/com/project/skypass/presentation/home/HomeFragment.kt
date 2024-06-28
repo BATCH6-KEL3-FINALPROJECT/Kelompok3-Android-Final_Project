@@ -185,7 +185,7 @@ class HomeFragment : Fragment(), DataSelection {
                 id = (0..5000).random(),
                 arrivalCity = binding.etToTrip.text.toString(),
                 arrivalDate = convertDateFormat(binding.etReturn.text.toString()),
-                seatClass = binding.etSeatClass.text.toString(),
+                seatClass = binding.etSeatClass.text.toString().lowercase(),
                 departureCity = binding.etFromTrip.text.toString(),
                 departureDate = convertDateFormat(binding.etDeparture.text.toString()),
                 passengersTotal = binding.etPassengers.text.toString(),
