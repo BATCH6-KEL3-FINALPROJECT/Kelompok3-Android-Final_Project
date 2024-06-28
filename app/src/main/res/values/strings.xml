@@ -259,5 +259,6 @@
     <string name="title_logout">Logout</string>
     <string name="text_apakah_kamu_yakin_ingin_keluar">Apakah kamu yakin ingin keluar?</string>
     <string name="text_hapus_riwayat_pemesanan">Menghapus Riwayat Pemesanan</string>
+    <string name="text_history_pendding_button">Lanjutkan Pembayaran</string>
 
 </resources>
