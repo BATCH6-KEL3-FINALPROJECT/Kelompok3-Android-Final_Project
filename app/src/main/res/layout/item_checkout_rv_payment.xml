@@ -1,16 +1,31 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:paddingVertical="8dp">
 
     <TextView
         android:id="@+id/tv_name"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
-        android:layout_weight="1"
+
         android:textColor="?attr/colorPrimary"
         android:textStyle="bold"
-        android:text="Nama Pengunjung" />
+        tools:text="Nama Pengunjung" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:text="@string/connect" />
+    <TextView
+        android:id="@+id/tv_Seat_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Children"
+        android:textStyle="bold"
+        android:textColor="?attr/colorPrimary" />
+
 
 </LinearLayout>

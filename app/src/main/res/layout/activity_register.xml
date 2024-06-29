@@ -21,6 +21,8 @@
             android:layout_gravity="center_vertical"
             android:src="@drawable/ic_back_2"
             app:tint="?attr/colorOnSurface"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             android:background="@drawable/bg_icon_round"
             tools:ignore="ContentDescription" />
 
