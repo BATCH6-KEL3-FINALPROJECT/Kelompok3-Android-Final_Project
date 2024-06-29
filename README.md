@@ -1,10 +1,5 @@
-﻿<h1 align="center">
-  <img src="./app/src/main/res/drawable/logo_skypass.png" alt="SkypassLogo" width="300"/>
-  <br/>
-  Finaltask Binar Academy Frontend Skypass
-</h1>
 ## APK Bundle
-Berikut adalah APK bundle: [SkyPass.apk]()
+APK bundle: [SkyPass.apk]()
 ## About Our App
 This application is a flight ticket booking application where this application has many features such as:
 1. Authentication & verification feature by email
