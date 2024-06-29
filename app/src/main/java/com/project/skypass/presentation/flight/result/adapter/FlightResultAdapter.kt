@@ -5,11 +5,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.project.skypass.data.model.Flight
 import com.project.skypass.databinding.ItemFlightTicketDetailBinding
-import com.project.skypass.presentation.flight.result.adapter.OnItemClickedListener
+import com.project.skypass.presentation.customview.OnItemAdapterClickedListener
 import com.project.skypass.utils.capitalizeWords
 
 class FlightResultAdapter(
-    private val listener: OnItemClickedListener<Flight>,
+    private val listener: OnItemAdapterClickedListener<Flight>,
 ) :
     RecyclerView.Adapter<FlightResultAdapter.FlightViewHolder>() {
     private val data = mutableListOf<Flight>()
@@ -53,7 +53,7 @@ class FlightResultAdapter(
 
     class FlightViewHolder(
         private val binding: ItemFlightTicketDetailBinding,
-        private val listener: OnItemClickedListener<Flight>,
+        private val listener: OnItemAdapterClickedListener<Flight>,
         ) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Flight) {
@@ -69,12 +69,8 @@ class FlightResultAdapter(
             binding.tvSeatClass.text = item.seatClass?.capitalizeWords()
 
             itemView.setOnClickListener {
-                listener.onItemClicked(item)
+                listener.onClicked(item)
             }
         }
     }
-}
-
-interface OnItemClickedListener<T> {
-    fun onItemClicked(item: T)
 }

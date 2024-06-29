@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_marginHorizontal="16dp"
@@ -9,8 +8,7 @@
     app:cardElevation="8dp"
     android:backgroundTint="?attr/colorOnPrimary"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    >
+    android:layout_height="wrap_content">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -20,59 +18,58 @@
 
         <ImageView
             android:id="@+id/iv_icon_notification"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             android:layout_width="25dp"
             android:layout_height="25dp"
-            android:padding="3dp"
-            android:layout_marginTop="16dp"
-            android:src="@drawable/ic_notification"
             android:background="@drawable/bg_purple_round"
+            android:layout_marginStart="8dp"
+            android:src="@drawable/ic_notification"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             tools:ignore="ContentDescription" />
 
         <TextView
             android:id="@+id/tv_title_item_notification"
-            app:layout_constraintStart_toEndOf="@+id/iv_icon_notification"
-            app:layout_constraintTop_toTopOf="parent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:textSize="12sp"
+            android:layout_marginTop="8dp"
             android:ellipsize="end"
             android:maxLines="1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:text="@string/title_item_notification"
+            android:textSize="12sp"
             android:textStyle="bold"
-             />
+            app:layout_constraintEnd_toStartOf="@+id/tv_date_item_notification"
+            app:layout_constraintStart_toEndOf="@+id/iv_icon_notification"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
             android:id="@+id/tv_date_item_notification"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:textSize="11sp"
-            android:layout_marginEnd="6dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/text_detail_date" />
+
         <TextView
             android:id="@+id/tv_detail_item_notification"
-            app:layout_constraintTop_toBottomOf="@+id/tv_title_item_notification"
-            app:layout_constraintStart_toEndOf="@+id/iv_icon_notification"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="12dp"
-            android:layout_marginTop="8dp"
-            android:paddingBottom="4dp"
-            android:textSize="11sp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginVertical="8dp"
+            android:layout_marginEnd="8dp"
             android:ellipsize="end"
             android:maxLines="2"
-            android:text="@string/text_lorem_ipsum" />
-
-
+            android:text="@string/text_lorem_ipsum"
+            android:textSize="11sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/iv_icon_notification"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title_item_notification" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 
 </androidx.cardview.widget.CardView>

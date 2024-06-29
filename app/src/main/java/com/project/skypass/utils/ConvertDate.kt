@@ -1,13 +1,15 @@
 package com.project.skypass.utils
 
 import java.text.SimpleDateFormat
+import java.time.Duration
+import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
 import java.util.Date
 import java.util.Locale
 import java.util.TimeZone
 
 fun convertDateFormat(inputDate: String): String {
-    /*val inputFormat = SimpleDateFormat("dd MMMM yyyy", Locale("en", "US"))
-    val outputFormat = SimpleDateFormat("dd-MM-yyyy", Locale("en", "US"))*/
     val defaultLocale = Locale.getDefault()
     val inputFormat = SimpleDateFormat("dd MMMM yyyy", defaultLocale)
     val outputFormat = SimpleDateFormat("dd-MM-yyyy", defaultLocale)
@@ -99,8 +101,6 @@ fun convertDateTextApi(apiString: String): String{
 
 
 fun convertFlightDetail(inputDate: String): String {
-    /*val inputFormat = SimpleDateFormat("dd-MM-yyyy", Locale("id", "ID"))
-    val outputFormat = SimpleDateFormat("yyyy-MM-dd", Locale("id", "ID"))*/
     val defaultLocale = Locale.getDefault()
     val inputFormat = SimpleDateFormat("dd-MM-yyyy", defaultLocale)
     val outputFormat = SimpleDateFormat("yyyy-MM-dd", defaultLocale)
@@ -154,4 +154,20 @@ fun formatDatesDestinationFavorite(departureDate: String, returnDate: String): S
     val monthYear = returnDateParsed?.let { monthYearFormat.format(it) }
 
     return "$departureDay - $returnDay $monthYear"
+}
+
+fun formatDateNotification(inputDate: String): String {
+    val now = LocalDateTime.now(ZoneId.of("UTC"))
+    val time = LocalDateTime.parse(inputDate, DateTimeFormatter.ISO_INSTANT.withZone(ZoneId.of("UTC")))
+    val duration = Duration.between(time, now)
+
+    return when {
+        duration.toMinutes() < 1 -> "Baru saja"
+        duration.toMinutes() < 60 -> "${duration.toMinutes()} menit yang lalu"
+        duration.toHours() < 24 -> "${duration.toHours()} jam yang lalu"
+        duration.toDays() < 7 -> "${duration.toDays()} hari yang lalu"
+        duration.toDays() < 30 -> "${duration.toDays() / 7} minggu yang lalu"
+        duration.toDays() < 365 -> "${duration.toDays() / 30} bulan yang lalu"
+        else -> "${duration.toDays() / 365} tahun yang lalu"
+    }
 }

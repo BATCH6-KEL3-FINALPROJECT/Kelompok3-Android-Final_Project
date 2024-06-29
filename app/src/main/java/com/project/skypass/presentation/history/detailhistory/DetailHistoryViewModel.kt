@@ -26,6 +26,10 @@ class DetailHistoryViewModel(
         return prefRepository.getToken()
     }
 
+    fun getEmailUser(): String {
+        return prefRepository.getEmail()
+    }
+
     fun getDetailHistory(token: String, idDetail: String): LiveData<ResultWrapper<History>> {
         return detailHistoryRepository.getDetailHistory(token, idDetail).asLiveData(Dispatchers.IO)
     }

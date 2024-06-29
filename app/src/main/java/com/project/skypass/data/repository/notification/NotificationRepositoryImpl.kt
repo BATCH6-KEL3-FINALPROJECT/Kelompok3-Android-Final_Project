@@ -34,13 +34,4 @@ class NotificationRepositoryImpl(private val dataSource: NotificationDataSource)
         return proceedFlow { dataSource.updateNotification(id).data?.notification.toUpdateNotification() }
     }
 
-//    override fun updateNotification(token: String, id: String): Flow<ResultWrapper<Notification>> {
-//        return proceedFlow {
-//            val tokenBearer = "Bearer $token"
-//            dataSource.updateNotification(
-//                tokenBearer,
-//                id
-//            ).data?.notification.toUpdateNotification()
-//        }
-//    }
 }

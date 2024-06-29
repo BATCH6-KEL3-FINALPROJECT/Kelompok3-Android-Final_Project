@@ -13,7 +13,6 @@ import com.project.skypass.data.model.TicketHistory
 import com.project.skypass.databinding.ActivityDetailHistoryBinding
 import com.project.skypass.databinding.ActivityFlightDetailBinding
 import com.project.skypass.presentation.checkout.checkoutmidtrans.CheckoutMidtransActivity
-import com.project.skypass.presentation.flight.detail.adapter.OnItemClickedListener
 import com.project.skypass.presentation.history.HistoryViewModel
 import com.project.skypass.presentation.history.detailhistory.adapter.DetailHistoryAdapter
 import com.project.skypass.presentation.history.detailhistory.adapter.OnItemDetailClickedListener
@@ -78,7 +77,9 @@ class DetailHistoryActivity : AppCompatActivity() {
                     }
                 },
                 doOnError = {
+
                 }, doOnEmpty = {
+
                 }
             )
         }
@@ -121,7 +122,7 @@ class DetailHistoryActivity : AppCompatActivity() {
         if(item.status == "booked"){
             binding.btnSubmit.text = getString(R.string.text_cetak_tiket_pesawat)
             binding.btnSubmit.setOnClickListener {
-                viewModel.printTicket(viewModel.getToken(), item.bookingId, dataEmail).observe(this){
+                viewModel.printTicket(viewModel.getToken(), item.bookingId, viewModel.getEmailUser()).observe(this){
                     it.proceedWhen(
                         doOnSuccess = {
                             StyleableToast.makeText(this, "berhasil dikirim di Email", R.style.ToastSuccess).show()
@@ -149,6 +150,7 @@ class DetailHistoryActivity : AppCompatActivity() {
 
                         },
                         doOnError = {
+
                         }
                     )
                 }

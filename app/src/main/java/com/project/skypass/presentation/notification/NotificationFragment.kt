@@ -4,16 +4,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.project.skypass.R
 import com.project.skypass.core.BaseActivity
 import com.project.skypass.data.model.Notification
 import com.project.skypass.databinding.FragmentNotificationBinding
+import com.project.skypass.presentation.customview.OnItemAdapterClickedListener
 import com.project.skypass.presentation.notification.adapter.NotificationAdapter
-import com.project.skypass.presentation.notification.adapter.OnItemCLickedListener
 import com.project.skypass.presentation.notification.detailNotification.DetailNotificationActivity
 import com.project.skypass.utils.ApiErrorException
 import com.project.skypass.utils.NoInternetException
@@ -25,12 +27,10 @@ import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class NotificationFragment : Fragment() {
+
     private lateinit var binding: FragmentNotificationBinding
-    /*private val dataSourceNotification: DataSourceNotification by lazy { DataSourceNotificationImpl() }*/
-
     private val viewModel: NotificationViewModel by viewModel()
-
-    private var notificationAdapter: NotificationAdapter? = null
+    private lateinit var notificationAdapter: NotificationAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,46 +42,35 @@ class NotificationFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        // bindItemNotification()
-        bindNotificationList()
+        setupAdapter()
+        //observeResult()
     }
 
-    private fun bindNotificationList() {
-        viewModel.getNotification(viewModel.getToken()).observe(viewLifecycleOwner) { data ->
-            data.proceedWhen(
-                doOnSuccess = {
+    override fun onResume() {
+        super.onResume()
+        observeResult()
+    }
+
+    private fun observeResult() {
+        viewModel.getNotification(viewModel.getToken()).observe(viewLifecycleOwner) {
+            it.proceedWhen(
+                doOnSuccess = { result ->
+                    binding.rvNotification.isVisible = true
                     binding.layoutContentState.root.isVisible = false
-                    notificationAdapter =
-                        NotificationAdapter(
-                            listener =
-                            object : OnItemCLickedListener<Notification> {
-                                override fun onItemClicked(item: Notification) {
-                                    updateAndNavigateToDetail(item)
-                                }
-                            },
-                        )
-                    binding.rvNotification.adapter = this@NotificationFragment.notificationAdapter
-                    it.payload?.let { data ->
-                        notificationAdapter?.submitData(data)
+                    result.payload?.let { data ->
+                        setBindNotification(data)
                     }
                 },
-                doOnEmpty = {
-                    binding.layoutContentState.textError.isVisible = true
-                    binding.layoutContentState.root.isVisible = true
-                    binding.layoutContentState.textError.text =
-                        getString(R.string.text_empty_notification)
-                    binding.layoutContentState.pbLoadingEmptyState.isVisible = false
-                },
                 doOnLoading = {
+                    binding.rvNotification.isVisible = false
                     binding.layoutContentState.root.isVisible = true
                     binding.layoutContentState.textError.isVisible = false
                     binding.layoutContentState.pbLoadingEmptyState.isVisible = true
-                }, doOnError = { error ->
+                },
+                doOnError = { error ->
+                    binding.rvNotification.isVisible = false
                     binding.layoutContentState.textError.isVisible = true
-                    Toast.makeText(requireContext(), "error broo", Toast.LENGTH_SHORT).show()
                     binding.layoutContentState.root.isVisible = true
-                    binding.layoutContentState.textError.text =
-                        getString(R.string.text_error_seat_checkout)
                     binding.layoutContentState.pbLoadingEmptyState.isVisible = false
                     if (error.exception is ApiErrorException) {
                         val errorMessage = error.exception.errorResponse
@@ -105,42 +94,40 @@ class NotificationFragment : Fragment() {
         }
     }
 
-    private fun updateAndNavigateToDetail(item: Notification) {
-        item.notificationId.let {
-            viewModel.updateNotification(
-                it
-            ).observe(viewLifecycleOwner) { result ->
-                result.proceedWhen(
-                    doOnSuccess = {
-                        navigateToDetail(item)
-                    },
-                    doOnError = {
-                        Toast.makeText(
-                            requireContext(),
-                            "Failed to update notification",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                )
+    private fun setupAdapter() {
+        notificationAdapter = NotificationAdapter(object : OnItemAdapterClickedListener<Notification> {
+            override fun onClicked(item: Notification) {
+                navigateToDetailNotification(item)
             }
+        })
+        binding.rvNotification.apply {
+            adapter = this@NotificationFragment.notificationAdapter
+            layoutManager = LinearLayoutManager(requireContext())
         }
     }
 
-    private fun navigateToDetail(item: Notification) {
-        DetailNotificationActivity.startActivity(
-            requireContext(), Notification(
-                item.id,
-                item.notificationId,
-                item.userId,
-                item.flightId,
-                item.bookingId,
-                item.promotionId,
-                item.notificationType,
-                item.message,
-                item.isRead,
-                item.createdAt,
-                item.updatedAt
+    private fun navigateToDetailNotification(item: Notification) {
+        viewModel.updateNotification(item.notificationId).observe(viewLifecycleOwner) {
+            it.proceedWhen(
+                doOnSuccess = { result ->
+                    val navController = findNavController()
+                    val bundleNotification = bundleOf(DetailNotificationActivity.EXTRA_NOTIFICATION to item)
+                    navController.navigate(R.id.action_menu_tab_notification_to_detailNotificationActivity, bundleNotification)
+                },
+                doOnLoading = {
+                    // Handle loading state if necessary
+                },
+                doOnError = { err ->
+                    // Handle error state if necessary
+                }
             )
-        )
+        }
     }
+
+    private fun setBindNotification(item: List<Notification>) {
+        notificationAdapter.submitData(item)
+        /*val sortedList = item.sortedByDescending { it.createdAt }
+        notificationAdapter.submitData(sortedList)*/
+    }
+
 }
