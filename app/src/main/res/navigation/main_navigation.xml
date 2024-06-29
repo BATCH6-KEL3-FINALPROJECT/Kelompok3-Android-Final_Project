@@ -23,7 +23,11 @@
         android:id="@+id/menu_tab_notification"
         android:name="com.project.skypass.presentation.notification.NotificationFragment"
         android:label="fragment_notification"
-        tools:layout="@layout/fragment_notification" />
+        tools:layout="@layout/fragment_notification" >
+        <action
+            android:id="@+id/action_menu_tab_notification_to_detailNotificationActivity"
+            app:destination="@id/detailNotificationActivity" />
+    </fragment>
     <fragment
         android:id="@+id/menu_tab_profile"
         android:name="com.project.skypass.presentation.profile.profile.ProfileFragment"
@@ -34,4 +38,9 @@
         android:name="com.project.skypass.presentation.flight.detail.FlightDetailActivity"
         android:label="activity_flight_detail"
         tools:layout="@layout/activity_flight_detail" />
+    <activity
+        android:id="@+id/detailNotificationActivity"
+        android:name="com.project.skypass.presentation.notification.detailNotification.DetailNotificationActivity"
+        android:label="activity_detail_notification"
+        tools:layout="@layout/activity_detail_notification" />
 </navigation>

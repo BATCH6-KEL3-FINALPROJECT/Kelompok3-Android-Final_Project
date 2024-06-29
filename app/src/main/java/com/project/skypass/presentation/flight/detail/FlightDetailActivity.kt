@@ -18,8 +18,8 @@ import com.project.skypass.data.model.OrderUser
 import com.project.skypass.databinding.ActivityFlightDetailBinding
 import com.project.skypass.databinding.ItemDayBinding
 import com.project.skypass.presentation.customview.FilterFlightSelected
+import com.project.skypass.presentation.customview.OnItemAdapterClickedListener
 import com.project.skypass.presentation.flight.detail.adapter.FlightDetailAdapter
-import com.project.skypass.presentation.flight.detail.adapter.OnItemClickedListener
 import com.project.skypass.presentation.flight.filter.FilterFragment
 import com.project.skypass.presentation.flight.result.FlightResultActivity
 import com.project.skypass.utils.convertDateCalendar
@@ -84,8 +84,8 @@ class FlightDetailActivity : AppCompatActivity(), FilterFlightSelected {
     }
 
     private fun setupAdapter() {
-        val itemClickListener = object : OnItemClickedListener<Flight> {
-            override fun onItemClicked(item: Flight) {
+        val itemClickListener = object : OnItemAdapterClickedListener<Flight> {
+            override fun onClicked(item: Flight) {
                 onItemClick(item)
             }
         }

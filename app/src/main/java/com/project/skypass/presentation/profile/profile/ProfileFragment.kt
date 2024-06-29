@@ -73,14 +73,8 @@ class ProfileFragment : Fragment() {
                     updateVerificationStatus(user?.isVerified == true)
                 },
                 doOnLoading = {
-                    // Handle loading state if necessary
                 },
                 doOnError = {
-                    /*it.exception?.let { e ->
-                        if (activity is BaseActivity) {
-                            // Handle token expiration or other errors if necessary
-                        }
-                    }*/
                 }
             )
         }

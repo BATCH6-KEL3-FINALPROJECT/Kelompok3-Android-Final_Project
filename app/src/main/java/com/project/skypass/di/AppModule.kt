@@ -108,6 +108,7 @@ import com.project.skypass.presentation.history.detailhistory.DetailHistoryViewM
 import com.project.skypass.presentation.history.filter.search.SearchHistoryViewModel
 import com.project.skypass.presentation.home.calendar.CalendarHomeViewModel
 import com.project.skypass.presentation.notification.NotificationViewModel
+import com.project.skypass.presentation.notification.detailNotification.DetailNotificationViewModel
 import com.project.skypass.presentation.profile.profile.ProfileViewModelExample
 import com.project.skypass.utils.SharedPreferenceUtils
 import org.koin.android.ext.koin.androidContext
@@ -290,6 +291,7 @@ object AppModule {
         viewModelOf(::CalendarHomeViewModel)
         viewModelOf(::CheckoutSeatViewModel)
         viewModelOf(::NotificationViewModel)
+        viewModelOf(::DetailNotificationViewModel)
         viewModelOf(::CheckoutDetailViewModel)
         viewModelOf(::CheckoutPaymentViewModel)
         viewModelOf(::CheckoutMidtransViewModel)

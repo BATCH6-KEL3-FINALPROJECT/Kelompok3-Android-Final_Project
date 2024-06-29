@@ -5,12 +5,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.project.skypass.data.model.Flight
 import com.project.skypass.databinding.ItemFlightTicketBinding
-import com.project.skypass.presentation.flight.detail.adapter.FlightDetailAdapter
-import com.project.skypass.presentation.flight.detail.adapter.OnItemClickedListener
+import com.project.skypass.presentation.customview.OnItemAdapterClickedListener
 import com.project.skypass.utils.toIndonesianFormat
 
 class FlightDetailAdapter(
-    private val listener: OnItemClickedListener<Flight>
+    private val listener: OnItemAdapterClickedListener<Flight>
 ) :
     RecyclerView.Adapter<FlightDetailAdapter.FlightViewHolder>() {
     private val data = mutableListOf<Flight>()
@@ -52,7 +51,7 @@ class FlightDetailAdapter(
 
     class FlightViewHolder(
         private val binding: ItemFlightTicketBinding,
-        private val listener: OnItemClickedListener<Flight>,
+        private val listener: OnItemAdapterClickedListener<Flight>,
 
         ) :
         RecyclerView.ViewHolder(binding.root) {
@@ -81,7 +80,7 @@ class FlightDetailAdapter(
             }
 
             itemView.setOnClickListener {
-                listener.onItemClicked(item)
+                listener.onClicked(item)
             }
         }
 
@@ -92,9 +91,3 @@ class FlightDetailAdapter(
         }
     }
 }
-
-interface OnItemClickedListener<T> {
-    fun onItemClicked(item: T)
-}
-
-

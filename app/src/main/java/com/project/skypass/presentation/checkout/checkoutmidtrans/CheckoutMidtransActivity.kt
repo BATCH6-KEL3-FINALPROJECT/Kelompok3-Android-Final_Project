@@ -28,7 +28,7 @@ class CheckoutMidtransActivity : AppCompatActivity() {
 
     private fun setClickListener(){
         binding.btnBack.setOnClickListener {
-            finish()
+            navigateToMain()
         }
         onBackPressedDispatcher.addCallback(this, object: OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
