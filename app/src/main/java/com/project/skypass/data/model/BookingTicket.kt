@@ -11,5 +11,5 @@ data class BookingTicket(
     val familyName: String,
     val email: String,
     val phone: String,
-    val passenger: List<PassengersData>
+    val passenger: List<PassengersData>,
 )

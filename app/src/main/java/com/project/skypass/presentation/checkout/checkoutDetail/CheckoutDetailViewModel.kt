@@ -7,16 +7,14 @@ import com.project.skypass.data.model.PassengersData
 import com.project.skypass.data.model.Response
 import com.project.skypass.data.repository.checkout.CheckoutRepository
 import com.project.skypass.data.repository.pref.PrefRepository
-import com.project.skypass.data.source.network.model.checkout.response.CheckoutResponse
 import com.project.skypass.data.source.network.model.checkout.response.DataCheckout
 import com.project.skypass.utils.ResultWrapper
 import kotlinx.coroutines.Dispatchers
 
 class CheckoutDetailViewModel(
     private val checkoutRepository: CheckoutRepository,
-    private val prefRepository: PrefRepository
-): ViewModel() {
-
+    private val prefRepository: PrefRepository,
+) : ViewModel() {
     fun getToken(): String {
         return prefRepository.getToken()
     }
@@ -30,7 +28,7 @@ class CheckoutDetailViewModel(
         familyName: String? = null,
         email: String? = null,
         phone: String? = null,
-        passenger: List<PassengersData>
+        passenger: List<PassengersData>,
     ): LiveData<ResultWrapper<Response<DataCheckout>>> {
         return checkoutRepository.createBooking(
             token,
@@ -41,7 +39,7 @@ class CheckoutDetailViewModel(
             familyName,
             email,
             phone,
-            passenger
+            passenger,
         ).asLiveData(Dispatchers.IO)
     }
 }

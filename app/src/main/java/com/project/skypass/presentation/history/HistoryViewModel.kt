@@ -8,14 +8,13 @@ import kotlinx.coroutines.Dispatchers
 
 class HistoryViewModel(
     private val prefRepository: PrefRepository,
-    private val historyRepository: HistoryRepository
+    private val historyRepository: HistoryRepository,
 ) : ViewModel() {
     fun getToken(): String {
         return prefRepository.getToken()
     }
 
-    fun getAllHistory(token: String) =
-        historyRepository.getHistory(token).asLiveData(Dispatchers.IO)
+    fun getAllHistory(token: String) = historyRepository.getHistory(token).asLiveData(Dispatchers.IO)
 
     fun getBookingHistory(token: String, search: String?, date: String?, until: String?) =
         historyRepository.getBookingHistory(token, search, date, until).asLiveData(Dispatchers.IO)

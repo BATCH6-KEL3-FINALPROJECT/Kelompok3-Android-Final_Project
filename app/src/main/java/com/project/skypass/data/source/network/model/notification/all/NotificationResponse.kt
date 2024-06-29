@@ -1,6 +1,5 @@
 package com.project.skypass.data.source.network.model.notification.all
 
-
 import com.google.gson.annotations.SerializedName
 
 data class NotificationResponse(
@@ -11,5 +10,5 @@ data class NotificationResponse(
     @SerializedName("is_sucsess")
     var isSucsess: Boolean?,
     @SerializedName("message")
-    var message: String?
+    var message: String?,
 )

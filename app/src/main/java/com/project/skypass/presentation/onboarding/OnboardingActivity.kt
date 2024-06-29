@@ -20,7 +20,6 @@ import com.project.skypass.presentation.onboarding.page.ThirdOnboardingFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class OnboardingActivity : AppCompatActivity() {
-
     private val binding: ActivityOnboardingBinding by lazy {
         ActivityOnboardingBinding.inflate(layoutInflater)
     }
@@ -31,40 +30,48 @@ class OnboardingActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        binding.root.viewTreeObserver.addOnPreDrawListener(object : ViewTreeObserver.OnPreDrawListener {
-            override fun onPreDraw(): Boolean {
-                binding.root.viewTreeObserver.removeOnPreDrawListener(this)
-                enableEdgeToEdge()
-                return true
-            }
-        })
+        binding.root.viewTreeObserver.addOnPreDrawListener(
+            object : ViewTreeObserver.OnPreDrawListener {
+                override fun onPreDraw(): Boolean {
+                    binding.root.viewTreeObserver.removeOnPreDrawListener(this)
+                    enableEdgeToEdge()
+                    return true
+                }
+            },
+        )
 
         onboarding()
         clickOnboarding()
     }
 
     private fun changePageListener(fragmentList: List<Fragment>) {
-        binding.vpOnboarding.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-            override fun onPageSelected(position: Int) {
-                super.onPageSelected(position)
-                if (position == fragmentList.size - 1) {
-                    binding.tvButtonOnboarding.text = getString(R.string.get_started)
-                } else {
-                    binding.tvButtonOnboarding.text = getString(R.string.next)
+        binding.vpOnboarding.registerOnPageChangeCallback(
+            object : ViewPager2.OnPageChangeCallback() {
+                override fun onPageSelected(position: Int) {
+                    super.onPageSelected(position)
+                    if (position == fragmentList.size - 1) {
+                        binding.tvButtonOnboarding.text = getString(R.string.get_started)
+                    } else {
+                        binding.tvButtonOnboarding.text = getString(R.string.next)
+                    }
                 }
+            },
+        )
+        binding.tvButtonOnboarding.text =
+            if (binding.vpOnboarding.currentItem == fragmentList.size - 1) {
+                getString(R.string.get_started)
+            } else {
+                getString(R.string.next)
             }
-        })
-        binding.tvButtonOnboarding.text = if (binding.vpOnboarding.currentItem == fragmentList.size - 1){
-            getString(R.string.get_started)
-        } else {
-            getString(R.string.next)
-        }
     }
 
     private fun onboarding() {
-        val fragmentList = arrayListOf<Fragment>(
-            FirstOnboardingFragment(), SecondOnboardingFragment(), ThirdOnboardingFragment()
-        )
+        val fragmentList =
+            arrayListOf<Fragment>(
+                FirstOnboardingFragment(),
+                SecondOnboardingFragment(),
+                ThirdOnboardingFragment(),
+            )
         val adapter = ViewPagerAdapter(fragmentList, supportFragmentManager, lifecycle)
         binding.vpOnboarding.adapter = adapter
         binding.onboardingIndicator.attachTo(binding.vpOnboarding)
@@ -81,7 +88,6 @@ class OnboardingActivity : AppCompatActivity() {
                 startActivity(Intent(this, MainActivity::class.java))
                 finish()
             }
-
         }
     }
 
@@ -102,10 +108,10 @@ class OnboardingActivity : AppCompatActivity() {
         } else {
             @Suppress("DEPRECATION")
             window.decorView.systemUiVisibility = (
-                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                            or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                            or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-                    )
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                    or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                    or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+            )
 
             binding.root.setOnApplyWindowInsetsListener { view, insets ->
                 val navBarInsets = insets.systemWindowInsetBottom
@@ -114,5 +120,4 @@ class OnboardingActivity : AppCompatActivity() {
             }
         }
     }
-
 }

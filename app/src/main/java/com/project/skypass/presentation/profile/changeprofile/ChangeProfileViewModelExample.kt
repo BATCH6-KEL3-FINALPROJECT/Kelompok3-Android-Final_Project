@@ -8,16 +8,13 @@ import com.project.skypass.data.model.User
 import com.project.skypass.data.repository.pref.PrefRepository
 import com.project.skypass.data.repository.user.UserRepository
 import com.project.skypass.data.source.network.model.user.edituser.Data
-import com.project.skypass.data.source.network.model.user.edituser.EditUserResponse
 import com.project.skypass.utils.ResultWrapper
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
 import java.io.File
-
 
 class ChangeProfileViewModelExample(
     private val prefRepository: PrefRepository,
-    private val userRepository: UserRepository
+    private val userRepository: UserRepository,
 ) : ViewModel() {
     fun editUserData(
         token: String,
@@ -25,7 +22,7 @@ class ChangeProfileViewModelExample(
         name: String,
         email: String,
         phoneNumber: String,
-        photo: File? = null
+        photo: File? = null,
     ): LiveData<ResultWrapper<Response<Data>>> {
         return userRepository.editUser(token, id, name, email, phoneNumber, photo).asLiveData(Dispatchers.IO)
     }

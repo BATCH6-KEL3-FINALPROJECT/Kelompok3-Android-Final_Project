@@ -4,5 +4,5 @@ import com.google.gson.annotations.SerializedName
 
 data class Data(
     @SerializedName("notification")
-    var notification: UpdateNotificationItemResponse?
+    var notification: UpdateNotificationItemResponse?,
 )

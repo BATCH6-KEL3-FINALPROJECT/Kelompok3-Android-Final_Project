@@ -1,6 +1,5 @@
 package com.project.skypass.data.source.network.model.checkout.response
 
-
 import com.google.gson.annotations.SerializedName
 
 data class BookingResult(
@@ -27,5 +26,5 @@ data class BookingResult(
     @SerializedName("updatedAt")
     var updatedAt: String?,
     @SerializedName("user_id")
-    var userId: String?
+    var userId: String?,
 )

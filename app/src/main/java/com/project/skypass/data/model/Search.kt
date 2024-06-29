@@ -10,5 +10,5 @@ data class Search(
     val cityCode: String,
     val continent: String,
     val iataCode: String,
-    val country: String
+    val country: String,
 )

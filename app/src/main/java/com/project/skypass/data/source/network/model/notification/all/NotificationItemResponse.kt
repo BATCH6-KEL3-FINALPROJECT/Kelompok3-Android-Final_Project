@@ -22,5 +22,5 @@ data class NotificationItemResponse(
     @SerializedName("updatedAt")
     var updatedAt: String?,
     @SerializedName("user_id")
-    var userId: String?
+    var userId: String?,
 )

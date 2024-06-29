@@ -1,6 +1,5 @@
 package com.project.skypass.data.source.network.model.flight.flightdata
 
-
 import com.google.gson.annotations.SerializedName
 
 data class GetAllFlightItemResponse(
@@ -51,5 +50,5 @@ data class GetAllFlightItemResponse(
     @SerializedName("seats_available")
     var seatsAvailable: Int?,
     @SerializedName("terminal")
-    var terminal: Boolean?
+    var terminal: Boolean?,
 )

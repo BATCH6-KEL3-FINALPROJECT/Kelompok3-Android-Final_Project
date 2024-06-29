@@ -12,28 +12,31 @@ import com.project.skypass.presentation.home.flightclass.adapter.FlightClassAdap
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FlightClassFragment : BottomSheetDialogFragment() {
-
-    private lateinit var  binding: FragmentFlightClassBinding
+    private lateinit var binding: FragmentFlightClassBinding
     private val viewModel: FlightClassViewModel by viewModel()
     var seatClassSelection: DataSelection? = null
 
     private var selectedSeatClass: SeatClass? = null
 
     private val flightClassAdapter: FlightClassAdapter by lazy {
-        FlightClassAdapter{ seatClass ->
+        FlightClassAdapter { seatClass ->
             selectedSeatClass = seatClass
         }
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
         binding = FragmentFlightClassBinding.inflate(inflater, container, false)
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
 
         bindSeatClass(viewModel.getFlightClass())
@@ -44,9 +47,13 @@ class FlightClassFragment : BottomSheetDialogFragment() {
         binding.btnFlightClass.setOnClickListener {
             if (tag == "flightClass") {
                 selectedSeatClass?.let {
-                    seatClassSelection?.onSeatClassSelected(tag?:"", it)
+                    seatClassSelection?.onSeatClassSelected(tag ?: "", it)
                 }
             }
+            dismiss()
+        }
+
+        binding.ivCloseFlightClass.setOnClickListener {
             dismiss()
         }
     }
@@ -57,5 +64,4 @@ class FlightClassFragment : BottomSheetDialogFragment() {
         }
         flightClassAdapter.submitData(flightClass)
     }
-
 }

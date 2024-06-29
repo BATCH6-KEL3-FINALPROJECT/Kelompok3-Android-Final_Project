@@ -10,5 +10,5 @@ data class UpdateNotificationResponse(
     @SerializedName("is_sucsess")
     var isSucsess: Boolean?,
     @SerializedName("message")
-    var message: String?
+    var message: String?,
 )

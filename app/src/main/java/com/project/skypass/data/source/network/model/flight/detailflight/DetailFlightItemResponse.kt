@@ -23,5 +23,5 @@ data class DetailFlightItemResponse(
     val plane_type: String?,
     val seats_available: Int?,
     val terminal: Boolean?,
-    val updatedAt: String?
+    val updatedAt: String?,
 )

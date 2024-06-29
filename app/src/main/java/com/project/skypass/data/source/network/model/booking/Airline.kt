@@ -1,6 +1,5 @@
 package com.project.skypass.data.source.network.model.booking
 
-
 import com.google.gson.annotations.SerializedName
 
 data class Airline(
@@ -11,5 +10,5 @@ data class Airline(
     @SerializedName("airline_name")
     var airlineName: String?,
     @SerializedName("country")
-    var country: String?
+    var country: String?,
 )

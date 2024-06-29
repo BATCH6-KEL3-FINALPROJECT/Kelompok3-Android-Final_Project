@@ -13,4 +13,4 @@ data class BannerHome(
     val description: String,
     val longDescription: String,
     val linkInfo: String,
-): Parcelable
+) : Parcelable

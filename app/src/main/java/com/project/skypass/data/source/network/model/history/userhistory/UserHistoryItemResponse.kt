@@ -26,5 +26,5 @@ data class UserHistoryItemResponse(
     @SerializedName("total_price")
     var totalPrice: String?,
     @SerializedName("user_id")
-    var userId: String?
+    var userId: String?,
 )

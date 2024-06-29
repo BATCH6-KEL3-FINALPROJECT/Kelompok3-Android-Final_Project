@@ -10,12 +10,10 @@ import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import com.project.skypass.R
 import com.project.skypass.databinding.ActivityCheckoutMidtransBinding
-import com.project.skypass.presentation.auth.login.LoginActivity
 import com.project.skypass.presentation.main.MainActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class CheckoutMidtransActivity : AppCompatActivity() {
-
     private val binding by lazy { ActivityCheckoutMidtransBinding.inflate(layoutInflater) }
     private val viewModel: CheckoutMidtransViewModel by viewModel()
 
@@ -26,15 +24,18 @@ class CheckoutMidtransActivity : AppCompatActivity() {
         setupWebView()
     }
 
-    private fun setClickListener(){
+    private fun setClickListener() {
         binding.btnBack.setOnClickListener {
             navigateToMain()
         }
-        onBackPressedDispatcher.addCallback(this, object: OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                navigateToMain()
-            }
-        })
+        onBackPressedDispatcher.addCallback(
+            this,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    navigateToMain()
+                }
+            },
+        )
     }
 
     private fun navigateToMain() {
@@ -48,16 +49,22 @@ class CheckoutMidtransActivity : AppCompatActivity() {
         val webView: WebView = findViewById(R.id.wv_midtrans)
         val url = intent.getStringExtra(EXTRA_MIDTRANS)
         webView.settings.javaScriptEnabled = true
-        webView.webViewClient = object : WebViewClient() {
-            override fun onPageFinished(view: WebView, url: String) {
-                Toast.makeText(this@CheckoutMidtransActivity,
-                    getString(R.string.web_success), Toast.LENGTH_SHORT).show()
+        webView.webViewClient =
+            object : WebViewClient() {
+                override fun onPageFinished(
+                    view: WebView,
+                    url: String,
+                ) {
+                    Toast.makeText(
+                        this@CheckoutMidtransActivity,
+                        getString(R.string.web_success), Toast.LENGTH_SHORT,
+                    ).show()
+                }
             }
-        }
         webView.loadUrl(url!!)
     }
 
-    companion object{
+    companion object {
         const val EXTRA_MIDTRANS = "extra_midtrans"
     }
 }

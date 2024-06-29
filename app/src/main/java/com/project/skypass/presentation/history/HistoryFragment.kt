@@ -6,15 +6,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import coil.load
 import com.project.skypass.R
 import com.project.skypass.core.BaseActivity
-import com.project.skypass.data.model.History
-import com.project.skypass.data.model.Search
 import com.project.skypass.databinding.FragmentHistoryBinding
 import com.project.skypass.presentation.history.adapter.HistoryMonthItem
 import com.project.skypass.presentation.history.adapter.HistoryTicketItem
@@ -36,20 +34,23 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 class HistoryFragment : Fragment(), OnSearchItemSelectedListener {
-
     private lateinit var binding: FragmentHistoryBinding
     private val viewModel: HistoryViewModel by viewModel()
     private val adapter = GroupAdapter<GroupieViewHolder>()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
         binding = FragmentHistoryBinding.inflate(inflater, container, false)
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
         clickListener()
         setData()
@@ -67,6 +68,8 @@ class HistoryFragment : Fragment(), OnSearchItemSelectedListener {
         viewModel.getAllHistory(viewModel.getToken()).observe(viewLifecycleOwner) {
             it.proceedWhen(
                 doOnSuccess = { result ->
+                    binding.shimmerViewContainer.isVisible = false
+                    binding.shimmerViewContainer.stopShimmer()
                     binding.layoutContentState.root.isVisible = false
                     result.payload?.let { data ->
                         val items = mutableListOf<BindableItem<*>>()
@@ -87,23 +90,43 @@ class HistoryFragment : Fragment(), OnSearchItemSelectedListener {
                     binding.layoutContentState.textError.isVisible = true
                     binding.layoutContentState.textError.text =
                         getString(R.string.text_empty_seat_class)
+                    val linkLoad =
+                        "https://github.com/riansyah251641/food_app_asset/blob/main/banner/empty_history.png?raw=true"
+                    binding.layoutContentState.ivRiwayatKosong.load(linkLoad) {
+                        crossfade(true)
+                        error(R.drawable.bg_no_internet)
+                    }
                     binding.layoutContentState.pbLoadingEmptyState.isVisible = false
                 },
                 doOnLoading = {
+                    binding.layoutContentState.root.isVisible = false
+                    binding.shimmerViewContainer.isVisible = true
+                    binding.shimmerViewContainer.startShimmer()
+                },
+                doOnError = { error ->
                     binding.layoutContentState.root.isVisible = true
-                    binding.layoutContentState.textError.isVisible = false
-                    binding.layoutContentState.pbLoadingEmptyState.isVisible = true
-                }, doOnError = { error ->
                     binding.layoutContentState.textError.isVisible = true
                     binding.layoutContentState.root.isVisible = true
-                    if (error.exception is ApiErrorException) {
-                        val errorMessage = error.exception.errorResponse
-                        StyleableToast.makeText(requireContext(), errorMessage.message, R.style.ToastError).show()
-                    } else if (error.exception is NoInternetException) {
-                        StyleableToast.makeText(requireContext(), getString(R.string.no_internet_connection), R.style.ToastError).show()
+                    val linkLoad =
+                        "https://github.com/riansyah251641/food_app_asset/blob/main/banner/empty_history.png?raw=true"
+                    binding.layoutContentState.ivRiwayatKosong.load(linkLoad) {
+                        crossfade(true)
+                        error(R.drawable.bg_no_internet)
+                    }
+                    binding.layoutContentState.pbLoadingEmptyState.isVisible = false
+                    if (error.exception is NoInternetException) {
+                        StyleableToast.makeText(
+                            requireContext(),
+                            getString(R.string.no_internet_connection),
+                            R.style.ToastError,
+                        ).show()
                     } else if (error.exception is UnauthorizedException) {
                         val errorMessage = error.exception.errorUnauthorizedResponse
-                        StyleableToast.makeText(requireContext(), errorMessage.message, R.style.ToastError).show()
+                        StyleableToast.makeText(
+                            requireContext(),
+                            errorMessage.message,
+                            R.style.ToastError,
+                        ).show()
                         lifecycleScope.launch {
                             delay(2000)
                             val activity = activity as? BaseActivity
@@ -114,8 +137,7 @@ class HistoryFragment : Fragment(), OnSearchItemSelectedListener {
                             getString(R.string.unknown_error)
                     }
                     binding.layoutContentState.pbLoadingEmptyState.isVisible = false
-                }
-
+                },
             )
         }
     }
@@ -134,45 +156,58 @@ class HistoryFragment : Fragment(), OnSearchItemSelectedListener {
     }
 
     override fun onSearchItemSelected(searchQuery: String) {
-        viewModel.getBookingHistory(viewModel.getToken(), searchQuery, null, null)?.observe(viewLifecycleOwner) { result ->
-            result.proceedWhen(
-                doOnSuccess = { response ->
-                    binding.layoutContentState.root.isVisible = false
-                    response.payload?.let { data ->
-                        val items = mutableListOf<BindableItem<*>>()
+        viewModel.getBookingHistory(viewModel.getToken(), searchQuery, null, null)
+            ?.observe(viewLifecycleOwner) { result ->
+                result.proceedWhen(
+                    doOnSuccess = { response ->
+                        binding.layoutContentState.root.isVisible = false
+                        response.payload?.let { data ->
+                            val items = mutableListOf<BindableItem<*>>()
 
-                        val groupedData = data.groupBy { convertDateMouth(it.bookingDate) }
+                            val groupedData = data.groupBy { convertDateMouth(it.bookingDate) }
 
-                        groupedData.forEach { (month, historyList) ->
-                            items.add(HistoryMonthItem(month))
-                            historyList.forEach { history ->
-                                items.add(HistoryTicketItem(history))
+                            groupedData.forEach { (month, historyList) ->
+                                items.add(HistoryMonthItem(month))
+                                historyList.forEach { history ->
+                                    items.add(HistoryTicketItem(history))
+                                }
                             }
+                            adapter.update(items)
                         }
-                        adapter.update(items)
-                    }
-                },
-                doOnError = { error ->
-                    if (error.exception is ApiErrorException) {
-                        val errorMessage = error.exception.errorResponse
-                        StyleableToast.makeText(requireContext(), errorMessage.message, R.style.ToastError).show()
-                    } else if (error.exception is NoInternetException) {
-                        StyleableToast.makeText(requireContext(), getString(R.string.no_internet_connection), R.style.ToastError).show()
-                    } else if (error.exception is UnauthorizedException) {
-                        val errorMessage = error.exception.errorUnauthorizedResponse
-                        StyleableToast.makeText(requireContext(), errorMessage.message, R.style.ToastError).show()
-                        lifecycleScope.launch {
-                            delay(2000)
-                            val activity = activity as? BaseActivity
-                            activity?.handleUnAuthorize()
+                    },
+                    doOnError = { error ->
+                        if (error.exception is ApiErrorException) {
+                            val errorMessage = error.exception.errorResponse
+                            StyleableToast.makeText(
+                                requireContext(),
+                                errorMessage.message,
+                                R.style.ToastError,
+                            ).show()
+                        } else if (error.exception is NoInternetException) {
+                            StyleableToast.makeText(
+                                requireContext(),
+                                getString(R.string.no_internet_connection),
+                                R.style.ToastError,
+                            ).show()
+                        } else if (error.exception is UnauthorizedException) {
+                            val errorMessage = error.exception.errorUnauthorizedResponse
+                            StyleableToast.makeText(
+                                requireContext(),
+                                errorMessage.message,
+                                R.style.ToastError,
+                            ).show()
+                            lifecycleScope.launch {
+                                delay(2000)
+                                val activity = activity as? BaseActivity
+                                activity?.handleUnAuthorize()
+                            }
+                        } else {
+                            binding.layoutContentState.textError.text =
+                                getString(R.string.unknown_error)
                         }
-                    } else {
-                        binding.layoutContentState.textError.text =
-                            getString(R.string.unknown_error)
-                    }
-                }
-            )
-        }
+                    },
+                )
+            }
     }
 
     @Deprecated("Deprecated in Java")

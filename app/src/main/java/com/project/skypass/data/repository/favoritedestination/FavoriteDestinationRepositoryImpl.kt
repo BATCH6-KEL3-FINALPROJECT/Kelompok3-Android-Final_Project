@@ -7,7 +7,7 @@ import com.project.skypass.utils.ResultWrapper
 import com.project.skypass.utils.proceedFlow
 import kotlinx.coroutines.flow.Flow
 
-class FavoriteDestinationRepositoryImpl(private val dataSource: FavoriteDestinationDataSource): FavoriteDestinationRepository {
+class FavoriteDestinationRepositoryImpl(private val dataSource: FavoriteDestinationDataSource) : FavoriteDestinationRepository {
     /*override fun getFavoriteDestination(): List<Destination> {
         return dataSource.getFavoriteDestinationData()
     }*/

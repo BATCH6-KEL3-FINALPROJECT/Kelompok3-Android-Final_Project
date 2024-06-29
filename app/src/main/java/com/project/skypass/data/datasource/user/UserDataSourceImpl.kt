@@ -5,18 +5,13 @@ import com.project.skypass.data.source.local.pref.UserPreference
 import com.project.skypass.data.source.network.model.user.deleteuser.DeleteUserResponse
 import com.project.skypass.data.source.network.model.user.detailuser.UserResponse
 import com.project.skypass.data.source.network.model.user.edituser.Data
-import com.project.skypass.data.source.network.model.user.edituser.EditUserResponse
 import com.project.skypass.data.source.network.service.ApiService
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import okhttp3.RequestBody.Companion.asRequestBody
-import okhttp3.RequestBody.Companion.toRequestBody
-import java.io.File
 
-class UserDataSourceImpl (
+class UserDataSourceImpl(
     private val userPreference: UserPreference,
-    private val apiService: ApiService
+    private val apiService: ApiService,
 ) : UserDataSource {
     override fun isUsingDarkMode(): Boolean {
         return userPreference.isUsingDarkMode()
@@ -36,7 +31,7 @@ class UserDataSourceImpl (
         name: RequestBody,
         email: RequestBody,
         phoneNumber: RequestBody,
-        photo: MultipartBody.Part?
+        photo: MultipartBody.Part?,
     ): Response<Data> {
         return apiService.updateUserData(
             token = token,
@@ -44,7 +39,7 @@ class UserDataSourceImpl (
             name = name,
             email = email,
             phoneNumber = phoneNumber,
-            image = photo
+            image = photo,
         )
     }
 

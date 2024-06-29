@@ -10,18 +10,21 @@ import com.project.skypass.databinding.LayoutLoginBeforeCheckoutBinding
 import com.project.skypass.presentation.auth.login.LoginActivity
 
 class LoginBottomSheetFragment : BottomSheetDialogFragment() {
-
     private lateinit var binding: LayoutLoginBeforeCheckoutBinding
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
     ): View {
         binding = LayoutLoginBeforeCheckoutBinding.inflate(inflater, container, false)
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
         setupUI()
     }

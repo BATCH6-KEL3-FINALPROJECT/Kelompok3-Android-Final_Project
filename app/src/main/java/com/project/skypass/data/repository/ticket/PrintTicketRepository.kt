@@ -4,5 +4,9 @@ import com.project.skypass.utils.ResultWrapper
 import kotlinx.coroutines.flow.Flow
 
 interface PrintTicketRepository {
-    fun printTicket(token: String, id: String, email: String): Flow<ResultWrapper<Boolean>>
+    fun printTicket(
+        token: String,
+        id: String,
+        email: String,
+    ): Flow<ResultWrapper<Boolean>>
 }

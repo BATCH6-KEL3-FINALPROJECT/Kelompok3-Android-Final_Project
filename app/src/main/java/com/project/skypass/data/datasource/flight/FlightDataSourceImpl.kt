@@ -15,7 +15,7 @@ class FlightDataSourceImpl(private val service: ApiService) : FlightDataSource {
         limit: Int,
         departureDate: String,
         departureTime: String,
-        price: String
+        price: String,
     ): GetAllFlightResponse {
         return service.getFlightData(
             departureCity,
@@ -27,7 +27,7 @@ class FlightDataSourceImpl(private val service: ApiService) : FlightDataSource {
             limit,
             departureDate,
             departureTime,
-            price
+            price,
         )
     }
 
@@ -37,7 +37,7 @@ class FlightDataSourceImpl(private val service: ApiService) : FlightDataSource {
             FilterFlight(criteria = "Tercepat"),
             FilterFlight(criteria = "Terlama"),
             FilterFlight(criteria = "Termurah"),
-            FilterFlight(criteria = "Termahal")
+            FilterFlight(criteria = "Termahal"),
         )
     }
 }

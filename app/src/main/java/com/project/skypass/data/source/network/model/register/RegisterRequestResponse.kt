@@ -4,5 +4,5 @@ data class RegisterRequestResponse(
     val email: String?,
     val name: String?,
     val password: String?,
-    val phone_number: String?
+    val phone_number: String?,
 )

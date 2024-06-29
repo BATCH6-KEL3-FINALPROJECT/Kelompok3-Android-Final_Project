@@ -1,26 +1,15 @@
 package com.project.skypass.data.repository.pref
 
 import com.project.skypass.data.datasource.preference.PrefDataSource
-import com.project.skypass.utils.decodeJWT
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.coVerify
-import io.mockk.every
 import io.mockk.impl.annotations.MockK
-import io.mockk.mockk
-import io.mockk.mockkObject
-import io.mockk.mockkStatic
-import io.mockk.verify
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Assert.*
-
 import org.junit.Before
 import org.junit.Test
 
 class PrefRepositoryImplTest {
-
     @MockK
     lateinit var ds: PrefDataSource
     private lateinit var repo: PrefRepository
@@ -131,5 +120,4 @@ class PrefRepositoryImplTest {
         assertEquals(userID, result)
         coVerify { ds.getUserID() }
     }
-
 }

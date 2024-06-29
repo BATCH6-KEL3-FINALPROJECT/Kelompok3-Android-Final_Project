@@ -4,5 +4,5 @@ data class RegisterResponse(
     val code: Int?,
     val data: RegisterItemResponse?,
     val is_success: Boolean?,
-    val message: String?
+    val message: String?,
 )

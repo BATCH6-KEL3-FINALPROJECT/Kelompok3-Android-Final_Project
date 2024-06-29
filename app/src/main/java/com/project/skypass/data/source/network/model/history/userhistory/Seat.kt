@@ -4,5 +4,5 @@ import com.google.gson.annotations.SerializedName
 
 data class Seat(
     @SerializedName("seat_class")
-    var seatClass: String?
+    var seatClass: String?,
 )

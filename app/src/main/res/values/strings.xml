@@ -261,4 +261,23 @@
     <string name="text_hapus_riwayat_pemesanan">Menghapus Riwayat Pemesanan</string>
     <string name="text_history_pendding_button">Lanjutkan Pembayaran</string>
     <string name="web_success">Web sukses dimuat</string>
+    <string name="text_status_akun">Status akun</string>
+    <string name="email_error">email error</string>
+    <string name="connect">-</string>
+    <string name="text_flight_soory">Maaf, pencarian Anda tidak ditemukan</string>
+    <string name="text_fligt_search_other">Coba cari perjalanan lainnya!</string>
+    <string name="text_change_search">Ubah Pencarian</string>
+    <string name="text_tidak_ada_filter">Tidak ada filter</string>
+    <string name="text_lanjut_checkout">Lanjut Checkout</string>
+    <string name="text_terdapat_data_yang_belum_diisi">Terdapat Data Yang Belum Diisi</string>
+    <string name="atext_">Unknown user</string>
+    <string name="text_error_gmail_com">error@gmail.com</string>
+    <string name="text_62_nii_pasti">+62 nii pasti</string>
+    <string name="text_edit_profil">Edit profil</string>
+    <string name="text_desk_setting_profile">Status verifikasi akun, ubah tema dan hapus akun</string>
+    <string name="text_keluar_dari_akun_ini">Keluar dari akun ini</string>
+    <string name="text_Dari">Dari</string>
+    <string name="text_passengger">Pasengers :</string>
+    <string name="text_ke">Ke</string>
+    <string name="text_kursi_pesawat">Kursi Pesawat :</string>
 </resources>

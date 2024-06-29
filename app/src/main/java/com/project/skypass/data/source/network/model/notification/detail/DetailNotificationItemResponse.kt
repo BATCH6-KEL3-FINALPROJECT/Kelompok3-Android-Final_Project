@@ -1,6 +1,5 @@
 package com.project.skypass.data.source.network.model.notification.detail
 
-
 import com.google.gson.annotations.SerializedName
 
 data class DetailNotificationItemResponse(
@@ -23,5 +22,5 @@ data class DetailNotificationItemResponse(
     @SerializedName("updatedAt")
     var updatedAt: String?,
     @SerializedName("user_id")
-    var userId: String?
+    var userId: String?,
 )

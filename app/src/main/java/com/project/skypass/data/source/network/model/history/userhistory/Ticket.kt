@@ -6,5 +6,5 @@ data class Ticket(
     @SerializedName("Seat")
     var seat: Seat?,
     @SerializedName("seat_number")
-    var seatNumber: String?
+    var seatNumber: String?,
 )

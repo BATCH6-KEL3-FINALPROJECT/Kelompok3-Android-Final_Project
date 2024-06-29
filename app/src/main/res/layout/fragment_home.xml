@@ -9,13 +9,14 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
+        android:background="@drawable/bg_app"
         android:layout_height="wrap_content">
 
         <View
             android:id="@+id/view_header_home"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:background="?attr/colorPrimary"
+            android:background="#7126B5"
             android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -44,6 +45,7 @@
             android:scaleType="fitXY"
             android:background="@drawable/bg_filter"
             android:layout_marginTop="12dp"
+            android:backgroundTint="?attr/colorOnPrimary"
             app:shapeAppearanceOverlay="@style/Circular"
             android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -53,7 +55,7 @@
             android:id="@+id/ll_banner_home"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?attr/colorPrimary"
+            android:background="#7126b5"
             android:paddingBottom="16dp"
             android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
@@ -67,7 +69,7 @@
                 android:paddingBottom="16dp"
                 android:textStyle="bold"
                 android:textSize="18sp"
-                android:textColor="?attr/colorOnPrimary"
+                android:textColor="@color/white"
                 android:layout_marginHorizontal="16dp" />
 
         <androidx.viewpager2.widget.ViewPager2
@@ -93,8 +95,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/skypass"
-            android:textColor="#FFFFFF"
-            android:textSize="16sp"
+            android:textColor="@color/white"
+            android:textSize="18sp"
             android:textStyle="bold"
             android:layout_marginStart="16dp"
             app:layout_constraintBottom_toBottomOf="@+id/iv_photo_user"
@@ -105,7 +107,6 @@
             android:id="@+id/iv_bg_home"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_gradient_purple_white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ll_banner_home" />
@@ -117,7 +118,7 @@
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="14dp"
             app:cardCornerRadius="10dp"
-            app:cardElevation="0dp"
+            app:cardElevation="2dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ll_banner_home">
@@ -611,7 +612,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_last_search">
-
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_last_search"
                 android:layout_width="match_parent"
@@ -651,6 +651,45 @@
                 />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmer_view_container"
+            android:layout_width="match_parent"
+            android:layout_marginHorizontal="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_last_search"
+            tools:listitem="@layout/item_last_search"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:paddingTop="10dp"
+                android:paddingBottom="250dp">
+
+                <include
+                    layout="@layout/item_last_search_shimmer"/>
+
+                <include
+                    layout="@layout/item_last_search_shimmer"/>
+
+                <include
+                    layout="@layout/item_last_search_shimmer"/>
+
+                <include
+                    layout="@layout/item_last_search_shimmer"/>
+
+                <include
+                    layout="@layout/item_last_search_shimmer"/>
+
+                <include
+                    layout="@layout/item_last_search_shimmer"/>
+
+            </LinearLayout>
+
+        </com.facebook.shimmer.ShimmerFrameLayout>
 
         <TextView
             android:id="@+id/tv_title_favorite_destination"

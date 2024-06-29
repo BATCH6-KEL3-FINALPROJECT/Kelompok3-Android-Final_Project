@@ -10,5 +10,5 @@ data class Seat(
     val row: Int,
     val seatId: String,
     val seatNumber: String,
-    val seatClass: String
+    val seatClass: String,
 )

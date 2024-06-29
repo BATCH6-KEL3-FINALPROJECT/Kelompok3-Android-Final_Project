@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import coil.load
 import com.project.skypass.R
 import com.project.skypass.core.BaseActivity
 import com.project.skypass.data.model.Notification
@@ -33,14 +34,18 @@ class NotificationFragment : Fragment() {
     private lateinit var notificationAdapter: NotificationAdapter
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
         binding = FragmentNotificationBinding.inflate(inflater, container, false)
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
         setupAdapter()
         //observeResult()
@@ -61,15 +66,33 @@ class NotificationFragment : Fragment() {
                         setBindNotification(data)
                     }
                 },
+                doOnEmpty = {
+                    binding.shimmerViewContainer.isVisible = false
+                    binding.shimmerViewContainer.stopShimmer()
+                    binding.layoutContentState.textError.isVisible = true
+                    binding.layoutContentState.root.isVisible = true
+                    binding.layoutContentState.textError.text =
+                        getString(R.string.text_empty_notification)
+                    binding.layoutContentState.pbLoadingEmptyState.isVisible = false
+
+                    val linkLoad = "https://github.com/riansyah251641/food_app_asset/blob/main/banner/no_notifications.png?raw=true"
+                    binding.layoutContentState.ivRiwayatKosong.load(linkLoad) {
+                        crossfade(true)
+                        error(R.drawable.bg_no_internet)
+                    }
+                },
                 doOnLoading = {
                     binding.rvNotification.isVisible = false
-                    binding.layoutContentState.root.isVisible = true
-                    binding.layoutContentState.textError.isVisible = false
-                    binding.layoutContentState.pbLoadingEmptyState.isVisible = true
+                    binding.layoutContentState.root.isVisible = false
+                    binding.shimmerViewContainer.isVisible = true
+                    binding.shimmerViewContainer.startShimmer()
                 },
                 doOnError = { error ->
                     binding.rvNotification.isVisible = false
+                    binding.shimmerViewContainer.isVisible = false
+                    binding.shimmerViewContainer.stopShimmer()
                     binding.layoutContentState.textError.isVisible = true
+                    binding.layoutContentState.ivRiwayatKosong.setImageResource(R.drawable.bg_no_internet)
                     binding.layoutContentState.root.isVisible = true
                     binding.layoutContentState.pbLoadingEmptyState.isVisible = false
                     if (error.exception is ApiErrorException) {
@@ -89,7 +112,7 @@ class NotificationFragment : Fragment() {
                         binding.layoutContentState.textError.text =
                             getString(R.string.unknown_error)
                     }
-                }
+                },
             )
         }
     }

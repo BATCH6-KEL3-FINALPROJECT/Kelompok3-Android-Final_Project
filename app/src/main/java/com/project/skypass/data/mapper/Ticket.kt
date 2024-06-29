@@ -16,7 +16,7 @@ fun TicketItemResponse?.toTicket() =
         terminal = this?.TERMINAL.orEmpty(),
         ticketStatus = this?.ticket_status.orEmpty(),
         createdAt = this?.createdAt.orEmpty(),
-        updatedAt = this?.updatedAt.orEmpty()
+        updatedAt = this?.updatedAt.orEmpty(),
     )
 
 fun Collection<TicketItemResponse>?.toTicketList() = this?.map { it.toTicket() } ?: listOf()

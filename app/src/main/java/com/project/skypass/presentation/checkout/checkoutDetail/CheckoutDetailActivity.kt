@@ -6,7 +6,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import com.project.skypass.R
@@ -42,6 +41,7 @@ class CheckoutDetailActivity : BaseActivity() {
     var priceBaby: Int? = null
 
     private var dialog: Dialog? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -57,7 +57,6 @@ class CheckoutDetailActivity : BaseActivity() {
 
     private fun getArgumentData() {
         intent.extras?.getParcelable<OrderUser>(EXTRA_FLIGHT)?.let {
-
             intent.extras?.getParcelable<OrderPassengers>(CheckoutDataPassengerActivity.EXTRA_USER_ORDER)
                 ?.let { orderPassenger ->
                     setProfileData(it, orderPassenger)
@@ -65,42 +64,50 @@ class CheckoutDetailActivity : BaseActivity() {
                     sendOrderData(it, toCheckout, orderPassenger)
                     Log.d(
                         "checkSeatInPassengersData",
-                        "Passengers Data: ${toCheckout.passengersData}"
+                        "Passengers Data: ${toCheckout.passengersData}",
                     )
                 }
         }
     }
 
-    private fun sendToPayment(item: OrderUser, passengerData: OrderPassengers): CheckoutPayment {
+    private fun sendToPayment(
+        item: OrderUser,
+        passengerData: OrderPassengers,
+    ): CheckoutPayment {
         val totalPassengers =
             item.passengersBaby!! + item.passengersAdult!! + item.passengersChild!!
-        val payment = CheckoutPayment(
-            totalAmount = priceTotal!!,
-            departureFlightId = item.flightId!!,
-            returnFlightId = item.flightIdRoundTrip!!,
-            passengersData = passengerData.passengers!!.mapIndexed { index, it ->
-                PassengersData(
-                    title = it.title,
-                    firstName = it.firstName,
-                    lastName = it.lastName,
-                    dateOfBirth = it.dateOfBirth,
-                    email = it.email,
-                    phoneNumber = it.phoneNumber,
-                    nationality = it.nationality,
-                    passportNo = it.passportNo,
-                    issuingCountry = it.issuingCountry,
-                    validUntil = it.validUntil,
-                    seatsDepartureId = passengerData.seatIdDeparture?.get(index),
-                    seatsArrivalId = passengerData.seatIdArrival?.get(index),
-                    passengerType = it.passengerType
-                )
-            },
-            noOfPassenger = totalPassengers
-        )
+        val payment =
+            CheckoutPayment(
+                totalAmount = priceTotal!!,
+                departureFlightId = item.flightId!!,
+                returnFlightId = item.flightIdRoundTrip!!,
+                passengersData =
+                    passengerData.passengers!!.mapIndexed { index, it ->
+                        PassengersData(
+                            title = it.title,
+                            firstName = it.firstName,
+                            lastName = it.lastName,
+                            dateOfBirth = it.dateOfBirth,
+                            email = it.email,
+                            phoneNumber = it.phoneNumber,
+                            nationality = it.nationality,
+                            passportNo = it.passportNo,
+                            issuingCountry = it.issuingCountry,
+                            validUntil = it.validUntil,
+                            seatsDepartureId = passengerData.seatIdDeparture?.get(index),
+                            seatsArrivalId = passengerData.seatIdArrival?.get(index),
+                            passengerType = it.passengerType,
+                        )
+                    },
+                noOfPassenger = totalPassengers,
+            )
         return payment
     }
 
-    private fun setProfileData(item: OrderUser, passengerData: OrderPassengers) {
+    private fun setProfileData(
+        item: OrderUser,
+        passengerData: OrderPassengers,
+    ) {
         binding.apply {
             if (item.isRoundTrip == false && item.supportRoundTrip == false && item.seatsAvailableRoundTrip != null) {
                 tvTotalPrice.text =
@@ -132,7 +139,6 @@ class CheckoutDetailActivity : BaseActivity() {
                 rvTicketDetailRound.tvSeatChose.text = passengerData.seatOrderArrival.toString()
                 rvTicketDetailRound.root.isVisible = true
                 btnSubmit.text = getString(R.string.text_button_detail_checkout)
-
             } else {
                 rvTicketDetailRound.root.isVisible = false
                 tvTotalPrice.text = item.priceTotal.toIndonesianFormat()
@@ -154,19 +160,21 @@ class CheckoutDetailActivity : BaseActivity() {
                 } else {
                     btnSubmit.text = getString(R.string.text_button_detail_checkout)
                 }
-
             }
-            //set price detail
+            // set price detail
             tvAdultCount.text = item.passengersAdult.toString()
             tvChildCount.text = item.passengersChild.toString()
             tvBabyCount.text = item.passengersBaby.toString()
 
-            priceAdult = item.priceTotal?.times(item.passengersAdult!!)
-                ?.plus(item.priceTotalRoundTrip?.times(item.passengersAdult!!)!!)
-            priceChild = item.priceTotal?.times(item.passengersChild!!)
-                ?.plus(item.priceTotalRoundTrip?.times(item.passengersChild!!)!!)
-            priceBaby = (item.priceTotal!! / 2).times(item.passengersBaby!!)
-                .plus((item.priceTotalRoundTrip!! / 2).times(item.passengersBaby!!))
+            priceAdult =
+                item.priceTotal?.times(item.passengersAdult!!)
+                    ?.plus(item.priceTotalRoundTrip?.times(item.passengersAdult!!)!!)
+            priceChild =
+                item.priceTotal?.times(item.passengersChild!!)
+                    ?.plus(item.priceTotalRoundTrip?.times(item.passengersChild!!)!!)
+            priceBaby =
+                (item.priceTotal!! / 2).times(item.passengersBaby!!)
+                    .plus((item.priceTotalRoundTrip!! / 2).times(item.passengersBaby!!))
             priceTotal = priceAdult!! + priceChild!! + priceBaby!!
             tvPriceAdult.text = "${priceAdult.toIndonesianFormat()}"
             tvPricechild.text = "${priceChild.toIndonesianFormat()}"
@@ -184,7 +192,7 @@ class CheckoutDetailActivity : BaseActivity() {
         familyName: String? = null,
         email: String? = null,
         phone: String? = null,
-        passenger: List<PassengersData>
+        passenger: List<PassengersData>,
     ) {
         viewModel.createBooking(
             viewModel.getToken(),
@@ -195,8 +203,8 @@ class CheckoutDetailActivity : BaseActivity() {
             familyName,
             email,
             phone,
-            passenger
-        ).observe(this){
+            passenger,
+        ).observe(this) {
             it.proceedWhen(
                 doOnSuccess = { success ->
                     dialog?.dismiss()
@@ -204,7 +212,7 @@ class CheckoutDetailActivity : BaseActivity() {
                     CheckoutPaymentActivity.sendDataOrder(
                         this,
                         it.payload?.data?.bookingResult?.paymentId!!,
-                        passenger
+                        passenger,
                     )
                 },
                 doOnLoading = {
@@ -228,42 +236,49 @@ class CheckoutDetailActivity : BaseActivity() {
                     } else {
                         doError()
                     }
-                }
+                },
             )
         }
     }
 
-    private fun doLoading(){
+    private fun doLoading() {
         val dialogBinding = LayoutStateLoadingBinding.inflate(layoutInflater)
-        dialog = Dialog(this).apply {
-            setCancelable(true)
-            setContentView(dialogBinding.root)
-            show()
-            window?.setBackgroundDrawableResource(android.R.color.transparent)
-        }
+        dialog =
+            Dialog(this).apply {
+                setCancelable(true)
+                setContentView(dialogBinding.root)
+                show()
+                window?.setBackgroundDrawableResource(android.R.color.transparent)
+            }
     }
 
-    private fun doSuccess(){
+    private fun doSuccess() {
         val dialogBinding = LayoutStateSuccessBinding.inflate(layoutInflater)
-        dialog = Dialog(this).apply {
-            setCancelable(true)
-            setContentView(dialogBinding.root)
-            show()
-            window?.setBackgroundDrawableResource(android.R.color.transparent)
-        }
+        dialog =
+            Dialog(this).apply {
+                setCancelable(true)
+                setContentView(dialogBinding.root)
+                show()
+                window?.setBackgroundDrawableResource(android.R.color.transparent)
+            }
     }
 
-    private fun doError(){
+    private fun doError() {
         val dialogBinding = LayoutStateErrorBinding.inflate(layoutInflater)
-        dialog = Dialog(this).apply {
-            setCancelable(true)
-            setContentView(dialogBinding.root)
-            show()
-            window?.setBackgroundDrawableResource(android.R.color.transparent)
-        }
+        dialog =
+            Dialog(this).apply {
+                setCancelable(true)
+                setContentView(dialogBinding.root)
+                show()
+                window?.setBackgroundDrawableResource(android.R.color.transparent)
+            }
     }
 
-    private fun sendOrderData(item: OrderUser, passengerData: CheckoutPayment, orderPassenger: OrderPassengers) {
+    private fun sendOrderData(
+        item: OrderUser,
+        passengerData: CheckoutPayment,
+        orderPassenger: OrderPassengers,
+    ) {
         binding.btnSubmit.setOnClickListener {
             if (item.supportRoundTrip == false) {
                 /*CheckoutPaymentActivity.sendDataOrder(
@@ -278,7 +293,7 @@ class CheckoutDetailActivity : BaseActivity() {
                     orderPassenger.familyName,
                     orderPassenger.email,
                     orderPassenger.noTelephone,
-                    passengerData.passengersData!!
+                    passengerData.passengersData!!,
                 )
             } else {
                 CheckoutSeatActivity.sendDataOrder(
@@ -298,7 +313,6 @@ class CheckoutDetailActivity : BaseActivity() {
                         isRoundTrip = item.isRoundTrip,
                         supportRoundTrip = false,
                         orderDate = item.orderDate,
-
                         // Flight data (One Way)
                         airlineCode = item.airlineCode,
                         airlineName = item.airlineName,
@@ -325,7 +339,6 @@ class CheckoutDetailActivity : BaseActivity() {
                         paymentPrice = item.paymentPrice,
                         seatsAvailable = item.seatsAvailable,
                         terminal = item.terminal,
-
                         // Flight data (Round Trip)
                         airlineCodeRoundTrip = item.airlineCodeRoundTrip,
                         airlineNameRoundTrip = item.airlineNameRoundTrip,
@@ -351,9 +364,9 @@ class CheckoutDetailActivity : BaseActivity() {
                         priceTotalRoundTrip = item.priceTotalRoundTrip,
                         paymentPriceRoundTrip = item.paymentPriceRoundTrip,
                         seatsAvailableRoundTrip = item.seatsAvailableRoundTrip,
-                        terminalRoundTrip = item.terminalRoundTrip
+                        terminalRoundTrip = item.terminalRoundTrip,
                     ),
-                    orderPassenger
+                    orderPassenger,
                 )
             }
         }
@@ -362,10 +375,11 @@ class CheckoutDetailActivity : BaseActivity() {
     companion object {
         const val EXTRA_FLIGHT = "extra_flight"
         const val EXTRA_USER_ORDER = "EXTRA_USER_ORDER"
+
         fun sendDataOrder(
             context: Context,
             orderUser: OrderUser,
-            orderPassenger: OrderPassengers
+            orderPassenger: OrderPassengers,
         ) {
             val intent = Intent(context, CheckoutDetailActivity::class.java)
             intent.putExtra(EXTRA_FLIGHT, orderUser)

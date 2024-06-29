@@ -1,6 +1,5 @@
 package com.project.skypass.data.source.network.model.flight.flightdata
 
-
 import com.google.gson.annotations.SerializedName
 
 data class GetAllFlightResponse(
@@ -11,5 +10,5 @@ data class GetAllFlightResponse(
     @SerializedName("is_success")
     var isSuccess: Boolean?,
     @SerializedName("message")
-    var message: String?
+    var message: String?,
 )

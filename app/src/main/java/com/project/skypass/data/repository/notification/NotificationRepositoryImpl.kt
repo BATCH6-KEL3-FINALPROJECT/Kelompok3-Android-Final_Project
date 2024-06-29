@@ -9,7 +9,7 @@ import com.project.skypass.utils.ResultWrapper
 import com.project.skypass.utils.proceedFlow
 import kotlinx.coroutines.flow.Flow
 
-class NotificationRepositoryImpl(private val dataSource: NotificationDataSource): NotificationRepository {
+class NotificationRepositoryImpl(private val dataSource: NotificationDataSource) : NotificationRepository {
     override fun getNotifications(token: String): Flow<ResultWrapper<List<Notification>>> {
         return proceedFlow {
             val tokenBearer = "Bearer $token"
@@ -19,13 +19,13 @@ class NotificationRepositoryImpl(private val dataSource: NotificationDataSource)
 
     override fun getDetailNotification(
         token: String,
-        id: String
+        id: String,
     ): Flow<ResultWrapper<Notification>> {
         return proceedFlow {
             val tokenBearer = "Bearer $token"
             dataSource.getDetailNotification(
                 tokenBearer,
-                id
+                id,
             ).data?.notification.toDetailNotification()
         }
     }

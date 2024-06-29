@@ -6,12 +6,12 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.project.skypass.data.model.PassengersData
 import com.project.skypass.databinding.ActivityCheckoutPaymentBinding
-import org.koin.androidx.viewmodel.ext.android.viewModel
 import com.project.skypass.presentation.checkout.checkoutPayment.adapter.CheckoutPaymentAdapter
 import com.project.skypass.presentation.checkout.checkoutPayment.adapter.OnItemClickedPaymentListener
 import com.project.skypass.presentation.checkout.checkoutPayment.adapter.PaymentAdapter
 import com.project.skypass.presentation.checkout.checkoutmidtrans.CheckoutMidtransActivity
 import com.project.skypass.utils.proceedWhen
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class CheckoutPaymentActivity : AppCompatActivity() {
     private val binding by lazy { ActivityCheckoutPaymentBinding.inflate(layoutInflater) }
@@ -35,15 +35,15 @@ class CheckoutPaymentActivity : AppCompatActivity() {
     }
 
     private fun onItemClick(item: PassengersData) {
-
     }
 
-    private fun setAdapterPassengers(){
-        val itemClickListener = object : OnItemClickedPaymentListener<PassengersData> {
-            override fun onItemClicked(item: PassengersData) {
-                onItemClick(item)
+    private fun setAdapterPassengers() {
+        val itemClickListener =
+            object : OnItemClickedPaymentListener<PassengersData> {
+                override fun onItemClicked(item: PassengersData) {
+                    onItemClick(item)
+                }
             }
-        }
         paymentAdapter = CheckoutPaymentAdapter(itemClickListener)
         binding.rvPassenger.adapter = paymentAdapter
     }
@@ -58,20 +58,18 @@ class CheckoutPaymentActivity : AppCompatActivity() {
     private fun getBookingData() {
         viewModel.getBooking(
             viewModel.getToken(),
-            intent.getStringExtra(EXTRA_FLIGHT)!!
+            intent.getStringExtra(EXTRA_FLIGHT)!!,
         ).observe(this) {
-            it.proceedWhen (
+            it.proceedWhen(
                 doOnSuccess = { success ->
                     success.payload?.let { booking ->
                         paymentListAdapter.submitDataPayment(booking)
                     }
                 },
                 doOnLoading = {
-
                 },
                 doOnError = {
-
-                }
+                },
             )
         }
 
@@ -80,7 +78,7 @@ class CheckoutPaymentActivity : AppCompatActivity() {
         }
     }
 
-    private fun setOnClick(){
+    private fun setOnClick() {
         binding.btnBack.setOnClickListener {
             finish()
         }
@@ -88,18 +86,16 @@ class CheckoutPaymentActivity : AppCompatActivity() {
         binding.btnSubmit.setOnClickListener {
             viewModel.createPayment(
                 viewModel.getToken(),
-                intent.getStringExtra(EXTRA_FLIGHT)!!
-            ).observe(this){
+                intent.getStringExtra(EXTRA_FLIGHT)!!,
+            ).observe(this) {
                 it.proceedWhen(
                     doOnSuccess = { success ->
                         navigateToMidtrans(success.payload?.urlMidtrans!!)
                     },
                     doOnLoading = {
-
                     },
                     doOnError = {
-
-                    }
+                    },
                 )
             }
         }
@@ -108,10 +104,9 @@ class CheckoutPaymentActivity : AppCompatActivity() {
     private fun navigateToMidtrans(paymentId: String) {
         startActivity(
             Intent(this, CheckoutMidtransActivity::class.java)
-                .putExtra(CheckoutMidtransActivity.EXTRA_MIDTRANS, paymentId)
+                .putExtra(CheckoutMidtransActivity.EXTRA_MIDTRANS, paymentId),
         )
     }
-
 
     companion object {
         const val EXTRA_FLIGHT = "extra_flight"
@@ -120,14 +115,12 @@ class CheckoutPaymentActivity : AppCompatActivity() {
         fun sendDataOrder(
             context: Context,
             paymentId: String,
-            orderPassenger: List<PassengersData>
+            orderPassenger: List<PassengersData>,
         ) {
             val intent = Intent(context, CheckoutPaymentActivity::class.java)
             intent.putExtra(EXTRA_FLIGHT, paymentId)
             intent.putParcelableArrayListExtra(EXTRA_USER_ORDER, ArrayList(orderPassenger))
             context.startActivity(intent)
         }
-
     }
-
 }

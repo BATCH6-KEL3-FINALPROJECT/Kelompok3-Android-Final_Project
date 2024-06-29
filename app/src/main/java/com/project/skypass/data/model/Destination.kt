@@ -21,5 +21,5 @@ data class Destination(
     val price: Int,
     val returnDate: String,
     val seatClass: String,
-    val to: String
-): Parcelable
+    val to: String,
+) : Parcelable

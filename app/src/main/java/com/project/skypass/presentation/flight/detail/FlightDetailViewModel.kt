@@ -14,11 +14,10 @@ import java.time.LocalDate
 
 class FlightDetailViewModel(
     private val flightRepository: FlightRepository,
-    //private val extras: Bundle?,
+    // private val extras: Bundle?,
     private val orderHistoryRepository: OrderHistoryRepository,
 ) : ViewModel() {
-
-    //var orderHistoryData = Bundle().getParcelable<OrderUser>(FlightDetailActivity.EXTRA_FLIGHT)
+    // var orderHistoryData = Bundle().getParcelable<OrderUser>(FlightDetailActivity.EXTRA_FLIGHT)
 
     private var setDepartureCity: String? = null
     private var setArrivalCity: String? = null
@@ -52,18 +51,19 @@ class FlightDetailViewModel(
         setPassenger = item.passengersTotal
     }
 
-    fun getFlightDetail() = flightRepository.getFlights(
-        departureCity = setDepartureCity,
-        arrivalCity = setArrivalCity,
-        null,
-        null,
-        seatClass = setSeatClass,
-        1,
-        10,
-        departureDate = date,
-        departureTime = time,
-        price = price
-    ).asLiveData(Dispatchers.IO)
+    fun getFlightDetail() =
+        flightRepository.getFlights(
+            departureCity = setDepartureCity,
+            arrivalCity = setArrivalCity,
+            null,
+            null,
+            seatClass = setSeatClass,
+            1,
+            10,
+            departureDate = date,
+            departureTime = time,
+            price = price,
+        ).asLiveData(Dispatchers.IO)
 
     fun setSelectedDate(date: LocalDate) {
         selectedDate = date
@@ -103,5 +103,4 @@ class FlightDetailViewModel(
         }
         getFlightDetail()
     }
-
 }

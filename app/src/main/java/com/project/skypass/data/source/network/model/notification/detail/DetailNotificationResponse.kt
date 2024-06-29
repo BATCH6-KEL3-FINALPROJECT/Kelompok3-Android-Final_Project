@@ -6,5 +6,5 @@ data class DetailNotificationResponse(
     @SerializedName("data")
     var `data`: Data?,
     @SerializedName("status")
-    var status: String?
+    var status: String?,
 )

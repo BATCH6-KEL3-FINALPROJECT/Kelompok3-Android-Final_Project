@@ -2,7 +2,7 @@ package com.project.skypass.data.model
 
 import com.google.gson.annotations.SerializedName
 
-data class Response<T> (
+data class Response<T>(
     @SerializedName("is_success")
     val isSuccess: Boolean,
     @SerializedName("message")

@@ -10,5 +10,5 @@ data class CheckoutResponse(
     @SerializedName("is_success")
     var isSuccess: Boolean?,
     @SerializedName("message")
-    var message: String?
+    var message: String?,
 )

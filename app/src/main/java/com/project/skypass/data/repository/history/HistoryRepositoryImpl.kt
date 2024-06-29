@@ -9,7 +9,7 @@ import com.project.skypass.utils.ResultWrapper
 import com.project.skypass.utils.proceedFlow
 import kotlinx.coroutines.flow.Flow
 
-class HistoryRepositoryImpl(private val historyDataSource: HistoryDataSource): HistoryRepository {
+class HistoryRepositoryImpl(private val historyDataSource: HistoryDataSource) : HistoryRepository {
     override fun getHistory(token: String): Flow<ResultWrapper<List<History>>> {
         return proceedFlow {
             val tokenBearer = "Bearer $token"
@@ -21,7 +21,7 @@ class HistoryRepositoryImpl(private val historyDataSource: HistoryDataSource): H
         token: String,
         search: String?,
         date: String?,
-        until: String?
+        until: String?,
     ): Flow<ResultWrapper<List<History>>> {
         return proceedFlow {
             val tokenBearer = "Bearer $token"
@@ -29,11 +29,13 @@ class HistoryRepositoryImpl(private val historyDataSource: HistoryDataSource): H
         }
     }
 
-    override fun getDetailHistory(token: String, id: String): Flow<ResultWrapper<History>> {
+    override fun getDetailHistory(
+        token: String,
+        id: String,
+    ): Flow<ResultWrapper<History>> {
         return proceedFlow {
             val tokenBearer = "Bearer $token"
             historyDataSource.getDetailHistory(tokenBearer, id).data.toDetailHistory()
         }
     }
-
 }

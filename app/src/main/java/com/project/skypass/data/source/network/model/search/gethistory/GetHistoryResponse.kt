@@ -1,6 +1,5 @@
 package com.project.skypass.data.source.network.model.search.gethistory
 
-
 import com.google.gson.annotations.SerializedName
 
 data class GetHistoryResponse(
@@ -11,5 +10,5 @@ data class GetHistoryResponse(
     @SerializedName("is_success")
     var isSuccess: Boolean?,
     @SerializedName("message")
-    var message: String?
+    var message: String?,
 )

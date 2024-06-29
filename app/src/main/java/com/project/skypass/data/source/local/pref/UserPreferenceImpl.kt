@@ -4,7 +4,7 @@ import android.content.SharedPreferences
 import android.util.Log
 import com.project.skypass.utils.SharedPreferenceUtils.set
 
-class UserPreferenceImpl(private val pref: SharedPreferences): UserPreference {
+class UserPreferenceImpl(private val pref: SharedPreferences) : UserPreference {
     override fun isLogin(): Boolean {
         return pref.getBoolean(KEY_IS_LOGIN, false)
     }
@@ -56,7 +56,7 @@ class UserPreferenceImpl(private val pref: SharedPreferences): UserPreference {
         pref[KEY_IS_USING_DARK_MODE] = isUsingDarkMode
     }
 
-    override fun clearAll(){
+    override fun clearAll() {
         pref.edit().remove(KEY_TOKEN).apply()
         pref.edit().remove(KEY_IS_LOGIN).apply()
         pref.edit().remove(KEY_USER_ID).apply()

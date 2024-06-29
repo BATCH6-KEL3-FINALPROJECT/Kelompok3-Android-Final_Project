@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_gravity="center|top"
     android:layout_marginHorizontal="16dp"
     android:layout_marginBottom="8dp">
@@ -43,7 +44,7 @@
             android:id="@+id/tv_city_name_alias"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="JKT"
+            tools:text="JKT"
             android:textAlignment="center"
             android:textStyle="bold" />
 
@@ -51,7 +52,7 @@
             android:id="@+id/tv_city_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Jakarta" />
+            tools:text="Jakarta" />
 
     </LinearLayout>
 
@@ -91,14 +92,14 @@
             android:id="@+id/tv_city_name_destination_alias"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="MLB"
+            tools:text="MLB"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tv_city_name_destination"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Malang" />
+            tools:text="Malang" />
 
     </LinearLayout>
 
@@ -128,7 +129,7 @@
         android:id="@+id/tv_length_of_journey"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="1:35 Jam"
+        tools:text="1:35 Jam"
         android:textStyle="bold"
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="@+id/iv_flight"
@@ -139,7 +140,7 @@
         android:id="@+id/ll_time_from"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="24dp"
         android:layout_marginStart="16dp"
         android:orientation="vertical"
         app:layout_constraintStart_toStartOf="parent"
@@ -149,14 +150,14 @@
             android:id="@+id/tv_time_departure"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="08:00 AM"
+            tools:text="08:00 AM"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tv_date_departure"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="24 Mei 2024" />
+            tools:text="24 Mei 2024" />
 
     </LinearLayout>
 
@@ -164,7 +165,7 @@
         android:id="@+id/ll_time_to"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
         android:orientation="vertical"
         android:gravity="right"
@@ -175,14 +176,14 @@
             android:id="@+id/tv_time_arrival"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="09:35 AM"
+            tools:text="09:35 AM"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tv_date_arrival"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="24 Mei 2024" />
+            tools:text="24 Mei 2024" />
 
     </LinearLayout>
 
@@ -201,7 +202,7 @@
         android:id="@+id/tv_airline"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:text="Skyline"
+        tools:text="Skyline"
         android:layout_marginStart="8dp"
         app:layout_constraintBottom_toBottomOf="@+id/iv_airline"
         app:layout_constraintStart_toEndOf="@+id/iv_airline"
@@ -212,8 +213,10 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_marginEnd="16dp"
-        android:text="Rp. 1.240.000"
+        tools:text="Rp. 1.240.000"
+        android:textColor="?attr/colorPrimary"
         android:textStyle="bold"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@+id/tv_airline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/tv_airline" />

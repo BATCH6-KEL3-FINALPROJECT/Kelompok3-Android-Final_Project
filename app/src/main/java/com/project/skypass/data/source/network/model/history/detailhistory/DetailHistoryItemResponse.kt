@@ -1,6 +1,5 @@
 package com.project.skypass.data.source.network.model.history.detailhistory
 
-
 import com.google.gson.annotations.SerializedName
 
 data class DetailHistoryItemResponse(
@@ -37,5 +36,5 @@ data class DetailHistoryItemResponse(
     @SerializedName("total_price")
     var totalPrice: String?,
     @SerializedName("user_id")
-    var userId: String?
+    var userId: String?,
 )

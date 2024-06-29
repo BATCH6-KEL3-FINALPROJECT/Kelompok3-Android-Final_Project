@@ -1,6 +1,5 @@
 package com.project.skypass.data.source.network.model.booking
 
-
 import com.google.gson.annotations.SerializedName
 
 data class FlightData(
@@ -49,5 +48,5 @@ data class FlightData(
     @SerializedName("terminal")
     var terminal: Boolean?,
     @SerializedName("updatedAt")
-    var updatedAt: String?
+    var updatedAt: String?,
 )

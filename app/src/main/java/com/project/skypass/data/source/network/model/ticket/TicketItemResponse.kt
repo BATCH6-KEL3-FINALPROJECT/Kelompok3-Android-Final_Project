@@ -12,5 +12,5 @@ data class TicketItemResponse(
     val ticket_code: String?,
     val ticket_id: String?,
     val ticket_status: String?,
-    val updatedAt: String?
+    val updatedAt: String?,
 )

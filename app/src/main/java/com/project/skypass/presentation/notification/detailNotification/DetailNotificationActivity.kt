@@ -6,19 +6,13 @@ import android.os.Bundle
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContentProviderCompat.requireContext
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.project.skypass.R
 import com.project.skypass.data.model.Notification
-import com.project.skypass.databinding.ActivityCheckoutDataOrdersBinding
 import com.project.skypass.databinding.ActivityDetailNotificationBinding
 import com.project.skypass.utils.convertDateNotification
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
 class DetailNotificationActivity : AppCompatActivity() {
-
     private val binding by lazy { ActivityDetailNotificationBinding.inflate(layoutInflater) }
 
     private val viewModel: DetailNotificationViewModel by viewModel{

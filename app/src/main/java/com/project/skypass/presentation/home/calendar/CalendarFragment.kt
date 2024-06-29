@@ -27,20 +27,23 @@ import java.time.YearMonth
 import java.time.format.DateTimeFormatter
 
 class CalendarFragment : BottomSheetDialogFragment() {
-
     private lateinit var binding: FragmentCalendarBinding
     private val viewModel: CalendarHomeViewModel by viewModel()
     var dateSelection: DataSelection? = null
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
         binding = FragmentCalendarBinding.inflate(inflater, container, false)
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
         setInitialDate()
         setSelectedDate()
@@ -52,19 +55,21 @@ class CalendarFragment : BottomSheetDialogFragment() {
         val initialDepartureDateStr = arguments?.getString("currentDateDeparture")
         val initialReturnDateStr = arguments?.getString("currentDateReturn")
 
-        val initialDepartureDate = if (initialDepartureDateStr != "Belum dipilih") {
-            val convertDateDeparture = initialDepartureDateStr?.let { convertDateCalendar(it) }
-            LocalDate.parse(convertDateDeparture)
-        } else {
-            null
-        }
+        val initialDepartureDate =
+            if (initialDepartureDateStr != "Belum dipilih") {
+                val convertDateDeparture = initialDepartureDateStr?.let { convertDateCalendar(it) }
+                LocalDate.parse(convertDateDeparture)
+            } else {
+                null
+            }
 
-        val initialReturnDate = if (initialReturnDateStr != "Belum dipilih") {
-            val convertDateReturn = initialReturnDateStr?.let { convertDateCalendar(it) }
-            LocalDate.parse(convertDateReturn)
-        } else {
-            null
-        }
+        val initialReturnDate =
+            if (initialReturnDateStr != "Belum dipilih") {
+                val convertDateReturn = initialReturnDateStr?.let { convertDateCalendar(it) }
+                LocalDate.parse(convertDateReturn)
+            } else {
+                null
+            }
 
         viewModel.setInitialDates(initialDepartureDate, initialReturnDate)
     }
@@ -102,64 +107,69 @@ class CalendarFragment : BottomSheetDialogFragment() {
             val selectedDateDepartureAll = DateCalendar(selectedDateDeparture, date)
             val selectedDateReturnAll = DateCalendar(selectedDateReturn, date)
 
-            //val tag = arguments?.getString("tag")
+            // val tag = arguments?.getString("tag")
 
             if (tag == "departure") {
                 dateSelection?.onDateSelected(tag ?: "", selectedDateDepartureAll)
             } else if (tag == "return") {
                 dateSelection?.onDateSelected(tag ?: "", selectedDateReturnAll)
             }
-            //dateSelection?.onDateSelected(tag ?: "", selectedDate)
+            // dateSelection?.onDateSelected(tag ?: "", selectedDate)
             dismiss()
         }
     }
 
     private fun calendarView() {
-        binding.rvDate.dayBinder = object : MonthDayBinder<DayViewContainer> {
-            override fun create(view: View) = DayViewContainer(view)
-            override fun bind(container: DayViewContainer, data: CalendarDay) {
-                container.day = data
-                container.textView.text = data.date.dayOfMonth.toString()
+        binding.rvDate.dayBinder =
+            object : MonthDayBinder<DayViewContainer> {
+                override fun create(view: View) = DayViewContainer(view)
 
-                if (data.position == DayPosition.MonthDate) {
-                    container.textView.setTextColor(ContextCompat.getColor(requireActivity(), R.color.colorTextCalendar))
-                    when (data.date) {
-                        viewModel.selectedDateDeparture.value -> {
-                            container.textView.setBackgroundResource(R.drawable.bg_button)
-                            container.textView.setTextColor(Color.WHITE)
-                        }
-                        viewModel.selectedDateReturn.value -> {
-                            container.textView.setBackgroundResource(R.drawable.bg_button)
-                            container.textView.setTextColor(Color.WHITE)
-                        }
-                        else -> {
-                            //container.textView.background = null
-                            val departureDate = viewModel.selectedDateDeparture.value
-                            val returnDate = viewModel.selectedDateReturn.value
-                            if (departureDate != null && returnDate != null && data.date.isAfter(departureDate) && data.date.isBefore(returnDate)) {
-                                container.textView.setBackgroundResource(R.drawable.bg_date_calendar_between)
-                                container.textView.setTextColor(ContextCompat.getColor(requireActivity(), R.color.colorTextCalendar))
-                            } else {
-                                container.textView.background = null
+                override fun bind(
+                    container: DayViewContainer,
+                    data: CalendarDay,
+                ) {
+                    container.day = data
+                    container.textView.text = data.date.dayOfMonth.toString()
+
+                    if (data.position == DayPosition.MonthDate) {
+                        container.textView.setTextColor(ContextCompat.getColor(requireActivity(), R.color.colorTextCalendar))
+                        when (data.date) {
+                            viewModel.selectedDateDeparture.value -> {
+                                container.textView.setBackgroundResource(R.drawable.bg_button)
+                                container.textView.setTextColor(Color.WHITE)
+                            }
+                            viewModel.selectedDateReturn.value -> {
+                                container.textView.setBackgroundResource(R.drawable.bg_button)
+                                container.textView.setTextColor(Color.WHITE)
+                            }
+                            else -> {
+                                // container.textView.background = null
+                                val departureDate = viewModel.selectedDateDeparture.value
+                                val returnDate = viewModel.selectedDateReturn.value
+                                if (departureDate != null && returnDate != null && data.date.isAfter(departureDate) && data.date.isBefore(returnDate)) {
+                                    container.textView.setBackgroundResource(R.drawable.bg_date_calendar_between)
+                                    container.textView.setTextColor(ContextCompat.getColor(requireActivity(), R.color.colorTextCalendar))
+                                } else {
+                                    container.textView.background = null
+                                }
                             }
                         }
+                    } else {
+                        container.textView.setTextColor(Color.GRAY)
+                        container.textView.background = null
                     }
-                } else {
-                    container.textView.setTextColor(Color.GRAY)
-                    container.textView.background = null
-                }
-                container.textView.setOnClickListener {
-                    if (tag == "departure") {
-                        sendData(data.date.toString())
-                        viewModel.selectDepartureDate(data.date)
-                    } else if (tag == "return") {
-                        sendData(data.date.toString())
-                        viewModel.selectReturnDate(data.date)
+                    container.textView.setOnClickListener {
+                        if (tag == "departure") {
+                            sendData(data.date.toString())
+                            viewModel.selectDepartureDate(data.date)
+                        } else if (tag == "return") {
+                            sendData(data.date.toString())
+                            viewModel.selectReturnDate(data.date)
+                        }
+                        binding.rvDate.notifyCalendarChanged()
                     }
-                    binding.rvDate.notifyCalendarChanged()
                 }
             }
-        }
         val daysOfWeek = daysOfWeek()
         binding.layoutWeek.root.children
             .map { it as TextView }
@@ -184,9 +194,7 @@ class CalendarFragment : BottomSheetDialogFragment() {
 
         init {
             view.setOnClickListener {
-
             }
         }
     }
-
 }

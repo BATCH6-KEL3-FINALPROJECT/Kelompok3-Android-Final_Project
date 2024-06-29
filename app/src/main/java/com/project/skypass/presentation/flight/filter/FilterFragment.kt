@@ -13,8 +13,7 @@ import com.project.skypass.presentation.flight.filter.adapter.FilterAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FilterFragment : BottomSheetDialogFragment() {
-
-    private lateinit var  binding: FragmentFilterBinding
+    private lateinit var binding: FragmentFilterBinding
     private val viewModel: FilterViewModel by viewModel()
     var filterFlight: FilterFlightSelected? = null
     private var selectedFilter: FilterFlight? = null
@@ -25,14 +24,18 @@ class FilterFragment : BottomSheetDialogFragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
     ): View {
         binding = FragmentFilterBinding.inflate(inflater, container, false)
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
         setUpRecyclerView()
         setOnClickListeners()
@@ -57,7 +60,7 @@ class FilterFragment : BottomSheetDialogFragment() {
         binding.btnFlightClass.setOnClickListener {
             if (tag == "filter") {
                 selectedFilter?.let {
-                    filterFlight?.onFilterSelected(tag?:"", it)
+                    filterFlight?.onFilterSelected(tag ?: "", it)
                 }
             }
             dismiss()

@@ -27,7 +27,7 @@ android {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro",
             )
         }
     }
@@ -59,7 +59,7 @@ android {
             buildConfigField(
                 type = "String",
                 name = "CLIENT_ID_OAUTH2",
-                value = "\"597747131491-lgld5ii4fd97g7in8ek462ei74f9iven.apps.googleusercontent.com\""
+                value = "\"597747131491-lgld5ii4fd97g7in8ek462ei74f9iven.apps.googleusercontent.com\"",
             )
         }
         create("integration") {
@@ -76,12 +76,12 @@ android {
             buildConfigField(
                 type = "String",
                 name = "CLIENT_ID_OAUTH2",
-                value = "\"597747131491-lgld5ii4fd97g7in8ek462ei74f9iven.apps.googleusercontent.com\""
+                value = "\"597747131491-lgld5ii4fd97g7in8ek462ei74f9iven.apps.googleusercontent.com\"",
             )
         }
     }
     packaging {
-        resources{
+        resources {
             excludes += "META-INF/LICENSE.md"
             excludes += "META-INF/LICENSE-notice.md"
         }
@@ -100,80 +100,79 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
-    //coil image loader
+    // coil image loader
     implementation(libs.coil)
 
-    //lifecycle
+    // lifecycle
     implementation(libs.lifecycle.livedata)
     implementation(libs.lifecycle.runtime)
     implementation(libs.lifecycle.viewmodel)
 
-    //fragment
+    // fragment
     implementation(libs.fragment.ktx)
 
-    //navigation
+    // navigation
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
 
-    //room database
+    // room database
     implementation(libs.room.ktx)
     ksp(libs.room.compiler)
 
-    //coroutine
+    // coroutine
     implementation(libs.coroutine.core)
     implementation(libs.coroutine.android)
 
-    //networking
+    // networking
     implementation(libs.retrofit)
     implementation(libs.retrofit.gson)
     implementation(libs.okhttp)
     implementation(libs.okhttp.interceptor)
     implementation(libs.paging)
 
-    //shimmer
+    // shimmer
     implementation(libs.shimmer)
 
-    //otp view
+    // otp view
     implementation(libs.pinview)
 
-    //ticket view
+    // ticket view
     implementation(libs.ticketview)
 
-    //koin
+    // koin
     implementation(libs.koin.android)
 
-    //testing
+    // testing
     androidTestImplementation(libs.mockk.android)
     testImplementation(libs.mockk.agent)
     testImplementation(libs.coroutine.test)
     testImplementation(libs.turbine)
     testImplementation(libs.core.testing)
 
-    //appintro
+    // appintro
     implementation(libs.app.intro)
 
-    //dotsIndicator
+    // dotsIndicator
     implementation(libs.dots.indicator)
 
-    //toast styleable
+    // toast styleable
     implementation(libs.styleable.toast)
 
-    //lottie
-    //implementation(libs.lottie)
-    implementation ("com.airbnb.android:lottie:6.4.1")
+    // lottie
+    // implementation(libs.lottie)
+    implementation("com.airbnb.android:lottie:6.4.1")
 
-    //groupie
-    implementation (libs.groupie)
-    implementation ("com.github.lisawray.groupie:groupie-viewbinding:2.10.1")
+    // groupie
+    implementation(libs.groupie)
+    implementation("com.github.lisawray.groupie:groupie-viewbinding:2.10.1")
 
-    //SeatBookView
-    implementation (libs.seat.book)
+    // SeatBookView
+    implementation(libs.seat.book)
 
-    //oauth
+    // oauth
     implementation(libs.google.oauth)
 
-    //calendar
+    // calendar
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.4")
-    implementation (libs.view.calendar)
-
+    implementation(libs.view.calendar)
 }

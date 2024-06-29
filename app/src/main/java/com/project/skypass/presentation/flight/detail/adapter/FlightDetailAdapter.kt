@@ -52,9 +52,7 @@ class FlightDetailAdapter(
     class FlightViewHolder(
         private val binding: ItemFlightTicketBinding,
         private val listener: OnItemAdapterClickedListener<Flight>,
-
-        ) :
-        RecyclerView.ViewHolder(binding.root) {
+    ): RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Flight) {
             binding.tvPrice.text = item.price.toIndonesianFormat()
             binding.tvAirline.text = item.airlineName
@@ -69,11 +67,12 @@ class FlightDetailAdapter(
 
             item.flightDuration?.let { duration ->
                 val (hours, remainingMinutes) = convertMinutesToHours(duration)
-                val durationText = if (hours > 0) {
-                    "$hours Jam $remainingMinutes Menit"
-                } else {
-                    "$remainingMinutes Menit"
-                }
+                val durationText =
+                    if (hours > 0) {
+                        "$hours Jam $remainingMinutes Menit"
+                    } else {
+                        "$remainingMinutes Menit"
+                    }
                 binding.tvLengthOfJourney.text = durationText
             } ?: run {
                 binding.tvLengthOfJourney.text = "N/A"

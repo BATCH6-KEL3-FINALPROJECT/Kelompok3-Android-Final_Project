@@ -19,7 +19,6 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 @Suppress("DEPRECATION")
 class MainActivity : BaseActivity(), OnSearchItemSelectedListener {
-
     private val viewModel: MainViewModel by viewModel()
 
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
@@ -28,8 +27,6 @@ class MainActivity : BaseActivity(), OnSearchItemSelectedListener {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         setBottomNav()
-
-
     }
 
     override fun onSearchItemSelected(searchQuery: String) {
@@ -47,7 +44,8 @@ class MainActivity : BaseActivity(), OnSearchItemSelectedListener {
                 R.id.menu_tab_profile,
                 R.id.menu_tab_home,
                 R.id.menu_tab_history,
-                R.id.menu_tab_notification -> {
+                R.id.menu_tab_notification,
+                -> {
                     if (!viewModel.isUserLoggedIn()) {
                         showLoginBottomSheet()
                         false
@@ -67,11 +65,12 @@ class MainActivity : BaseActivity(), OnSearchItemSelectedListener {
                     window.statusBarColor = getColor(R.color.colorNavbar)
                 }
                 else -> {
-                    window.decorView.systemUiVisibility = if (isNightMode()) {
-                        View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                    } else {
-                        View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-                    }
+                    window.decorView.systemUiVisibility =
+                        if (isNightMode()) {
+                            View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        } else {
+                            View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+                        }
                     window.statusBarColor = Color.TRANSPARENT
                 }
             }
@@ -85,10 +84,11 @@ class MainActivity : BaseActivity(), OnSearchItemSelectedListener {
 
     companion object {
         const val EXTRA_FLIGHT = "extra_flight"
+
         fun sendDataOrder(
             context: Context,
-            orderUser: OrderUser
-        ){
+            orderUser: OrderUser,
+        ) {
             val intent = Intent(context, MainActivity::class.java)
             intent.putExtra(EXTRA_FLIGHT, orderUser)
             context.startActivity(intent)

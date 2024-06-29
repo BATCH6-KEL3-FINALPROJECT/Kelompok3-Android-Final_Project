@@ -9,18 +9,17 @@ import com.project.skypass.data.repository.auth.AuthRepository
 import com.project.skypass.data.repository.oauth.OAuthRepository
 import com.project.skypass.data.repository.pref.PrefRepository
 import com.project.skypass.data.source.network.model.login.LoginItemResponse
-import com.project.skypass.data.source.network.model.login.LoginResponse
 import com.project.skypass.utils.ResultWrapper
 import kotlinx.coroutines.Dispatchers
 
 class LoginViewModel(
     private val authRepository: AuthRepository,
     private val prefRepository: PrefRepository,
-    private val oAuthRepository: OAuthRepository
-): ViewModel() {
+    private val oAuthRepository: OAuthRepository,
+) : ViewModel() {
     fun doLogin(
         email: String,
-        password: String
+        password: String,
     ): LiveData<ResultWrapper<Response<LoginItemResponse>>> {
         return authRepository.doLogin(email, password).asLiveData(Dispatchers.IO)
     }

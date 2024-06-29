@@ -3,7 +3,7 @@ package com.project.skypass.data.repository.pref
 import com.project.skypass.data.datasource.preference.PrefDataSource
 import com.project.skypass.utils.decodeJWT
 
-class PrefRepositoryImpl(private val dataSource: PrefDataSource): PrefRepository {
+class PrefRepositoryImpl(private val dataSource: PrefDataSource) : PrefRepository {
     override fun isFirstRun(): Boolean {
         return dataSource.isFirstRun()
     }
@@ -36,7 +36,7 @@ class PrefRepositoryImpl(private val dataSource: PrefDataSource): PrefRepository
         return dataSource.setEmail(email)
     }
 
-    override fun clearAll(){
+    override fun clearAll() {
         dataSource.clearAll()
     }
 

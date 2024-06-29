@@ -11,12 +11,12 @@ import kotlinx.coroutines.Dispatchers
 
 class NotificationViewModel(
     private val prefRepository: PrefRepository,
-    private val notificationRepository: NotificationRepository
-): ViewModel() {
-
+    private val notificationRepository: NotificationRepository,
+) : ViewModel() {
     fun getToken(): String {
         return prefRepository.getToken()
     }
+
     fun getNotification(token: String) = notificationRepository.getNotifications(token).asLiveData(Dispatchers.IO)
 
     fun updateNotification(id: String): LiveData<ResultWrapper<Notification>> {

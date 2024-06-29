@@ -10,5 +10,5 @@ data class Data(
     val refresh_token: Any?,
     val role: String?,
     val updatedAt: String?,
-    val user_id: String?
+    val user_id: String?,
 )

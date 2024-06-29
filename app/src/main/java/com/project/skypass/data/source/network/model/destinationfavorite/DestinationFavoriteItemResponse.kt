@@ -1,6 +1,5 @@
 package com.project.skypass.data.source.network.model.destinationfavorite
 
-
 import com.google.gson.annotations.SerializedName
 
 data class DestinationFavoriteItemResponse(
@@ -33,5 +32,5 @@ data class DestinationFavoriteItemResponse(
     @SerializedName("seatClass")
     var seatClass: String?,
     @SerializedName("to")
-    var to: String?
+    var to: String?,
 )

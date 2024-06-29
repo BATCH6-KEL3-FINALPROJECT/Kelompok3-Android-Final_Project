@@ -19,7 +19,7 @@ class FlightRepositoryImpl(private val dataSource: FlightDataSource) : FlightRep
         limit: Int?,
         departureDate: String?,
         departureTime: String?,
-        price: String?
+        price: String?,
     ): Flow<ResultWrapper<List<Flight>>> {
         return proceedFlow {
             dataSource.getFlightData(
@@ -32,7 +32,7 @@ class FlightRepositoryImpl(private val dataSource: FlightDataSource) : FlightRep
                 limit.hashCode(),
                 departureDate.orEmpty(),
                 departureTime.orEmpty(),
-                price.orEmpty()
+                price.orEmpty(),
             ).data?.flights.toFlightData()
         }
     }

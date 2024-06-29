@@ -128,5 +128,7 @@ fun Throwable?.parseException(): Exception {
 }
 
 class UnauthorizedException(val errorUnauthorizedResponse: Response<*>) : Exception()
+
 class NoInternetException() : Exception()
+
 class ApiErrorException(val errorResponse: Response<*>) : Exception()

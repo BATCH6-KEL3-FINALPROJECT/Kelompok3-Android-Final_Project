@@ -4,9 +4,8 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 import java.util.UUID
 
-
 @Parcelize
-data class Notification (
+data class Notification(
     var id: String? = UUID.randomUUID().toString(),
     val notificationId: String,
     val userId: String,
@@ -17,5 +16,5 @@ data class Notification (
     val message: String,
     val isRead: Boolean,
     val createdAt: String,
-    val updatedAt: String
-): Parcelable
+    val updatedAt: String,
+) : Parcelable

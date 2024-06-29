@@ -16,6 +16,7 @@ class CheckoutDataOrdersActivity : AppCompatActivity() {
     private val binding by lazy { ActivityCheckoutDataOrdersBinding.inflate(layoutInflater) }
 
     private val viewModel: CheckoutDataOrdersViewModel by viewModel()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -39,7 +40,6 @@ class CheckoutDataOrdersActivity : AppCompatActivity() {
         intent.extras?.getParcelable<OrderUser>(EXTRA_FLIGHT)?.let {
             sendOrderData(it)
         }
-
     }
 
     private fun displayProfileData() {
@@ -52,11 +52,9 @@ class CheckoutDataOrdersActivity : AppCompatActivity() {
                     binding.etNoPhone.setText(it.payload?.phoneNumber)
                 },
                 doOnLoading = {
-
                 },
                 doOnError = {
-
-                }
+                },
             )
         }
     }
@@ -87,7 +85,6 @@ class CheckoutDataOrdersActivity : AppCompatActivity() {
                         isRoundTrip = item.isRoundTrip,
                         supportRoundTrip = item.supportRoundTrip,
                         orderDate = item.orderDate,
-
                         // Convert from arrival into departure
                         airlineCode = item.airlineCodeRoundTrip,
                         airlineName = item.airlineNameRoundTrip,
@@ -114,7 +111,6 @@ class CheckoutDataOrdersActivity : AppCompatActivity() {
                         paymentPrice = item.paymentPriceRoundTrip,
                         seatsAvailable = item.seatsAvailableRoundTrip,
                         terminal = item.terminalRoundTrip,
-
                         // Convert from arrival into departure
                         airlineCodeRoundTrip = item.airlineCode,
                         airlineNameRoundTrip = item.airlineName,
@@ -141,7 +137,8 @@ class CheckoutDataOrdersActivity : AppCompatActivity() {
                         paymentPriceRoundTrip = item.paymentPrice,
                         seatsAvailableRoundTrip = item.seatsAvailable,
                         terminalRoundTrip = item.terminal,
-                    ), OrderPassengers(
+                    ),
+                    OrderPassengers(
                         name = binding.etName.text.toString(),
                         email = binding.etEmail.text.toString(),
                         familyName = binding.etFamilyName.text.toString(),
@@ -150,8 +147,8 @@ class CheckoutDataOrdersActivity : AppCompatActivity() {
                         seatOrderDeparture = null,
                         seatOrderArrival = null,
                         seatIdArrival = null,
-                        seatIdDeparture = null
-                    )
+                        seatIdDeparture = null,
+                    ),
                 )
             } else {
                 CheckoutDataPassengerActivity.sendDataOrder(
@@ -171,7 +168,6 @@ class CheckoutDataOrdersActivity : AppCompatActivity() {
                         isRoundTrip = item.isRoundTrip,
                         supportRoundTrip = item.supportRoundTrip,
                         orderDate = item.orderDate,
-
                         // Flight data (One Way)
                         airlineCode = item.airlineCode,
                         airlineName = item.airlineName,
@@ -198,7 +194,6 @@ class CheckoutDataOrdersActivity : AppCompatActivity() {
                         paymentPrice = item.paymentPrice,
                         seatsAvailable = item.seatsAvailable,
                         terminal = item.terminal,
-
                         // Flight data (Round Trip)
                         airlineCodeRoundTrip = item.airlineCodeRoundTrip,
                         airlineNameRoundTrip = item.airlineNameRoundTrip,
@@ -224,7 +219,7 @@ class CheckoutDataOrdersActivity : AppCompatActivity() {
                         priceTotalRoundTrip = item.priceTotalRoundTrip,
                         paymentPriceRoundTrip = item.paymentPriceRoundTrip,
                         seatsAvailableRoundTrip = item.seatsAvailableRoundTrip,
-                        terminalRoundTrip = item.terminalRoundTrip
+                        terminalRoundTrip = item.terminalRoundTrip,
                     ),
                     OrderPassengers(
                         name = binding.etName.text.toString(),
@@ -235,8 +230,8 @@ class CheckoutDataOrdersActivity : AppCompatActivity() {
                         seatOrderDeparture = null,
                         seatOrderArrival = null,
                         seatIdArrival = null,
-                        seatIdDeparture = null
-                    )
+                        seatIdDeparture = null,
+                    ),
                 )
             }
         }
@@ -244,11 +239,11 @@ class CheckoutDataOrdersActivity : AppCompatActivity() {
 
     companion object {
         const val EXTRA_FLIGHT = "extra_flight"
+
         fun sendDataOrder(
             context: Context,
             orderUser: OrderUser,
-
-            ) {
+        ) {
             val intent = Intent(context, CheckoutDataOrdersActivity::class.java)
             intent.putExtra(EXTRA_FLIGHT, orderUser)
 

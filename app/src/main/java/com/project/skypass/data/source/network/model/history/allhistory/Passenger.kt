@@ -8,5 +8,5 @@ data class Passenger(
     @SerializedName("last_name")
     var lastName: String?,
     @SerializedName("passenger_id")
-    var passengerId: String?
+    var passengerId: String?,
 )

@@ -1,6 +1,5 @@
 package com.project.skypass.data.source.network.model.search.posthistory
 
-
 import com.google.gson.annotations.SerializedName
 
 data class ExistingHistory(
@@ -13,5 +12,5 @@ data class ExistingHistory(
     @SerializedName("updatedAt")
     var updatedAt: String?,
     @SerializedName("user_id")
-    var userId: String?
+    var userId: String?,
 )

@@ -4,11 +4,11 @@ import com.project.skypass.data.source.network.model.ticket.print.PrintTicketReq
 import com.project.skypass.data.source.network.model.ticket.print.PrintTicketResponse
 import com.project.skypass.data.source.network.service.ApiService
 
-class PrintTicketDataSourceImpl(private val apiService: ApiService): PrintTicketDataSource {
+class PrintTicketDataSourceImpl(private val apiService: ApiService) : PrintTicketDataSource {
     override suspend fun getTicket(
         token: String,
         id: String,
-        email: PrintTicketRequestResponse
+        email: PrintTicketRequestResponse,
     ): PrintTicketResponse {
         return apiService.generateTicketToEmail(token, id, email)
     }

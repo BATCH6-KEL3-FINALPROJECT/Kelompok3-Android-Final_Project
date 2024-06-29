@@ -9,7 +9,7 @@
     android:layout_marginEnd="8dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="165dp"
+        android:layout_width="190dp"
         android:padding="4dp"
         android:layout_height="match_parent">
 
@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="8dp"
             android:layout_marginTop="8dp"
-            android:text="Jakarta"
+            tools:text="Jakarta"
             android:textSize="14sp"
             android:textStyle="bold"
             android:textColor="?attr/colorPrimary"

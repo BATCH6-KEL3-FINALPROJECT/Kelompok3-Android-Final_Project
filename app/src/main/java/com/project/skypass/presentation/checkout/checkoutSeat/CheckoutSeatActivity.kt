@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import coil.load
 import com.project.skypass.R
 import com.project.skypass.data.model.OrderPassengers
 import com.project.skypass.data.model.OrderUser
@@ -20,7 +21,6 @@ import io.github.muddz.styleabletoast.StyleableToast
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class CheckoutSeatActivity : AppCompatActivity() {
-
     private val binding by lazy { ActivityCheckoutSeatBinding.inflate(layoutInflater) }
     private val title = mutableListOf<String>()
     var listSeat: String = ""
@@ -45,9 +45,7 @@ class CheckoutSeatActivity : AppCompatActivity() {
     }
 
     private fun observeResult() {
-
     }
-
 
     private fun setupSeatBookView(item: OrderUser) {
         val seatBookView: SeatBookView = binding.layoutSeat
@@ -70,11 +68,6 @@ class CheckoutSeatActivity : AppCompatActivity() {
                     getSeatId = emptyList()
                     getSeatId = getSelectedSeatId(selectedIdList, listSeatId!!)
                     getSeatTitle = getSelectedTitle(selectedIdList, listTitle!!)
-                    StyleableToast.makeText(
-                        this@CheckoutSeatActivity,
-                        "$getSeatTitle",
-                        R.style.ToastSuccess
-                    ).show()
                 }
 
                 override fun onBookedSeatClick(view: View) {
@@ -88,7 +81,11 @@ class CheckoutSeatActivity : AppCompatActivity() {
         seatBookView.setSeatLongClickListener(
             object : SeatLongClickListener {
                 override fun onAvailableSeatLongClick(view: View) {
-
+                    StyleableToast.makeText(
+                        this@CheckoutSeatActivity,
+                        "Seat: $getSeatTitle",
+                        R.style.ToastSuccess,
+                    ).show()
                 }
 
                 override fun onBookedSeatLongClick(view: View) {
@@ -100,22 +97,25 @@ class CheckoutSeatActivity : AppCompatActivity() {
         )
     }
 
-    private fun getSelectedSeatId(selectedIdList: List<Int>, seatId: List<String>): List<String> {
+    private fun getSelectedSeatId(
+        selectedIdList: List<Int>,
+        seatId: List<String>,
+    ): List<String> {
         val selectedSeatId = mutableListOf<String>()
         for (index in selectedIdList) {
-
             if (index in seatId.indices) {
-
                 selectedSeatId.add(seatId[index - 1])
             }
         }
         return selectedSeatId
     }
 
-    private fun getSelectedTitle(selectedIdList: List<Int>, titleSeat: List<String>): List<String> {
+    private fun getSelectedTitle(
+        selectedIdList: List<Int>,
+        titleSeat: List<String>,
+    ): List<String> {
         val selectedSeatTitle = mutableListOf<String>()
         for (index in selectedIdList) {
-
             if (index in titleSeat.indices) {
                 var cleanTitle = index / 3
                 if (index % 3 == 0) {
@@ -129,11 +129,12 @@ class CheckoutSeatActivity : AppCompatActivity() {
 
     private fun getArgumentData() {
         intent.extras?.getParcelable<OrderUser>(CheckoutSeatActivity.EXTRA_FLIGHT)?.let {
-
             if (it.supportRoundTrip == true) {
                 viewModel.getSeats(it.seatClass!!, it.flightId!!, 200).observe(this) { data ->
                     data.proceedWhen(
                         doOnSuccess = { result ->
+                            binding.shimmerViewContainer.isVisible = false
+                            binding.shimmerViewContainer.stopShimmer()
                             binding.layoutContentState.root.isVisible = false
                             result.payload?.let { (seat, seatId, title) ->
                                 listSeat = seat
@@ -145,21 +146,34 @@ class CheckoutSeatActivity : AppCompatActivity() {
                             }
                         },
                         doOnEmpty = {
+                            val linkLoad = "https://github.com/riansyah251641/food_app_asset/blob/main/banner/empty_flight_seat.png?raw=true"
+                            binding.layoutContentState.ivRiwayatKosong.load(linkLoad) {
+                                crossfade(true)
+                                error(R.drawable.bg_no_internet)
+                            }
+                            binding.layoutContentState.ivRiwayatKosong.isVisible = true
+                            binding.shimmerViewContainer.isVisible = false
+                            binding.shimmerViewContainer.stopShimmer()
                             binding.layoutContentState.root.isVisible = true
                             binding.layoutContentState.textError.text =
                                 getString(R.string.text_empty_seat_class)
                             binding.layoutContentState.pbLoadingEmptyState.isVisible = false
                         },
                         doOnLoading = {
-                            binding.layoutContentState.root.isVisible = true
+                            binding.layoutContentState.root.isVisible = false
+                            binding.shimmerViewContainer.isVisible = true
+                            binding.shimmerViewContainer.startShimmer()
                             binding.layoutContentState.textError.isVisible = false
                             binding.layoutContentState.pbLoadingEmptyState.isVisible = true
-                        }, doOnError = {
+                        },
+                        doOnError = {
+                            binding.shimmerViewContainer.isVisible = false
+                            binding.shimmerViewContainer.stopShimmer()
                             binding.layoutContentState.root.isVisible = true
                             binding.layoutContentState.textError.text =
                                 getString(R.string.text_error_seat_checkout)
                             binding.layoutContentState.pbLoadingEmptyState.isVisible = false
-                        }
+                        },
                     )
                 }
             } else {
@@ -167,6 +181,8 @@ class CheckoutSeatActivity : AppCompatActivity() {
                     .observe(this) { data ->
                         data.proceedWhen(
                             doOnSuccess = { result ->
+                                binding.shimmerViewContainer.isVisible = false
+                                binding.shimmerViewContainer.stopShimmer()
                                 binding.layoutContentState.root.isVisible = false
                                 result.payload?.let { (seat, seatId, title) ->
                                     listSeat = seat
@@ -178,21 +194,34 @@ class CheckoutSeatActivity : AppCompatActivity() {
                                 }
                             },
                             doOnEmpty = {
+                                val linkLoad = "https://github.com/riansyah251641/food_app_asset/blob/main/banner/empty_flight_seat.png?raw=true"
+                                binding.layoutContentState.ivRiwayatKosong.load(linkLoad) {
+                                    crossfade(true)
+                                    error(R.drawable.bg_no_internet)
+                                }
+                                binding.layoutContentState.ivRiwayatKosong.isVisible = true
+                                binding.shimmerViewContainer.isVisible = false
+                                binding.shimmerViewContainer.stopShimmer()
                                 binding.layoutContentState.root.isVisible = true
                                 binding.layoutContentState.textError.text =
                                     getString(R.string.text_empty_seat_class)
                                 binding.layoutContentState.pbLoadingEmptyState.isVisible = false
                             },
                             doOnLoading = {
+                                binding.shimmerViewContainer.isVisible = true
+                                binding.shimmerViewContainer.startShimmer()
                                 binding.layoutContentState.root.isVisible = true
                                 binding.layoutContentState.textError.isVisible = false
                                 binding.layoutContentState.pbLoadingEmptyState.isVisible = true
-                            }, doOnError = {
+                            },
+                            doOnError = {
+                                binding.shimmerViewContainer.isVisible = false
+                                binding.shimmerViewContainer.stopShimmer()
                                 binding.layoutContentState.root.isVisible = true
                                 binding.layoutContentState.textError.text =
                                     getString(R.string.text_error_seat_checkout)
                                 binding.layoutContentState.pbLoadingEmptyState.isVisible = false
-                            }
+                            },
                         )
                     }
             }
@@ -205,7 +234,10 @@ class CheckoutSeatActivity : AppCompatActivity() {
         }
     }
 
-    private fun setProfileData(item: OrderUser, passengerData: OrderPassengers) {
+    private fun setProfileData(
+        item: OrderUser,
+        passengerData: OrderPassengers,
+    ) {
         binding.apply {
             if (item.seatsAvailableRoundTrip != null && item.supportRoundTrip == false) {
                 binding.tvHeader.text =
@@ -214,11 +246,12 @@ class CheckoutSeatActivity : AppCompatActivity() {
                 binding.tvHeader.text = "Kursi Tersedia " + item.seatsAvailable + " Departure"
             }
         }
-
     }
 
-
-    private fun sendOrderData(item: OrderUser, passengerData: OrderPassengers) {
+    private fun sendOrderData(
+        item: OrderUser,
+        passengerData: OrderPassengers,
+    ) {
         binding.btnSubmit.setOnClickListener {
             if (item.supportRoundTrip == true) {
                 CheckoutDetailActivity.sendDataOrder(
@@ -233,8 +266,8 @@ class CheckoutSeatActivity : AppCompatActivity() {
                         seatOrderDeparture = getSeatTitle,
                         seatOrderArrival = passengerData.seatOrderArrival,
                         seatIdDeparture = getSeatId,
-                        seatIdArrival = passengerData.seatIdArrival
-                    )
+                        seatIdArrival = passengerData.seatIdArrival,
+                    ),
                 )
             } else if (item.isRoundTrip == false && item.supportRoundTrip == false && item.seatsAvailableRoundTrip == null) {
                 CheckoutDetailActivity.sendDataOrder(
@@ -249,8 +282,8 @@ class CheckoutSeatActivity : AppCompatActivity() {
                         seatOrderDeparture = getSeatTitle,
                         seatOrderArrival = passengerData.seatOrderArrival,
                         seatIdDeparture = getSeatId,
-                        seatIdArrival = passengerData.seatIdArrival
-                    )
+                        seatIdArrival = passengerData.seatIdArrival,
+                    ),
                 )
             } else {
                 CheckoutDetailActivity.sendDataOrder(
@@ -265,21 +298,21 @@ class CheckoutSeatActivity : AppCompatActivity() {
                         seatOrderDeparture = passengerData.seatOrderDeparture,
                         seatOrderArrival = getSeatTitle,
                         seatIdDeparture = passengerData.seatIdDeparture,
-                        seatIdArrival = getSeatId
-                    )
+                        seatIdArrival = getSeatId,
+                    ),
                 )
             }
         }
     }
 
-
     companion object {
         const val EXTRA_FLIGHT = "extra_flight"
         const val EXTRA_USER_ORDER = "EXTRA_USER_ORDER"
+
         fun sendDataOrder(
             context: Context,
             orderUser: OrderUser,
-            orderPassenger: OrderPassengers
+            orderPassenger: OrderPassengers,
         ) {
             val intent = Intent(context, CheckoutSeatActivity::class.java)
             intent.putExtra(EXTRA_FLIGHT, orderUser)
@@ -287,5 +320,4 @@ class CheckoutSeatActivity : AppCompatActivity() {
             context.startActivity(intent)
         }
     }
-
 }

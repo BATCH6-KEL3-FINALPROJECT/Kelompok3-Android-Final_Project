@@ -8,15 +8,14 @@ import androidx.fragment.app.Fragment
 import com.project.skypass.databinding.FragmentSecondOnboardingBinding
 
 class SecondOnboardingFragment : Fragment() {
-
     private lateinit var binding: FragmentSecondOnboardingBinding
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
         binding = FragmentSecondOnboardingBinding.inflate(inflater, container, false)
         return binding.root
     }
-
 }

@@ -15,5 +15,5 @@ data class User(
     val imageId: String?,
     val createdAt: String?,
     val updatedAt: String?,
-    val isVerified: Boolean?
+    val isVerified: Boolean?,
 )

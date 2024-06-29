@@ -19,7 +19,7 @@ fun DestinationFavoriteItemResponse?.toDestination() =
         price = this?.price ?: 0,
         returnDate = this?.returnDate.orEmpty(),
         seatClass = this?.seatClass.orEmpty(),
-        to = this?.to.orEmpty()
+        to = this?.to.orEmpty(),
     )
 
 fun Collection<DestinationFavoriteItemResponse>?.toDestinationFavorite() = this?.map { it.toDestination() } ?: listOf()

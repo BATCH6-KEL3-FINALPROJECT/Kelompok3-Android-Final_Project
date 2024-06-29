@@ -5,7 +5,6 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import androidx.room.Update
 import com.project.skypass.data.source.local.database.entity.OrderHistoryEntity
 import kotlinx.coroutines.flow.Flow
 
@@ -13,6 +12,7 @@ import kotlinx.coroutines.flow.Flow
 interface OrderHistoryDao {
     @Query("SELECT * FROM orderhistory")
     fun getAllOrderHistory(): Flow<List<OrderHistoryEntity>>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertOrderHistory(item: OrderHistoryEntity): Long
 
@@ -22,7 +22,3 @@ interface OrderHistoryDao {
     @Query("DELETE FROM orderhistory")
     fun deleteAllOrderHistory()
 }
-
-
-
-

@@ -1,6 +1,5 @@
 package com.project.skypass.data.source.network.model.history.allhistory
 
-
 import com.google.gson.annotations.SerializedName
 
 data class AllHistoryItemResponse(
@@ -27,5 +26,5 @@ data class AllHistoryItemResponse(
     @SerializedName("total_price")
     var totalPrice: String?,
     @SerializedName("user_id")
-    var userId: String?
+    var userId: String?,
 )

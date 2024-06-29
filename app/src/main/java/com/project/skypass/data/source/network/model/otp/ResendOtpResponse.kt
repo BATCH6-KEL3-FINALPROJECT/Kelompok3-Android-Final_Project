@@ -8,5 +8,5 @@ data class ResendOtpResponse(
     @SerializedName("status")
     var status: String?,
     @SerializedName("message")
-    var message: String?
+    var message: String?,
 )

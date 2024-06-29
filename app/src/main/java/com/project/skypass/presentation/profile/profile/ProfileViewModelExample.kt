@@ -13,9 +13,8 @@ import kotlinx.coroutines.Dispatchers
 class ProfileViewModelExample(
     private val prefRepository: PrefRepository,
     private val userRepository: UserRepository,
-    private val repositoryOrderHistory: OrderHistoryRepository
+    private val repositoryOrderHistory: OrderHistoryRepository,
 ) : ViewModel() {
-
     fun getUserId(): String {
         return prefRepository.getUserID()
     }

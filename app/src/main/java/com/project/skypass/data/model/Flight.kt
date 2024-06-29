@@ -30,5 +30,5 @@ data class Flight(
     val priceForInfant: Int?,
     val seatClass: String?,
     val seatsAvailable: Int?,
-    val terminal: String?
+    val terminal: String?,
 ) : Parcelable

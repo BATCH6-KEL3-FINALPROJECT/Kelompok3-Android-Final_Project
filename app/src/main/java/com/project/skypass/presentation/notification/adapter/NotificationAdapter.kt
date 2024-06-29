@@ -54,7 +54,7 @@ class NotificationAdapter (
             binding.tvTitleItemNotification.text = item.notificationType
             binding.tvDateItemNotification.text = formatDateNotification(item.createdAt)
             binding.tvDetailItemNotification.text = item.message
-            if (item.notificationType == "promo"){
+            if (item.notificationType == "promo") {
                 binding.ivIconNotification.setImageResource(R.drawable.ic_promo)
             }
             if (item.isRead) {

@@ -19,7 +19,6 @@ data class OrderUser(
     var isRoundTrip: Boolean?,
     var supportRoundTrip: Boolean?,
     var orderDate: String?,
-
     // one way
     var airlineCode: String?,
     var airlineName: String?,
@@ -46,8 +45,6 @@ data class OrderUser(
     var priceChild: Int?,
     var priceTotal: Int?,
     var paymentPrice: Int?,
-
-
     // Round Trip
     var airlineCodeRoundTrip: String?,
     var airlineNameRoundTrip: String?,
@@ -74,7 +71,4 @@ data class OrderUser(
     var priceChildRoundTrip: Int?,
     var priceTotalRoundTrip: Int?,
     var paymentPriceRoundTrip: Int?,
-
-
-
-    ): Parcelable
+) : Parcelable
