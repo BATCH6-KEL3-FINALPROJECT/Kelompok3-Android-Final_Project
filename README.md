@@ -1,5 +1,12 @@
+﻿<h1 align="center">
+  <img src="./app/src/main/res/drawable/logo_skypass.png" alt="SkypassLogo" width="300"/>
+  <br/>
+  Finaltask Binar Academy Frontend Skypass
+</h1>
+
 ## APK Bundle
 APK bundle: [SkyPass.apk]()
+
 ## About Our App
 This application is a flight ticket booking application where this application has many features such as:
 1. Authentication & verification feature by email
@@ -12,13 +19,16 @@ This application is a flight ticket booking application where this application h
 8. There is a profile feature where the user can change their personal data including profile picture.
 9. Users can also delete their account if not needed
 10. There is a dark mode feature for user convenience
+    
 ## Repository Supporting This Application
 | Path               | Link Repository |
 |--------------------|-----------------|
 | Android Engineering| SkyPass-App (this repository)               |
 | Fullstack Web (Front End)    | [SkyPass-Web](https://github.com/BATCH6-KEL3-FINALPROJECT/Kelompok3-Frontend-Final_Project.git)                |
 | Fullstack Web (Back End)  | [SkyPass-API](https://github.com/BATCH6-KEL3-FINALPROJECT/Kelompok3-Backend-Final_Project.git)                |
+
 # Usage
+
 ## Requirement
 1. Android Studio Jellyfish or higher (supports Jetpack Compose Material 3)
 2. Minimum SDK 24 (Android 7.0)
@@ -27,6 +37,7 @@ This application is a flight ticket booking application where this application h
    * RAM 8 GB or higher
    * Minimum 8 GB disc (SSD recommended)
    * Microsoft Windows 64 bit
+   * 
 ## Instalation
 1. Open Android Studio 
 2. Clone this repository (tutorial on cloning repository with Android Studio: [Repository cloning](https://www.geeksforgeeks.org/how-to-clone-android-project-from-github-in-android-studio/) 
@@ -34,6 +45,7 @@ This application is a flight ticket booking application where this application h
    * Using a virtual device: Click [Run With ADV](https://developer.android.com/studio/run/managing-avds)
    * Using a real device: Click [Connect With USB Debugging](https://developer.android.com/codelabs/basic-android-kotlin-compose-connect-device#0) or [Connect With Wireless Debugging](https://developer.android.com/studio/run/device)
 4. Run the app in Android Studio: Click [Documentation](https://developer.android.com/studio/run/managing-avds)
+   
 ## Library
 | Library                              | Usage                                                                                                                                                             | Dependencies                                                                |
 |--------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------|
