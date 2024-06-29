@@ -1,7 +1,7 @@
 ﻿<h1 align="center">
   <img src="./app/src/main/res/drawable/logo_skypass.png" alt="SkypassLogo" width="300"/>
   <br/>
-  Finaltask Binar Academy Frontend Skypass
+  Final Project Binar Academy x Kampus Merdeka Batch 6
 </h1>
 
 ## APK Bundle
