@@ -164,7 +164,7 @@ class CheckoutSeatActivity : AppCompatActivity() {
                             binding.shimmerViewContainer.isVisible = true
                             binding.shimmerViewContainer.startShimmer()
                             binding.layoutContentState.textError.isVisible = false
-                            binding.layoutContentState.pbLoadingEmptyState.isVisible = true
+                            binding.layoutContentState.pbLoadingEmptyState.isVisible = false
                         },
                         doOnError = {
                             binding.shimmerViewContainer.isVisible = false

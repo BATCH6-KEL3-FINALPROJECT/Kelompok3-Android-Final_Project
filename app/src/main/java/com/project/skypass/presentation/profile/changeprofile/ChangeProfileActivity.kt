@@ -135,9 +135,7 @@ class ChangeProfileActivity : BaseActivity() {
             result.proceedWhen(
                 doOnSuccess = {
                     it.payload?.let { user ->
-                        binding.ivProfile.load(user.photoUrl).apply {
-                            error(R.drawable.ic_profile)
-                        }
+                        binding.ivProfile.load(user.photoUrl)
                         binding.etName.setText(user.name)
                         binding.etEmail.setText(user.email)
                         binding.etNumberPhone.setText(user.phoneNumber)

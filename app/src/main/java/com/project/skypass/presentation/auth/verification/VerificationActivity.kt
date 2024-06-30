@@ -23,7 +23,6 @@ class VerificationActivity : AppCompatActivity() {
         setContentView(binding.root)
         showEmail()
         resetCountdown()
-        doResendOtp()
         setClickListeners()
     }
 
