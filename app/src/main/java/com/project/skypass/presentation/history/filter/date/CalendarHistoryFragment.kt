@@ -1,12 +1,13 @@
 package com.project.skypass.presentation.history.filter.date
 
+import android.app.Activity
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.view.children
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -18,7 +19,6 @@ import com.kizitonwose.calendar.view.MonthDayBinder
 import com.kizitonwose.calendar.view.ViewContainer
 import com.project.skypass.R
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import com.project.skypass.data.model.DateCalendar
 import com.project.skypass.databinding.FragmentCalendarHistoryBinding
 import com.project.skypass.utils.displayText
 import java.time.LocalDate
@@ -43,6 +43,26 @@ class CalendarHistoryFragment : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         calendarView()
+        clickListener()
+    }
+
+    private fun clickListener() {
+        with(binding) {
+            btnCalendar.setOnClickListener {
+                if (viewModel.selectedDateDeparture.value != null && viewModel.selectedDateReturn.value != null) {
+                    val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+                    val departure = viewModel.selectedDateDeparture.value!!.format(formatter)
+                    val retur = viewModel.selectedDateReturn.value!!.format(formatter)
+                    targetFragment?.onActivityResult(
+                        101, Activity.RESULT_OK, Intent().apply {
+                            putExtra("selectedDateDeparture", departure)
+                            putExtra("selectedDateReturn", retur)
+                        }
+                    )
+                    dismiss()
+                }
+            }
+        }
     }
 
     private fun calendarView() {
@@ -143,7 +163,7 @@ class CalendarHistoryFragment : BottomSheetDialogFragment() {
         lateinit var day: CalendarDay
 
         init {
-            view.setOnClickListener { }
+            view.setOnClickListener {  }
         }
     }
 }

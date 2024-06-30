@@ -32,6 +32,8 @@ import io.github.muddz.styleabletoast.StyleableToast
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 class HistoryFragment : Fragment(), OnSearchItemSelectedListener {
 
@@ -126,7 +128,8 @@ class HistoryFragment : Fragment(), OnSearchItemSelectedListener {
         }
         binding.llFilterContainer.setOnClickListener {
             val calendarFragment = CalendarHistoryFragment()
-            calendarFragment.show(childFragmentManager, calendarFragment.tag)
+            calendarFragment.setTargetFragment(this, 101)
+            calendarFragment.show(parentFragmentManager, calendarFragment.tag)
         }
     }
 
@@ -172,11 +175,52 @@ class HistoryFragment : Fragment(), OnSearchItemSelectedListener {
         }
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == 0 && resultCode == Activity.RESULT_OK) {
-            val searchQuery = data?.getStringExtra("searchQuery")
-            searchQuery?.let { onSearchItemSelected(it) }
+        if (resultCode == Activity.RESULT_OK) {
+            when (requestCode) {
+                0 -> {
+                    val searchQuery = data?.getStringExtra("searchQuery")
+                    searchQuery?.let { onSearchItemSelected(it) }
+                }
+                101 -> {
+                    val departureDateString = data?.getStringExtra("selectedDateDeparture")
+                    val returnDateString = data?.getStringExtra("selectedDateReturn")
+                    if (departureDateString != null && returnDateString != null) {
+                        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+                        val departureDate = LocalDate.parse(departureDateString, formatter)
+                        val returnDate = LocalDate.parse(returnDateString, formatter)
+                        onDateSelected(departureDate.toString(), returnDate.toString())
+                    }
+                }
+            }
+        }
+    }
+
+    private fun onDateSelected(startDate: String, endDate: String) {
+        viewModel.getBookingHistory(viewModel.getToken(), null, startDate, endDate)?.observe(viewLifecycleOwner) { result ->
+            result.proceedWhen(
+                doOnSuccess = { response ->
+                    binding.layoutContentState.root.isVisible = false
+                    response.payload?.let { data ->
+                        val items = mutableListOf<BindableItem<*>>()
+
+                        val groupedData = data.groupBy { convertDateMouth(it.bookingDate) }
+
+                        groupedData.forEach { (month, historyList) ->
+                            items.add(HistoryMonthItem(month))
+                            historyList.forEach { history ->
+                                items.add(HistoryTicketItem(history))
+                            }
+                        }
+                        adapter.update(items)
+                    }
+                },
+                doOnError = {
+                    Toast.makeText(requireContext(), "Data Booking not found", Toast.LENGTH_SHORT).show()
+                }
+            )
         }
     }
 }

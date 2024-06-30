@@ -10,7 +10,6 @@ class HistoryViewModel(
     private val prefRepository: PrefRepository,
     private val historyRepository: HistoryRepository
 ) : ViewModel() {
-
     fun getToken(): String {
         return prefRepository.getToken()
     }
@@ -19,5 +18,5 @@ class HistoryViewModel(
         historyRepository.getHistory(token).asLiveData(Dispatchers.IO)
 
     fun getBookingHistory(token: String, search: String?, date: String?, until: String?) =
-        search?.let { historyRepository.getBookingHistory(token, it, null, null).asLiveData(Dispatchers.IO) }
+        historyRepository.getBookingHistory(token, search, date, until).asLiveData(Dispatchers.IO)
 }
