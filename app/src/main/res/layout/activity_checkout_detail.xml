@@ -3,12 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:ignore="HardcodedText,Overdraw"
-    android:background="@color/grey"
-    >
-
+    android:background="@color/grey">
 
     <!-- Navbar -->
     <LinearLayout
@@ -19,9 +16,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:orientation="horizontal"
-        >
-
+        android:orientation="horizontal">
 
         <ImageView
             android:id="@+id/btnBack"
@@ -50,9 +45,11 @@
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:background="@color/white"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar_detail_checkout"
-        android:layout_height="wrap_content">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_detail_checkout">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -76,21 +73,20 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:orientation="vertical"
-                android:visibility="gone"
-                />
-
+                android:visibility="gone" />
 
             <LinearLayout
-                android:paddingTop="10dp"
-                android:paddingBottom="150dp"
-                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_marginTop="24dp"
+                android:layout_marginEnd="16dp"
+                android:orientation="vertical"
+                android:paddingTop="10dp"
+                android:paddingBottom="150dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 tools:ignore="ObsoleteLayoutParam">
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -100,95 +96,93 @@
                     android:textStyle="bold" />
 
                 <LinearLayout
-                    android:paddingTop="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:paddingTop="10dp">
 
                     <TextView
                         android:id="@+id/tv_adult_count"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="2"
-                        />
+                        android:text="2" />
+
                     <TextView
                         android:id="@+id/tv_adult"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
                         android:layout_weight="1"
-                        android:text="Adults"
-                        />
+                        android:text="Adults" />
 
                     <TextView
                         android:id="@+id/tvPriceAdult"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="IDR 9.550.000"
-                        android:textStyle="bold"
                         android:textSize="14sp"
-                        />
+                        android:textStyle="bold" />
+
                 </LinearLayout>
 
                 <LinearLayout
-                    android:paddingTop="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:paddingTop="10dp">
 
                     <TextView
                         android:id="@+id/tv_child_count"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="2"
-                        />
+                        android:text="2" />
+
                     <TextView
                         android:id="@+id/tv_child"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
                         android:layout_weight="1"
-                        android:text="Child"
-                        />
+                        android:text="Child" />
 
                     <TextView
                         android:id="@+id/tvPricechild"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="IDR 4.550.000"
-                        android:textStyle="bold"
                         android:textSize="14sp"
-                        />
+                        android:textStyle="bold" />
+
                 </LinearLayout>
+
                 <LinearLayout
-                    android:paddingTop="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:paddingTop="10dp">
 
                     <TextView
                         android:id="@+id/tv_baby_count"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="2"
-                        />
+                        android:text="2" />
+
                     <TextView
                         android:id="@+id/tv_baby"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
                         android:layout_weight="1"
-                        android:text="Baby"
-                        />
+                        android:text="Baby" />
 
                     <TextView
                         android:id="@+id/tvPriceBaby"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="IDR 5.550.000"
-                        android:textStyle="bold"
                         android:textSize="14sp"
-                        />
+                        android:textStyle="bold" />
+
                 </LinearLayout>
 
 
@@ -202,21 +196,20 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Promo"
-                        />
+                        android:text="Promo" />
 
                     <TextView
                         android:id="@+id/priceDetailPromo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="IDR 0"
-                       />
+                        android:text="IDR 0" />
 
                 </LinearLayout>
+
                 <LinearLayout
-                    android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
                     <View
                         android:layout_width="match_parent"
@@ -226,6 +219,7 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
+
                         <TextView
                             android:id="@+id/tv_total"
                             android:layout_width="wrap_content"
@@ -233,15 +227,15 @@
                             android:layout_marginTop="10dp"
                             android:layout_marginBottom="10dp"
                             android:text="Total"
-                            android:textSize="16sp"
                             android:textColor="@color/black"
+                            android:textSize="16sp"
                             android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/tv_total_price"
-                            android:layout_alignParentEnd="true"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
                             android:layout_marginTop="10dp"
                             android:layout_marginEnd="10dp"
                             android:layout_marginBottom="10dp"
@@ -249,14 +243,18 @@
                             android:textColor="@color/purple"
                             android:textSize="16sp"
                             android:textStyle="bold" />
+
                     </RelativeLayout>
 
                 </LinearLayout>
+
             </LinearLayout>
+
         </LinearLayout>
+
     </androidx.core.widget.NestedScrollView>
 
-    <Button
+    <!--<Button
         app:backgroundTint="@null"
         android:id="@+id/btnSubmit"
         android:padding="14dp"
@@ -266,6 +264,41 @@
         android:layout_marginBottom="20dp"
         android:background="@drawable/bg_button"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"/>-->
+
+    <View
+        android:id="@+id/nav_bottom_shadow"
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:background="@drawable/bg_shadow_bottom_nav"
+        app:layout_constraintBottom_toTopOf="@+id/cl_btn_submit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_btn_submit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorOnPrimary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <Button
+            android:id="@+id/btnSubmit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="16dp"
+            android:background="@drawable/bg_button"
+            android:padding="8dp"
+            android:textAllCaps="false"
+            app:backgroundTint="@null"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -280,4 +280,5 @@
     <string name="text_passengger">Pasengers :</string>
     <string name="text_ke">Ke</string>
     <string name="text_kursi_pesawat">Kursi Pesawat :</string>
+    <string name="empty_history_link">https://github.com/riansyah251641/food_app_asset/blob/main/banner/empty_history.png?raw=true</string>
 </resources>

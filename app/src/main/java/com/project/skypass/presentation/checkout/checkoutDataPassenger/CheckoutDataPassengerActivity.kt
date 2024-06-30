@@ -57,7 +57,6 @@ class CheckoutDataPassengerActivity : AppCompatActivity() {
                     HeaderItem(it.name) { data ->
                         if (!oneClick) {
                             oneClick = true
-                            StyleableToast.makeText(this, data, R.style.ToastSuccess).show()
                             val getPassengerTypeData = data.split(" ")[2]
                             val dataSection =
                                 it.data.map {

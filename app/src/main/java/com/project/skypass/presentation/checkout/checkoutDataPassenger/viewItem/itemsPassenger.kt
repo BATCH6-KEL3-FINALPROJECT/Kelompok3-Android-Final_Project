@@ -1,5 +1,6 @@
 package com.project.skypass.presentation.checkout.checkoutDataPassenger.viewItem
 
+import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.view.View
 import android.widget.ArrayAdapter
@@ -52,24 +53,39 @@ class DataItem(private var data: PassengersData, private val onItemClick: (item:
                     validUntil = viewBinding.etLastDateKTP.text.toString(),
                     passengerType = data.passengerType,
                 )
-            if (passengersData.isValid()) {
-                viewBinding.btnSubmit.isVisible = false
-                viewBinding.etDropdownMenu.isEnabled = false
-                viewBinding.etName.isEnabled = false
-                viewBinding.etFamilyName.isEnabled = false
-                viewBinding.etCitizenship.isEnabled = false
-                viewBinding.etKtpPassport.isEnabled = false
-                viewBinding.etLastDateKTP.isEnabled = false
-                viewBinding.etDateBorn.isEnabled = false
-                viewBinding.etNoPhone.isEnabled = false
-                viewBinding.etLastDateKTP.isEnabled = false
 
-                onItemClick.invoke(passengersData)
+            if (passengersData.isValid()) {
+
+                val builder = AlertDialog.Builder(viewBinding.root.context)
+                builder.setTitle("Konfirmasi")
+                builder.setMessage("Apakah kamu yakin ingin menambahkan data ini?")
+                builder.setPositiveButton("Yes") { dialog, _ ->
+                    viewBinding.btnSubmit.isVisible = false
+                    viewBinding.etDropdownMenu.isEnabled = false
+                    viewBinding.etName.isEnabled = false
+                    viewBinding.etFamilyName.isEnabled = false
+                    viewBinding.etCitizenship.isEnabled = false
+                    viewBinding.etKtpPassport.isEnabled = false
+                    viewBinding.etLastDateKTP.isEnabled = false
+                    viewBinding.etDateBorn.isEnabled = false
+                    viewBinding.etNoPhone.isEnabled = false
+                    viewBinding.etLastDateKTP.isEnabled = false
+
+                    onItemClick.invoke(passengersData)
+                    dialog.dismiss()
+                }
+                builder.setNegativeButton("Cancel") { dialog, _ ->
+                    dialog.dismiss()
+                }
+                builder.create().show()
+
             } else {
                 StyleableToast.makeText(viewBinding.root.context, "Harap isi semua data!", R.style.ToastError).show()
             }
+
         }
     }
+
 
     private fun PassengersData.isValid(): Boolean {
         return title.isNotEmpty() &&

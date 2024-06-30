@@ -94,7 +94,7 @@ class HistoryFragment : Fragment(), OnSearchItemSelectedListener {
                     binding.layoutContentState.textError.text =
                         getString(R.string.text_empty_seat_class)
                     val linkLoad =
-                        "https://github.com/riansyah251641/food_app_asset/blob/main/banner/empty_history.png?raw=true"
+                        getString(R.string.empty_history_link)
                     binding.layoutContentState.ivRiwayatKosong.load(linkLoad) {
                         crossfade(true)
                         error(R.drawable.bg_no_internet)
@@ -113,7 +113,7 @@ class HistoryFragment : Fragment(), OnSearchItemSelectedListener {
                     binding.layoutContentState.textError.isVisible = true
                     binding.layoutContentState.root.isVisible = true
                     val linkLoad =
-                        "https://github.com/riansyah251641/food_app_asset/blob/main/banner/empty_history.png?raw=true"
+                        getString(R.string.empty_history_link)
                     binding.layoutContentState.ivRiwayatKosong.load(linkLoad) {
                         crossfade(true)
                         error(R.drawable.bg_no_internet)

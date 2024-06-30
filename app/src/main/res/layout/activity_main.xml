@@ -19,14 +19,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:navGraph="@navigation/main_navigation" />
 
-    <View
-        android:id="@+id/nav_bottom_shadow"
-        android:layout_width="match_parent"
-        android:layout_height="4dp"
-        android:layout_above="@+id/nav_bottom_view"
-        android:background="@drawable/bg_shadow_bottom_nav"
-        app:layout_constraintBottom_toTopOf="@+id/nav_bottom_view" />
-
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nav_bottom_view"
         android:layout_width="match_parent"
