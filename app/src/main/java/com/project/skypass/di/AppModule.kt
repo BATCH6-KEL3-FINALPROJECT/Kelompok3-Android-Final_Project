@@ -105,10 +105,8 @@ import com.project.skypass.presentation.main.MainViewModel
 import com.project.skypass.presentation.notification.NotificationViewModel
 import com.project.skypass.presentation.onboarding.OnboardingViewModel
 import com.project.skypass.presentation.profile.changeprofile.ChangeProfileViewModel
-import com.project.skypass.presentation.profile.changeprofile.ChangeProfileViewModelExample
 import com.project.skypass.presentation.profile.profile.ProfileViewModel
 import com.project.skypass.presentation.notification.detailNotification.DetailNotificationViewModel
-import com.project.skypass.presentation.profile.profile.ProfileViewModelExample
 import com.project.skypass.presentation.profile.settingaccount.SettingsAccountViewModel
 import com.project.skypass.presentation.splashscreen.SplashViewModel
 import com.project.skypass.utils.SharedPreferenceUtils
@@ -288,8 +286,6 @@ object AppModule {
         viewModelOf(::HomeViewModel)
         viewModelOf(::CheckoutDataOrdersViewModel)
         viewModelOf(::SearchViewModel)
-        viewModelOf(::ChangeProfileViewModelExample)
-        viewModelOf(::ProfileViewModelExample)
         viewModelOf(::HistoryViewModel)
         viewModelOf(::SearchHistoryViewModel)
         viewModelOf(::DetailHistoryViewModel)

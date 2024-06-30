@@ -55,7 +55,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:paddingTop="10dp"
-            android:paddingBottom="250dp">
+            >
 
             <include
                 layout="@layout/item_notification_shimmer"/>
@@ -72,6 +72,14 @@
             <include
                 layout="@layout/item_notification_shimmer"/>
 
+            <include
+                layout="@layout/item_notification_shimmer"/>
+            <include
+                layout="@layout/item_notification_shimmer"/>
+            <include
+                layout="@layout/item_notification_shimmer"/>
+            <include
+                layout="@layout/item_notification_shimmer"/>
             <include
                 layout="@layout/item_notification_shimmer"/>
 

@@ -60,6 +60,8 @@ class NotificationFragment : Fragment() {
         viewModel.getNotification(viewModel.getToken()).observe(viewLifecycleOwner) {
             it.proceedWhen(
                 doOnSuccess = { result ->
+                    binding.shimmerViewContainer.isVisible = false
+                    binding.shimmerViewContainer.stopShimmer()
                     binding.rvNotification.isVisible = true
                     binding.layoutContentState.root.isVisible = false
                     result.payload?.let { data ->

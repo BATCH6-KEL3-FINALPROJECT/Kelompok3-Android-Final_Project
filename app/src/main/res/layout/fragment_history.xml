@@ -78,7 +78,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:paddingTop="10dp"
-            android:paddingBottom="250dp">
+            android:paddingBottom="100dp">
 
             <include
                 layout="@layout/item_history_ticket_shimmer"/>

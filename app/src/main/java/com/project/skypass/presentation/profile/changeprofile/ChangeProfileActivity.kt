@@ -26,7 +26,7 @@ import java.io.File
 
 class ChangeProfileActivity : BaseActivity() {
     private lateinit var binding: ActivityChangeProfileBinding
-    private val changeProfileViewModel: ChangeProfileViewModelExample by viewModel()
+    private val changeProfileViewModel: ChangeProfileViewModel by viewModel()
     private val PICK_IMAGE_REQUEST = 1
     private var selectedImageUri: Uri? = null
     private var selectedImageFile: File? = null
@@ -54,7 +54,14 @@ class ChangeProfileActivity : BaseActivity() {
             val email = binding.etEmail.text.toString()
             val phoneNumber = binding.etNumberPhone.text.toString()
 
-            changeProfileViewModel.editUserData(token, userId, name, email, phoneNumber, selectedImageFile).observe(this) { result ->
+            changeProfileViewModel.editUserData(
+                token,
+                userId,
+                name,
+                email,
+                phoneNumber,
+                selectedImageFile
+            ).observe(this) { result ->
                 result.proceedWhen(
                     doOnSuccess = {
                         dialog?.dismiss()
@@ -72,18 +79,28 @@ class ChangeProfileActivity : BaseActivity() {
                         dialog?.dismiss()
                         if (error.exception is ApiErrorException) {
                             val errorMessage = error.exception.errorResponse
-                            StyleableToast.makeText(this, errorMessage.message, R.style.ToastError).show()
+                            StyleableToast.makeText(this, errorMessage.message, R.style.ToastError)
+                                .show()
                         } else if (error.exception is NoInternetException) {
-                            StyleableToast.makeText(this, getString(R.string.no_internet_connection), R.style.ToastError).show()
+                            StyleableToast.makeText(
+                                this,
+                                getString(R.string.no_internet_connection),
+                                R.style.ToastError
+                            ).show()
                         } else if (error.exception is UnauthorizedException) {
                             val errorMessage = error.exception.errorUnauthorizedResponse
-                            StyleableToast.makeText(this, errorMessage.message, R.style.ToastError).show()
+                            StyleableToast.makeText(this, errorMessage.message, R.style.ToastError)
+                                .show()
                             lifecycleScope.launch {
                                 delay(2000)
                                 handleUnAuthorize()
                             }
                         } else {
-                            StyleableToast.makeText(this, getString(R.string.unknown_error), R.style.ToastError).show()
+                            StyleableToast.makeText(
+                                this,
+                                getString(R.string.unknown_error),
+                                R.style.ToastError
+                            ).show()
                         }
                     },
                 )

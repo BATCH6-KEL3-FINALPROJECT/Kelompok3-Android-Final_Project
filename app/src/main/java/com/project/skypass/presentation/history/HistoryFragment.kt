@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -86,6 +87,8 @@ class HistoryFragment : Fragment(), OnSearchItemSelectedListener {
                     }
                 },
                 doOnEmpty = {
+                    binding.shimmerViewContainer.isVisible = false
+                    binding.shimmerViewContainer.stopShimmer()
                     binding.layoutContentState.root.isVisible = true
                     binding.layoutContentState.textError.isVisible = true
                     binding.layoutContentState.textError.text =
@@ -104,6 +107,8 @@ class HistoryFragment : Fragment(), OnSearchItemSelectedListener {
                     binding.shimmerViewContainer.startShimmer()
                 },
                 doOnError = { error ->
+                    binding.shimmerViewContainer.isVisible = false
+                    binding.shimmerViewContainer.stopShimmer()
                     binding.layoutContentState.root.isVisible = true
                     binding.layoutContentState.textError.isVisible = true
                     binding.layoutContentState.root.isVisible = true
@@ -253,7 +258,7 @@ class HistoryFragment : Fragment(), OnSearchItemSelectedListener {
                     }
                 },
                 doOnError = {
-                    Toast.makeText(requireContext(), "Data Booking not found", Toast.LENGTH_SHORT).show()
+                    // no toast
                 }
             )
         }
