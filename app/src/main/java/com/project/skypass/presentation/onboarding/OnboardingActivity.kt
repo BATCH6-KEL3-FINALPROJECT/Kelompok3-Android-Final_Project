@@ -1,13 +1,18 @@
 package com.project.skypass.presentation.onboarding
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.view.ViewTreeObserver
 import android.view.WindowInsets
 import android.view.WindowInsetsController
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.project.skypass.R
@@ -25,6 +30,17 @@ class OnboardingActivity : AppCompatActivity() {
     }
 
     private val viewModel: OnboardingViewModel by viewModel()
+
+    private val requestPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { isGranted: Boolean ->
+        if (isGranted) {
+            proceedToMainActivity()
+        } else {
+            // Permission denied, you can show a message to the user
+            Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show()
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -84,11 +100,31 @@ class OnboardingActivity : AppCompatActivity() {
             if (binding.vpOnboarding.currentItem < 2) {
                 binding.vpOnboarding.currentItem += 1
             } else {
-                viewModel.setFirstRun(true)
-                startActivity(Intent(this, MainActivity::class.java))
-                finish()
+                checkPermissionAndProceed()
             }
         }
+    }
+
+    private fun checkPermissionAndProceed() {
+        when {
+            ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+            ) == PackageManager.PERMISSION_GRANTED -> {
+                // Permission is already granted, proceed to MainActivity
+                proceedToMainActivity()
+            }
+            else -> {
+                // Request the permission
+                requestPermissionLauncher.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+            }
+        }
+    }
+
+    private fun proceedToMainActivity() {
+        viewModel.setFirstRun(true)
+        startActivity(Intent(this, MainActivity::class.java))
+        finish()
     }
 
     private fun enableEdgeToEdge() {
@@ -108,10 +144,10 @@ class OnboardingActivity : AppCompatActivity() {
         } else {
             @Suppress("DEPRECATION")
             window.decorView.systemUiVisibility = (
-                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                    or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                    or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-            )
+                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                            or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                            or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                    )
 
             binding.root.setOnApplyWindowInsetsListener { view, insets ->
                 val navBarInsets = insets.systemWindowInsetBottom
