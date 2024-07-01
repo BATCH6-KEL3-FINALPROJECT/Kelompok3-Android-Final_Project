@@ -93,9 +93,8 @@ class HistoryFragment : Fragment(), OnSearchItemSelectedListener {
                     binding.layoutContentState.textError.isVisible = true
                     binding.layoutContentState.textError.text =
                         getString(R.string.text_empty_seat_class)
-                    val linkLoad =
-                        getString(R.string.empty_history_link)
-                    binding.layoutContentState.ivRiwayatKosong.load(linkLoad) {
+                    //val linkLoad = getString(R.string.empty_history_link)
+                    binding.layoutContentState.ivRiwayatKosong.load(R.drawable.img_empty_history) {
                         crossfade(true)
                         error(R.drawable.bg_no_internet)
                     }
@@ -112,19 +111,16 @@ class HistoryFragment : Fragment(), OnSearchItemSelectedListener {
                     binding.layoutContentState.root.isVisible = true
                     binding.layoutContentState.textError.isVisible = true
                     binding.layoutContentState.root.isVisible = true
-                    val linkLoad =
-                        getString(R.string.empty_history_link)
-                    binding.layoutContentState.ivRiwayatKosong.load(linkLoad) {
+                    //val linkLoad = getString(R.string.empty_history_link)
+                    binding.layoutContentState.ivRiwayatKosong.load(R.drawable.img_empty_history) {
                         crossfade(true)
                         error(R.drawable.bg_no_internet)
                     }
                     binding.layoutContentState.pbLoadingEmptyState.isVisible = false
                     if (error.exception is NoInternetException) {
-                        StyleableToast.makeText(
-                            requireContext(),
-                            getString(R.string.no_internet_connection),
-                            R.style.ToastError,
-                        ).show()
+                        binding.layoutContentState.ivRiwayatKosong.load(R.drawable.bg_no_internet) {
+                            crossfade(true)
+                        }
                     } else if (error.exception is UnauthorizedException) {
                         val errorMessage = error.exception.errorUnauthorizedResponse
                         StyleableToast.makeText(

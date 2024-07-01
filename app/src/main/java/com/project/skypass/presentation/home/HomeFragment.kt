@@ -431,8 +431,8 @@ class HomeFragment : Fragment(), DataSelection {
                 binding.ivEmptyHistory.isVisible = true
                 binding.rvLastSearch.isVisible = false
                 binding.tvLastSearchNotFound.isVisible = false
-                val linkLoad = "https://github.com/riansyah251641/food_app_asset/blob/main/banner/no_activity_order.png?raw=true"
-                binding.ivEmptyHistory.load(linkLoad) {
+                //val linkLoad = "https://github.com/riansyah251641/food_app_asset/blob/main/banner/no_activity_order.png?raw=true"
+                binding.ivEmptyHistory.load(R.drawable.img_no_activity_custom) {
                     crossfade(true)
                     error(R.drawable.bg_no_internet)
                 }
