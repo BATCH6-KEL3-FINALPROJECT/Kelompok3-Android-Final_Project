@@ -50,9 +50,9 @@ class LoginActivity : AppCompatActivity() {
         binding.tvNotHaveAccountRegister.setOnClickListener {
             navigateToRegister()
         }
-        binding.btnLoginGoogle.setOnClickListener {
+        /*binding.btnLoginGoogle.setOnClickListener {
             loginWithGoogle()
-        }
+        }*/
     }
 
     private fun loginWithGoogle() {
