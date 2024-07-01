@@ -23,5 +23,5 @@ interface UserDataSource {
         photo: MultipartBody.Part?,
     ): Response<Data>
 
-    suspend fun deleteUser(id: String): DeleteUserResponse
+    suspend fun deleteUser(token: String): DeleteUserResponse
 }

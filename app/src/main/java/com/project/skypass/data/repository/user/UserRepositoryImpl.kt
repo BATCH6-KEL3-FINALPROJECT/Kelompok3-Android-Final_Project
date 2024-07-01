@@ -52,9 +52,10 @@ class UserRepositoryImpl(private val dataSource: UserDataSource) : UserRepositor
         }
     }
 
-    override fun deleteUser(id: String): Flow<ResultWrapper<DeleteUserResponse>> {
+    override fun deleteUser(token: String): Flow<ResultWrapper<DeleteUserResponse>> {
         return proceedFlow {
-            dataSource.deleteUser(id)
+            val tokenPart = "Bearer $token"
+            dataSource.deleteUser(tokenPart)
         }
     }
 }

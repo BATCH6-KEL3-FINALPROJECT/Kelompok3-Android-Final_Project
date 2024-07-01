@@ -43,7 +43,7 @@ class UserDataSourceImpl(
         )
     }
 
-    override suspend fun deleteUser(id: String): DeleteUserResponse {
-        return apiService.deleteUser(id)
+    override suspend fun deleteUser(token: String): DeleteUserResponse {
+        return apiService.deleteUser(token)
     }
 }

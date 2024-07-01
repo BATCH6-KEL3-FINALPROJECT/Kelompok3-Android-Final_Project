@@ -37,8 +37,12 @@ class SettingsAccountViewModel(
         return prefRepository.getUserID()
     }
 
-    fun deleteUser(id: String): LiveData<ResultWrapper<DeleteUserResponse>> {
-        return userRepository.deleteUser(id).asLiveData(Dispatchers.IO)
+    fun getToken(): String {
+        return prefRepository.getToken()
+    }
+
+    fun deleteUser(token: String): LiveData<ResultWrapper<DeleteUserResponse>> {
+        return userRepository.deleteUser(token).asLiveData(Dispatchers.IO)
     }
 
     fun getUser(id: String): LiveData<ResultWrapper<User>> {

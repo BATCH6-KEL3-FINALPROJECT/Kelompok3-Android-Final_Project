@@ -3,7 +3,6 @@ package com.project.skypass.data.datasource.user
 import com.project.skypass.data.model.Response
 import com.project.skypass.data.source.local.pref.UserPreference
 import com.project.skypass.data.source.network.model.user.deleteuser.DeleteUserResponse
-import com.project.skypass.data.source.network.model.user.detailuser.Data
 import com.project.skypass.data.source.network.model.user.detailuser.UserItemResponse
 import com.project.skypass.data.source.network.model.user.detailuser.UserResponse
 import com.project.skypass.data.source.network.model.user.edituser.EditUserItemResponse
@@ -25,6 +24,7 @@ import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 import java.io.File
+import com.project.skypass.data.source.network.model.user.deleteuser.Data
 
 class UserDataSourceImplTest {
     @MockK
@@ -72,7 +72,8 @@ class UserDataSourceImplTest {
                     updatedAt = "2024-06-19",
                     user_id = "user123",
                 )
-            val data = Data(userItemResponse)
+            val data =
+                com.project.skypass.data.source.network.model.user.detailuser.Data(userItemResponse)
             val userResponse =
                 UserResponse(
                     code = 200,
@@ -139,7 +140,8 @@ class UserDataSourceImplTest {
     fun deleteUser() =
         runBlocking {
             val userId = "user123"
-            val deleteUserResponse = DeleteUserResponse("User deleted successfully.", "Success")
+            val response = Data()
+            val deleteUserResponse = DeleteUserResponse(200, response, true, "Success")
 
             coEvery { service.deleteUser(userId) } returns deleteUserResponse
 

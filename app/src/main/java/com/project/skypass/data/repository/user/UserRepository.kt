@@ -25,5 +25,5 @@ interface UserRepository {
         // ): Flow<ResultWrapper<EditUserResponse>>
     ): Flow<ResultWrapper<Response<Data>>>
 
-    fun deleteUser(id: String): Flow<ResultWrapper<DeleteUserResponse>>
+    fun deleteUser(token: String): Flow<ResultWrapper<DeleteUserResponse>>
 }
