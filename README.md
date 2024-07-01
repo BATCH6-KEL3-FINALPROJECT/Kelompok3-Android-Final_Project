@@ -4,10 +4,12 @@
   Final Project Binar Academy x Kampus Merdeka Batch 6
 </h1>
 
-## APK Bundle
-APK bundle: [SkyPass.apk]()
+<img src="https://drive.google.com/uc?export=view&id=1-prgQg-_HGLY0_ds9HaNiQKXkR_Ydn3E" alt="test">
 
-## About Our App
+# APK Bundle
+APK bundle: [SkyPass.apk](https://drive.google.com/drive/folders/1ohACHPNZUUM5QxtC-3GRyRNPCWEgVLO4?usp=sharing)
+
+# About Our App
 This application is a flight ticket booking application where this application has many features such as:
 1. Authentication & verification feature by email
 2. 1x trip or round trip ticket booking
@@ -20,7 +22,7 @@ This application is a flight ticket booking application where this application h
 9. Users can also delete their account if not needed
 10. There is a dark mode feature for user convenience
     
-## Repository Supporting This Application
+# Repository Supporting This Application
 | Path               | Link Repository |
 |--------------------|-----------------|
 | Android Engineering| SkyPass-App (this repository)               |
@@ -46,28 +48,39 @@ This application is a flight ticket booking application where this application h
    * Using a real device: Click [Connect With USB Debugging](https://developer.android.com/codelabs/basic-android-kotlin-compose-connect-device#0) or [Connect With Wireless Debugging](https://developer.android.com/studio/run/device)
 4. Run the app in Android Studio: Click [Documentation](https://developer.android.com/studio/run/managing-avds)
    
-## Library
+# Library
 | Library                              | Usage                                                                                                                                                             | Dependencies                                                                |
 |--------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------|
-| Android KTX                          | To provide Kotlin extensions for core Android components such as collections, files, preferences, and more                                                        | implementation 'androidx.core:core-ktx:1.8.0'                               |
-| Lifecycle                            | To enable observing and responding to life cycle changes of Android components such as activities and fragments.                                                  | implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.1'             |
-| Activity Compose                     | To provide Activity-ktx, which is part of Jetpack Compose, for easy integration of Activity with Compose UI.                                                      | implementation 'androidx.activity:activity-compose:1.5.1'                   |
-| Compose UI                           | To provide UI basics on Jetpack Compose and layout system to build a declarative and responsive user interface.                                                   | implementation 'androidx.compose.ui:ui'                                     |
-| Compose UI Graphic                   | To provide functions and tools for drawing and manipulating graphics within Jetpack Compose.                                                                      | implementation 'androidx.compose.ui:ui-graphics'                            |
-| Compose Tooling Preview              | To provide development tools and previews to help develop interfaces with Jetpack Compose.                                                                        | implementation 'androidx.compose.ui:ui-tooling-preview'                     |
-| Jetpack Compose Material 3           | To provide Material Design version 3 components for Jetpack Compose, including components such as buttons, cards, text, and more.                                 | implementation 'androidx.compose.material3:material3'                       |
-| JUnit                                | To provide Material Design version 3 components for Jetpack Compose, including components such as buttons, cards, text, and more.                                 | testImplementation 'junit:junit:4.13.2'                                     |
-| JUnit Test                           | This library is part of AndroidX Test and provides extensions to the JUnit unit testing framework for Android.                                                    | androidTestImplementation 'androidx.test.ext:junit:1.1.5'                   |
-| AndroidX Test                        | To provide a powerful and expressive functional testing (UI) framework for Android application testing.                                                           | androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'      |
-| Compose JUnit Test                   | To provide testing tools and utilities for UI testing with Jetpack Compose using JUnit 4.                                                                         | androidTestImplementation 'androidx.compose.ui:ui-test-junit4'              |
-| Compose Tooling                      | To provide development tools and utilities to assist development with Jetpack Compose.                                                                            | debugImplementation 'androidx.compose.ui:ui-tooling'                        |
-| Compose Test Manifest                | To provide the manifest required to run tests with Jetpack Compose.                                                                                               | debugImplementation 'androidx.compose.ui:ui-test-manifest'                  |
-| Jetpack Compose Material Design Icon | To provide extended Material Design icons for use in applications that use Jetpack Compose.                                                                       | implementation "androidx.compose.material:material-icons-extended:1.4.3"    |
-| Jetpack Compose Navigation           | To provide integration between Jetpack Compose and Android Navigation Components, allowing for integrated and easy-to-manage user interface navigation.           | implementation "androidx.navigation:navigation-compose:2.5.3"               |
-| Pager Component For Jetpack Compose  | To provide a Pager component for Jetpack Compose, which enables views with swipe navigation such as page views or carousel views.                                 | implementation "com.google.accompanist:accompanist-pager:0.30.1"            |
-| Pager Indicator For Jetpack Compose  | To provide a pager indicator for Jetpack Compose, which can be used to display indicators such as dots or arrows to show the current position in the pager view.  | implementation "com.google.accompanist:accompanist-pager-indicators:0.30.1" |
-| Retrofit                             | This library is a powerful and lightweight HTTP client for Android and Java, which allows communication with servers using the HTTP protocol and REST API.        | implementation 'com.squareup.retrofit2:retrofit:2.9.0'                      |
-| GSON                                 | This library is a Retrofit converter that uses Gson to convert JSON responses from the server into Java/Kotlin objects.                                           | implementation "com.squareup.retrofit2:converter-gson:2.9.0"                |
-| OKHTTP3                              | This library is an OkHttp interceptor used to view and log HTTP requests and responses for troubleshooting and debugging purposes.                                | implementation "com.squareup.okhttp3:logging-interceptor:4.9.0"             |
-| View Model For Jetpack Compose       | This library provides integration between Jetpack Compose and the ViewModel architecture, allowing the use of ViewModels in Compose UI components.                | implementation "androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1"       |
-| Preference                           | This library provides Android preferences as a component of the Jetpack architecture, which allows easy organisation of applications and use of user preferences. | implementation "androidx.preference:preference-ktx:1.2.0"                   |
+| Android KTX                          | To provide Kotlin extensions for core Android components such as collections, files, preferences, and more                                                        | implementation("androidx.core:core-ktx:1.13.1")                             |
+| Lifecycle KTX                        | To enable observing and responding to life cycle changes of Android components such as activities and fragments.                                                  | implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")             |
+| Constraint Layout | Provides a flexible layout system for creating complex user interfaces | implementation("androidx.constraintlayout:constraintlayout:2.1.4") |
+| Coil | An image loading library for Android backed by Kotlin Coroutines | implementation("io.coil-kt:coil:2.6.0") |
+| Lifecycle Runtime | Kotlin extensions for Android Lifecycle library | implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0") |
+| Lifecycle View Model | Kotlin extensions for ViewModel library | implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0") |
+| Lifecycle Live Data | Kotlin extensions for LiveData library | implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.7.0") |
+| Fragment KTX | Kotlin extensions for Android Fragment library | implementation("androidx.fragment:fragment-ktx:1.6.2") |
+| Navigation Fragment | Kotlin extensions for Android Navigation Component | implementation("androidx.navigation:navigation-fragment-ktx:2.7.7") |
+| Navigation UI Fragment | Kotlin extensions for Android Navigation UI | implementation("androidx.navigation:navigation-ui-ktx:2.7.7") |
+| Room Database |  Kotlin extensions for Room, a persistence library providing an abstraction layer over SQLite | implementation("androidx.room:room-ktx:2.6.1") |
+| Room Complier |Annotation processor for Room | implementation("androidx.room:room-ktx:2.6.1") |
+| Coroutines Core | Core libraries for Kotlin coroutines | implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3") |
+| Coroutines Android | Android-specific libraries for Kotlin coroutines | implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3") |
+| Retrofit | A type-safe HTTP client for Android and Java | implementation("com.squareup.retrofit2:retrofit:2.9.0") |
+| Retrofit Converter GSON to JSON | A converter for Retrofit that uses Gson for JSON serialization | implementation("com.squareup.retrofit2:converter-gson:2.9.0") |
+| OkHttp3 | An HTTP & HTTP/2 client for Android and Java applications | implementation("com.squareup.okhttp3:okhttp:4.11.0") |
+| OkHttp3 Logging Interceptor | An OkHttp interceptor that logs HTTP request and response data | implementation("com.squareup.okhttp3:logging-interceptor:4.11.0") |
+| Paging | Kotlin extensions for the Paging library, which helps load and display large sets of data | implementation("androidx.paging:paging-runtime-ktx:3.3.0") |
+| Shimmer Loader | A library for adding shimmer effect on views | implementation("com.facebook.shimmer:shimmer:0.5.0") |
+| OTP View | A library for creating PIN input views | implementation("io.github.chaosleung:pinview:1.4.4") |
+| Koin | A pragmatic dependency injection library for Kotlin developers | implementation("io.insert-koin:koin-android:3.5.6") |
+| App Intro For On Boarding | A library for creating introduction slides for your app | implementation("com.github.AppIntro:AppIntro:6.3.1") |
+| Dots Indicator | A library for creating dots indicators for view pagers | implementation("com.tbuonomo:dotsindicator:4.3") |
+| Styleable Toast | A library for customizable Toast messages | implementation("io.github.muddz:styleabletoast:2.4.0") |
+| Lottie | A library for rendering Adobe After Effects animations in real-time | implementation("com.airbnb.android:lottie:6.0.0") |
+| Calendar View |  A customizable calendar view for Android | implementation("com.kizitonwose.calendar:view:2.5.1") |
+| Seat Book View | A library for creating a seat booking view | implementation("com.github.JahidHasanCO:SeatBookView:1.0.4") | 
+| Firebase Crashlytics | Firebase Crashlytics for tracking and reporting app crashes | implementation("com.google.firebase:firebase-crashlytics:19.0.1") |
+| Google OAuth | Google Play services library for authentication and authorization | implementation("com.google.android.gms:play-services-auth:20.0.0") |
+| Groupie | A library for managing complex RecyclerView layouts | implementation("com.github.lisawray.groupie:groupie:2.10.1") |
+| Groupie View Binding | ViewBinding support for Groupie | implementation("com.github.lisawray.groupie:groupie-viewbinding:2.10.1") |
+| Ticket View | A custom view for creating a ticket-style layout | implementation("com.vipulasri:ticketview:1.1.2") |
