@@ -150,8 +150,8 @@ class SettingsAccountActivity : BaseActivity() {
     }
 
     private fun deleteAccount() {
-        val userId = settingsAccountViewModel.getIdUser()
-        settingsAccountViewModel.deleteUser(userId).observe(this) {
+        //val userId = settingsAccountViewModel.getIdUser()
+        settingsAccountViewModel.deleteUser(settingsAccountViewModel.getToken()).observe(this) {
             it.proceedWhen(
                 doOnSuccess = {
                     dialog?.dismiss()

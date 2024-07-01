@@ -119,9 +119,9 @@ interface ApiService {
         @Part image: MultipartBody.Part? = null,
     ): Response<Data>
 
-    @DELETE("user/{id}")
+    @DELETE("user/")
     suspend fun deleteUser(
-        @Path("id") id: String,
+        @Header("Authorization") token: String,
     ): DeleteUserResponse
 
     @GET("airport/")
