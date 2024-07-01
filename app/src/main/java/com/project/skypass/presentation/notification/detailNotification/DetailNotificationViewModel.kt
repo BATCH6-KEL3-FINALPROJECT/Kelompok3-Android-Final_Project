@@ -23,7 +23,10 @@ class DetailNotificationViewModel(
         return prefRepository.getToken()
     }
 
-    fun detailNotification(token: String, id: String): LiveData<ResultWrapper<Notification>> {
+    fun detailNotification(
+        token: String,
+        id: String,
+    ): LiveData<ResultWrapper<Notification>> {
         return notificationRepository.getDetailNotification(token, id).asLiveData(Dispatchers.IO)
     }
 }

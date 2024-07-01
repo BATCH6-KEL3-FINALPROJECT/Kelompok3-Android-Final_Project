@@ -8,9 +8,7 @@
     android:elevation="2dp"
     android:layout_marginHorizontal="8dp"
     app:cardCornerRadius="0dp"
-    android:layout_marginBottom="16dp"
-    >
-
+    android:layout_marginBottom="16dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -110,7 +108,6 @@
                 android:textColor="@android:color/black" />
         </com.google.android.material.textfield.TextInputLayout>
 
-
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/inputnoPhone"
             android:layout_width="match_parent"
@@ -133,7 +130,6 @@
                 />
         </com.google.android.material.textfield.TextInputLayout>
 
-
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/input_dateBorn"
             android:layout_width="match_parent"
@@ -146,7 +142,6 @@
             app:endIconMode="custom"
             app:endIconDrawable="@drawable/ic_date"
             style="@style/TextInputLayoutStyle">
-
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_dateBorn"
@@ -264,6 +259,5 @@
             android:layout_height="wrap_content"/>
 
     </LinearLayout>
-
 
 </com.google.android.material.card.MaterialCardView>

@@ -26,7 +26,6 @@ import com.project.skypass.presentation.home.calendar.CalendarFragment
 import com.project.skypass.presentation.home.flightclass.FlightClassFragment
 import com.project.skypass.presentation.home.passengers.PassengersFragment
 import com.project.skypass.presentation.home.search.SearchFragment
-import com.project.skypass.presentation.main.MainActivity
 import com.project.skypass.presentation.profile.changeprofile.ChangeProfileActivity
 import com.project.skypass.presentation.profile.settingaccount.SettingsAccountActivity
 import com.project.skypass.utils.convertDateFormat
@@ -36,7 +35,6 @@ import io.github.muddz.styleabletoast.StyleableToast
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeFragment : Fragment(), DataSelection {
-
     private lateinit var binding: FragmentHomeBinding
     private val viewModel: HomeViewModel by viewModel()
     private val favoriteDestinationAdapter: FavoriteDestinationAdapter by lazy {
@@ -44,9 +42,7 @@ class HomeFragment : Fragment(), DataSelection {
         }
     }
     private val orderHistoryAdapter: OrderHistoryAdapter by lazy {
-        OrderHistoryAdapter(
-
-        )
+        OrderHistoryAdapter()
     }
 
     private var formatDateDepartureIntent: String? = null
@@ -57,14 +53,18 @@ class HomeFragment : Fragment(), DataSelection {
     private var babyPassenger: Int = 0
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
         clickListener()
         sendData()
@@ -77,36 +77,41 @@ class HomeFragment : Fragment(), DataSelection {
     }
 
     private fun displayFavoriteDestination() {
-        viewModel.getFavoriteDestination().observe(viewLifecycleOwner){
+        viewModel.getFavoriteDestination().observe(viewLifecycleOwner) {
             it.proceedWhen(
                 doOnSuccess = { success ->
                     bindSeatClass(success.payload.orEmpty())
-                }, doOnLoading = {
-
+                },
+                doOnLoading = {
                 },
                 doOnError = {
-
-                }
+                },
             )
         }
     }
 
     private fun setOnClickedListener() {
         binding.ivPhotoUser.setOnClickListener {
-            if (viewModel.isLogin()){
+            if (viewModel.isLogin()) {
                 navigationToProfile()
-            }else{
-                StyleableToast.makeText(requireContext(),
-                    getString(R.string.text_not_login), R.style.ToastError).show()
+            } else {
+                StyleableToast.makeText(
+                    requireContext(),
+                    getString(R.string.text_not_login),
+                    R.style.ToastError,
+                ).show()
             }
         }
 
         binding.ivSetting.setOnClickListener {
-            if (viewModel.isLogin()){
+            if (viewModel.isLogin()) {
                 navigateToSetting()
-            }else{
-                StyleableToast.makeText(requireContext(),
-                    getString(R.string.text_not_login), R.style.ToastError).show()
+            } else {
+                StyleableToast.makeText(
+                    requireContext(),
+                    getString(R.string.text_not_login),
+                    R.style.ToastError,
+                ).show()
             }
         }
     }
@@ -120,13 +125,15 @@ class HomeFragment : Fragment(), DataSelection {
 
     private fun sendData() {
         binding.btnSearchFlight.setOnClickListener {
-            if (checkAllForm()){
+            if (checkAllForm()) {
                 moveToFlight()
-            }else{
-                StyleableToast.makeText(requireContext(),
-                    getString(R.string.text_fill_form), R.style.ToastError).show()
+            } else {
+                StyleableToast.makeText(
+                    requireContext(),
+                    getString(R.string.text_fill_form),
+                    R.style.ToastError,
+                ).show()
             }
-
         }
     }
 
@@ -146,8 +153,7 @@ class HomeFragment : Fragment(), DataSelection {
                     doOnLoading = {
                     },
                     doOnError = {
-                    }
-
+                    },
                 )
             }
         }
@@ -155,27 +161,25 @@ class HomeFragment : Fragment(), DataSelection {
 
     private fun promotionViewPager() {
         val vpPromotion = binding.vpBannerHome
-        val _adapter = PromotionAdapter()
+        val promotion_adapter = PromotionAdapter()
         val pageIndicator = binding.diPromotionPageIndicator
 
-        _adapter.submitList(viewModel.getBannerHome())
+        promotion_adapter.submitList(viewModel.getBannerHome())
         vpPromotion.apply {
-            adapter = _adapter
+            adapter = promotion_adapter
         }
         pageIndicator.attachTo(vpPromotion)
     }
-
 
     private fun navigationToProfile() {
         val intent = Intent(activity, ChangeProfileActivity::class.java)
         startActivity(intent)
     }
 
-    private fun navigateToSetting(){
+    private fun navigateToSetting() {
         val intent = Intent(activity, SettingsAccountActivity::class.java)
         startActivity(intent)
     }
-
 
     private fun moveToFlight() {
         FlightDetailActivity.startActivity(
@@ -195,7 +199,6 @@ class HomeFragment : Fragment(), DataSelection {
                 isRoundTrip = binding.rbRoundTrip.isChecked,
                 supportRoundTrip = binding.rbRoundTrip.isChecked,
                 orderDate = orderDate(),
-
                 // Flight Data (One Way)
                 airlineCode = "",
                 airlineName = "",
@@ -222,7 +225,6 @@ class HomeFragment : Fragment(), DataSelection {
                 paymentPrice = null,
                 seatsAvailable = null,
                 terminal = "",
-
                 // Flight Data (Round Trip)
                 airlineCodeRoundTrip = "",
                 airlineNameRoundTrip = "",
@@ -248,11 +250,10 @@ class HomeFragment : Fragment(), DataSelection {
                 priceTotalRoundTrip = 0,
                 paymentPriceRoundTrip = null,
                 seatsAvailableRoundTrip = null,
-                terminalRoundTrip = ""
+                terminalRoundTrip = "",
             ),
         )
     }
-
 
     private fun clickListener() {
         binding.etPassengers.setOnClickListener {
@@ -280,10 +281,12 @@ class HomeFragment : Fragment(), DataSelection {
             val bundle = Bundle()
             bundle.putString(
                 "currentDateDeparture",
-                binding.etDeparture.text.toString().ifEmpty { "Belum dipilih" })
+                binding.etDeparture.text.toString().ifEmpty { "Belum dipilih" },
+            )
             bundle.putString(
                 "currentDateReturn",
-                binding.etReturn.text.toString().ifEmpty { "Belum dipilih" })
+                binding.etReturn.text.toString().ifEmpty { "Belum dipilih" },
+            )
             calendarFragment.arguments = bundle
             calendarFragment.dateSelection = this@HomeFragment
             calendarFragment.show(parentFragmentManager, "departure")
@@ -293,10 +296,12 @@ class HomeFragment : Fragment(), DataSelection {
             val bundle = Bundle()
             bundle.putString(
                 "currentDateDeparture",
-                binding.etDeparture.text.toString().ifEmpty { "Belum dipilih" })
+                binding.etDeparture.text.toString().ifEmpty { "Belum dipilih" },
+            )
             bundle.putString(
                 "currentDateReturn",
-                binding.etReturn.text.toString().ifEmpty { "Belum dipilih" })
+                binding.etReturn.text.toString().ifEmpty { "Belum dipilih" },
+            )
             calendarFragment.arguments = bundle
             calendarFragment.dateSelection = this@HomeFragment
             calendarFragment.show(parentFragmentManager, "return")
@@ -335,7 +340,10 @@ class HomeFragment : Fragment(), DataSelection {
         }
     }
 
-    override fun onDateSelected(tag: String, date: DateCalendar) {
+    override fun onDateSelected(
+        tag: String,
+        date: DateCalendar,
+    ) {
         when (tag) {
             "departure" -> {
                 binding.etDeparture.setText(date.ddMMMyyyy)
@@ -354,7 +362,7 @@ class HomeFragment : Fragment(), DataSelection {
         passenger: String,
         adult: Int,
         child: Int,
-        baby: Int
+        baby: Int,
     ) {
         when (tag) {
             "passengers" -> {
@@ -367,7 +375,10 @@ class HomeFragment : Fragment(), DataSelection {
         }
     }
 
-    override fun onSeatClassSelected(tag: String, seatClass: SeatClass) {
+    override fun onSeatClassSelected(
+        tag: String,
+        seatClass: SeatClass,
+    ) {
         when (tag) {
             "flightClass" -> {
                 binding.etSeatClass.setText(seatClass.classType)
@@ -375,7 +386,10 @@ class HomeFragment : Fragment(), DataSelection {
         }
     }
 
-    override fun onTripSelected(tag: String, trip: Search) {
+    override fun onTripSelected(
+        tag: String,
+        trip: Search,
+    ) {
         when (tag) {
             "fromTrip" -> {
                 binding.etFromTrip.setText(trip.city)
@@ -390,6 +404,8 @@ class HomeFragment : Fragment(), DataSelection {
     private fun observeDataOrderHistory() {
         viewModel.getAllOrderHistory().observe(viewLifecycleOwner) {
             it.proceedWhen(doOnSuccess = {
+                binding.shimmerViewContainer.isVisible = false
+                binding.shimmerViewContainer.stopShimmer()
                 binding.ivEmptyHistory.isVisible = false
                 binding.rvLastSearch.isVisible = true
                 binding.tvLastSearchNotFound.isVisible = false
@@ -397,21 +413,28 @@ class HomeFragment : Fragment(), DataSelection {
                     orderHistoryAdapter.submitData(item, data)
                 }
             }, doOnLoading = {
+                binding.shimmerViewContainer.isVisible = true
+                binding.shimmerViewContainer.startShimmer()
                 binding.ivEmptyHistory.isVisible = false
                 binding.rvLastSearch.isVisible = false
-                binding.tvLastSearchNotFound.isVisible = true
+                binding.tvLastSearchNotFound.isVisible = false
                 binding.tvLastSearchNotFound.text = getString(R.string.loading)
-
             }, doOnError = { err ->
+                binding.shimmerViewContainer.isVisible = false
+                binding.shimmerViewContainer.stopShimmer()
                 binding.ivEmptyHistory.isVisible = false
                 binding.rvLastSearch.isVisible = false
                 binding.tvLastSearchNotFound.text = err.exception?.message.orEmpty()
             }, doOnEmpty = {
+                binding.shimmerViewContainer.isVisible = false
+                binding.shimmerViewContainer.stopShimmer()
                 binding.ivEmptyHistory.isVisible = true
                 binding.rvLastSearch.isVisible = false
                 binding.tvLastSearchNotFound.isVisible = false
-                binding.ivEmptyHistory.load("https://github.com/riansyah251641/food_app_asset/blob/main/banner/empty_history_search.png?raw=true") {
+                //val linkLoad = "https://github.com/riansyah251641/food_app_asset/blob/main/banner/no_activity_order.png?raw=true"
+                binding.ivEmptyHistory.load(R.drawable.img_no_activity_custom) {
                     crossfade(true)
+                    error(R.drawable.bg_no_internet)
                 }
             })
         }
@@ -442,11 +465,9 @@ class HomeFragment : Fragment(), DataSelection {
             it.proceedWhen(doOnSuccess = {
                 StyleableToast.makeText(requireContext(), "Menghapus Riwayat Pemesanan", R.style.ToastSuccess).show()
             }, doOnLoading = {
-
             }, doOnError = { err ->
                 Toast.makeText(requireContext(), "error", Toast.LENGTH_SHORT).show()
             })
         }
     }
-
 }

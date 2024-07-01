@@ -3,7 +3,6 @@ package com.project.skypass.presentation.auth.verification
 import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import com.project.skypass.R
@@ -62,7 +61,7 @@ class VerificationActivity : AppCompatActivity() {
 
     private fun proceedVerify(
         email: String,
-        otp: String
+        otp: String,
     ) {
         verifyViewModel.doVerify(email, otp).observe(this) {
             it.proceedWhen(
@@ -72,7 +71,7 @@ class VerificationActivity : AppCompatActivity() {
                     StyleableToast.makeText(
                         this,
                         getString(R.string.text_register_success),
-                        R.style.ToastSuccess
+                        R.style.ToastSuccess,
                     ).show()
                 },
                 doOnError = {
@@ -80,7 +79,7 @@ class VerificationActivity : AppCompatActivity() {
                     StyleableToast.makeText(
                         this,
                         getString(R.string.text_otp_wrong),
-                        R.style.ToastError
+                        R.style.ToastError,
                     ).show()
                 },
                 doOnLoading = {
@@ -105,16 +104,16 @@ class VerificationActivity : AppCompatActivity() {
                     StyleableToast.makeText(
                         this,
                         getString(R.string.text_resend_otp_success),
-                        R.style.ToastSuccess
+                        R.style.ToastSuccess,
                     ).show()
                 },
                 doOnError = {
                     StyleableToast.makeText(
                         this,
                         getString(R.string.text_email_not_found),
-                        R.style.ToastError
+                        R.style.ToastError,
                     ).show()
-                }
+                },
             )
         }
     }

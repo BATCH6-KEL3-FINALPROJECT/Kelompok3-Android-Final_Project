@@ -57,8 +57,20 @@ class RegisterActivity : AppCompatActivity() {
 
     private fun createTextWatcher(validation: (String) -> Boolean): TextWatcher {
         return object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+            override fun beforeTextChanged(
+                s: CharSequence?,
+                start: Int,
+                count: Int,
+                after: Int,
+            ) {}
+
+            override fun onTextChanged(
+                s: CharSequence?,
+                start: Int,
+                before: Int,
+                count: Int,
+            ) {}
+
             override fun afterTextChanged(s: Editable?) {
                 validation(s.toString())
             }
@@ -105,7 +117,7 @@ class RegisterActivity : AppCompatActivity() {
                     StyleableToast.makeText(
                         this,
                         getString(R.string.text_otp_send_success),
-                        R.style.ToastSuccess
+                        R.style.ToastSuccess,
                     ).show()
                     lifecycleScope.launch {
                         delay(2000)
@@ -113,39 +125,6 @@ class RegisterActivity : AppCompatActivity() {
                     }
                 },
                 doOnError = { error ->
-                    /*when (error.exception?.message) {
-                        getString(R.string.email_registered_exception) -> {
-                            StyleableToast.makeText(
-                                this,
-                                getString(R.string.email_registered), R.style.ToastError
-                            ).show()
-                            binding.etEmail.setBackgroundResource(R.drawable.bg_input_error)
-                            binding.etName.setBackgroundResource(R.drawable.bg_selector_input)
-                            binding.etPhoneNumber.setBackgroundResource(R.drawable.bg_selector_input)
-                            binding.etPassword.setBackgroundResource(R.drawable.bg_selector_input)
-                        }
-
-                        getString(R.string.password_less_than_8_char_exception) -> {
-                            StyleableToast.makeText(
-                                this,
-                                getString(R.string.text_error_password_less_than_8_char),
-                                R.style.ToastError
-                            ).show()
-                            binding.etName.setBackgroundResource(R.drawable.bg_selector_input)
-                            binding.etEmail.setBackgroundResource(R.drawable.bg_selector_input)
-                            binding.etPhoneNumber.setBackgroundResource(R.drawable.bg_selector_input)
-                            binding.etPassword.setBackgroundResource(R.drawable.bg_input_error)
-                        }
-
-                        else -> {
-                            StyleableToast.makeText(
-                                this,
-                                error.exception?.message, R.style.ToastError
-                            ).show()
-                            binding.etEmail.setBackgroundResource(R.drawable.bg_selector_input)
-                            binding.etPassword.setBackgroundResource(R.drawable.bg_selector_input)
-                        }
-                    }*/
                     if (error.exception is ApiErrorException) {
                         val errorMessage = error.exception.errorResponse
                         StyleableToast.makeText(this, errorMessage.message, R.style.ToastError).show()
@@ -172,8 +151,8 @@ class RegisterActivity : AppCompatActivity() {
         val email = binding.etEmail.text.toString().trim()
 
         return checkNameValidation(fullName) && checkEmailValidation(email) &&
-                checkPhoneNumberValidation(phoneNumber) &&
-                checkPasswordValidation(password, binding.tilPassword)
+            checkPhoneNumberValidation(phoneNumber) &&
+            checkPasswordValidation(password, binding.tilPassword)
     }
 
     private fun checkPhoneNumberValidation(phoneNumber: String): Boolean {

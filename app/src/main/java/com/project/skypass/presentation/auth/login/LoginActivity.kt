@@ -3,7 +3,6 @@ package com.project.skypass.presentation.auth.login
 import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
@@ -16,12 +15,10 @@ import com.project.skypass.databinding.LayoutStateSuccessBinding
 import com.project.skypass.presentation.auth.forgetpassword.ForgetPasswordActivity
 import com.project.skypass.presentation.auth.login.LoginViewModel.Companion.RC_SIGN_IN
 import com.project.skypass.presentation.auth.register.RegisterActivity
-import com.project.skypass.presentation.auth.resetpassword.ResetPasswordActivity
 import com.project.skypass.presentation.main.MainActivity
 import com.project.skypass.utils.ApiErrorException
 import com.project.skypass.utils.NoInternetException
 import com.project.skypass.utils.UnauthorizedException
-import com.project.skypass.utils.decodeJWT
 import com.project.skypass.utils.proceedWhen
 import io.github.muddz.styleabletoast.StyleableToast
 import kotlinx.coroutines.delay
@@ -29,12 +26,11 @@ import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class LoginActivity : AppCompatActivity() {
-
-    private val binding : ActivityLoginBinding by lazy {
+    private val binding: ActivityLoginBinding by lazy {
         ActivityLoginBinding.inflate(layoutInflater)
     }
 
-    private val viewModel : LoginViewModel by viewModel()
+    private val viewModel: LoginViewModel by viewModel()
     private var dialog: Dialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,16 +41,16 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun setClickListener() {
-        binding.btnLogin.setOnClickListener{
+        binding.btnLogin.setOnClickListener {
             inputLogin()
         }
-        binding.tvForgotPassword.setOnClickListener{
+        binding.tvForgotPassword.setOnClickListener {
             navigateToResetPassword()
         }
-        binding.tvNotHaveAccountRegister.setOnClickListener{
+        binding.tvNotHaveAccountRegister.setOnClickListener {
             navigateToRegister()
         }
-        binding.btnLoginGoogle.setOnClickListener{
+        binding.btnLoginGoogle.setOnClickListener {
             loginWithGoogle()
         }
     }
@@ -64,11 +60,14 @@ class LoginActivity : AppCompatActivity() {
         startActivityForResult(signInIntent, RC_SIGN_IN)
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    override fun onActivityResult(
+        requestCode: Int,
+        resultCode: Int,
+        data: Intent?,
+    ) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == RC_SIGN_IN) {
             viewModel.handleSignInResult(data).observe(this) { result ->
-
             }
         }
     }
@@ -79,16 +78,22 @@ class LoginActivity : AppCompatActivity() {
         doLogin(email, password)
     }
 
-    private fun doLogin(email: String, password: String) {
-        viewModel.doLogin(email, password).observe(this){result ->
+    private fun doLogin(
+        email: String,
+        password: String,
+    ) {
+        viewModel.doLogin(email, password).observe(this) { result ->
             result.proceedWhen(
                 doOnSuccess = {
-                    //dialog?.dismiss()
-                    //doSuccess()
+                    // dialog?.dismiss()
+                    // doSuccess()
                     binding.pbLogin.isVisible = false
                     binding.btnLogin.isEnabled = true
-                    StyleableToast.makeText(this,
-                        getString(R.string.login_success), R.style.ToastSuccess).show()
+                    StyleableToast.makeText(
+                        this,
+                        getString(R.string.login_success),
+                        R.style.ToastSuccess,
+                    ).show()
                     setLoginPref(it.payload?.data?.token.toString())
                     viewModel.setEmail(email)
                     lifecycleScope.launch {
@@ -97,12 +102,12 @@ class LoginActivity : AppCompatActivity() {
                     }
                 },
                 doOnLoading = {
-                    //dialog?.dismiss()
-                    //doLoading()
+                    // dialog?.dismiss()
+                    // doLoading()
                     binding.pbLogin.isVisible = true
                     binding.btnLogin.isEnabled = false
                 },
-                doOnError = {error ->
+                doOnError = { error ->
                     /*dialog?.dismiss()
                     when (error.exception?.message) {
                         getString(R.string.email_not_found_exception) -> {
@@ -123,8 +128,10 @@ class LoginActivity : AppCompatActivity() {
                         }
                         else -> {
                             doError()
-                            *//*StyleableToast.makeText(this,
-                                getString(R.string.unknown_error), R.style.ToastError).show()*//*
+                     */
+                    /*StyleableToast.makeText(this,
+                                getString(R.string.unknown_error), R.style.ToastError).show()*/
+                    /*
                             binding.etEmail.setBackgroundResource(R.drawable.bg_selector_input)
                             binding.etPassword.setBackgroundResource(R.drawable.bg_selector_input)
                         }
@@ -144,7 +151,7 @@ class LoginActivity : AppCompatActivity() {
                 },
                 doOnEmpty = {
                     Toast.makeText(this, "Empty : ${it.payload?.message}", Toast.LENGTH_SHORT).show()
-                }
+                },
             )
         }
     }
@@ -175,38 +182,40 @@ class LoginActivity : AppCompatActivity() {
         startActivity(
             Intent(this, ForgetPasswordActivity::class.java).apply {
                 flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-            }
+            },
         )
     }
 
-    private fun doLoading(){
+    private fun doLoading() {
         val dialogBinding = LayoutStateLoadingBinding.inflate(layoutInflater)
-        dialog = Dialog(this).apply {
-            setCancelable(true)
-            setContentView(dialogBinding.root)
-            show()
-            window?.setBackgroundDrawableResource(android.R.color.transparent)
-        }
+        dialog =
+            Dialog(this).apply {
+                setCancelable(true)
+                setContentView(dialogBinding.root)
+                show()
+                window?.setBackgroundDrawableResource(android.R.color.transparent)
+            }
     }
 
-    private fun doSuccess(){
+    private fun doSuccess() {
         val dialogBinding = LayoutStateSuccessBinding.inflate(layoutInflater)
-        dialog = Dialog(this).apply {
-            setCancelable(true)
-            setContentView(dialogBinding.root)
-            show()
-            window?.setBackgroundDrawableResource(android.R.color.transparent)
-        }
+        dialog =
+            Dialog(this).apply {
+                setCancelable(true)
+                setContentView(dialogBinding.root)
+                show()
+                window?.setBackgroundDrawableResource(android.R.color.transparent)
+            }
     }
 
-    private fun doError(){
+    private fun doError() {
         val dialogBinding = LayoutStateErrorBinding.inflate(layoutInflater)
-        dialog = Dialog(this).apply {
-            setCancelable(true)
-            setContentView(dialogBinding.root)
-            show()
-            window?.setBackgroundDrawableResource(android.R.color.transparent)
-        }
+        dialog =
+            Dialog(this).apply {
+                setCancelable(true)
+                setContentView(dialogBinding.root)
+                show()
+                window?.setBackgroundDrawableResource(android.R.color.transparent)
+            }
     }
-
 }

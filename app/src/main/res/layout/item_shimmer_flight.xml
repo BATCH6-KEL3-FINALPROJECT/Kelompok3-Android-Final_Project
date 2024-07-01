@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_gravity="center|top"
     android:layout_marginHorizontal="16dp"
     android:layout_marginBottom="8dp">
@@ -27,7 +26,7 @@
         app:ticketScallopPositionPercent="70"
         app:ticketScallopRadius="10dp"
         app:ticketShowBorder="true"
-        app:ticketShowDivider="true"/>
+        app:ticketShowDivider="true" />
 
     <LinearLayout
         android:id="@+id/ll_city_from"
@@ -52,7 +51,7 @@
             android:id="@+id/tv_city_name"
             android:layout_width="40dp"
             android:layout_height="wrap_content"
-            android:background="#CCCBCB"/>
+            android:background="#CCCBCB" />
 
     </LinearLayout>
 
@@ -60,8 +59,8 @@
         android:id="@+id/iv_dot_from"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_dot"
         android:layout_marginStart="8dp"
+        android:src="@drawable/ic_dot"
         app:layout_constraintBottom_toBottomOf="@+id/ll_city_from"
         app:layout_constraintStart_toEndOf="@+id/ll_city_from"
         app:layout_constraintTop_toTopOf="@+id/ll_city_from" />
@@ -70,8 +69,8 @@
         android:id="@+id/iv_dash_line"
         android:layout_width="0dp"
         android:layout_height="5dp"
-        android:src="@drawable/bg_dash_line"
         android:layout_marginHorizontal="8dp"
+        android:src="@drawable/bg_dash_line"
         app:layout_constraintBottom_toBottomOf="@+id/iv_dot_from"
         app:layout_constraintEnd_toStartOf="@+id/iv_dot_to"
         app:layout_constraintStart_toEndOf="@+id/iv_dot_from"
@@ -81,10 +80,10 @@
         android:id="@+id/ll_city_to"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="vertical"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
+        android:gravity="center"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -99,7 +98,7 @@
             android:id="@+id/tv_city_name_destination"
             android:layout_width="40dp"
             android:layout_height="wrap_content"
-            android:background="#CCCBCB"/>
+            android:background="#CCCBCB" />
 
     </LinearLayout>
 
@@ -107,8 +106,8 @@
         android:id="@+id/iv_dot_to"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_dot"
         android:layout_marginEnd="8dp"
+        android:src="@drawable/ic_dot"
         app:layout_constraintBottom_toBottomOf="@+id/ll_city_to"
         app:layout_constraintEnd_toStartOf="@+id/ll_city_to"
         app:layout_constraintTop_toTopOf="@+id/ll_city_to" />
@@ -129,19 +128,19 @@
         android:id="@+id/tv_length_of_journey"
         android:layout_width="50dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:background="#CCCBCB"
         android:textStyle="bold"
-        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="@+id/iv_flight"
-        app:layout_constraintTop_toBottomOf="@+id/iv_dash_line"
-        app:layout_constraintStart_toStartOf="@+id/iv_flight"/>
+        app:layout_constraintStart_toStartOf="@+id/iv_flight"
+        app:layout_constraintTop_toBottomOf="@+id/iv_dash_line" />
 
     <LinearLayout
         android:id="@+id/ll_time_from"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
         android:orientation="vertical"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ll_city_from">
@@ -167,8 +166,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
-        android:orientation="vertical"
         android:gravity="right"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ll_city_to">
 
@@ -202,8 +201,8 @@
         android:id="@+id/tv_airline"
         android:layout_width="42dp"
         android:layout_height="match_parent"
-        android:background="#CCCBCB"
         android:layout_marginStart="8dp"
+        android:background="#CCCBCB"
         app:layout_constraintBottom_toBottomOf="@+id/iv_airline"
         app:layout_constraintStart_toEndOf="@+id/iv_airline"
         app:layout_constraintTop_toTopOf="@+id/iv_airline" />

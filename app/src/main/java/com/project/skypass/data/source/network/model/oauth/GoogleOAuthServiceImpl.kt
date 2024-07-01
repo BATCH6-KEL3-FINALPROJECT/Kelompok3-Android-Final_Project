@@ -3,14 +3,13 @@ package com.project.skypass.data.source.network.model.oauth
 import android.content.Intent
 import android.util.Log
 import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.common.api.ApiException
 import com.project.skypass.data.mapper.toUserOAuth
 
 class GoogleOAuthServiceImpl(
     private val googleSignInClient: GoogleSignInClient,
-): GoogleOAuthService {
+) : GoogleOAuthService {
     override fun getSignInIntent(): Intent {
         return googleSignInClient.signInIntent
     }
@@ -23,7 +22,7 @@ class GoogleOAuthServiceImpl(
             account?.idToken != null
         } catch (e: ApiException) {
             e.printStackTrace()
-            Log.e("GoogleOAuthService", "handleSignInResult: ${e.message.toString()}")
+            Log.e("GoogleOAuthService", "handleSignInResult: ${e.message}")
             false
         }
     }
@@ -45,5 +44,4 @@ class GoogleOAuthServiceImpl(
         googleSignInClient.signOut()
         return true
     }
-
 }

@@ -10,30 +10,33 @@ class SeatsRepositoryImpl(private val dataSource: SeatsDataSource) : SeatsReposi
     override fun getSeats(
         seatsClass: String,
         flightId: String,
-        page: Int
+        page: Int,
     ): Flow<ResultWrapper<Triple<String, List<String>, List<String>>>> {
         return proceedFlow {
             val dataSeats = dataSource.getSeats(seatsClass, flightId, page).data?.seats.toSeatList()
 
-            val chunkedData = dataSeats.chunked(6).map { chunk ->
+            val chunkedData =
+                dataSeats.chunked(6).map { chunk ->
 
-                val seatStatusStr = chunk.map { it.isAvailable }
-                    .chunked(3)
-                    .map { it.joinToString("") }
-                    .joinToString("_")
+                    val seatStatusStr =
+                        chunk.map { it.isAvailable }
+                            .chunked(3)
+                            .map { it.joinToString("") }
+                            .joinToString("_")
 
-                val getSeatId = chunk.map { it.seatId }
+                    val getSeatId = chunk.map { it.seatId }
 
-                val centerIndex = if (chunk.size > 3) 3 else chunk.size
+                    val centerIndex = if (chunk.size > 3) 3 else chunk.size
 
-                val seatLabel = chunk.map { it.seatNumber ?: "" }
-                    .toMutableList()
-                    .apply {
-                        add(centerIndex, "")
-                        add( 0, "/")
-                    }
-                Triple(seatStatusStr,getSeatId, seatLabel)
-            }
+                    val seatLabel =
+                        chunk.map { it.seatNumber}
+                            .toMutableList()
+                            .apply {
+                                add(centerIndex, "")
+                                add(0, "/")
+                            }
+                    Triple(seatStatusStr, getSeatId, seatLabel)
+                }
             val status = chunkedData.map { it.first }.joinToString("/", "/")
 
             val seatId = chunkedData.map { it.second }.flatten()
@@ -44,9 +47,7 @@ class SeatsRepositoryImpl(private val dataSource: SeatsDataSource) : SeatsReposi
             println(seatId)
             println(title)
 
-            Triple(status,seatId, title)
+            Triple(status, seatId, title)
         }
     }
-
-
 }

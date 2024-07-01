@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_app">
 
     <ImageView
         android:id="@+id/iv_bg_banner_profile"
@@ -11,16 +11,16 @@
         android:layout_height="182dp"
         android:scaleType="centerCrop"
         android:src="@drawable/bg_account_banner"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_account"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_margin="16dp"
         android:text="@string/tv_account"
         android:textColor="@color/white"
-        android:layout_margin="16dp"
-        android:textSize="24sp"
+        android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -30,11 +30,11 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_margin="16dp"
-        android:src="@drawable/iv_profile"
         android:scaleType="fitXY"
-        app:layout_constraintTop_toBottomOf="@+id/tv_account"
+        android:src="@drawable/iv_profile"
         app:layout_constraintStart_toStartOf="parent"
-        app:shapeAppearanceOverlay="@style/Circular"/>
+        app:layout_constraintTop_toBottomOf="@+id/tv_account"
+        app:shapeAppearanceOverlay="@style/Circular" />
 
     <ImageView
         android:id="@+id/iv_verify_status"
@@ -51,9 +51,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:text="Jos Creative"
+        android:text="@string/atext_"
         android:textColor="@color/white"
-        android:textSize="24sp"
+        android:textSize="18sp"
         android:textStyle="normal"
         app:layout_constraintBottom_toBottomOf="@+id/iv_bg_banner_profile"
         app:layout_constraintStart_toEndOf="@id/iv_profile"
@@ -66,12 +66,12 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="4dp"
+        android:text="@string/text_error_gmail_com"
         android:textColor="@color/white"
         android:textSize="14sp"
         android:textStyle="normal"
         app:layout_constraintStart_toEndOf="@id/iv_profile"
-        app:layout_constraintTop_toBottomOf="@id/tv_name_profile"
-        android:text="phosphates@gmail.com" />
+        app:layout_constraintTop_toBottomOf="@id/tv_name_profile" />
 
     <TextView
         android:id="@+id/tv_number_phone_profile"
@@ -79,23 +79,23 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="4dp"
+        android:text="@string/text_62_nii_pasti"
         android:textColor="@color/white"
         android:textSize="14sp"
         android:textStyle="normal"
         app:layout_constraintStart_toEndOf="@id/iv_profile"
-        app:layout_constraintTop_toBottomOf="@id/tv_email_profile"
-        android:text="082156784329" />
+        app:layout_constraintTop_toBottomOf="@id/tv_email_profile" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/card_account"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        app:cardElevation="2dp"
         app:cardCornerRadius="10dp"
-        app:layout_constraintTop_toBottomOf="@+id/iv_bg_banner_profile"
+        app:cardElevation="2dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/iv_bg_banner_profile">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -115,8 +115,8 @@
                     android:id="@+id/iv_edit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="18dp"
                     android:layout_marginStart="16dp"
+                    android:layout_marginTop="18dp"
                     android:src="@drawable/ic_edit"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -143,7 +143,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
-                        android:text="Edit profil"
+                        android:text="@string/text_edit_profil"
                         android:textSize="11sp" />
 
                 </LinearLayout>
@@ -154,10 +154,10 @@
                 android:id="@+id/underline"
                 android:layout_width="0dp"
                 android:layout_height="1dp"
-                android:layout_marginTop="16dp"
-                android:background="@color/underline"
                 android:layout_marginStart="48dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
+                android:background="@color/underline"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/ll_edit_profile" />
@@ -203,7 +203,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
-                        android:text="Status verifikasi akun, ubah tema dan hapus akun"
+                        android:text="@string/text_desk_setting_profile"
                         android:textSize="11sp" />
 
                 </LinearLayout>
@@ -219,10 +219,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        app:cardElevation="2dp"
         app:cardCornerRadius="10dp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:cardElevation="2dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/card_account">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -233,8 +233,8 @@
                 android:id="@+id/iv_logout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_logout"
                 android:layout_margin="16dp"
+                android:src="@drawable/ic_logout"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -261,7 +261,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
-                    android:text="Keluar dari akun ini"
+                    android:text="@string/text_keluar_dari_akun_ini"
                     android:textSize="11sp" />
 
             </LinearLayout>
@@ -274,11 +274,11 @@
         android:id="@+id/version_app"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="128dp"
         android:text="@string/text_version"
         android:textColor="@color/grey"
         android:textSize="14sp"
         android:textStyle="normal"
-        android:layout_marginBottom="128dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

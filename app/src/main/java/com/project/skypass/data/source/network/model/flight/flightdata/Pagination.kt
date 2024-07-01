@@ -1,6 +1,5 @@
 package com.project.skypass.data.source.network.model.flight.flightdata
 
-
 import com.google.gson.annotations.SerializedName
 
 data class Pagination(
@@ -11,5 +10,5 @@ data class Pagination(
     @SerializedName("totalData")
     var totalData: Int?,
     @SerializedName("totalPages")
-    var totalPages: Int?
+    var totalPages: Int?,
 )

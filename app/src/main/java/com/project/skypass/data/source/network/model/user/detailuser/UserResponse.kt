@@ -4,5 +4,5 @@ data class UserResponse(
     val code: Int?,
     val data: Data?,
     val is_success: Boolean?,
-    val message: String?
+    val message: String?,
 )

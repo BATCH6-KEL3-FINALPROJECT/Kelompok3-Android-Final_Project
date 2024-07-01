@@ -8,10 +8,7 @@ import com.project.skypass.databinding.ItemCheckoutPaymentTicketBinding
 import com.project.skypass.presentation.checkout.checkoutPayment.adapter.PaymentAdapter.PaymentViewHolder
 import com.project.skypass.utils.toIndonesianFormat
 
-class PaymentAdapter(
-
-): RecyclerView.Adapter<PaymentViewHolder>() {
-
+class PaymentAdapter() : RecyclerView.Adapter<PaymentViewHolder>() {
     private val data = mutableListOf<Booking>()
 
     fun submitDataPayment(items: List<Booking>) {
@@ -20,13 +17,16 @@ class PaymentAdapter(
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PaymentViewHolder {
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int,
+    ): PaymentViewHolder {
         return PaymentViewHolder(
             ItemCheckoutPaymentTicketBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
-                false
-            )
+                false,
+            ),
         )
     }
 
@@ -34,14 +34,17 @@ class PaymentAdapter(
         return data.size
     }
 
-    override fun onBindViewHolder(holder: PaymentViewHolder, position: Int) {
+    override fun onBindViewHolder(
+        holder: PaymentViewHolder,
+        position: Int,
+    ) {
         holder.bind(data[position])
     }
 
     class PaymentViewHolder(
-        private val binding: ItemCheckoutPaymentTicketBinding
-    ):RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: Booking){
+        private val binding: ItemCheckoutPaymentTicketBinding,
+    ) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(item: Booking) {
             binding.tvPassangersList.text = "${item.totalAdult} adult, ${item.totalChild} child, ${item.totalBaby}, baby"
             binding.tvCityName.text = item.departureCity
             binding.tvCityNameDestination.text = item.arrivalCity

@@ -17,6 +17,6 @@ fun GoogleSignInAccount?.toUserOAuth() =
             createdAt = null,
             updatedAt = null,
             imageId = null,
-            isVerified = false
+            isVerified = false,
         )
     }

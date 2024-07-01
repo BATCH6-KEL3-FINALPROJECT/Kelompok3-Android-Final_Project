@@ -16,7 +16,7 @@ fun EditUserItemResponse?.toEditUser() =
         imageId = this?.image_id.orEmpty(),
         createdAt = this?.createdAt.orEmpty(),
         updatedAt = this?.updatedAt.orEmpty(),
-        isVerified = this?.is_verified ?: false
+        isVerified = this?.is_verified ?: false,
     )
 
 fun Collection<EditUserItemResponse>?.toEditUsers() = this?.map { it.toEditUser() } ?: listOf()

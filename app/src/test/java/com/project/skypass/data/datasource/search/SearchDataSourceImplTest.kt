@@ -13,12 +13,10 @@ import io.mockk.coVerify
 import io.mockk.impl.annotations.MockK
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.*
-
 import org.junit.Before
 import org.junit.Test
 
 class SearchDataSourceImplTest {
-
     @MockK
     lateinit var service: ApiService
     private lateinit var ds: SearchDataSource
@@ -30,35 +28,38 @@ class SearchDataSourceImplTest {
     }
 
     @Test
-    fun getSearchResults() = runBlocking {
-        val query = "test query"
+    fun getSearchResults() =
+        runBlocking {
+            val query = "test query"
 
-        val searchItems = listOf(
-            SearchItemResponse(
-                airport_id = "1",
-                airport_name = "Airport A",
-                city = "City A",
-                city_code = "CYA",
-                continent = "Continent A",
-                country = "Country A",
-                iata_code = "AIA"
-            )
-        )
+            val searchItems =
+                listOf(
+                    SearchItemResponse(
+                        airport_id = "1",
+                        airport_name = "Airport A",
+                        city = "City A",
+                        city_code = "CYA",
+                        continent = "Continent A",
+                        country = "Country A",
+                        iata_code = "AIA",
+                    ),
+                )
 
-        val pagination = Pagination(10, 10, 100, 100)
-        val data = SearchDataItemResponse(airport = searchItems, pagination = pagination)
-        val expectedResponse = SearchResponse(
-            code = 200,
-            data = data,
-            is_success = true,
-            message = "Success"
-        )
+            val pagination = Pagination(10, 10, 100, 100)
+            val data = SearchDataItemResponse(airport = searchItems, pagination = pagination)
+            val expectedResponse =
+                SearchResponse(
+                    code = 200,
+                    data = data,
+                    is_success = true,
+                    message = "Success",
+                )
 
-        coEvery { service.searchDestination(query) } returns expectedResponse
+            coEvery { service.searchDestination(query) } returns expectedResponse
 
-        val result = ds.getSearchResults(query)
+            val result = ds.getSearchResults(query)
 
-        assertEquals(expectedResponse, result)
-        coVerify { service.searchDestination(query) }
-    }
+            assertEquals(expectedResponse, result)
+            coVerify { service.searchDestination(query) }
+        }
 }

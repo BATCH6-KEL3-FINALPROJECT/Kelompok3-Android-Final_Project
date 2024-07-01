@@ -8,5 +8,5 @@ data class SearchHistoryHome(
     val userId: String,
     val history: String,
     val createdAt: String,
-    val updatedAt: String
+    val updatedAt: String,
 )

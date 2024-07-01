@@ -10,17 +10,20 @@ import kotlinx.coroutines.Dispatchers
 class SearchHistoryViewModel(
     private val repository: SearchRepository,
     private val prefRepository: PrefRepository,
-    private val historyRepository: HistoryRepository
+    private val historyRepository: HistoryRepository,
 ) : ViewModel() {
     fun getToken(): String {
         return prefRepository.getToken()
     }
 
-    fun search(query: String? = null) =
-        repository.getSearchResults(query).asLiveData(Dispatchers.IO)
+    fun search(query: String? = null) = repository.getSearchResults(query).asLiveData(Dispatchers.IO)
 
-    fun getBookingHistory(token: String, search: String?, date: String?, until: String?) =
-        search?.let {
-            historyRepository.getBookingHistory(token, it, null, null).asLiveData(Dispatchers.IO)
-        }
+    fun getBookingHistory(
+        token: String,
+        search: String?,
+        date: String?,
+        until: String?,
+    ) = search?.let {
+        historyRepository.getBookingHistory(token, it, null, null).asLiveData(Dispatchers.IO)
+    }
 }

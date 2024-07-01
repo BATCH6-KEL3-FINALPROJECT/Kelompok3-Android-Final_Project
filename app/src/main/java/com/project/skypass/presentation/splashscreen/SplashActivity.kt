@@ -15,7 +15,6 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 @SuppressLint("CustomSplashScreen")
 class SplashActivity : AppCompatActivity() {
-
     private val binding: ActivitySplashBinding by lazy {
         ActivitySplashBinding.inflate(layoutInflater)
     }
@@ -33,14 +32,14 @@ class SplashActivity : AppCompatActivity() {
     private fun directUser() {
         lifecycleScope.launch {
             delay(2000)
-            //navigateToMain()
-            //navigateToOnboarding()
+            // navigateToMain()
+            // navigateToOnboarding()
             checkOnBoarding()
         }
     }
 
     private fun checkOnBoarding() {
-        if (!viewModel.isFirstRun()){
+        if (!viewModel.isFirstRun()) {
             navigateToOnboarding()
         } else {
             navigateToMain()

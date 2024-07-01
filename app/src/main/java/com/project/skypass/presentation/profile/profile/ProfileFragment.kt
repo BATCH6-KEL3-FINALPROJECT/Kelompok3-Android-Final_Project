@@ -12,20 +12,19 @@ import coil.load
 import com.project.skypass.R
 import com.project.skypass.core.BaseActivity
 import com.project.skypass.databinding.FragmentProfileBinding
-import com.project.skypass.presentation.profile.settingaccount.SettingsAccountActivity
 import com.project.skypass.presentation.profile.changeprofile.ChangeProfileActivity
+import com.project.skypass.presentation.profile.settingaccount.SettingsAccountActivity
 import com.project.skypass.utils.proceedWhen
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ProfileFragment : Fragment() {
-
     private lateinit var binding: FragmentProfileBinding
-    private val profileViewModel: ProfileViewModelExample by viewModel()
+    private val profileViewModel: ProfileViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         binding = FragmentProfileBinding.inflate(inflater, container, false)
         return binding.root
@@ -33,7 +32,7 @@ class ProfileFragment : Fragment() {
 
     override fun onViewCreated(
         view: View,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ) {
         super.onViewCreated(view, savedInstanceState)
         setClickAction()
@@ -81,11 +80,12 @@ class ProfileFragment : Fragment() {
     }
 
     private fun updateVerificationStatus(isVerified: Boolean) {
-        val verificationIconRes = if (isVerified) {
-            R.drawable.ic_verified_user
-        } else {
-            R.drawable.ic_not_verified
-        }
+        val verificationIconRes =
+            if (isVerified) {
+                R.drawable.ic_verified_user
+            } else {
+                R.drawable.ic_not_verified
+            }
         binding.ivVerifyStatus.setImageResource(verificationIconRes)
     }
 
@@ -107,8 +107,11 @@ class ProfileFragment : Fragment() {
     private fun deleteOrderHistoryUser() {
         profileViewModel.deleteOrderHistoryUser().observe(viewLifecycleOwner) {
             it.proceedWhen(doOnSuccess = {
-                Toast.makeText(requireContext(),
-                    getString(R.string.text_hapus_riwayat_pemesanan), Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    requireContext(),
+                    getString(R.string.text_hapus_riwayat_pemesanan),
+                    Toast.LENGTH_SHORT,
+                ).show()
             }, doOnLoading = {
                 // Handle loading state if necessary
             }, doOnError = { err ->

@@ -1,6 +1,5 @@
 package com.project.skypass.data.source.network.model.checkout.request
 
-
 import com.google.gson.annotations.SerializedName
 
 data class PassengerData(
@@ -29,5 +28,5 @@ data class PassengerData(
     @SerializedName("title")
     var title: String?,
     @SerializedName("valid_until")
-    var validUntil: String?
+    var validUntil: String?,
 )

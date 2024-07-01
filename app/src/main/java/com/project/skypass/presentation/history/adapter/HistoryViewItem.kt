@@ -1,8 +1,6 @@
-
 package com.project.skypass.presentation.history.adapter
 
 import android.view.View
-import android.widget.Toast
 import com.project.skypass.R
 import com.project.skypass.data.model.History
 import com.project.skypass.databinding.ItemMounthHistoryOrderBinding
@@ -51,14 +49,18 @@ class HistoryTicketItem(private val item: History) : BindableItem<ItemTicketHist
         }
     }
 
-    private fun convertMinutesData(item: History, binding: ItemTicketHistoryOrderBinding) {
+    private fun convertMinutesData(
+        item: History,
+        binding: ItemTicketHistoryOrderBinding,
+    ) {
         item.flightDuration.let { duration ->
             val (hours, remainingMinutes) = convertMinutesToHours(duration)
-            val durationText = if (hours > 0) {
-                "$hours Jam $remainingMinutes Menit"
-            } else {
-                "$remainingMinutes Menit"
-            }
+            val durationText =
+                if (hours > 0) {
+                    "$hours Jam $remainingMinutes Menit"
+                } else {
+                    "$remainingMinutes Menit"
+                }
             binding.tvLengthOfJourney.text = durationText
         }
     }
@@ -69,37 +71,13 @@ class HistoryTicketItem(private val item: History) : BindableItem<ItemTicketHist
         return ItemTicketHistoryOrderBinding.bind(view)
     }
 
-    private fun navigateToDetail(item: History, binding: ItemTicketHistoryOrderBinding) {
+    private fun navigateToDetail(
+        item: History,
+        binding: ItemTicketHistoryOrderBinding,
+    ) {
         DetailHistoryActivity.startActivity(
-            binding.root.context, History(
-                bookingId = item.bookingId,
-                userId = item.userId,
-                flightId = item.flightId,
-                paymentId = item.paymentId,
-                bookingDate = item.bookingDate,
-                bookingCode = item.bookingCode,
-                isRoundTrip = item.isRoundTrip,
-                noOfTickets = item.noOfTickets,
-                status = item.status,
-                totalPrice = item.totalPrice,
-                flightDuration = item.flightDuration,
-                flightStatus = item.flightStatus,
-                terminal = item.terminal,
-                departureAirport = item.departureAirport,
-                arrivalAirport = item.arrivalAirport,
-                departureDate = item.departureDate,
-                departureTime = item.departureTime,
-                arrivalDate = item.arrivalDate,
-                arrivalTime = item.arrivalTime,
-                departureAirportId = item.departureAirportId,
-                arrivalAirportId = item.arrivalAirportId,
-                departingAirport = item.departingAirport,
-                arrivingAirport = item.arrivingAirport,
-                ticketIdentity = item.ticketIdentity,
-                airlineName = item.airlineName,
-                airlineCode = item.airlineCode,
-                country = item.country
-            )
+            binding.root.context,
+            item,
         )
     }
 

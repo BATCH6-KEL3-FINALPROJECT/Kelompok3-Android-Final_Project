@@ -15,5 +15,5 @@ data class Ticket(
     val terminal: String,
     val ticketStatus: String,
     val createdAt: String,
-    val updatedAt: String
+    val updatedAt: String,
 )

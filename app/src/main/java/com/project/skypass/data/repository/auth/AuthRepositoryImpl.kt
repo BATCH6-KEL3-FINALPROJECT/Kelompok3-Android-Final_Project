@@ -4,20 +4,20 @@ import com.project.skypass.data.datasource.auth.AuthDataStore
 import com.project.skypass.data.model.Response
 import com.project.skypass.data.source.network.model.login.LoginItemResponse
 import com.project.skypass.data.source.network.model.login.LoginRequestResponse
-import com.project.skypass.data.source.network.model.login.LoginResponse
 import com.project.skypass.data.source.network.model.otp.ResendOtpRequestResponse
 import com.project.skypass.data.source.network.model.otp.VerifyRequestResponse
 import com.project.skypass.data.source.network.model.register.RegisterItemResponse
 import com.project.skypass.data.source.network.model.register.RegisterRequestResponse
-import com.project.skypass.data.source.network.model.register.RegisterResponse
 import com.project.skypass.data.source.network.model.resetpassword.ResetPasswordRequestResponse
-import com.project.skypass.utils.ErrorInterceptor
 import com.project.skypass.utils.ResultWrapper
 import com.project.skypass.utils.proceedFlow
 import kotlinx.coroutines.flow.Flow
 
-class AuthRepositoryImpl(private val dataStore: AuthDataStore): AuthRepository {
-    override fun doLogin(email: String, password: String): Flow<ResultWrapper<Response<LoginItemResponse>>> {
+class AuthRepositoryImpl(private val dataStore: AuthDataStore) : AuthRepository {
+    override fun doLogin(
+        email: String,
+        password: String,
+    ): Flow<ResultWrapper<Response<LoginItemResponse>>> {
         return proceedFlow {
             /*try {
                 dataStore.doLogin(
@@ -37,8 +37,8 @@ class AuthRepositoryImpl(private val dataStore: AuthDataStore): AuthRepository {
             dataStore.doLogin(
                 LoginRequestResponse(
                     email = email,
-                    password = password
-                )
+                    password = password,
+                ),
             )
         }
     }
@@ -47,18 +47,18 @@ class AuthRepositoryImpl(private val dataStore: AuthDataStore): AuthRepository {
         name: String,
         email: String,
         phoneNumber: String,
-        password: String
+        password: String,
     ): Flow<ResultWrapper<Response<RegisterItemResponse>>> {
         return proceedFlow {
-            //try {
-                dataStore.doRegister(
-                    RegisterRequestResponse(
-                        email = email,
-                        password = password,
-                        name = name,
-                        phone_number = phoneNumber
-                    )
-                )
+            // try {
+            dataStore.doRegister(
+                RegisterRequestResponse(
+                    email = email,
+                    password = password,
+                    name = name,
+                    phone_number = phoneNumber,
+                ),
+            )
             /*} catch (e: ErrorInterceptor.NoInternetException) {
                 throw Exception("No internet connection")
             } catch (e: ErrorInterceptor.HttpException) {
@@ -67,13 +67,16 @@ class AuthRepositoryImpl(private val dataStore: AuthDataStore): AuthRepository {
         }
     }
 
-    override fun doVerify(email: String, otp: String): Flow<ResultWrapper<Boolean>> {
+    override fun doVerify(
+        email: String,
+        otp: String,
+    ): Flow<ResultWrapper<Boolean>> {
         return proceedFlow {
             dataStore.doVerify(
                 VerifyRequestResponse(
                     email = email,
-                    otp = otp
-                )
+                    otp = otp,
+                ),
             ).is_success ?: false
         }
     }
@@ -82,8 +85,8 @@ class AuthRepositoryImpl(private val dataStore: AuthDataStore): AuthRepository {
         return proceedFlow {
             dataStore.doResendOtp(
                 ResendOtpRequestResponse(
-                    email = email
-                )
+                    email = email,
+                ),
             ).status ?: "failed"
         }
     }
@@ -92,8 +95,8 @@ class AuthRepositoryImpl(private val dataStore: AuthDataStore): AuthRepository {
         return proceedFlow {
             dataStore.doResetPassword(
                 ResetPasswordRequestResponse(
-                    email = email
-                )
+                    email = email,
+                ),
             ).is_success ?: false
         }
     }

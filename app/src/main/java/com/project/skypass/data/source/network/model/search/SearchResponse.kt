@@ -4,5 +4,5 @@ data class SearchResponse(
     val code: Int?,
     val data: SearchDataItemResponse?,
     val is_success: Boolean?,
-    val message: String?
+    val message: String?,
 )

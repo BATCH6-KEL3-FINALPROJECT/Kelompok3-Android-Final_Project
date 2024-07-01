@@ -7,12 +7,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.google.android.material.chip.Chip
 import com.project.skypass.data.model.History
 import com.project.skypass.databinding.FragmentSearchHistoryBinding
 import com.project.skypass.presentation.history.OnSearchItemSelectedListener
@@ -21,16 +19,17 @@ import com.project.skypass.utils.proceedWhen
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SearchHistoryFragment : BottomSheetDialogFragment() {
-
     private lateinit var binding: FragmentSearchHistoryBinding
     private lateinit var callback: OnSearchItemSelectedListener
     private val searchAdapter by lazy {
         SearchHistoryAdapter { selectedBooking ->
             handleSearchItemSelected(selectedBooking.bookingCode)
             targetFragment?.onActivityResult(
-                targetRequestCode, Activity.RESULT_OK, Intent().apply {
+                targetRequestCode,
+                Activity.RESULT_OK,
+                Intent().apply {
                     putExtra("searchQuery", selectedBooking.bookingCode)
-                }
+                },
             )
             dismiss()
         }
@@ -38,14 +37,18 @@ class SearchHistoryFragment : BottomSheetDialogFragment() {
     private val viewModel: SearchHistoryViewModel by viewModel()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
     ): View {
         binding = FragmentSearchHistoryBinding.inflate(inflater, container, false)
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
         showDataSuggestionSearch()
@@ -70,7 +73,7 @@ class SearchHistoryFragment : BottomSheetDialogFragment() {
                     doOnError = {
                         binding.rvSearchResult.isVisible = false
                         binding.tvEmptySearchResult.isVisible = true
-                    }
+                    },
                 )
             }
     }
@@ -83,44 +86,46 @@ class SearchHistoryFragment : BottomSheetDialogFragment() {
     }
 
     private fun searchDestination() {
-        binding.svBooking.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                if (!query.isNullOrEmpty()) {
-                    performSearch(query)
+        binding.svBooking.setOnQueryTextListener(
+            object : SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    if (!query.isNullOrEmpty()) {
+                        performSearch(query)
+                    }
+                    return false
                 }
-                return false
-            }
 
-            override fun onQueryTextChange(newText: String?): Boolean {
-                if (newText.isNullOrEmpty()) {
-                    showDataSuggestionSearch()
-                    binding.rvSearchResult.isVisible = true
-                    binding.tvEmptySearchResult.isVisible = false
-                } else {
-                    viewModel.getBookingHistory(viewModel.getToken(), newText, null, null)
-                        ?.observe(viewLifecycleOwner) { results ->
-                            results.proceedWhen(
-                                doOnSuccess = { it ->
-                                    binding.rvSearchResult.isVisible = true
-                                    binding.tvEmptySearchResult.isVisible = false
-                                    it.payload?.let {
-                                        bindDataToAdapter(it)
-                                    }
-                                },
-                                doOnLoading = {
-                                    binding.rvSearchResult.isVisible = false
-                                    binding.tvEmptySearchResult.isVisible = false
-                                },
-                                doOnError = {
-                                    binding.rvSearchResult.isVisible = false
-                                    binding.tvEmptySearchResult.isVisible = true
-                                }
-                            )
-                        }
+                override fun onQueryTextChange(newText: String?): Boolean {
+                    if (newText.isNullOrEmpty()) {
+                        showDataSuggestionSearch()
+                        binding.rvSearchResult.isVisible = true
+                        binding.tvEmptySearchResult.isVisible = false
+                    } else {
+                        viewModel.getBookingHistory(viewModel.getToken(), newText, null, null)
+                            ?.observe(viewLifecycleOwner) { results ->
+                                results.proceedWhen(
+                                    doOnSuccess = { it ->
+                                        binding.rvSearchResult.isVisible = true
+                                        binding.tvEmptySearchResult.isVisible = false
+                                        it.payload?.let {
+                                            bindDataToAdapter(it)
+                                        }
+                                    },
+                                    doOnLoading = {
+                                        binding.rvSearchResult.isVisible = false
+                                        binding.tvEmptySearchResult.isVisible = false
+                                    },
+                                    doOnError = {
+                                        binding.rvSearchResult.isVisible = false
+                                        binding.tvEmptySearchResult.isVisible = true
+                                    },
+                                )
+                            }
+                    }
+                    return true
                 }
-                return true
-            }
-        })
+            },
+        )
     }
 
     private fun handleSearchItemSelected(selectedBookingCode: String) {
@@ -141,7 +146,7 @@ class SearchHistoryFragment : BottomSheetDialogFragment() {
                     doOnError = {
                         binding.rvSearchResult.isVisible = false
                         binding.tvEmptySearchResult.isVisible = true
-                    }
+                    },
                 )
             }
     }
@@ -167,7 +172,7 @@ class SearchHistoryFragment : BottomSheetDialogFragment() {
                     doOnError = {
                         binding.rvSearchResult.isVisible = false
                         binding.tvEmptySearchResult.isVisible = true
-                    }
+                    },
                 )
             }
     }

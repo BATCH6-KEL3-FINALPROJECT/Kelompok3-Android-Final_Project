@@ -5,7 +5,10 @@ import kotlinx.coroutines.flow.Flow
 
 interface OrderHistoryDataSource {
     fun getAllOrderHistory(): Flow<List<OrderHistoryEntity>>
+
     suspend fun insertOrderHistory(item: OrderHistoryEntity): Long
+
     suspend fun deleteOrderHistory(item: OrderHistoryEntity): Int
+
     fun deleteAllOrderHistory()
 }

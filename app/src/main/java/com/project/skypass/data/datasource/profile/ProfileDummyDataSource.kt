@@ -18,8 +18,8 @@ class ProfileDummyDataSource : ProfileDataSource {
                 imageId = null,
                 createdAt = null,
                 updatedAt = null,
-                isVerified = true
-            )
+                isVerified = true,
+            ),
         )
     }
 }

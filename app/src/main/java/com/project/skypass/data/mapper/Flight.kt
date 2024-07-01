@@ -60,8 +60,9 @@ fun DetailFlightItemResponse?.toDetailFlight() =
         arrivalAirportId = this?.arrival_airport_id,
         departureAirportId = this?.departure_airport_id,
         isPromo = this?.is_promo,
-        seatAvailable = this?.seats_available
+        seatAvailable = this?.seats_available,
     )
 
 fun Collection<GetAllFlightItemResponse>?.toFlightData() = this?.map { it.toFlight() } ?: listOf()
+
 fun Collection<DetailFlightItemResponse>?.toDetailFlightData() = this?.map { it.toDetailFlight() } ?: listOf()

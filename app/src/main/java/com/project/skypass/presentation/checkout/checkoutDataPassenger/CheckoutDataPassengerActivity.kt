@@ -21,9 +21,9 @@ import io.github.muddz.styleabletoast.StyleableToast
 class CheckoutDataPassengerActivity : AppCompatActivity() {
     private val binding by lazy { ActivityCheckoutDataPassengerBinding.inflate(layoutInflater) }
     private var dataPassengersOrder = mutableListOf<PassengersData>()
-    private var getPassengersAdult = Int ?: 0
-    private var getPassengersChild = Int ?: 0
-    private var getPassengersBaby = Int ?: 0
+    private var getPassengersAdult = Int ?:0
+    private var getPassengersChild = Int ?:0
+    private var getPassengersBaby = Int ?:0
 
     private val adapter: GroupieAdapter by lazy {
         GroupieAdapter()
@@ -41,13 +41,7 @@ class CheckoutDataPassengerActivity : AppCompatActivity() {
         binding.btnBack.setOnClickListener {
             onBackPressed()
         }
-
     }
-
-    private fun observeResult() {
-//        observe view model
-    }
-
 
     private fun setData() {
         binding.rvPassengerData.apply {
@@ -55,26 +49,29 @@ class CheckoutDataPassengerActivity : AppCompatActivity() {
             adapter = this@CheckoutDataPassengerActivity.adapter
         }
 
-        val section = getListData().map {
-            var oneClick = false
-            val section = Section()
-            section.setHeader(HeaderItem(it.name) { data ->
-                if (!oneClick) {
-                    oneClick = true
-                    StyleableToast.makeText(this, data, R.style.ToastSuccess).show()
-                    val getPassengerTypeData = data.split(" ")[2]
-                    val dataSection = it.data.map {
-                        DataItem(it!!) { passenger ->
-                            val updatedItem = passenger.copy(passengerType = getPassengerTypeData)
-                            dataPassengersOrder.add(updatedItem)
+        val section =
+            getListData().map {
+                var oneClick = false
+                val section = Section()
+                section.setHeader(
+                    HeaderItem(it.name) { data ->
+                        if (!oneClick) {
+                            oneClick = true
+                            val getPassengerTypeData = data.split(" ")[2]
+                            val dataSection =
+                                it.data.map {
+                                    DataItem(it!!) { passenger ->
+                                        val updatedItem = passenger.copy(passengerType = getPassengerTypeData)
+                                        dataPassengersOrder.add(updatedItem)
+                                    }
+                                }
+                            section.addAll(dataSection)
                         }
-                    }
-                    section.addAll(dataSection)
-                }
-            })
+                    },
+                )
 
-            section
-        }
+                section
+            }
         adapter.addAll(section)
     }
 
@@ -100,7 +97,6 @@ class CheckoutDataPassengerActivity : AppCompatActivity() {
         return result
     }
 
-
     private fun getArgumentData() {
         intent.extras?.getParcelable<OrderUser>(EXTRA_FLIGHT)?.let {
             intent.extras?.getParcelable<OrderPassengers>(EXTRA_USER_ORDER)?.let { orderPassenger ->
@@ -110,7 +106,10 @@ class CheckoutDataPassengerActivity : AppCompatActivity() {
         }
     }
 
-    private fun sendOrderData(item: OrderUser, passengerData: OrderPassengers) {
+    private fun sendOrderData(
+        item: OrderUser,
+        passengerData: OrderPassengers,
+    ) {
         binding.btnSubmit.setOnClickListener {
             val totalPassengers =
                 item.passengersBaby!! + item.passengersAdult!! + item.passengersChild!!
@@ -127,16 +126,23 @@ class CheckoutDataPassengerActivity : AppCompatActivity() {
                         seatOrderDeparture = passengerData.seatOrderDeparture,
                         seatOrderArrival = passengerData.seatOrderArrival,
                         seatIdArrival = passengerData.seatIdArrival,
-                        seatIdDeparture = passengerData.seatIdDeparture
-                    )
+                        seatIdDeparture = passengerData.seatIdDeparture,
+                    ),
                 )
-            }else{
-                StyleableToast.makeText(this, "Terdapat Data Yang Belum Diisi", R.style.ToastError).show()
+            } else {
+                StyleableToast.makeText(
+                    this,
+                    getString(R.string.text_terdapat_data_yang_belum_diisi),
+                    R.style.ToastError,
+                ).show()
             }
         }
     }
 
-    private fun getDataPassenger(item: OrderUser, passengerData: OrderPassengers) {
+    private fun getDataPassenger(
+        item: OrderUser,
+        passengerData: OrderPassengers,
+    ) {
         getPassengersAdult = item.passengersAdult!!
         getPassengersChild = item.passengersChild!!
         getPassengersBaby = item.passengersBaby!!
@@ -146,10 +152,11 @@ class CheckoutDataPassengerActivity : AppCompatActivity() {
     companion object {
         const val EXTRA_FLIGHT = "extra_flight"
         const val EXTRA_USER_ORDER = "EXTRA_USER_ORDER"
+
         fun sendDataOrder(
             context: Context,
             orderUser: OrderUser,
-            orderPassenger: OrderPassengers
+            orderPassenger: OrderPassengers,
         ) {
             val intent = Intent(context, CheckoutDataPassengerActivity::class.java)
             intent.putExtra(EXTRA_FLIGHT, orderUser)
@@ -160,18 +167,19 @@ class CheckoutDataPassengerActivity : AppCompatActivity() {
 
     object DataHolder {
         var emailOrder: String? = null
-        var passengersDataData = PassengersData(
-            title = "",
-            firstName = "",
-            lastName = "",
-            nationality = "",
-            passportNo = "",
-            issuingCountry = "",
-            dateOfBirth = "",
-            email = "",
-            phoneNumber = "",
-            validUntil = "",
-            passengerType = ""
-        )
+        var passengersDataData =
+            PassengersData(
+                title = "",
+                firstName = "",
+                lastName = "",
+                nationality = "",
+                passportNo = "",
+                issuingCountry = "",
+                dateOfBirth = "",
+                email = "",
+                phoneNumber = "",
+                validUntil = "",
+                passengerType = "",
+            )
     }
 }

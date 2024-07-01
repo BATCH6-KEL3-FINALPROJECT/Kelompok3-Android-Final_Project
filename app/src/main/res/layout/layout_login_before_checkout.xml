@@ -27,8 +27,9 @@
     <ImageView
         android:id="@+id/iv_tiket_habis"
         android:layout_width="wrap_content"
+        android:paddingHorizontal="24dp"
         android:layout_height="match_parent"
-        android:src="@drawable/image_pesawat_history_order"
+        android:src="@drawable/iv_empty_flight_seat"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="150dp"
         app:layout_constraintBottom_toTopOf="@id/tv_login_before_checkout"

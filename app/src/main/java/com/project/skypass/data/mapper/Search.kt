@@ -26,5 +26,5 @@ fun GetHistoryItemResponse?.toSearchHomeHistory() =
     )
 
 fun Collection<SearchItemResponse>?.toSearchDestination() = this?.map { it.toSearch() } ?: listOf()
-fun Collection<GetHistoryItemResponse>?.toSearchHomeListHistory() =
-    this?.map { it.toSearchHomeHistory() } ?: listOf()
+
+fun Collection<GetHistoryItemResponse>?.toSearchHomeListHistory() = this?.map { it.toSearchHomeHistory() } ?: listOf()

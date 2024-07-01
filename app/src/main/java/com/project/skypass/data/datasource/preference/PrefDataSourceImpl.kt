@@ -2,7 +2,7 @@ package com.project.skypass.data.datasource.preference
 
 import com.project.skypass.data.source.local.pref.UserPreference
 
-class PrefDataSourceImpl(private val userPreference: UserPreference): PrefDataSource {
+class PrefDataSourceImpl(private val userPreference: UserPreference) : PrefDataSource {
     override fun isFirstRun(): Boolean {
         return userPreference.isFirstRun()
     }

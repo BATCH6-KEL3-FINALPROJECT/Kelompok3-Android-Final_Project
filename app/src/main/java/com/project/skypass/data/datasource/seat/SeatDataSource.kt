@@ -9,8 +9,8 @@ import com.project.skypass.data.source.network.service.ApiService
 class SeatDataSource(
     private val service: ApiService,
     private val flightId: String,
-    private val seatClass: String?
-): PagingSource<Int, Seat>() {
+    private val seatClass: String?,
+) : PagingSource<Int, Seat>() {
     override fun getRefreshKey(state: PagingState<Int, Seat>): Int? {
         return state.anchorPosition?.let { anchorPosition ->
             val anchorPage = state.closestPageToPosition(anchorPosition)
@@ -24,7 +24,7 @@ class SeatDataSource(
             val response = service.getSeatData(flightId, seatClass, page)
 
             LoadResult.Page(
-                data = response.data?.seats.toSeatList() ?: emptyList(),
+                data = response.data?.seats.toSeatList(),
                 prevKey = if (page == 1) null else page - 1,
                 nextKey = if (response.data?.seats?.isEmpty() == true) null else page + 1,
             )

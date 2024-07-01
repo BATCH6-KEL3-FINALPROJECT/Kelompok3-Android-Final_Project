@@ -29,5 +29,5 @@ data class DetailFlight(
     val flightDescription: String?,
     val planeType: String?,
     val createdAt: String?,
-    val updatedAt: String?
+    val updatedAt: String?,
 )

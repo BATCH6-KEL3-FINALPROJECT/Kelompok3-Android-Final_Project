@@ -16,7 +16,7 @@ fun UserItemResponse?.toUser() =
         imageId = this?.image_id,
         createdAt = this?.createdAt,
         updatedAt = this?.updatedAt,
-        isVerified = this?.is_verified
+        isVerified = this?.is_verified,
     )
 
 fun Collection<UserItemResponse>?.toUserData() = this?.map { it.toUser() } ?: listOf()

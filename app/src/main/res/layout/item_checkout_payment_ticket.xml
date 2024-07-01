@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_gravity="center|top"
     android:layout_marginHorizontal="16dp"
     android:layout_marginVertical="8dp">
@@ -10,7 +11,7 @@
     <com.vipulasri.ticketview.TicketView
         android:id="@+id/ticketView"
         android:layout_width="match_parent"
-        android:layout_height="210dp"
+        android:layout_height="270dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -49,14 +50,14 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Pasengers :" />
+                android:text="@string/text_passengger" />
 
             <TextView
                 android:id="@+id/tv_passangers_list"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
-                android:text="2 adult, 2 baby"
+                tools:text="2 adult, 2 baby"
                 android:textColor="?attr/colorPrimary"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -68,7 +69,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:text="Dari"
+            android:text="@string/text_Dari"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -108,7 +109,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:text="Ke"
+            android:text="@string/text_ke"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -138,7 +139,7 @@
             android:id="@+id/tv_length_of_journey"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="1:35 Jam"
+            tools:text="1:35 Jam"
             android:textSize="14sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -149,8 +150,8 @@
             android:id="@+id/tv_time_departure"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="08:00 AM"
+            android:layout_marginTop="8dp"
+            tools:text="08:00 AM"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -160,7 +161,7 @@
             android:id="@+id/tv_date_departure"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="24 Mei 2024"
+            tools:text="24 Mei 2024"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_time_departure" />
@@ -169,8 +170,8 @@
             android:id="@+id/tv_time_arrival"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="09:35 AM"
+            android:layout_marginTop="8dp"
+            tools:text="09:35 AM"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -180,7 +181,7 @@
             android:id="@+id/tv_date_arrival"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="24 Mei 2024"
+            tools:text="24 Mei 2024"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_time_arrival" />
@@ -196,7 +197,7 @@
             android:textSize="14sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_date_departure" />
+            app:layout_constraintTop_toBottomOf="@id/tv_class" />
 
         <TextView
             android:id="@+id/tv_id_backing_code"
@@ -205,8 +206,10 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="4dp"
             android:drawablePadding="8dp"
+            android:maxLines="1"
+            android:ellipsize="end"
             android:text="@string/text_code_booking_user"
-            android:textSize="14sp"
+            android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_booking_code" />
 
@@ -215,12 +218,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="18dp"
+            android:layout_marginTop="12dp"
             android:drawablePadding="8dp"
             android:text="@string/text_class_title"
             android:textSize="14sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@+id/tv_booking_code"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_date_departure"
             app:layout_goneMarginStart="16dp" />
 
@@ -233,15 +236,15 @@
             android:drawablePadding="8dp"
             android:text="@string/text_code_booking_user"
             android:textSize="14sp"
-            app:layout_constraintStart_toEndOf="@id/tv_booking_code"
-            app:layout_constraintTop_toBottomOf="@id/tv_booking_code" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_class_label" />
 
         <TextView
             android:id="@+id/tv_total_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="18dp"
+            android:layout_marginTop="12dp"
             android:drawablePadding="8dp"
             android:text="@string/text_total_payment"
             android:textSize="14sp"
@@ -262,7 +265,7 @@
             android:textSize="14sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@id/tv_total_label"
-            app:layout_constraintTop_toBottomOf="@id/tv_booking_code" />
+            app:layout_constraintTop_toBottomOf="@id/tv_total_label" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

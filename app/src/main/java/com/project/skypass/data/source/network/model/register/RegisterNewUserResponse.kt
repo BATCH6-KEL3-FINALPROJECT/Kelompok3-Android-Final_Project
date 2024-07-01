@@ -10,5 +10,5 @@ data class RegisterNewUserResponse(
     val refresh_token: String?,
     val role: String?,
     val updatedAt: String?,
-    val user_id: String?
+    val user_id: String?,
 )

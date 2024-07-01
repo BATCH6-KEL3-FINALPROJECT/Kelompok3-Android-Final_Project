@@ -10,5 +10,5 @@ data class UserItemResponse(
     val phone_number: String?,
     val role: String?,
     val updatedAt: String?,
-    val user_id: String?
+    val user_id: String?,
 )

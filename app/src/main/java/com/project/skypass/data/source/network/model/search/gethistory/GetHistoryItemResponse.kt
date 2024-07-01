@@ -1,6 +1,5 @@
 package com.project.skypass.data.source.network.model.search.gethistory
 
-
 import com.google.gson.annotations.SerializedName
 
 data class GetHistoryItemResponse(
@@ -13,5 +12,5 @@ data class GetHistoryItemResponse(
     @SerializedName("updatedAt")
     var updatedAt: String?,
     @SerializedName("user_id")
-    var userId: String?
+    var userId: String?,
 )

@@ -10,5 +10,5 @@ data class SearchItemResponse(
     val city_code: String?,
     val continent: String?,
     val country: String?,
-    val iata_code: String?
+    val iata_code: String?,
 )

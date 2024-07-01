@@ -97,7 +97,7 @@ fun DetailHistoryItemResponse?.toDetailHistory() =
         airlineCode = this?.flight?.airline?.airlineCode.orEmpty(),
         country = this?.flight?.airline?.country.orEmpty(),
         bookingCode = this?.bookingCode.orEmpty(),
-        ticketIdentity = this?.tickets?.toHistoryTicketIdentity()
+        ticketIdentity = this?.tickets?.toHistoryTicketIdentity(),
     )
 
 fun Ticket?.toHistoryTicket() =
@@ -106,10 +106,13 @@ fun Ticket?.toHistoryTicket() =
         passengerLastName = this?.passenger?.lastName.orEmpty(),
         seatClass = this?.seat?.seatClass.orEmpty(),
         seatNumber = this?.seatNumber.orEmpty(),
-        passengerId = this?.passenger?.passengerId.orEmpty()
+        passengerId = this?.passenger?.passengerId.orEmpty(),
     )
 
 fun Collection<AllHistoryItemResponse>?.toAllHistory() = this?.map { it.toHistory() } ?: listOf()
+
 fun Collection<UserHistoryItemResponse>?.toBookingHistory() = this?.map { it.toBookingHistory() } ?: listOf()
+
 fun Collection<DetailHistoryItemResponse>?.toDetailAllHistory() = this?.map { it.toDetailHistory() } ?: listOf()
+
 fun Collection<Ticket>?.toHistoryTicketIdentity() = this?.map { it.toHistoryTicket() } ?: listOf()

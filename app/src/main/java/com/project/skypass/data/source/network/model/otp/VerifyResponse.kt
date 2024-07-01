@@ -4,5 +4,5 @@ data class VerifyResponse(
     val code: Int?,
     val data: List<Data>?,
     val is_success: Boolean?,
-    val message: String?
+    val message: String?,
 )

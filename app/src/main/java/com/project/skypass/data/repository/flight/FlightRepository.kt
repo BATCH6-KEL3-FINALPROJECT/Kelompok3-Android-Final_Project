@@ -16,7 +16,7 @@ interface FlightRepository {
         limit: Int?,
         departureDate: String?,
         departureTime: String?,
-        price: String?
+        price: String?,
     ): Flow<ResultWrapper<List<Flight>>>
 
     fun filterFlights(): List<FilterFlight>

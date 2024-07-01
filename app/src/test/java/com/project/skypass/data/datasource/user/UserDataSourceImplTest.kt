@@ -7,7 +7,6 @@ import com.project.skypass.data.source.network.model.user.detailuser.Data
 import com.project.skypass.data.source.network.model.user.detailuser.UserItemResponse
 import com.project.skypass.data.source.network.model.user.detailuser.UserResponse
 import com.project.skypass.data.source.network.model.user.edituser.EditUserItemResponse
-import com.project.skypass.data.source.network.model.user.edituser.EditUserResponse
 import com.project.skypass.data.source.network.service.ApiService
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
@@ -23,15 +22,14 @@ import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.junit.Assert.*
-
 import org.junit.Before
 import org.junit.Test
 import java.io.File
 
 class UserDataSourceImplTest {
-
     @MockK
     lateinit var pref: UserPreference
+
     @MockK
     lateinit var service: ApiService
     private lateinit var ds: UserDataSource
@@ -58,88 +56,94 @@ class UserDataSourceImplTest {
     }
 
     @Test
-    fun getUser() = runBlocking {
-        val userId = "user123"
-        val userItemResponse = UserItemResponse(
-            createdAt = "2024-06-19",
-            email = "test@example.com",
-            image_id = "image123",
-            image_url = "https://example.com/image.jpg",
-            is_verified = true,
-            name = "Test User",
-            phone_number = "1234567890",
-            role = "user",
-            updatedAt = "2024-06-19",
-            user_id = "user123"
-        )
-        val data = Data(userItemResponse)
-        val userResponse = UserResponse(
-            code = 200,
-            data = data,
-            is_success = true,
-            message = "User data retrieved successfully."
-        )
-        coEvery { service.getUserData(userId) } returns userResponse
-        val result = ds.getUser(userId)
-        assertEquals(userResponse, result)
-    }
+    fun getUser() =
+        runBlocking {
+            val userId = "user123"
+            val userItemResponse =
+                UserItemResponse(
+                    createdAt = "2024-06-19",
+                    email = "test@example.com",
+                    image_id = "image123",
+                    image_url = "https://example.com/image.jpg",
+                    is_verified = true,
+                    name = "Test User",
+                    phone_number = "1234567890",
+                    role = "user",
+                    updatedAt = "2024-06-19",
+                    user_id = "user123",
+                )
+            val data = Data(userItemResponse)
+            val userResponse =
+                UserResponse(
+                    code = 200,
+                    data = data,
+                    is_success = true,
+                    message = "User data retrieved successfully.",
+                )
+            coEvery { service.getUserData(userId) } returns userResponse
+            val result = ds.getUser(userId)
+            assertEquals(userResponse, result)
+        }
 
     @Test
-    fun editUser() = runBlocking {
-        val token = "token123"
-        val userId = "user123"
-        val name = "Test User"
-        val email = "test@example.com"
-        val phoneNumber = "1234567890"
-        val password = "password"
-        val photo = File("path/to/photo.jpg")
-        val id = "user123"
+    fun editUser() =
+        runBlocking {
+            val token = "token123"
+            val userId = "user123"
+            val name = "Test User"
+            val email = "test@example.com"
+            val phoneNumber = "1234567890"
+            val password = "password"
+            val photo = File("path/to/photo.jpg")
+            val id = "user123"
 
-        val namePart = name.toRequestBody("text/plain".toMediaTypeOrNull())
-        val emailPart = email.toRequestBody("text/plain".toMediaTypeOrNull())
-        val phoneNumberPart = phoneNumber.toRequestBody("text/plain".toMediaTypeOrNull())
-        val photoRequestBody = photo.asRequestBody("image/*".toMediaTypeOrNull())
-        val photoPart = MultipartBody.Part.createFormData("image", photo.name, photoRequestBody)
+            val namePart = name.toRequestBody("text/plain".toMediaTypeOrNull())
+            val emailPart = email.toRequestBody("text/plain".toMediaTypeOrNull())
+            val phoneNumberPart = phoneNumber.toRequestBody("text/plain".toMediaTypeOrNull())
+            val photoRequestBody = photo.asRequestBody("image/*".toMediaTypeOrNull())
+            val photoPart = MultipartBody.Part.createFormData("image", photo.name, photoRequestBody)
 
-        val editUserItemResponse = EditUserItemResponse(
-            createdAt = "2024-06-19",
-            email = email,
-            image_id = "image123",
-            image_url = "https://example.com/image.jpg",
-            is_verified = true,
-            name = name,
-            password = password,
-            phone_number = phoneNumber,
-            refresh_token = null,
-            role = "user",
-            updatedAt = "2024-06-19",
-            user_id = userId
-        )
-        val editUserData = com.project.skypass.data.source.network.model.user.edituser.Data(editUserItemResponse)
-        val editUserResponse = Response(true, "Success", editUserData)
-        coEvery {
-            service.updateUserData(
-                token = token,
-                id = userId,
-                name = any<RequestBody>(),
-                email = any<RequestBody>(),
-                phoneNumber = any<RequestBody>(),
-                image = any<MultipartBody.Part>()
-            )
-        } returns editUserResponse
+            val editUserItemResponse =
+                EditUserItemResponse(
+                    createdAt = "2024-06-19",
+                    email = email,
+                    image_id = "image123",
+                    image_url = "https://example.com/image.jpg",
+                    is_verified = true,
+                    name = name,
+                    password = password,
+                    phone_number = phoneNumber,
+                    refresh_token = null,
+                    role = "user",
+                    updatedAt = "2024-06-19",
+                    user_id = userId,
+                )
+            val editUserData = com.project.skypass.data.source.network.model.user.edituser.Data(editUserItemResponse)
+            val editUserResponse = Response(true, "Success", editUserData)
+            coEvery {
+                service.updateUserData(
+                    token = token,
+                    id = userId,
+                    name = any<RequestBody>(),
+                    email = any<RequestBody>(),
+                    phoneNumber = any<RequestBody>(),
+                    image = any<MultipartBody.Part>(),
+                )
+            } returns editUserResponse
 
-        val result = ds.editUser(token, id, namePart, emailPart, phoneNumberPart, photoPart)
-        assertEquals(editUserResponse, result)
-    }
+            val result = ds.editUser(token, id, namePart, emailPart, phoneNumberPart, photoPart)
+            assertEquals(editUserResponse, result)
+        }
 
     @Test
-    fun deleteUser() = runBlocking {
-        val userId = "user123"
-        val deleteUserResponse = DeleteUserResponse("User deleted successfully.", "Success")
+    fun deleteUser() =
+        runBlocking {
+            val userId = "user123"
+            val deleteUserResponse = DeleteUserResponse("User deleted successfully.", "Success")
 
-        coEvery { service.deleteUser(userId) } returns deleteUserResponse
+            coEvery { service.deleteUser(userId) } returns deleteUserResponse
 
-        val result = ds.deleteUser(userId)
-        assertEquals(deleteUserResponse, result)
-    }
+            val result = ds.deleteUser(userId)
+            assertEquals(deleteUserResponse, result)
+        }
 }

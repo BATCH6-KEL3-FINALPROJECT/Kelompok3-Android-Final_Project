@@ -33,16 +33,27 @@ class DetailHistoryViewModel(
     fun getDetailHistory(token: String, idDetail: String): LiveData<ResultWrapper<History>> {
         return detailHistoryRepository.getDetailHistory(token, idDetail).asLiveData(Dispatchers.IO)
     }
-    fun printTicket(token: String, id: String, email: String): LiveData<ResultWrapper<Boolean>> {
+
+    fun printTicket(
+        token: String,
+        id: String,
+        email: String,
+    ): LiveData<ResultWrapper<Boolean>> {
         return printTicketRepository.printTicket(token, id, email).asLiveData(Dispatchers.IO)
     }
+
     fun showDataUser(id: String): LiveData<ResultWrapper<User>> {
         return userRepository.getUser(id).asLiveData(Dispatchers.IO)
     }
+
     fun getUserId(): String {
         return prefRepository.getUserID()
     }
-    fun createPayment(token: String, paymentId: String): LiveData<ResultWrapper<Payment>> {
+
+    fun createPayment(
+        token: String,
+        paymentId: String,
+    ): LiveData<ResultWrapper<Payment>> {
         return checkoutRepository.createPayment(token, paymentId).asLiveData(Dispatchers.IO)
     }
 }

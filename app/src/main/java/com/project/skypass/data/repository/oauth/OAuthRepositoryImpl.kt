@@ -6,7 +6,7 @@ import com.project.skypass.utils.ResultWrapper
 import com.project.skypass.utils.proceedFlow
 import kotlinx.coroutines.flow.Flow
 
-class OAuthRepositoryImpl(private val oAuthRepository: OAuthDataSource): OAuthRepository {
+class OAuthRepositoryImpl(private val oAuthRepository: OAuthDataSource) : OAuthRepository {
     override fun initiateSignIn(): Intent {
         return oAuthRepository.initiateSignIn()
     }

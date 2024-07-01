@@ -19,5 +19,5 @@ data class PassengersData(
     var issuingCountry: String,
     var validUntil: String,
     var seatsDepartureId: String? = null,
-    var seatsArrivalId: String? = null
+    var seatsArrivalId: String? = null,
 ) : Parcelable

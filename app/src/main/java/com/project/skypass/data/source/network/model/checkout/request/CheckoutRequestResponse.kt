@@ -1,6 +1,5 @@
 package com.project.skypass.data.source.network.model.checkout.request
 
-
 import com.google.gson.annotations.SerializedName
 
 data class CheckoutRequestResponse(
@@ -15,5 +14,5 @@ data class CheckoutRequestResponse(
     @SerializedName("returnFlightId")
     var returnFlightId: String?,
     @SerializedName("totalAmount")
-    var totalAmount: Int?
+    var totalAmount: Int?,
 )

@@ -4,5 +4,5 @@ data class ResetPasswordResponse(
     val code: Int?,
     val is_success: Boolean?,
     val message: String?,
-    val token: String?
+    val token: String?,
 )

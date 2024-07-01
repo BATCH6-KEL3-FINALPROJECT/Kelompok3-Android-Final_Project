@@ -4,5 +4,9 @@ import com.project.skypass.data.source.network.model.ticket.print.PrintTicketReq
 import com.project.skypass.data.source.network.model.ticket.print.PrintTicketResponse
 
 interface PrintTicketDataSource {
-    suspend fun getTicket(token: String, id: String, email: PrintTicketRequestResponse): PrintTicketResponse
+    suspend fun getTicket(
+        token: String,
+        id: String,
+        email: PrintTicketRequestResponse,
+    ): PrintTicketResponse
 }

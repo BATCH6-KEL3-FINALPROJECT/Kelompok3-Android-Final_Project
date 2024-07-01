@@ -5,5 +5,5 @@ import java.util.UUID
 data class SeatClass(
     var id: String = UUID.randomUUID().toString(),
     val classType: String,
-    val price: Int?
+    val price: Int?,
 )

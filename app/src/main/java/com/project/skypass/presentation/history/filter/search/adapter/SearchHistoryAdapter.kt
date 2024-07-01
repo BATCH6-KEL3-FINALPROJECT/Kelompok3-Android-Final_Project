@@ -10,19 +10,25 @@ import com.project.skypass.data.model.History
 import com.project.skypass.databinding.ItemSearchResultBinding
 
 class SearchHistoryAdapter(private val itemClick: (History) -> Unit) : RecyclerView.Adapter<SearchHistoryAdapter.SearchViewHolder>() {
+    private val dataDiffer =
+        AsyncListDiffer(
+            this,
+            object : DiffUtil.ItemCallback<History>() {
+                override fun areItemsTheSame(
+                    oldItem: History,
+                    newItem: History,
+                ): Boolean {
+                    return oldItem.id == newItem.id
+                }
 
-    private val dataDiffer = AsyncListDiffer(
-        this,
-        object : DiffUtil.ItemCallback<History>() {
-            override fun areItemsTheSame(oldItem: History, newItem: History): Boolean {
-                return oldItem.id == newItem.id
-            }
-
-            override fun areContentsTheSame(oldItem: History, newItem: History): Boolean {
-                return oldItem.hashCode() == newItem.hashCode()
-            }
-        }
-    )
+                override fun areContentsTheSame(
+                    oldItem: History,
+                    newItem: History,
+                ): Boolean {
+                    return oldItem.hashCode() == newItem.hashCode()
+                }
+            },
+        )
 
     @SuppressLint("NotifyDataSetChanged")
     fun submitData(data: List<History>) {
@@ -30,7 +36,10 @@ class SearchHistoryAdapter(private val itemClick: (History) -> Unit) : RecyclerV
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchViewHolder {
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int,
+    ): SearchViewHolder {
         val binding = ItemSearchResultBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return SearchViewHolder(binding, itemClick)
     }
@@ -39,13 +48,16 @@ class SearchHistoryAdapter(private val itemClick: (History) -> Unit) : RecyclerV
         return dataDiffer.currentList.size
     }
 
-    override fun onBindViewHolder(holder: SearchViewHolder, position: Int) {
+    override fun onBindViewHolder(
+        holder: SearchViewHolder,
+        position: Int,
+    ) {
         holder.bind(dataDiffer.currentList[position])
     }
 
     class SearchViewHolder(
         private val binding: ItemSearchResultBinding,
-        val itemClick: (History) -> Unit
+        val itemClick: (History) -> Unit,
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: History) {
             with(item) {

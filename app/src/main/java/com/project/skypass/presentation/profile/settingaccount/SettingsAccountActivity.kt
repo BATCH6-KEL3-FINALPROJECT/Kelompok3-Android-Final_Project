@@ -2,6 +2,7 @@ package com.project.skypass.presentation.profile.settingaccount
 
 import android.app.AlertDialog
 import android.app.Dialog
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
@@ -13,13 +14,13 @@ import com.project.skypass.databinding.ActivitySettingsAccountBinding
 import com.project.skypass.databinding.LayoutStateErrorBinding
 import com.project.skypass.databinding.LayoutStateLoadingBinding
 import com.project.skypass.databinding.LayoutStateSuccessBinding
+import com.project.skypass.presentation.auth.verification.VerificationActivity
 import com.project.skypass.utils.proceedWhen
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SettingsAccountActivity : BaseActivity() {
-
     private val binding: ActivitySettingsAccountBinding by lazy {
         ActivitySettingsAccountBinding.inflate(layoutInflater)
     }
@@ -30,6 +31,19 @@ class SettingsAccountActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+        setSwitchListener()
+        displayVerificationStatus()
+    }
+
+    private fun setOnClick(email: String) {
+        binding.tvStatusAccount.setOnClickListener {
+            val intent =
+                Intent(this, VerificationActivity::class.java).apply {
+                    putExtra("email", email)
+                    flags = Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP
+                }
+            startActivity(intent)
+        }
 
         binding.ivBack.setOnClickListener {
             onBackPressed()
@@ -38,9 +52,6 @@ class SettingsAccountActivity : BaseActivity() {
         settingsAccountViewModel.isUsingDarkMode.observe(this) { isUsingDarkMode ->
             applyUiMode(isUsingDarkMode)
         }
-
-        setSwitchListener()
-        displayVerificationStatus()
     }
 
     private fun displayVerificationStatus() {
@@ -49,26 +60,29 @@ class SettingsAccountActivity : BaseActivity() {
             result.proceedWhen(
                 doOnSuccess = {
                     updateVerificationStatus(it.payload?.isVerified == true)
+                    setOnClick(it.payload?.email ?: getString(R.string.email_error))
                 },
                 doOnLoading = {
                 },
                 doOnError = {
-                }
+                },
             )
         }
     }
 
     private fun updateVerificationStatus(isVerified: Boolean) {
-        val statusTextRes = if (isVerified) {
-            getString(R.string.text_terverifikasi)
-        } else {
-            getString(R.string.text_belum_terverifikasi)
-        }
-        val statusTextColorRes = if (isVerified) {
-            R.color.colorSuccess
-        } else {
-            R.color.colorFailed
-        }
+        val statusTextRes =
+            if (isVerified) {
+                getString(R.string.text_terverifikasi)
+            } else {
+                getString(R.string.text_belum_terverifikasi)
+            }
+        val statusTextColorRes =
+            if (isVerified) {
+                R.color.colorSuccess
+            } else {
+                R.color.colorFailed
+            }
         binding.tvStatusAccount.apply {
             text = statusTextRes
             setTextColor(ContextCompat.getColor(context, statusTextColorRes))
@@ -77,8 +91,11 @@ class SettingsAccountActivity : BaseActivity() {
 
     private fun applyUiMode(isUsingDarkMode: Boolean) {
         AppCompatDelegate.setDefaultNightMode(
-            if (isUsingDarkMode) AppCompatDelegate.MODE_NIGHT_YES
-            else AppCompatDelegate.MODE_NIGHT_NO
+            if (isUsingDarkMode) {
+                AppCompatDelegate.MODE_NIGHT_YES
+            } else {
+                AppCompatDelegate.MODE_NIGHT_NO
+            },
         )
         binding.switchTheme.isChecked = isUsingDarkMode
         updateThemeIcon(isUsingDarkMode)
@@ -116,15 +133,18 @@ class SettingsAccountActivity : BaseActivity() {
         settingsAccountViewModel.deleteOrderHistoryUser().observe(this) {
             it.proceedWhen(
                 doOnSuccess = {
-                    Toast.makeText(this,
-                        getString(R.string.text_menghapus_riwayat_pemesanan), Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this,
+                        getString(R.string.text_menghapus_riwayat_pemesanan),
+                        Toast.LENGTH_SHORT,
+                    ).show()
                 },
                 doOnLoading = {
                     // Handle loading state if necessary
                 },
                 doOnError = { err ->
                     Toast.makeText(this, getString(R.string.text_error), Toast.LENGTH_SHORT).show()
-                }
+                },
             )
         }
     }
@@ -135,7 +155,7 @@ class SettingsAccountActivity : BaseActivity() {
             it.proceedWhen(
                 doOnSuccess = {
                     dialog?.dismiss()
-                    //StyleableToast.makeText(this, "Hapus akun sukses", R.style.ToastSuccess).show()
+                    // StyleableToast.makeText(this, "Hapus akun sukses", R.style.ToastSuccess).show()
                     doSuccess()
                     deleteOrderHistoryUser()
                     lifecycleScope.launch {
@@ -149,9 +169,9 @@ class SettingsAccountActivity : BaseActivity() {
                 },
                 doOnError = {
                     dialog?.dismiss()
-                    //StyleableToast.makeText(this, "Hapus akun gagal", R.style.ToastError).show()
+                    // StyleableToast.makeText(this, "Hapus akun gagal", R.style.ToastError).show()
                     doError()
-                }
+                },
             )
         }
     }
@@ -162,31 +182,34 @@ class SettingsAccountActivity : BaseActivity() {
 
     private fun doLoading() {
         val dialogBinding = LayoutStateLoadingBinding.inflate(layoutInflater)
-        dialog = Dialog(this).apply {
-            setCancelable(true)
-            setContentView(dialogBinding.root)
-            show()
-            window?.setBackgroundDrawableResource(android.R.color.transparent)
-        }
+        dialog =
+            Dialog(this).apply {
+                setCancelable(true)
+                setContentView(dialogBinding.root)
+                show()
+                window?.setBackgroundDrawableResource(android.R.color.transparent)
+            }
     }
 
     private fun doSuccess() {
         val dialogBinding = LayoutStateSuccessBinding.inflate(layoutInflater)
-        dialog = Dialog(this).apply {
-            setCancelable(true)
-            setContentView(dialogBinding.root)
-            show()
-            window?.setBackgroundDrawableResource(android.R.color.transparent)
-        }
+        dialog =
+            Dialog(this).apply {
+                setCancelable(true)
+                setContentView(dialogBinding.root)
+                show()
+                window?.setBackgroundDrawableResource(android.R.color.transparent)
+            }
     }
 
     private fun doError() {
         val dialogBinding = LayoutStateErrorBinding.inflate(layoutInflater)
-        dialog = Dialog(this).apply {
-            setCancelable(true)
-            setContentView(dialogBinding.root)
-            show()
-            window?.setBackgroundDrawableResource(android.R.color.transparent)
-        }
+        dialog =
+            Dialog(this).apply {
+                setCancelable(true)
+                setContentView(dialogBinding.root)
+                show()
+                window?.setBackgroundDrawableResource(android.R.color.transparent)
+            }
     }
 }

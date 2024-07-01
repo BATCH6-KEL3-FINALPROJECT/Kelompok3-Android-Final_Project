@@ -1,12 +1,10 @@
 package com.project.skypass.data.source.network.model.history.allhistory
 
-
 import com.google.gson.annotations.SerializedName
 import com.project.skypass.data.source.network.model.history.detailhistory.Airline
 import com.project.skypass.data.source.network.model.history.detailhistory.FlightDescription
 
 data class Flight(
-
     @SerializedName("Airline")
     var airline: Airline?,
     @SerializedName("arrival_airport")
@@ -40,5 +38,5 @@ data class Flight(
     @SerializedName("flight_status")
     var flightStatus: String?,
     @SerializedName("terminal")
-    var terminal: Boolean?
+    var terminal: Boolean?,
 )

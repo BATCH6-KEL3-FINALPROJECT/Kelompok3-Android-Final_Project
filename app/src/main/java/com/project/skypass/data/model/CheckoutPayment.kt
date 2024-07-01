@@ -9,5 +9,5 @@ data class CheckoutPayment(
     val departureFlightId: String,
     val returnFlightId: String,
     val passengersData: List<PassengersData>?,
-    val noOfPassenger: Int
-): Parcelable
+    val noOfPassenger: Int,
+) : Parcelable

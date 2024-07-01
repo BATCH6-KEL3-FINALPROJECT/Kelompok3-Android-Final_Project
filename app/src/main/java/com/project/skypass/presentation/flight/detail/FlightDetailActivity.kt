@@ -7,11 +7,13 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import coil.load
 import com.kizitonwose.calendar.core.WeekDay
 import com.kizitonwose.calendar.core.atStartOfMonth
 import com.kizitonwose.calendar.core.firstDayOfWeekFromLocale
 import com.kizitonwose.calendar.view.ViewContainer
 import com.kizitonwose.calendar.view.WeekDayBinder
+import com.project.skypass.R
 import com.project.skypass.data.model.FilterFlight
 import com.project.skypass.data.model.Flight
 import com.project.skypass.data.model.OrderUser
@@ -22,8 +24,7 @@ import com.project.skypass.presentation.customview.OnItemAdapterClickedListener
 import com.project.skypass.presentation.flight.detail.adapter.FlightDetailAdapter
 import com.project.skypass.presentation.flight.filter.FilterFragment
 import com.project.skypass.presentation.flight.result.FlightResultActivity
-import com.project.skypass.utils.convertDateCalendar
-import com.project.skypass.utils.convertFlightDetail
+import com.project.skypass.presentation.main.MainActivity
 import com.project.skypass.utils.convertMinutesToHours
 import com.project.skypass.utils.displayText
 import com.project.skypass.utils.getWeekPageTitle
@@ -73,7 +74,6 @@ class FlightDetailActivity : AppCompatActivity(), FilterFlightSelected {
             filterFragment.show(supportFragmentManager, "filter")
         }
         flightDetailAdapter.setOnTicketClickListener {
-
         }
     }
 
@@ -122,10 +122,15 @@ class FlightDetailActivity : AppCompatActivity(), FilterFlightSelected {
             }
         }
 
-        binding.cvCalender.dayBinder = object : WeekDayBinder<DayViewContainer> {
-            override fun create(view: View) = DayViewContainer(view)
-            override fun bind(container: DayViewContainer, data: WeekDay) = container.bind(data)
-        }
+        binding.cvCalender.dayBinder =
+            object : WeekDayBinder<DayViewContainer> {
+                override fun create(view: View) = DayViewContainer(view)
+
+                override fun bind(
+                    container: DayViewContainer,
+                    data: WeekDay,
+                ) = container.bind(data)
+            }
 
         binding.cvCalender.weekScrollListener = {
             binding.tvMonthFlight.text = getWeekPageTitle(it)
@@ -151,7 +156,7 @@ class FlightDetailActivity : AppCompatActivity(), FilterFlightSelected {
             it.proceedWhen(
                 doOnSuccess = {
                     binding.rvTicket.isVisible = true
-                    //binding.pbLoading.isVisible = false
+                    // binding.pbLoading.isVisible = false
                     binding.shimmerViewContainer.isVisible = false
                     binding.shimmerViewContainer.stopShimmer()
                     binding.ivEmptyTicket.isVisible = false
@@ -164,7 +169,7 @@ class FlightDetailActivity : AppCompatActivity(), FilterFlightSelected {
                 },
                 doOnLoading = {
                     binding.rvTicket.isVisible = false
-                    //binding.pbLoading.isVisible = true
+                    // binding.pbLoading.isVisible = true
                     binding.shimmerViewContainer.isVisible = true
                     binding.shimmerViewContainer.startShimmer()
                     binding.ivEmptyTicket.isVisible = false
@@ -173,7 +178,7 @@ class FlightDetailActivity : AppCompatActivity(), FilterFlightSelected {
                     binding.btnEditSearch.isVisible = false
                 },
                 doOnError = {
-                    //binding.pbLoading.isVisible = false
+                    // binding.pbLoading.isVisible = false
                     binding.shimmerViewContainer.isVisible = false
                     binding.shimmerViewContainer.stopShimmer()
                     binding.ivEmptyTicket.isVisible = true
@@ -185,13 +190,12 @@ class FlightDetailActivity : AppCompatActivity(), FilterFlightSelected {
         }
     }
 
-
     private fun getArgumentData() {
         intent.extras?.getParcelable<OrderUser>(EXTRA_FLIGHT)?.let {
             flightDetailViewModel.getHomeData(it)
             saveToOrderHistory(it)
             setProfileData(it)
-            //selectedDate = LocalDate.parse(convertFlightDetail(it.departureDate!!))
+            // selectedDate = LocalDate.parse(convertFlightDetail(it.departureDate!!))
             selectedDate()
         }
     }
@@ -201,9 +205,22 @@ class FlightDetailActivity : AppCompatActivity(), FilterFlightSelected {
         binding.tvTypeFlight.text = item.seatClass
         binding.tvPassenger.text = "${item.passengersTotal} Penumpang"
         binding.tvDestination.text = "${item.departureCity} > ${item.arrivalCity}"
+
+        val linkLoad = "https://github.com/riansyah251641/food_app_asset/blob/main/banner/empty_flight_ticket.png?raw=true"
+        binding.ivEmptyTicket.load(linkLoad) {
+            crossfade(true)
+            error(R.drawable.bg_no_internet)
+        }
+        binding.btnEditSearch.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
     }
 
-    private fun sendOrderData(item: OrderUser, itemFlight: Flight) {
+    private fun sendOrderData(
+        item: OrderUser,
+        itemFlight: Flight,
+    ) {
         FlightResultActivity.sendDataOrder(
             this,
             OrderUser(
@@ -221,7 +238,6 @@ class FlightDetailActivity : AppCompatActivity(), FilterFlightSelected {
                 isRoundTrip = item.isRoundTrip,
                 supportRoundTrip = item.supportRoundTrip,
                 orderDate = item.orderDate,
-
                 // Flight data (One Way)
                 airlineCode = itemFlight.airlineCode,
                 airlineName = itemFlight.airlineName,
@@ -234,11 +250,13 @@ class FlightDetailActivity : AppCompatActivity(), FilterFlightSelected {
                 flightCode = itemFlight.flightCode,
                 flightDescription = itemFlight.flightDescription,
                 flightDuration = itemFlight.flightDuration,
-                flightDurationFormat = itemFlight.flightDuration?.let { duration ->
-                    val (_, _) = convertMinutesToHours(
-                        duration
-                    )
-                }.toString(),
+                flightDurationFormat =
+                    itemFlight.flightDuration?.let { duration ->
+                        val (_, _) =
+                            convertMinutesToHours(
+                                duration,
+                            )
+                    }.toString(),
                 flightId = itemFlight.flightId,
                 flightStatus = itemFlight.flightStatus,
                 flightSeat = itemFlight.seatClass,
@@ -247,12 +265,11 @@ class FlightDetailActivity : AppCompatActivity(), FilterFlightSelected {
                 planeType = itemFlight.planeType,
                 priceAdult = item.priceAdult, // add edit
                 priceBaby = item.priceBaby, // add edit
-                priceChild = item.priceChild,// add edit
+                priceChild = item.priceChild, // add edit
                 priceTotal = itemFlight.price,
-                paymentPrice = item.paymentPrice,// add edit
+                paymentPrice = item.paymentPrice, // add edit
                 seatsAvailable = itemFlight.seatsAvailable,
                 terminal = itemFlight.terminal,
-
                 // Flight data (Round Trip)
                 airlineCodeRoundTrip = item.airlineCodeRoundTrip,
                 airlineNameRoundTrip = item.airlineNameRoundTrip,
@@ -278,13 +295,14 @@ class FlightDetailActivity : AppCompatActivity(), FilterFlightSelected {
                 priceTotalRoundTrip = item.priceTotalRoundTrip,
                 paymentPriceRoundTrip = item.paymentPriceRoundTrip,
                 seatsAvailableRoundTrip = item.seatsAvailableRoundTrip,
-                terminalRoundTrip = item.terminalRoundTrip
-            )
+                terminalRoundTrip = item.terminalRoundTrip,
+            ),
         )
     }
 
     companion object {
         const val EXTRA_FLIGHT = "extra_flight"
+
         fun startActivity(
             context: Context,
             orderData: OrderUser,
@@ -295,7 +313,10 @@ class FlightDetailActivity : AppCompatActivity(), FilterFlightSelected {
         }
     }
 
-    override fun onFilterSelected(tag: String, filter: FilterFlight) {
+    override fun onFilterSelected(
+        tag: String,
+        filter: FilterFlight,
+    ) {
         when (tag) {
             "filter" -> {
                 binding.tvFilterCondition.text = filter.criteria
@@ -304,5 +325,4 @@ class FlightDetailActivity : AppCompatActivity(), FilterFlightSelected {
             }
         }
     }
-
 }

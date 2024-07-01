@@ -5,8 +5,26 @@ import com.project.skypass.data.model.Search
 import com.project.skypass.data.model.SeatClass
 
 interface DataSelection {
-    fun onDateSelected(tag: String, date: DateCalendar)
-    fun onPassengerSelected(tag: String, passenger: String, adult: Int, child: Int, baby: Int)
-    fun onSeatClassSelected(tag: String, seatClass: SeatClass)
-    fun onTripSelected(tag: String, trip: Search)
+    fun onDateSelected(
+        tag: String,
+        date: DateCalendar,
+    )
+
+    fun onPassengerSelected(
+        tag: String,
+        passenger: String,
+        adult: Int,
+        child: Int,
+        baby: Int,
+    )
+
+    fun onSeatClassSelected(
+        tag: String,
+        seatClass: SeatClass,
+    )
+
+    fun onTripSelected(
+        tag: String,
+        trip: Search,
+    )
 }

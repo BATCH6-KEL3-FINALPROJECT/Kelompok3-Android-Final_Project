@@ -1,6 +1,5 @@
 package com.project.skypass.data.source.network.model.history.detailhistory
 
-
 import com.google.gson.annotations.SerializedName
 
 data class Airline(
@@ -15,5 +14,5 @@ data class Airline(
     @SerializedName("createdAt")
     var createdAt: String?,
     @SerializedName("updatedAt")
-    var updatedAt: String?
+    var updatedAt: String?,
 )

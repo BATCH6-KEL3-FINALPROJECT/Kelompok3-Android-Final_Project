@@ -11,22 +11,25 @@ import com.project.skypass.data.model.SeatClass
 import com.project.skypass.databinding.ItemFlightClassBinding
 
 class FlightClassAdapter(private val itemClick: (SeatClass) -> Unit) : RecyclerView.Adapter<FlightClassAdapter.ViewHolder>() {
+    private val dataDiffer =
+        AsyncListDiffer(
+            this,
+            object : DiffUtil.ItemCallback<SeatClass>() {
+                override fun areItemsTheSame(
+                    oldItem: SeatClass,
+                    newItem: SeatClass,
+                ): Boolean {
+                    return oldItem.id == newItem.id
+                }
 
-    private val dataDiffer = AsyncListDiffer(
-        this,
-        object : DiffUtil.ItemCallback<SeatClass>() {
-            override fun areItemsTheSame(
-                oldItem: SeatClass,
-                newItem: SeatClass
-            ): Boolean {
-                return oldItem.id == newItem.id
-            }
-
-            override fun areContentsTheSame(oldItem: SeatClass, newItem: SeatClass): Boolean {
-                return oldItem.hashCode() == newItem.hashCode()
-            }
-        }
-    )
+                override fun areContentsTheSame(
+                    oldItem: SeatClass,
+                    newItem: SeatClass,
+                ): Boolean {
+                    return oldItem.hashCode() == newItem.hashCode()
+                }
+            },
+        )
 
     private var selectedPosition: Int? = null
 
@@ -34,12 +37,18 @@ class FlightClassAdapter(private val itemClick: (SeatClass) -> Unit) : RecyclerV
         dataDiffer.submitList(data)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int,
+    ): ViewHolder {
         val binding = ItemFlightClassBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding, ::onItemClick)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(
+        holder: ViewHolder,
+        position: Int,
+    ) {
         val isSelected = position == selectedPosition
         holder.bind(dataDiffer.currentList[position], isSelected)
     }
@@ -60,9 +69,12 @@ class FlightClassAdapter(private val itemClick: (SeatClass) -> Unit) : RecyclerV
 
     class ViewHolder(
         private val binding: ItemFlightClassBinding,
-        val itemClick: (SeatClass) -> Unit
+        val itemClick: (SeatClass) -> Unit,
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(data: SeatClass, isSelected: Boolean) {
+        fun bind(
+            data: SeatClass,
+            isSelected: Boolean,
+        ) {
             with(data) {
                 binding.tvClass.text = data.classType
                 binding.tvPriceClass.text = itemView.context.getString(R.string.price_class, data.price.toString())

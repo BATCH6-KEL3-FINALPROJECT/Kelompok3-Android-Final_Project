@@ -14,7 +14,7 @@ interface FlightDataSource {
         limit: Int,
         departureDate: String,
         departureTime: String,
-        price: String
+        price: String,
     ): GetAllFlightResponse
 
     fun filterFlightData(): List<FilterFlight>

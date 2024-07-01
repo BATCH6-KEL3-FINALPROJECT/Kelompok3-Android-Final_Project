@@ -4,17 +4,13 @@ import com.project.skypass.data.model.Response
 import com.project.skypass.data.source.network.model.user.deleteuser.DeleteUserResponse
 import com.project.skypass.data.source.network.model.user.detailuser.UserResponse
 import com.project.skypass.data.source.network.model.user.edituser.Data
-import com.project.skypass.data.source.network.model.user.edituser.EditUserResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import retrofit2.http.Multipart
-import java.io.File
 
 interface UserDataSource {
+    fun isUsingDarkMode(): Boolean
 
-    fun isUsingDarkMode() : Boolean
-
-    fun setUsingDarkMode(isUsingDarkMode : Boolean)
+    fun setUsingDarkMode(isUsingDarkMode: Boolean)
 
     suspend fun getUser(id: String): UserResponse
 
@@ -24,9 +20,8 @@ interface UserDataSource {
         name: RequestBody,
         email: RequestBody,
         phoneNumber: RequestBody,
-        photo: MultipartBody.Part?
+        photo: MultipartBody.Part?,
     ): Response<Data>
 
     suspend fun deleteUser(id: String): DeleteUserResponse
-
 }

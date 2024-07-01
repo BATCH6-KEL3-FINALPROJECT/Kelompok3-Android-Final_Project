@@ -26,20 +26,23 @@ import java.time.YearMonth
 import java.time.format.DateTimeFormatter
 
 class CalendarHistoryFragment : BottomSheetDialogFragment() {
-
     private lateinit var binding: FragmentCalendarHistoryBinding
     private val viewModel: CalendarHistoryViewModel by viewModel()
     private var isSelectingReturnDate = false
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
     ): View {
         binding = FragmentCalendarHistoryBinding.inflate(inflater, container, false)
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
 
         calendarView()

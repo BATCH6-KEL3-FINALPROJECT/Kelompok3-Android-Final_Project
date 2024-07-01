@@ -31,7 +31,10 @@ class OrderHistoryAdapter(private val orderHistoryListener: OrderHistoryItemList
             },
         )
 
-    fun submitData(data: List<OrderUser>, cek: Double) {
+    fun submitData(
+        data: List<OrderUser>,
+        cek: Double,
+    ) {
         dataDiffer.submitList(data.reversed())
     }
 
@@ -39,15 +42,14 @@ class OrderHistoryAdapter(private val orderHistoryListener: OrderHistoryItemList
         parent: ViewGroup,
         viewType: Int,
     ): RecyclerView.ViewHolder {
-
-            return CartViewHolder(
-                ItemLastSearchBinding.inflate(
-                    LayoutInflater.from(parent.context),
-                    parent,
-                    false,
-                ),
-                orderHistoryListener,
-            )
+        return CartViewHolder(
+            ItemLastSearchBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false,
+            ),
+            orderHistoryListener,
+        )
     }
 
     override fun getItemCount(): Int = dataDiffer.currentList.size
@@ -66,7 +68,6 @@ class CartViewHolder(
 ) : RecyclerView.ViewHolder(binding.root), ViewHolderBinder<OrderUser> {
     override fun bind(item: OrderUser) {
         setCartData(item)
-        setClickListeners(item)
     }
 
     private fun setCartData(item: OrderUser) {
@@ -74,19 +75,12 @@ class CartViewHolder(
             tvDeparture.text = item.departureCity
             tvArrival.text = item.arrivalCity
             tvDateOrder.text = item.orderDate
-            tvContentDatePassengerClass.text = item.passengersTotal + " Penumpang - "+ item.seatClass
+            tvContentDatePassengerClass.text = item.passengersTotal + " Orang - " + item.seatClass
         }
     }
 
-
-    private fun setClickListeners(item: OrderUser) {
-        with(binding) {
-
-        }
-    }
 }
+
 interface OrderHistoryItemListener {
-
     fun onRemoveCartClicked(item: OrderUser)
-
 }

@@ -5,8 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import java.time.LocalDate
 
-class CalendarHomeViewModel: ViewModel() {
-
+class CalendarHomeViewModel : ViewModel() {
     private val _selectedDateDeparture = MutableLiveData<LocalDate?>()
     val selectedDateDeparture: LiveData<LocalDate?> get() = _selectedDateDeparture
 
@@ -21,9 +20,11 @@ class CalendarHomeViewModel: ViewModel() {
         _selectedDateReturn.value = date
     }
 
-    fun setInitialDates(departureDate: LocalDate?, returnDate: LocalDate?) {
+    fun setInitialDates(
+        departureDate: LocalDate?,
+        returnDate: LocalDate?,
+    ) {
         _selectedDateDeparture.value = departureDate
         _selectedDateReturn.value = returnDate
     }
-
 }

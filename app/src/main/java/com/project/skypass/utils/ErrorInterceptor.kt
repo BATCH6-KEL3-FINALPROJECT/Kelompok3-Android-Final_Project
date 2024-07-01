@@ -8,11 +8,12 @@ import java.net.UnknownHostException
 
 class ErrorInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
-        val response = try {
-            chain.proceed(chain.request())
-        } catch (e: UnknownHostException) {
-            throw NoInternetException("No internet connection")
-        }
+        val response =
+            try {
+                chain.proceed(chain.request())
+            } catch (e: UnknownHostException) {
+                throw NoInternetException("No internet connection")
+            }
 
         if (!response.isSuccessful) {
             val errorBody = response.body?.string()
@@ -37,5 +38,6 @@ class ErrorInterceptor : Interceptor {
     }
 
     class HttpException(val code: Int, message: String) : IOException(message)
+
     class NoInternetException(message: String) : IOException(message)
 }

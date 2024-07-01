@@ -12,7 +12,6 @@ import org.junit.Before
 import org.junit.Test
 
 class PrefDataSourceImplTest {
-
     @MockK
     lateinit var pref: UserPreference
     private lateinit var ds: PrefDataSource

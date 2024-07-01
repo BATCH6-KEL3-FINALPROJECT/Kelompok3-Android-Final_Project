@@ -15,9 +15,8 @@ import kotlinx.coroutines.Dispatchers
 class SettingsAccountViewModel(
     private val userRepository: UserRepository,
     private val prefRepository: PrefRepository,
-    private val repositoryOrderHistory: OrderHistoryRepository
+    private val repositoryOrderHistory: OrderHistoryRepository,
 ) : ViewModel() {
-
     private val _isUsingDarkMode = MutableLiveData<Boolean>()
     val isUsingDarkMode: LiveData<Boolean> get() = _isUsingDarkMode
 
@@ -33,6 +32,7 @@ class SettingsAccountViewModel(
     fun deleteOrderHistoryUser(): LiveData<ResultWrapper<Boolean>> {
         return repositoryOrderHistory.deleteAllOrderHistory().asLiveData(Dispatchers.IO)
     }
+
     fun getIdUser(): String {
         return prefRepository.getUserID()
     }
@@ -40,9 +40,8 @@ class SettingsAccountViewModel(
     fun deleteUser(id: String): LiveData<ResultWrapper<DeleteUserResponse>> {
         return userRepository.deleteUser(id).asLiveData(Dispatchers.IO)
     }
+
     fun getUser(id: String): LiveData<ResultWrapper<User>> {
         return userRepository.getUser(id).asLiveData(Dispatchers.IO)
     }
 }
-
-

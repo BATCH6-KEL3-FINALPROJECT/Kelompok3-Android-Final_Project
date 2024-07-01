@@ -1,6 +1,5 @@
 package com.project.skypass.data.source.network.model.history.detailhistory
 
-
 import com.google.gson.annotations.SerializedName
 
 data class Passenger(
@@ -11,5 +10,5 @@ data class Passenger(
     @SerializedName("passenger_id")
     var passengerId: String?,
     @SerializedName("passenger_type")
-    var passengerType: String?
+    var passengerType: String?,
 )

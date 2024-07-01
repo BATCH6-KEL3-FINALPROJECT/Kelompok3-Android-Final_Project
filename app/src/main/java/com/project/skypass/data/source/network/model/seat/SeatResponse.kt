@@ -1,6 +1,5 @@
 package com.project.skypass.data.source.network.model.seat
 
-
 import com.google.gson.annotations.SerializedName
 
 data class SeatResponse(
@@ -9,5 +8,5 @@ data class SeatResponse(
     @SerializedName("data")
     var data: Data?,
     @SerializedName("is_success")
-    var isSuccess: Boolean?
+    var isSuccess: Boolean?,
 )

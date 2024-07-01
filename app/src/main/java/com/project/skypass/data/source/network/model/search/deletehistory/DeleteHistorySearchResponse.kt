@@ -1,6 +1,5 @@
 package com.project.skypass.data.source.network.model.search.deletehistory
 
-
 import com.google.gson.annotations.SerializedName
 
 data class DeleteHistorySearchResponse(
@@ -9,5 +8,5 @@ data class DeleteHistorySearchResponse(
     @SerializedName("is_success")
     var isSuccess: Boolean?,
     @SerializedName("message")
-    var message: String?
+    var message: String?,
 )

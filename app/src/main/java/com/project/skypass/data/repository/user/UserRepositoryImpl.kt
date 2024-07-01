@@ -6,7 +6,6 @@ import com.project.skypass.data.model.Response
 import com.project.skypass.data.model.User
 import com.project.skypass.data.source.network.model.user.deleteuser.DeleteUserResponse
 import com.project.skypass.data.source.network.model.user.edituser.Data
-import com.project.skypass.data.source.network.model.user.edituser.EditUserResponse
 import com.project.skypass.utils.ResultWrapper
 import com.project.skypass.utils.proceedFlow
 import kotlinx.coroutines.flow.Flow
@@ -37,16 +36,17 @@ class UserRepositoryImpl(private val dataSource: UserDataSource) : UserRepositor
         name: String,
         email: String,
         phoneNumber: String,
-        photo: File?
+        photo: File?,
     ): Flow<ResultWrapper<Response<Data>>> {
         val tokenPart = "Bearer $token"
         val namePart = name.toRequestBody("text/plain".toMediaTypeOrNull())
         val emailPart = email.toRequestBody("text/plain".toMediaTypeOrNull())
         val phoneNumberPart = phoneNumber.toRequestBody("text/plain".toMediaTypeOrNull())
-        val picturePart = photo?.let {
-            val requestFile = it.asRequestBody("image/jpeg".toMediaTypeOrNull())
-            MultipartBody.Part.createFormData("images", it.name, requestFile)
-        }
+        val picturePart =
+            photo?.let {
+                val requestFile = it.asRequestBody("image/jpeg".toMediaTypeOrNull())
+                MultipartBody.Part.createFormData("images", it.name, requestFile)
+            }
         return proceedFlow {
             dataSource.editUser(tokenPart, id, namePart, emailPart, phoneNumberPart, picturePart)
         }

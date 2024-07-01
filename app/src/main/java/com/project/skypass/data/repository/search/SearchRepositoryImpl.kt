@@ -10,7 +10,7 @@ import com.project.skypass.utils.ResultWrapper
 import com.project.skypass.utils.proceedFlow
 import kotlinx.coroutines.flow.Flow
 
-class SearchRepositoryImpl(private val dataSource: SearchDataSource): SearchRepository {
+class SearchRepositoryImpl(private val dataSource: SearchDataSource) : SearchRepository {
     override fun getSearchResults(query: String?): Flow<ResultWrapper<List<Search>>> {
         return proceedFlow {
             dataSource.getSearchResults(query).data?.airport.toSearchDestination()
@@ -26,20 +26,23 @@ class SearchRepositoryImpl(private val dataSource: SearchDataSource): SearchRepo
 
     override fun createHistorySearchHome(
         token: String,
-        history: String
+        history: String,
     ): Flow<ResultWrapper<Boolean>> {
         return proceedFlow {
             val tokenBearer = "Bearer $token"
             dataSource.createHistorySearch(
                 token = tokenBearer,
                 HistoryRequestResponse(
-                    history = history
-                )
+                    history = history,
+                ),
             ).isSuccess ?: false
         }
     }
 
-    override fun deleteHistorySearchHome(token: String, id: Int): Flow<ResultWrapper<Boolean>> {
+    override fun deleteHistorySearchHome(
+        token: String,
+        id: Int,
+    ): Flow<ResultWrapper<Boolean>> {
         return proceedFlow {
             val tokenBearer = "Bearer $token"
             dataSource.deleteHistorySearch(tokenBearer, id).isSuccess ?: false

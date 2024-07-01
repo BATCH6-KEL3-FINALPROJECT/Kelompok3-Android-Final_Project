@@ -9,13 +9,11 @@ import com.project.skypass.data.source.network.model.destinationfavorite.Destina
 import com.project.skypass.data.source.network.model.flight.detailflight.DetailFlightResponse
 import com.project.skypass.data.source.network.model.flight.flightdata.GetAllFlightResponse
 import com.project.skypass.data.source.network.model.history.allhistory.AllHistoryItemResponse
-import com.project.skypass.data.source.network.model.history.allhistory.AllHistoryResponse
 import com.project.skypass.data.source.network.model.history.detailhistory.DetailHistoryResponse
 import com.project.skypass.data.source.network.model.history.userhistory.UserHistoryItemResponse
 import com.project.skypass.data.source.network.model.login.LoginItemResponse
 import com.project.skypass.data.source.network.model.login.LoginRequestResponse
 import com.project.skypass.data.source.network.model.notification.all.DataNotification
-import com.project.skypass.data.source.network.model.notification.all.NotificationResponse
 import com.project.skypass.data.source.network.model.notification.detail.DetailNotificationResponse
 import com.project.skypass.data.source.network.model.notification.update.UpdateNotificationResponse
 import com.project.skypass.data.source.network.model.otp.ResendOtpRequestResponse
@@ -58,32 +56,31 @@ import retrofit2.http.Query
 import java.util.concurrent.TimeUnit
 
 interface ApiService {
-
-    //need expired token handler (DONE)
+    // need expired token handler (DONE)
     @POST("auth/register")
     suspend fun doRegister(
-        @Body registerRequest: RegisterRequestResponse
+        @Body registerRequest: RegisterRequestResponse,
     ): Response<RegisterItemResponse>
 
     @POST("auth/verify")
     suspend fun doVerify(
-        @Body verifyRequest: VerifyRequestResponse
+        @Body verifyRequest: VerifyRequestResponse,
     ): VerifyResponse
 
-    //need expired token handler (DONE)
+    // need expired token handler (DONE)
     @POST("auth/login")
     suspend fun doLogin(
-        @Body loginRequest: LoginRequestResponse
+        @Body loginRequest: LoginRequestResponse,
     ): Response<LoginItemResponse>
 
     @POST("auth/resend-otp")
     suspend fun doResendOtp(
-        @Body resendCodeRequest: ResendOtpRequestResponse
-    ):ResendOtpResponse
+        @Body resendCodeRequest: ResendOtpRequestResponse,
+    ): ResendOtpResponse
 
     @POST("auth/reset-password")
     suspend fun doResetPassword(
-        @Body resetPasswordRequest: ResetPasswordRequestResponse
+        @Body resetPasswordRequest: ResetPasswordRequestResponse,
     ): ResetPasswordResponse
 
     @GET("flight")
@@ -97,20 +94,20 @@ interface ApiService {
         @Query("limit") limit: Int? = null,
         @Query("departure_date") departureDate: String? = null,
         @Query("departure_time") departureTime: String? = null,
-        @Query("price") price: String? = null
+        @Query("price") price: String? = null,
     ): GetAllFlightResponse
 
     @GET("flight/{id}")
     suspend fun getDetailFlightData(
-        @Path("id") id: String
+        @Path("id") id: String,
     ): DetailFlightResponse
 
     @GET("user/{id}")
     suspend fun getUserData(
-        @Path("id") id: String
+        @Path("id") id: String,
     ): UserResponse
 
-    //need expired token handler (DONE)
+    // need expired token handler (DONE)
     @Multipart
     @PATCH("user/{id}")
     suspend fun updateUserData(
@@ -119,12 +116,12 @@ interface ApiService {
         @Part("name") name: RequestBody,
         @Part("email") email: RequestBody,
         @Part("phone_number") phoneNumber: RequestBody,
-        @Part image: MultipartBody.Part? = null
+        @Part image: MultipartBody.Part? = null,
     ): Response<Data>
 
     @DELETE("user/{id}")
     suspend fun deleteUser(
-        @Path("id") id: String
+        @Path("id") id: String,
     ): DeleteUserResponse
 
     @GET("airport/")
@@ -136,15 +133,15 @@ interface ApiService {
     suspend fun getSeatData(
         @Query("seat_class") seatClass: String? = null,
         @Query("flight_id") flightId: String? = null,
-        @Query("limit") page: Int? = null
+        @Query("limit") page: Int? = null,
     ): SeatResponse
 
     @GET("ticket/{id}")
     suspend fun getTicketData(
-        @Path("id") id: String
+        @Path("id") id: String,
     ): TicketResponse
 
-    //need expired token handler
+    // need expired token handler
     @GET("notification")
     suspend fun getAllNotification(
         @Header("Authorization") token: String,
@@ -153,71 +150,71 @@ interface ApiService {
     @GET("notification/{id}")
     suspend fun getDetailNotification(
         @Header("Authorization") token: String,
-        @Path("id") id: String
+        @Path("id") id: String,
     ): DetailNotificationResponse
 
     @PATCH("notification/{id}")
     suspend fun updateNotification(
-        @Path("id") id: String
+        @Path("id") id: String,
     ): UpdateNotificationResponse
 
-    //need expired token handler (DONE)
+    // need expired token handler (DONE)
     @GET("booking/history")
     suspend fun getAllHistory(
-        @Header("Authorization") token: String
+        @Header("Authorization") token: String,
     ): Response<List<AllHistoryItemResponse>?>
 
-    //need expired token handler (DONE)
+    // need expired token handler (DONE)
     @GET("booking/history")
     suspend fun getBookingHistory(
         @Header("Authorization") token: String,
         @Query("search") search: String? = null,
         @Query("date") date: String? = null,
-        @Query("until") until: String? = null
+        @Query("until") until: String? = null,
     ): Response<List<UserHistoryItemResponse>?>
 
     @GET("booking/history/{id}")
     suspend fun getDetailHistory(
         @Header("Authorization") token: String,
-        @Path("id") id: String
+        @Path("id") id: String,
     ): DetailHistoryResponse
 
-    //need expired token handler (DONE)
+    // need expired token handler (DONE)
     @POST("transaction/booking")
     suspend fun bookingTicket(
         @Header("Authorization") token: String,
-        @Body bookingRequest: CheckoutRequestResponse
+        @Body bookingRequest: CheckoutRequestResponse,
     ): Response<DataCheckout>
 
-    //need expired token handler
+    // need expired token handler
     @GET("transaction/booking/{id}")
     suspend fun getBooking(
         @Header("Authorization") token: String,
-        @Path("id") id: String
+        @Path("id") id: String,
     ): GetBookingDataResponse
 
-    //need expired token handler
+    // need expired token handler
     @POST("transaction/payment/{id}")
     suspend fun createPayment(
         @Header("Authorization") token: String,
-        @Path("id") id: String
+        @Path("id") id: String,
     ): PaymentResponse
 
     @DELETE("history/delete/{id}")
     suspend fun deleteHistorySearchHome(
         @Header("Authorization") token: String,
-        @Path("id") id: Int
+        @Path("id") id: Int,
     ): DeleteHistorySearchResponse
 
     @GET("history/")
     suspend fun getAllHistorySearchHome(
-        @Header("Authorization") token: String
+        @Header("Authorization") token: String,
     ): GetHistoryResponse
 
     @POST("history/create")
     suspend fun createHistorySearchHome(
         @Header("Authorization") token: String,
-        @Body historyRequest: HistoryRequestResponse
+        @Body historyRequest: HistoryRequestResponse,
     ): PostHistoryRespomse
 
     @GET("flight/favorites")
@@ -227,7 +224,7 @@ interface ApiService {
     suspend fun generateTicketToEmail(
         @Header("Authorization") token: String,
         @Path("id") id: String,
-        @Body ticketRequest: PrintTicketRequestResponse
+        @Body ticketRequest: PrintTicketRequestResponse,
     ): PrintTicketResponse
 
     companion object {
@@ -240,7 +237,7 @@ interface ApiService {
                     .connectTimeout(100, TimeUnit.SECONDS)
                     .readTimeout(100, TimeUnit.SECONDS)
                     .addInterceptor(loggingInterceptor)
-                    //.addInterceptor(ErrorInterceptor())
+                    // .addInterceptor(ErrorInterceptor())
                     .build()
             val retrofit =
                 Retrofit.Builder()

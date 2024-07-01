@@ -5,8 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.project.skypass.databinding.ActivityResetPasswordBinding
 
 class ResetPasswordActivity : AppCompatActivity() {
-
-    private val binding : ActivityResetPasswordBinding by lazy {
+    private val binding: ActivityResetPasswordBinding by lazy {
         ActivityResetPasswordBinding.inflate(layoutInflater)
     }
 
@@ -17,7 +16,7 @@ class ResetPasswordActivity : AppCompatActivity() {
     }
 
     private fun onClickListener() {
-        binding.ivAppbarBack.setOnClickListener{
+        binding.ivAppbarBack.setOnClickListener {
             onBackPressed()
         }
     }
