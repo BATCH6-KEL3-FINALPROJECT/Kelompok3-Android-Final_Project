@@ -8,10 +8,12 @@
     android:layout_marginVertical="8dp">
 
     <com.vipulasri.ticketview.TicketView
+        android:id="@+id/ticketView2"
         android:layout_width="match_parent"
-        android:layout_height="230dp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_height="250dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:ticketBorderColor="#D0D0D0"
         app:ticketBorderWidth="2dp"
@@ -31,15 +33,19 @@
         android:layout_height="match_parent"
         android:paddingHorizontal="16dp"
         android:paddingTop="12dp"
-        android:paddingBottom="16dp">
+        android:paddingBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/ticketView2">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/tv_status"
             android:layout_width="100dp"
             android:layout_height="30dp"
             app:cardCornerRadius="10dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent" >
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <TextView
                 android:id="@+id/tv_status_data"
@@ -47,23 +53,22 @@
                 android:layout_height="match_parent"
                 android:layout_margin="2dp"
                 android:gravity="center"
-                android:textSize="16sp"
                 android:text="@string/text_unpaid"
                 android:textColor="@color/white"
-                />
+                android:textSize="16sp" />
         </androidx.cardview.widget.CardView>
 
         <TextView
             android:id="@+id/tv_order_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
             android:text="@string/text_class"
             android:textSize="14sp"
             android:textStyle="bold"
-            android:layout_marginEnd="4dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/tv_order_date_data"/>
+            app:layout_constraintEnd_toStartOf="@id/tv_order_date_data"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_order_date_data"
@@ -72,19 +77,19 @@
             android:text="@string/text_business"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_city_departure_alias"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
             android:text="@string/text_jkt"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:layout_marginTop="16dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_status"/>
+            app:layout_constraintTop_toBottomOf="@id/tv_status" />
 
         <TextView
             android:id="@+id/tv_city_name_destination_alias"
@@ -116,7 +121,7 @@
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/tv_city_departure_alias"
-            app:layout_constraintTop_toBottomOf="@id/tv_city_departure_alias"/>
+            app:layout_constraintTop_toBottomOf="@id/tv_city_departure_alias" />
 
         <TextView
             android:id="@+id/tv_date_departure"
@@ -125,7 +130,7 @@
             android:text="@string/text_24_mei_2024"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="@+id/tv_city_departure_alias"
-            app:layout_constraintTop_toBottomOf="@id/tv_time_departure"/>
+            app:layout_constraintTop_toBottomOf="@id/tv_time_departure" />
 
         <TextView
             android:id="@+id/tv_time_arrival"
@@ -136,7 +141,7 @@
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_city_departure_alias"/>
+            app:layout_constraintTop_toBottomOf="@id/tv_city_departure_alias" />
 
         <TextView
             android:id="@+id/tv_date_arrival"
@@ -145,12 +150,12 @@
             android:text="@string/text_sampai"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_time_arrival"/>
+            app:layout_constraintTop_toBottomOf="@id/tv_time_arrival" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="48dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_date_departure">
 
@@ -159,24 +164,24 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:text="@string/text_booking_code_user"
-                android:textStyle="bold"
-                android:textSize="14sp"
                 android:drawablePadding="8dp"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                android:text="@string/text_booking_code_user"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/tv_id_backing_code"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
                 android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
+                android:drawablePadding="8dp"
                 android:text="@string/text_code_booking_user"
                 android:textSize="16sp"
-                android:drawablePadding="8dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_booking_code"/>
+                app:layout_constraintTop_toBottomOf="@id/tv_booking_code" />
 
             <TextView
                 android:id="@+id/tv_price"
@@ -184,12 +189,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="64dp"
                 android:text="@string/text_harga_tiket"
-                android:textSize="16sp"
                 android:textColor="?attr/colorPrimary"
+                android:textSize="16sp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toEndOf="@id/tv_booking_code"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
