@@ -32,6 +32,7 @@ This application is a flight ticket booking application where this application h
 # Usage
 
 ## Requirement
+### For Development
 1. Android Studio Jellyfish or higher (supports Jetpack Compose Material 3)
 2. Minimum SDK 24 (Android 7.0)
 3. PC/Laptop
@@ -39,7 +40,9 @@ This application is a flight ticket booking application where this application h
    * RAM 8 GB or higher
    * Minimum 8 GB disc (SSD recommended)
    * Microsoft Windows 64 bit
-   * 
+### Running Device
+1. Android 7 (Pie) or higher
+2. Must allow permission to access storage (for change & upload photo profile)
 ## Instalation
 1. Open Android Studio 
 2. Clone this repository (tutorial on cloning repository with Android Studio: [Repository cloning](https://www.geeksforgeeks.org/how-to-clone-android-project-from-github-in-android-studio/) 
