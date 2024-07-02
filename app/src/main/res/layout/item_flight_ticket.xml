@@ -44,7 +44,7 @@
             android:id="@+id/tv_city_name_alias"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="JKT"
+            tools:text="@string/jkt"
             android:textAlignment="center"
             android:textStyle="bold" />
 
@@ -52,7 +52,7 @@
             android:id="@+id/tv_city_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="Jakarta" />
+            tools:text="@string/city" />
 
     </LinearLayout>
 
@@ -92,14 +92,14 @@
             android:id="@+id/tv_city_name_destination_alias"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="MLB"
+            tools:text="@string/mlb"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tv_city_name_destination"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="Malang" />
+            tools:text="@string/city" />
 
     </LinearLayout>
 
@@ -150,14 +150,14 @@
             android:id="@+id/tv_time_departure"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="08:00 AM"
+            tools:text="@string/time_am"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tv_date_departure"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="24 Mei 2024" />
+            tools:text="@string/date" />
 
     </LinearLayout>
 
@@ -176,14 +176,14 @@
             android:id="@+id/tv_time_arrival"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="09:35 AM"
+            tools:text="@string/time_am"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tv_date_arrival"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="24 Mei 2024" />
+            tools:text="@string/date" />
 
     </LinearLayout>
 
@@ -202,7 +202,7 @@
         android:id="@+id/tv_airline"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        tools:text="Skyline"
+        tools:text="@string/airline"
         android:layout_marginStart="8dp"
         app:layout_constraintBottom_toBottomOf="@+id/iv_airline"
         app:layout_constraintStart_toEndOf="@+id/iv_airline"
@@ -213,7 +213,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_marginEnd="16dp"
-        tools:text="Rp. 1.240.000"
+        tools:text="@string/price"
         android:textColor="?attr/colorPrimary"
         android:textStyle="bold"
         android:textSize="14sp"

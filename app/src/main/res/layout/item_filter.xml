@@ -9,7 +9,7 @@
         android:id="@+id/tv_filter_condition_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Harga"
+        android:text="@string/price_filter"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -18,7 +18,7 @@
         android:id="@+id/tv_strip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="  -  "
+        android:text="@string/between"
         android:textSize="14sp"
         app:layout_constraintStart_toEndOf="@id/tv_filter_condition_1"
         app:layout_constraintTop_toTopOf="parent" />
@@ -27,7 +27,7 @@
         android:id="@+id/tv_filter_condition_2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Termurah"
+        android:text="@string/cheap_filter"
         android:textSize="14sp"
         app:layout_constraintStart_toEndOf="@id/tv_strip"
         app:layout_constraintTop_toTopOf="parent" />

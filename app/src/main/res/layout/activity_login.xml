@@ -66,6 +66,7 @@
                     android:padding="12dp"
                     android:textSize="14sp"
                     tools:ignore="TouchTargetSizeCheck" />
+
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
@@ -103,6 +104,7 @@
                     android:inputType="textPassword"
                     android:padding="12dp"
                     android:textSize="14sp" />
+
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
@@ -162,6 +164,7 @@
                     android:text="@string/text_to_register"
                     android:textColor="?attr/colorPrimary"
                     android:textStyle="bold" />
+
             </LinearLayout>
 
             <!--<View

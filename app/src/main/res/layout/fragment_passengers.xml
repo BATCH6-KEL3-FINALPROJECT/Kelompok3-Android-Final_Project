@@ -25,6 +25,7 @@
         android:layout_marginTop="24dp"
         android:textStyle="bold"
         android:textSize="16sp" />
+
     <ImageView
         android:id="@+id/iv_close_passengers"
         android:layout_width="wrap_content"
@@ -34,8 +35,6 @@
         android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-
 
     <View
         android:id="@+id/bottom_shadow"

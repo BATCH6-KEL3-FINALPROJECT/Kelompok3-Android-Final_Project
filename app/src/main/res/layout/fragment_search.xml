@@ -77,17 +77,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <!--<TextView
-                android:id="@+id/tv_delete_all_search"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/delete"
-                android:textColor="?attr/colorFailed"
-                android:textSize="16sp"
-                android:layout_marginEnd="16dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />-->
-
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/layout_history_search_now"
                 android:layout_width="match_parent"
@@ -97,17 +86,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_title_search_now">
-
-                <!--<androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_search_now"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    android:orientation="horizontal"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />-->
 
                 <HorizontalScrollView
                     android:layout_width="match_parent"

@@ -29,7 +29,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/slider_down"
-        app:queryHint="Masukkan kode booking" />
+        app:queryHint="@string/enter_code_booking" />
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nsv_search"

@@ -35,7 +35,7 @@
             android:layout_height="match_parent"
             android:gravity="center_vertical"
             android:layout_marginStart="12dp"
-            android:text="Biodata Pemesanan"
+            android:text="@string/biodata"
             android:textColor="?attr/colorSurface"
             android:textSize="16sp"
             android:textStyle="bold" />
@@ -68,8 +68,8 @@
                     android:text="@string/title_form_checkout_data_orders"
                     android:textSize="14sp"
                     android:textStyle="bold"
-                    android:textColor="?attr/colorSurface"
-                    />
+                    android:textColor="?attr/colorSurface" />
+
             </LinearLayout>
 
             <LinearLayout
@@ -134,6 +134,7 @@
                         app:thumbTint="@color/purple"
                         app:trackTint="@color/grey"
                         tools:ignore="ObsoleteLayoutParam" />
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -179,7 +180,9 @@
                             android:maxLines="1"
                             android:singleLine="true"
                             android:textColor="@android:color/black" />
+
                     </com.google.android.material.textfield.TextInputLayout>
+
                 </LinearLayout>
 
                 <TextView
@@ -214,6 +217,7 @@
                         android:maxLines="1"
                         android:singleLine="true"
                         android:textColor="@android:color/black" />
+
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <TextView
@@ -250,8 +254,11 @@
                         android:singleLine="true"
                         android:textColor="@android:color/black" />
                 </com.google.android.material.textfield.TextInputLayout>
+
             </LinearLayout>
+
         </LinearLayout>
+
     </com.google.android.material.card.MaterialCardView>
 
     <Button

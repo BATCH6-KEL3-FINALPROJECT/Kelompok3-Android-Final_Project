@@ -61,6 +61,7 @@
                 android:textColor="?attr/colorPrimary"
                 android:textSize="16sp"
                 android:textStyle="bold" />
+
         </LinearLayout>
 
         <TextView
@@ -80,7 +81,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="Jakarta"
+            android:text="@string/city"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_city_name_alias" />
@@ -93,7 +94,7 @@
             android:layout_marginTop="8dp"
             android:drawablePadding="8dp"
             android:maxLines="1"
-            android:text="- - - - - - - - - - - - - - - - - - -"
+            android:text="@string/line_strip"
             android:textAlignment="center"
             app:drawableEndCompat="@drawable/ic_dot"
             app:drawableStartCompat="@drawable/ic_dot"
@@ -119,7 +120,7 @@
             android:id="@+id/tv_city_name_destination"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Malang"
+            android:text="@string/city"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="@id/tv_city_name_destination_alias"
             app:layout_constraintTop_toBottomOf="@id/tv_city_name_alias" />
@@ -266,7 +267,6 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@id/tv_total_label"
             app:layout_constraintTop_toBottomOf="@id/tv_total_label" />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
