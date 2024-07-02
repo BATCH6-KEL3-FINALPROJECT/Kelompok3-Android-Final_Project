@@ -133,33 +133,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!--<LinearLayout
-            android:id="@+id/layout_week"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:orientation="horizontal"
-            android:weightSum="7"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_month_calendar">
-
-            <include layout="@layout/layout_day_calendar" />
-
-            <include layout="@layout/layout_day_calendar" />
-
-            <include layout="@layout/layout_day_calendar" />
-
-            <include layout="@layout/layout_day_calendar" />
-
-            <include layout="@layout/layout_day_calendar" />
-
-            <include layout="@layout/layout_day_calendar" />
-
-            <include layout="@layout/layout_day_calendar" />
-
-        </LinearLayout>-->
-
         <include
             android:id="@+id/layout_week"
             layout="@layout/layout_week"

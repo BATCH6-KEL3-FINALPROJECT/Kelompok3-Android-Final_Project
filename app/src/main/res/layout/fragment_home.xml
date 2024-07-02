@@ -22,7 +22,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/iv_photo_user"
             android:layout_width="35dp"
@@ -422,30 +421,6 @@
                             app:layout_constraintBottom_toBottomOf="@+id/iv_return"
                             app:layout_constraintStart_toEndOf="@+id/iv_return"
                             app:layout_constraintTop_toTopOf="@+id/iv_return" />
-
-                        <!--<TextView
-                            android:id="@+id/tv_return"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:text="Masukkan tanggal kembali"
-                            android:textStyle="italic"
-                            android:layout_marginStart="8dp"
-                            android:layout_marginEnd="8dp"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintBottom_toBottomOf="@+id/iv_return"
-                            app:layout_constraintStart_toEndOf="@+id/iv_return"
-                            app:layout_constraintTop_toTopOf="@+id/iv_return" />
-
-                        <View
-                            android:id="@+id/line_return"
-                            android:layout_width="0dp"
-                            android:layout_height="1dp"
-                            android:background="?attr/colorOutline"
-                            android:layout_marginTop="12dp"
-                            android:layout_marginEnd="8dp"
-                            app:layout_constraintStart_toStartOf="@+id/tv_return"
-                            app:layout_constraintTop_toBottomOf="@id/tv_return"
-                            app:layout_constraintEnd_toEndOf="parent" />-->
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 

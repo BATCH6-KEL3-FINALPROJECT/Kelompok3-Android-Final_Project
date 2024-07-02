@@ -3,8 +3,11 @@ package com.project.skypass.presentation.onboarding
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.Environment
+import android.provider.Settings
 import android.view.View
 import android.view.ViewTreeObserver
 import android.view.WindowInsets
@@ -31,17 +34,6 @@ class OnboardingActivity : AppCompatActivity() {
 
     private val viewModel: OnboardingViewModel by viewModel()
 
-    private val requestPermissionLauncher = registerForActivityResult(
-        ActivityResultContracts.RequestPermission()
-    ) { isGranted: Boolean ->
-        if (isGranted) {
-            proceedToMainActivity()
-        } else {
-            // Permission denied, you can show a message to the user
-            Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show()
-        }
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -53,7 +45,7 @@ class OnboardingActivity : AppCompatActivity() {
                     enableEdgeToEdge()
                     return true
                 }
-            },
+            }
         )
 
         onboarding()
@@ -71,7 +63,7 @@ class OnboardingActivity : AppCompatActivity() {
                         binding.tvButtonOnboarding.text = getString(R.string.next)
                     }
                 }
-            },
+            }
         )
         binding.tvButtonOnboarding.text =
             if (binding.vpOnboarding.currentItem == fragmentList.size - 1) {
@@ -100,23 +92,7 @@ class OnboardingActivity : AppCompatActivity() {
             if (binding.vpOnboarding.currentItem < 2) {
                 binding.vpOnboarding.currentItem += 1
             } else {
-                checkPermissionAndProceed()
-            }
-        }
-    }
-
-    private fun checkPermissionAndProceed() {
-        when {
-            ContextCompat.checkSelfPermission(
-                this,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE
-            ) == PackageManager.PERMISSION_GRANTED -> {
-                // Permission is already granted, proceed to MainActivity
                 proceedToMainActivity()
-            }
-            else -> {
-                // Request the permission
-                requestPermissionLauncher.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE)
             }
         }
     }

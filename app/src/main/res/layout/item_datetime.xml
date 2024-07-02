@@ -16,14 +16,14 @@
             android:id="@+id/id_day"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Day"
+            android:text="@string/day"
             android:textStyle="bold"
             android:textSize="14sp"/>
         <TextView
             android:id="@+id/id_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Date"
+            android:text="@string/date_calendar"
             android:textSize="14sp"/>
     </LinearLayout>
 

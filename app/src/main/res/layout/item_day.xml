@@ -20,7 +20,7 @@
             android:fontFamily="sans-serif-light"
             android:textColor="?attr/colorBackgroundNavigation"
             android:textSize="12sp"
-            tools:text="Mon" />
+            tools:text="@string/month_calender" />
 
         <TextView
             android:id="@+id/tv_day"

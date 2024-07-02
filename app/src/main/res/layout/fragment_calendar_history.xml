@@ -43,7 +43,7 @@
         android:id="@+id/tv_title_calendar_departure"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Dari tanggal"
+        android:text="@string/from_date"
         android:textAlignment="center"
         android:textSize="12sp"
         android:layout_marginTop="-4dp"
@@ -72,7 +72,7 @@
         android:id="@+id/tv_title_calendar_return"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Sampai tanggal"
+        android:text="@string/to_date"
         android:textAlignment="center"
         android:textSize="12sp"
         android:layout_marginTop="-4dp"
@@ -132,33 +132,6 @@
             android:src="@drawable/ic_forward"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <!--<LinearLayout
-            android:id="@+id/layout_week"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:orientation="horizontal"
-            android:weightSum="7"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_month_calendar">
-
-            <include layout="@layout/layout_day_calendar" />
-
-            <include layout="@layout/layout_day_calendar" />
-
-            <include layout="@layout/layout_day_calendar" />
-
-            <include layout="@layout/layout_day_calendar" />
-
-            <include layout="@layout/layout_day_calendar" />
-
-            <include layout="@layout/layout_day_calendar" />
-
-            <include layout="@layout/layout_day_calendar" />
-
-        </LinearLayout>-->
 
         <include
             android:id="@+id/layout_week"

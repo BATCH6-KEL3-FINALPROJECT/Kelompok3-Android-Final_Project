@@ -15,6 +15,7 @@ import com.project.skypass.databinding.FragmentProfileBinding
 import com.project.skypass.presentation.profile.changeprofile.ChangeProfileActivity
 import com.project.skypass.presentation.profile.settingaccount.SettingsAccountActivity
 import com.project.skypass.utils.proceedWhen
+import io.github.muddz.styleabletoast.StyleableToast
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ProfileFragment : Fragment() {
@@ -93,12 +94,12 @@ class ProfileFragment : Fragment() {
         val builder = AlertDialog.Builder(requireContext())
         builder.setTitle(getString(R.string.title_logout))
         builder.setMessage(getString(R.string.text_apakah_kamu_yakin_ingin_keluar))
-        builder.setPositiveButton("Yes") { dialog, _ ->
+        builder.setPositiveButton(getString(R.string.yes)) { dialog, _ ->
             logout()
             deleteOrderHistoryUser()
             dialog.dismiss()
         }
-        builder.setNegativeButton("Cancel") { dialog, _ ->
+        builder.setNegativeButton(getString(R.string.cancel)) { dialog, _ ->
             dialog.dismiss()
         }
         builder.create().show()
@@ -113,9 +114,9 @@ class ProfileFragment : Fragment() {
                     Toast.LENGTH_SHORT,
                 ).show()
             }, doOnLoading = {
-                // Handle loading state if necessary
             }, doOnError = { err ->
-                Toast.makeText(requireContext(), "error", Toast.LENGTH_SHORT).show()
+                StyleableToast.makeText(requireContext(),
+                    getString(R.string.failed_delete_order), Toast.LENGTH_SHORT).show()
             })
         }
     }

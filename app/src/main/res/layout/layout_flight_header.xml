@@ -26,7 +26,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text="JKT > MLB"
+            android:text="@string/destination"
             android:textColor="?attr/colorSurface"
             android:textSize="14sp"
             android:textStyle="bold"
@@ -38,7 +38,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="8dp"
-            android:text="-"
+            android:text="@string/between"
             android:textColor="?attr/colorSurface"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="@id/iv_back_flight"
@@ -50,7 +50,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text="2 Penumpang"
+            android:text="@string/passenger"
             android:textColor="?attr/colorSurface"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="@id/iv_back_flight"
@@ -61,7 +61,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="8dp"
-            android:text="-"
+            android:text="@string/between"
             android:textColor="?attr/colorSurface"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="@id/iv_back_flight"
@@ -75,13 +75,12 @@
             android:layout_marginStart="16dp"
             android:ellipsize="end"
             android:maxLines="1"
-            android:text="Economy"
+            android:text="@string/class_flight"
             android:textColor="?attr/colorSurface"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="@id/iv_back_flight"
             app:layout_constraintStart_toEndOf="@id/tv_passenger"
             app:layout_constraintTop_toTopOf="@id/iv_back_flight" />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
