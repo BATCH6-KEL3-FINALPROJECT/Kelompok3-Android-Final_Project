@@ -241,9 +241,10 @@ class CheckoutSeatActivity : AppCompatActivity() {
         binding.apply {
             if (item.seatsAvailableRoundTrip != null && item.supportRoundTrip == false) {
                 binding.tvHeader.text =
-                    "Kursi Tersedia " + item.seatsAvailableRoundTrip + " Arrival"
+                    getString(R.string.seat_avaliable, item.seatsAvailableRoundTrip.toString())
             } else {
-                binding.tvHeader.text = "Kursi Tersedia " + item.seatsAvailable + " Departure"
+                binding.tvHeader.text =
+                    getString(R.string.seat_avaliable_departure, item.seatsAvailable.toString())
             }
         }
     }

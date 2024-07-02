@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.project.skypass.R
 import com.project.skypass.data.model.OrderUser
 import com.project.skypass.databinding.ItemLastSearchBinding
 import com.project.skypass.presentation.flight.filter.adapter.ViewHolderBinder
@@ -75,7 +76,11 @@ class CartViewHolder(
             tvDeparture.text = item.departureCity
             tvArrival.text = item.arrivalCity
             tvDateOrder.text = item.orderDate
-            tvContentDatePassengerClass.text = item.passengersTotal + " Orang - " + item.seatClass
+            tvContentDatePassengerClass.text = itemView.context.getString(
+                R.string.person_order_history,
+                item.passengersTotal,
+                item.seatClass
+            )
         }
     }
 

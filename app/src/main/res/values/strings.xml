@@ -348,5 +348,23 @@
     <string name="departure_history_detail">Keberangkatan</string>
     <string name="arrival_flight_detail">Kedatangan</string>
     <string name="biodata">Biodata Pemesanan</string>
+    <string name="hi_home">Hi, %1$s</string>
+    <string name="added_to_history">Added to history</string>
+    <string name="failed_to_add_to_history">Failed to add to history</string>
+    <string name="request_forgot_password_success">Request telah berhasil dikirimkan ke email yang anda masukkan</string>
+    <string name="request_forgot_password_failed">Request gagal dikirimkan ke email yang anda masukkan</string>
+    <string name="confirm">Konfirmasi</string>
+    <string name="fill_all">Harap isi semua data!</string>
+    <string name="confirm_add_passenger">Apakah kamu yakin ingin menambahkan data ini?</string>
+    <string name="adult_child_baby">%1$s adult, %2$s child, %3$s, baby</string>
+    <string name="seat_avaliable">Kursi Tersedia %1$s Arrival</string>
+    <string name="seat_avaliable_departure">Kursi Tersedia %1$s Departure</string>
+    <string name="name_passenger_all">%1$s %2$s</string>
+    <string name="code_booking_success_copy">Kode Boking Berhasil Di Copy</string>
+    <string name="success_send_email">berhasil dikirim di Email</string>
+    <string name="failed_send_email">gagal dikirim</string>
+    <string name="loading_send_email">loading...</string>
+    <string name="total_passenger_fav_des">%1$s Penumpang</string>
+    <string name="person_order_history">%1$s Orang - %2$s</string>
     <!--<string name="empty_history_link">https://github.com/riansyah251641/food_app_asset/blob/main/banner/empty_history.png?raw=true</string>-->
 </resources>

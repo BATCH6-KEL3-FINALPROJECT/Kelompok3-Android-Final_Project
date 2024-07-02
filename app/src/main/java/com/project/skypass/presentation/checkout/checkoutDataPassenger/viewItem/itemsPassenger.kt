@@ -2,6 +2,7 @@ package com.project.skypass.presentation.checkout.checkoutDataPassenger.viewItem
 
 import android.app.AlertDialog
 import android.app.DatePickerDialog
+import android.content.res.Resources
 import android.view.View
 import android.widget.ArrayAdapter
 import androidx.core.view.isVisible
@@ -80,12 +81,12 @@ class DataItem(private var data: PassengersData, private val onItemClick: (item:
                 builder.create().show()
 
             } else {
-                StyleableToast.makeText(viewBinding.root.context, "Harap isi semua data!", R.style.ToastError).show()
+                StyleableToast.makeText(viewBinding.root.context,
+                    Resources.getSystem().getString(R.string.fill_all), R.style.ToastError).show()
             }
 
         }
     }
-
 
     private fun PassengersData.isValid(): Boolean {
         return title.isNotEmpty() &&

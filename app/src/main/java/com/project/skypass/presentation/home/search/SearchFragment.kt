@@ -10,6 +10,7 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.chip.Chip
+import com.project.skypass.R
 import com.project.skypass.data.model.Search
 import com.project.skypass.data.model.SearchHistoryHome
 import com.project.skypass.databinding.FragmentSearchBinding
@@ -192,13 +193,15 @@ class SearchFragment : BottomSheetDialogFragment() {
             result.proceedWhen(
                 doOnSuccess = {
                     setupSearchHistory()
-                    Toast.makeText(requireContext(), "Added to history", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(),
+                        getString(R.string.added_to_history), Toast.LENGTH_SHORT).show()
                 },
                 doOnLoading = {
                     // Optionally show a loading indicator
                 },
                 doOnError = {
-                    Toast.makeText(requireContext(), "Failed to add to history", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(),
+                        getString(R.string.failed_to_add_to_history), Toast.LENGTH_SHORT).show()
                 },
             )
         }

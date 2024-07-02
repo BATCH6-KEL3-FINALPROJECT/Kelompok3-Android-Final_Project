@@ -143,7 +143,7 @@ class HomeFragment : Fragment(), DataSelection {
             viewModel.showDataUser(userId).observe(viewLifecycleOwner) { result ->
                 result.proceedWhen(
                     doOnSuccess = {
-                        binding.tvNameUser.text = "Hi, " + it.payload?.name
+                        binding.tvNameUser.text = getString(R.string.hi_home, it.payload?.name)
                         binding.ivPhotoUser.load(it.payload?.photoUrl) {
                             fallback(R.drawable.iv_profile)
                             crossfade(true)
