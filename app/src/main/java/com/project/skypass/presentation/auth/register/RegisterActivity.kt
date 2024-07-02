@@ -114,6 +114,7 @@ class RegisterActivity : AppCompatActivity() {
             it.proceedWhen(
                 doOnSuccess = {
                     binding.pbLoading.isVisible = false
+                    binding.btnRegister.isEnabled = true
                     StyleableToast.makeText(
                         this,
                         getString(R.string.text_otp_send_success),
@@ -135,6 +136,7 @@ class RegisterActivity : AppCompatActivity() {
                         StyleableToast.makeText(this, errorMessage.message, R.style.ToastError).show()
                     }
                     binding.pbLoading.isVisible = false
+                    binding.btnRegister.isEnabled = true
                 },
                 doOnLoading = {
                     binding.pbLoading.isVisible = true

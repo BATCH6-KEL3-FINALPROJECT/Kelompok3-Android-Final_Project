@@ -124,7 +124,7 @@
                 android:id="@+id/et_noPhone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPersonName"
+                android:inputType="number"
                 android:maxLines="1"
                 android:singleLine="true" />
 
@@ -192,7 +192,7 @@
                 android:id="@+id/et_ktpPassport"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPersonName"
+                android:inputType="number"
                 android:maxLines="1"
                 android:singleLine="true"
                 android:textColor="@android:color/black" />

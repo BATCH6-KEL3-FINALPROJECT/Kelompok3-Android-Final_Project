@@ -3,6 +3,7 @@ package com.project.skypass.presentation.checkout.checkoutPayment.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.project.skypass.R
 import com.project.skypass.data.model.Booking
 import com.project.skypass.databinding.ItemCheckoutPaymentTicketBinding
 import com.project.skypass.presentation.checkout.checkoutPayment.adapter.PaymentAdapter.PaymentViewHolder
@@ -45,7 +46,12 @@ class PaymentAdapter() : RecyclerView.Adapter<PaymentViewHolder>() {
         private val binding: ItemCheckoutPaymentTicketBinding,
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Booking) {
-            binding.tvPassangersList.text = "${item.totalAdult} adult, ${item.totalChild} child, ${item.totalBaby}, baby"
+            binding.tvPassangersList.text = itemView.context.getString(
+                R.string.adult_child_baby,
+                item.totalAdult.toString(),
+                item.totalChild.toString(),
+                item.totalBaby.toString()
+            )
             binding.tvCityName.text = item.departureCity
             binding.tvCityNameDestination.text = item.arrivalCity
             binding.tvTimeDeparture.text = item.departureTime

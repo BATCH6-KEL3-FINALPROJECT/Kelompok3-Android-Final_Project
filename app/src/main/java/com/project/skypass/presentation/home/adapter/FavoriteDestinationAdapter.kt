@@ -72,7 +72,8 @@ class FavoriteDestinationAdapter(private val itemClick: (Destination) -> Unit) :
                     crossfade(true)
                 }
                 binding.tvTitleDestinationFavorite.text = itemView.context.getString(R.string.from_to, data.from, data.to)
-                binding.tvPassengers.text = "${data.passengersTotal} Penumpang"
+                binding.tvPassengers.text =
+                    itemView.context.getString(R.string.total_passenger_fav_des, data.passengersTotal.toString())
                 binding.tvPromotion.text = data.discount
                 binding.tvDatePromotion.text = formatDatesDestinationFavorite(data.departureDate, data.returnDate)
                 binding.tvPrice.text = itemView.context.getString(R.string.idr_rp_fav_des, data.price.toDouble().toIndonesianFormatDouble())

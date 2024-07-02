@@ -48,7 +48,7 @@ class DetailHistoryActivity : AppCompatActivity() {
             clipboard.setPrimaryClip(clip)
             StyleableToast.makeText(
                 this,
-                "Kode Boking Berhasil Di Copy",
+                getString(R.string.code_booking_success_copy),
                 R.style.ToastSuccess,
             ).show()
         }
@@ -131,11 +131,14 @@ class DetailHistoryActivity : AppCompatActivity() {
                 viewModel.printTicket(viewModel.getToken(), item.bookingId, viewModel.getEmailUser()).observe(this){
                     it.proceedWhen(
                         doOnSuccess = {
-                            StyleableToast.makeText(this, "berhasil dikirim di Email", R.style.ToastSuccess).show()
+                            StyleableToast.makeText(this,
+                                getString(R.string.success_send_email), R.style.ToastSuccess).show()
                         }, doOnError = {
-                            StyleableToast.makeText(this, "gagal dikirim", R.style.ToastError).show()
+                            StyleableToast.makeText(this,
+                                getString(R.string.failed_send_email), R.style.ToastError).show()
                         }, doOnLoading = {
-                            StyleableToast.makeText(this, "loading...", R.style.ToastSuccess).show()
+                            StyleableToast.makeText(this,
+                                getString(R.string.loading_send_email), R.style.ToastSuccess).show()
                         }
                     )
                 }

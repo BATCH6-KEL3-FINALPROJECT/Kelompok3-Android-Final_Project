@@ -3,6 +3,7 @@ package com.project.skypass.presentation.history.detailhistory.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.project.skypass.R
 import com.project.skypass.data.model.TicketHistory
 import com.project.skypass.databinding.ItemListPassengersDetailHistoryBinding
 
@@ -45,7 +46,11 @@ class DetailHistoryAdapter(
         private val listener: OnItemDetailClickedListener<TicketHistory>,
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: TicketHistory) {
-            binding.tvNamePassengers.text = "${item.passengerFirstName} ${item.passengerLastName}"
+            binding.tvNamePassengers.text = itemView.context.getString(
+                R.string.name_passenger_all,
+                item.passengerFirstName,
+                item.passengerLastName
+            )
             binding.idPassengers.text = item.passengerId
 
             itemView.setOnClickListener {

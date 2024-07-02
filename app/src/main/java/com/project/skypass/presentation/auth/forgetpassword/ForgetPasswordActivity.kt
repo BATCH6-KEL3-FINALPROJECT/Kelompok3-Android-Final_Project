@@ -40,7 +40,7 @@ class ForgetPasswordActivity : AppCompatActivity() {
                     binding.btnSendLinkResetPassword.isEnabled = false
                     StyleableToast.makeText(
                         this,
-                        "Request telah berhasil dikirimkan ke email yang anda masukkan",
+                        getString(R.string.request_forgot_password_success),
                         R.style.ToastSuccess,
                     ).show()
                 },
@@ -53,7 +53,7 @@ class ForgetPasswordActivity : AppCompatActivity() {
                     binding.btnSendLinkResetPassword.isEnabled = false
                     StyleableToast.makeText(
                         this,
-                        "Request gagal dikirimkan ke email yang anda masukkan",
+                        getString(R.string.request_forgot_password_failed),
                         R.style.ToastError,
                     ).show()
                 },
