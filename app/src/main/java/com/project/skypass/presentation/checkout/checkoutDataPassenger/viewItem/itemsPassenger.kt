@@ -82,7 +82,7 @@ class DataItem(private var data: PassengersData, private val onItemClick: (item:
 
             } else {
                 StyleableToast.makeText(viewBinding.root.context,
-                    Resources.getSystem().getString(R.string.fill_all), R.style.ToastError).show()
+                    "Harap isi semua data!", R.style.ToastError).show()
             }
 
         }
